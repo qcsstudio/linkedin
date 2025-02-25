@@ -26,3 +26,8 @@ body {
   background: rgb(176,248,255);
   background: linear-gradient(228deg, rgba(176,248,255,1) 0%, rgba(216,197,228,1) 100%);
 }
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
