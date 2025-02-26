@@ -3,7 +3,7 @@ import User from "@/models/user";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import {serialize} from "cookie";
-import { generateToken } from "../../controllers/tokenGenerator";
+import { generateToken } from "@/utils/tokenGenerator";
 
 export const POST = async(req) => {
     

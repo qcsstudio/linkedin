@@ -8,15 +8,15 @@ export const POST = async(req)=>{
         await ConnectDB();
         const data = await req.json();
 
-        const {firstName,lastName,email,phoneNumber,password} = data;
-
+        const {firstName,lastName,email,phoneNumber} = data;
+        const Password = data.password;
         // Checking Role
         if(!data.role){
             data.role = "admin";
         }
 
         // Empty Field Check
-        if(!firstName || !lastName || !email || !phoneNumber || !password ){
+        if(!firstName || !lastName || !email || !phoneNumber || !Password ){
             return NextResponse.json({message:"All Fields Required! "},{status:400});
         }
         console.log("Empty Field Pass");
@@ -30,17 +30,17 @@ export const POST = async(req)=>{
         console.log("User Exist Pass");
 
         // Password Hash
-        const hashedPassword = await bcrypt.hash(password,10);
+        const hashedPassword = await bcrypt.hash(Password,10);
 
         // User Create
         const newUser = new User({firstName,lastName,email,phoneNumber,password:hashedPassword,roles:data.role});
         const SavedUser = await newUser.save();
         console.log("User Save Pass");
 
-        // // Send Response
-        // const 
+        // Send Response
+        const {password, ...userData} = SavedUser._doc;
 
-        return NextResponse.json({message:"User Post Successfully",data:SavedUser},{status:200});
+        return NextResponse.json({message:"User Post Successfully",data:userData},{status:200});
     } catch (error) {
         console.log("User Register Error !!!");
         return NextResponse.json({message:"User Register Failed",error:error},{status:500});
