@@ -6,7 +6,14 @@ import bcrypt from "bcryptjs";
 export const POST = async(req)=>{
     try {
         await ConnectDB();
-        const {firstName,lastName,email,phoneNumber,password} = await req.json();
+        const data = await req.json();
+
+        const {firstName,lastName,email,phoneNumber,password} = data;
+
+        // Checking Role
+        if(!data.role){
+            data.role = "admin";
+        }
 
         // Empty Field Check
         if(!firstName || !lastName || !email || !phoneNumber || !password ){
@@ -26,9 +33,12 @@ export const POST = async(req)=>{
         const hashedPassword = await bcrypt.hash(password,10);
 
         // User Create
-        const newUser = new User({firstName,lastName,email,phoneNumber,password:hashedPassword});
+        const newUser = new User({firstName,lastName,email,phoneNumber,password:hashedPassword,roles:data.role});
         const SavedUser = await newUser.save();
         console.log("User Save Pass");
+
+        // // Send Response
+        // const 
 
         return NextResponse.json({message:"User Post Successfully",data:SavedUser},{status:200});
     } catch (error) {
