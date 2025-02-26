@@ -12,7 +12,14 @@ const connectDB = async () => {
     return mongoose.connection.asPromise();
   }
 
-  return mongoose.connect(`${process.env.MONGO_URL}`);
+  try {
+    const mongooseinstance = await mongoose.connect(process.env.MONGO_URL);
+    console.log("Database Connected Successfully");
+    return mongooseinstance;
+  } catch (error) {
+    console.log("Database Connection Failed !");
+    console.log("Database Error : ",error);
+  }
 };
 
 export default connectDB;

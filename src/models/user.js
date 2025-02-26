@@ -22,8 +22,12 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
         require:true,
+    },
+    roles:{
+        type:String,
+        default:null
     }
 },{timestamps:true});
 
-const Users = mongoose.models.User || mongoose.model("User",userSchema);
-export default Users;
+const User = mongoose.models.User || mongoose.model("User",userSchema);
+export default User;
