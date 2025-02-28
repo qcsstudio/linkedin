@@ -76,16 +76,16 @@ const RegisterForm = () => {
  
   return (
     <>
-      <div className="registerForm flex justify-center items-center w-full">
-        <div className="hidden md:flex lg:flex justify-center items-center h-screen bg-gradient-to-r from-purple-100 to-blue-200 md:w-[40%] lg:w-[40%]">
+      <div className="registerForm flex justify-center items-center w-[100%] ">
+        <div className="hidden md:flex lg:flex justify-center items-center h-screen bg-gradient-to-r from-purple-100 to-blue-200 md:w-[40%] w-[40%]">
           <Image src={logo} height={200} alt="logo" />
         </div>
-        <div className="w-full md:w-[60%] lg:w-[60%] text-black mx-auto">
-          <div className="flex bg-gradient-to-r h-screen from-purple-100 to-blue-200 max-w-screen-lg">
-            <div className="flex flex-col gap-10 justify-center items-center h-full pl-10 w-[90%]">
-              <div className="container flex flex-col justify-center gap-10 border border-white bg-blue-100/60 rounded-[16px] h-[80%] p-8">
+        <div className=" w-full md:w-[60%] lg:w-[60%] text-black mx-auto">
+          <div className="flex bg-gradient-to-r h-screen from-purple-100 to-blue-200">
+            <div className="flex flex-col lg:gap-10 justify-center items-center h-full pl-10 w-[90%]">
+              <div className="container flex flex-col justify-center gap-10 border border-white bg-blue-100/60 rounded-[16px] h-[90%] lg:h-[80%] p-8">
                 <div className="heading items-start">
-                  <h1 className="text-[24px] font-bold">
+                  <h1 className=" text-[16px] md:text-[24px] font-bold">
                     Hi, Register Yourself Here
                   </h1>
                 </div>
