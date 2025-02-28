@@ -23,6 +23,53 @@ const LoginForm = () => {
     }
     console.log(formData);
 
+    const handelSubmit = async (e) => {
+        e.preventDefault();
+        const { email, password } = formData;
+      
+        // Basic validation
+        if (!email || !password) {
+          alert("Please fill out all fields.");
+          return;
+        }
+      
+        try {
+          // Send login request to the API
+          const response = await fetch("/api/auth/login", {
+            method: "POST",
+            body: JSON.stringify(formData),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+      
+          const json = await response.json();
+      
+          // Handle API response
+          if (!response.ok) {
+            console.error("Error:", json.message || "Something went wrong!");
+            alert(json.message || "Login failed. Please try again.");
+            return;
+          }
+      
+          // Handle successful login
+          console.log("Login successful!", json);
+          alert("Login successful!");
+      
+          // Reset form data
+          setFormData({
+            email: "",
+            password: "",
+          });
+      
+          // Redirect or perform other actions after successful login
+          // Example: router.push("/dashboard");
+        } catch (error) {
+          console.error("Error:", error);
+          alert("An error occurred. Please try again.");
+        }
+      };
+
     return (
         <>
             {/* Main Login Container */}
@@ -43,7 +90,7 @@ const LoginForm = () => {
                     {/* Right Container */}
                     <div className="rightContainer w-[50%] h-[100%] flex justify-center items-center">
                         {/* Form Container */}
-                        <form className="formContainer w-[90%] p-[2rem] rounded-[1rem] bg-[#ffffff]/40 border border-[#ffffff] flex flex-col gap-[1rem]">
+                        <form   method="POST"  onSubmit={handelSubmit} className="formContainer w-[90%] p-[2rem] rounded-[1rem] bg-[#ffffff]/40 border border-[#ffffff] flex flex-col gap-[1rem]">
                             <p className="heading text-[1.8rem] font-bold text-center">Hi, Welcome to Media Manager</p>
 
                             {/* Email Field */}

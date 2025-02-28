@@ -65,6 +65,11 @@ const RegisterForm = () => {
     }
   };
 
+
+
+
+    
+
   const formHandler  = async (e) => {
     const { name, value } = e.target; 
     setForm((prev) => ({
