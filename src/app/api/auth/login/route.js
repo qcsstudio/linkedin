@@ -8,6 +8,7 @@ import { generateToken } from "@/utils/tokenGenerator";
 export const POST = async(req) => {
     
     try {
+        
         await connectDB();
         const data = await req.json();
 
