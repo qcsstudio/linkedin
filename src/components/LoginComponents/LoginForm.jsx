@@ -26,7 +26,7 @@ const LoginForm = () => {
     return (
         <>
             {/* Main Login Container */}
-            <div className="loginContainer w-[100%] h-[100vh] bg-[#ffffff] ">
+            <div className="loginContainer w-[100%] h-[100vh] text-black bg-[#ffffff] ">
 
                 <div className="innerDiv w-[100%] h-[100%] px-[5rem] flex gap-[10rem]">
 
