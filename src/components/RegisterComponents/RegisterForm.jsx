@@ -2,6 +2,7 @@
 import Image from "next/image";
 import logo from "../../../public/images/registerImages/Logo.png";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const RegisterForm = () => {
   const [form, setForm] = useState({
@@ -93,7 +94,7 @@ const RegisterForm = () => {
                   <div className="inputs text-black flex flex-col gap-5 w-full">
                     <div className="name flex flex-col lg:flex-row gap-4">
                       <input
-                        className="px-4 h-14 border rounded-lg w-full bg-white/40"
+                        className="px-4 h-14 border rounded-lg w-full bg-white/40  "
                         type="text"
                         placeholder="First name"
                         name="firstName"
@@ -158,7 +159,7 @@ const RegisterForm = () => {
                 <div className="login flex justify-center items-center">
                   <p>
                     Already Registered,{" "}
-                    <span className="text-red-500 font-semibold">Log In</span>
+                    <Link href="/login" className="text-red-500 font-semibold">Log In</Link>
                   </p>
                 </div>
               </div>
