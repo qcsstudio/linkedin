@@ -23,11 +23,38 @@ const userSchema = new mongoose.Schema({
         type:String,
         require:true,
     },
-    roles:{
+    role:{
         type:String,
         default:null
+    },
+    clientName:{
+        type:String,
+        require:true
+    },
+    planType:{
+        type:String,
+        default:"single"
+    },
+    clientDomain:{
+        type:String,
+        require:true
+    },
+    planDuration:{
+        type:Date,
+        default:null
+    },
+    freeTrial :{
+        type:Boolean,
+        default:true
+    },
+    freeTrialDays:{
+        type:Number,
+        default:7
     }
 },{timestamps:true});
+
+// For Temp using planType as String after Plan Schema Ready Replace it with this .
+// planType: { type: mongoose.Schema.Types.ObjectId, ref: 'Plan' }
 
 const User = mongoose.models.User || mongoose.model("User",userSchema);
 export default User;

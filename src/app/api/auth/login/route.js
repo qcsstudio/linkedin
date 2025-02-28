@@ -1,5 +1,5 @@
 import connectDB from "@/libs/mongodb";
-import User from "@/models/user";
+import User from "@/models/user.schema";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import {serialize} from "cookie";
