@@ -224,7 +224,7 @@ const DashboardComponent = () => {
       case 'createpost':
         return <CreatePost />;
       case 'schedulepost':
-        return <div>Scheduled Post Content</div>;
+        return <ScheduledPost/>;
       case 'analytics':
         return <AnalyticsComponent />;
       case 'engagement':
