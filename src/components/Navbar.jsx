@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { IoIosSearch } from "react-icons/io";
 import { FaQuestionCircle, FaBell } from "react-icons/fa";
 import { motion, AnimatePresence } from 'framer-motion';
+import userImage from '../../public/images/dashboardImages/userImage.png'
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
@@ -62,7 +63,9 @@ const Navbar = () => {
             <p className='font-semi-bold lg:text-lg md:text-sm'>QCSStudio</p>
             <p className='text-sm text-[#9E9E9E] '>QCS Qa</p>
           </div>
-          <div className='w-[40px] h-[40px] bg-white rounded-full'></div>
+          <div className='w-[40px] h-[40px] bg-white rounded-full'>
+            <Image src={userImage}/>
+          </div>
         </div>
       </div>
 
