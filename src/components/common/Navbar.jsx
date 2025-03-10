@@ -13,7 +13,7 @@ const Navbar = () => {
     <div className=' bg-gradient-to-r from-purple-100 to-blue-200'>
     <div className='flex py-2 max-w-[1440px] h-[90px] md:py-4 lg:py-4 px-2 md:px-6 lg:px-6 mx-auto w-full justify-between items-center relative'>
       <div className='flex items-start max-w-[1440px] justify-between'>
-        <Image src='/images/loginImages/companyLogo.png' className='object-contain  lg:w-[63px] lg:h-[45px]' width={60} height={60} alt='' />
+        <Image src='/images/loginImages/companyLogo.png' className='object-contain  lg:w-[63px] lg:h-[45px]' width={60} height={60} alt='wdvd' />
         <div className="flex h-[31px] p-0 m-0 flex-col items-end leading-[19.94px]">
           <p className="text-sm md:text-md lg:text-[22px] lg:text-md hidden md:block lg:block font-thin bg-gradient-to-r from-pink-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
             QuantumCrafters Studio

@@ -5,7 +5,6 @@ import DashboardComponent from '@/components/DashboardComponents/DashboardCompon
 const DashboardContainer = () => {
   return (
     <div>
-      <Navbar/>
       <DashboardComponent/>
     </div>
   )
