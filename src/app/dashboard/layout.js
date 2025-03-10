@@ -1,6 +1,7 @@
 import SideBar from "@/components/common/SideBar";
 import Navbar from "@/components/Navbar";
 import Image from "next/image";
+import '../../components/CalenderComponent/src/addons/dragAndDrop/styles.scss'
 
 
 const layout = ({ children }) => {
