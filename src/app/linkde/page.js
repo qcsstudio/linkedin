@@ -1,7 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import DashboardContainer from "@/containers/DashboardContainer/DashboardContainer";
-import Image from "next/image";
 
 export default function Home() { 
   const [user, setUser] = useState(null);
@@ -24,7 +22,6 @@ export default function Home() {
           <p><strong>Email:</strong> {user.email}</p>
         </div>
       )}
-      <DashboardContainer/>
     </div>
   );
 }
