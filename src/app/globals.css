@@ -26,24 +26,13 @@ body {
   background: rgb(176,248,255);
   background: linear-gradient(228deg, rgba(176,248,255,1) 0%, rgba(216,197,228,1) 100%);
 }
+.PlansContainer{
+  background: rgb(188,105,241);
+background: linear-gradient(133deg, rgb(205, 145, 243) 5%, rgb(197, 236, 252) 41%);
+
+}
 
 input::-ms-reveal,
 input::-ms-clear {
   display: none;
-}
-
-
-/* Sidebar Css */
-.right::-webkit-scrollbar{
-  display: none;
-}
-
-.right{
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-
-.bgImageFloating{
-  -webkit-user-drag: none;
 }
