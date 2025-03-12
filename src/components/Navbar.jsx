@@ -5,6 +5,7 @@ import { IoIosSearch } from "react-icons/io";
 import { FaQuestionCircle, FaBell } from "react-icons/fa";
 import { motion, AnimatePresence } from 'framer-motion';
 import userImage from '../../public/images/dashboardImages/userImage.png'
+import mainLogo from '../../public/images/mainLogo.png'
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
@@ -21,15 +22,8 @@ const Navbar = () => {
 
 
         <div className='flex items-start max-w-[1440px] justify-between'>
-          <Image src='/images/loginImages/companyLogo.png' className='object-contain  lg:w-[63px] lg:h-[45px]' width={60} height={60} alt='' />
-          <div className="flex h-[31px] p-0 m-0 flex-col items-end leading-[19.94px]">
-            <p className="text-sm md:text-md lg:text-[22px] lg:text-md hidden md:block lg:block font-thin bg-gradient-to-r from-pink-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
-              QuantumCrafters Studio
-            </p>
-            <p className="text-sm md:text-md lg:text-[22px] hidden md:block lg:block lg:text-md font-thin bg-gradient-to-r from-pink-400 via-blue-500 to-blue-700 bg-clip-text text-transparent">
-              Private Limited
-            </p>
-          </div>
+          <Image src={mainLogo} className='object-contain ' alt='' />
+         
         </div>
 
         <div className='font-medium md:hidden lg:hidden flex items-center justify-between relative z-10'>
