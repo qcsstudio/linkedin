@@ -285,6 +285,7 @@ const HomeComponent = () => {
                 <p className='text-gray-400 text-sm'>Search Across Your Dashboard i would like to get caption just need to fill this and i don't kn...</p>
               </div>
             </div>
+
             <div className='flex flex-col items-center h-[20%]'>
               <button className='text-[14px] w-full text-center items-center pt-1 pb-1 p-2 bg-slate-50 rounded-lg'>View In Detail</button>
             </div>
