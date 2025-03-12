@@ -50,7 +50,19 @@ const userSchema = new mongoose.Schema({
     freeTrialDays:{
         type:Number,
         default:7
-    }
+    },
+    platforms:[
+        {
+            platformName:{
+                type:String,
+                default:null
+            },
+            accessToken:{
+                type:String,
+                default:null
+            }
+        }
+    ]
 },{timestamps:true});
 
 // For Temp using planType as String after Plan Schema Ready Replace it with this .

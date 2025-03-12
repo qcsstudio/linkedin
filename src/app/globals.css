@@ -57,3 +57,17 @@ input::-ms-clear {
   box-shadow: 0 0 8px rgba(128, 0, 128, 0.8); 
   
 }
+
+/* Sidebar Css */
+.right::-webkit-scrollbar{
+  display: none;
+}
+
+.right{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.bgImageFloating{
+  -webkit-user-drag: none;
+}
