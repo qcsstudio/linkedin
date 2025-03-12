@@ -31,10 +31,31 @@ body {
 background: linear-gradient(133deg, rgb(205, 145, 243) 5%, rgb(197, 236, 252) 41%);
 
 }
+.no-scrollbar {
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+}
 
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
 input::-ms-reveal,
 input::-ms-clear {
   display: none;
+}.custom-swiper .swiper-pagination-bullet {
+  background-color: white;
+  border: 2px solid rgba(128, 0, 128, 0.8);
+  width: 10px;
+  height: 10px;
+  transition: background-color 0.3s ease;
+}
+
+
+.custom-swiper .swiper-pagination-bullet-active {
+  background-color: purple !important;
+
+  box-shadow: 0 0 8px rgba(128, 0, 128, 0.8); 
+  
 }
 
 /* Sidebar Css */
