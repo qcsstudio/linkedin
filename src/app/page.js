@@ -2,14 +2,32 @@
 import { useEffect, useState } from "react";
 import DashboardContainer from "@/containers/DashboardContainer/DashboardContainer";
 import Image from "next/image";
+import { getAccessToken } from "@/utils/getAccessToken";
 
 export default function Home() { 
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const startOAuth = () => {
+    setLoading(true);
     window.location.href = '/api/auth/linkedin';
+    setLoading(false);
   };
+
+    useEffect(()=>{
+
+      const fun = async()=>{
+        try {
+          const accessToken = await getAccessToken("linkedin_access_token");
+          console.log(accessToken.value);
+      } catch (error) {
+          console.log("Use Effect Error:_",error);
+      }
+      }
+
+      fun();
+      
+    },[loading])
 
 
   return (

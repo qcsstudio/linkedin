@@ -36,3 +36,17 @@ input::-ms-reveal,
 input::-ms-clear {
   display: none;
 }
+
+/* Sidebar Css */
+.right::-webkit-scrollbar{
+  display: none;
+}
+
+.right{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.bgImageFloating{
+  -webkit-user-drag: none;
+}
