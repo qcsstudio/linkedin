@@ -26,7 +26,7 @@ export default function Home() {
 
 
   return (
-    <div className="homeContainer">
+    <div className="home">
       <h1>Home</h1>
       {/* <button onClick={startOAuth}>Sign in with LinkedIn</button> */}
 
