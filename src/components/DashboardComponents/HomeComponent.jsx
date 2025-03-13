@@ -152,6 +152,7 @@ const HomeComponent = () => {
 
   return (
     <>
+
       <div className='flex flex-col gap-[1.8rem] z-[100]'>
         <div className='flex items-center gap-1 py-6'>
           <h1 className='font-bold text-[30px]'>Welcome QCS,</h1>
@@ -159,6 +160,7 @@ const HomeComponent = () => {
         </div>
         <div className='flex justify-start gap-[1.8rem] z-[100]'>
           <div className='bg-[#ffffff]/60 flex flex-col gap-2 rounded-xl p-5 w-full max-w-[403px] min-w-[403px] flex-grow-0 z-[100]'>
+
             <div>
               <h1 className='font-semibold text-[18px]'>Dashboard Overview</h1>
               <p className='text-[#9E9E9E] text-[13px]'>Search Across Your Dashboard</p>
@@ -174,7 +176,9 @@ const HomeComponent = () => {
               <div id="html-dist"></div>
             </div>
           </div>
+
           <div className='bg-[#ffffff]/60 flex flex-col gap-2 rounded-xl p-5 w-full max-w-[320px] min-w-[320px] flex-grow-0 z-[100]'>
+
             <div>
               <h1 className='font-semibold text-[18px]'>Recent Posts</h1>
               <p className='text-[#9E9E9E] text-[13px]'>Search Across Your Dashboard</p>
@@ -183,10 +187,12 @@ const HomeComponent = () => {
               <div className='flex items-center justify-between bg-[#ffffff] p-2 rounded-md '>
                 <Image src={`/images/dashboardImages/recentpost.png`} width={1024} height={1024} className='w-full max-w-[40px]' alt='daw' />
                 <div className='leading-tight'>
+
                   <h1 className='font-bold'>Post Title Here</h1>
                   <p className='text-[#9E9E9E]'>Feb-27-2025</p>
                 </div>
                 <div className='flex items-center justify-between gap-4'>
+
                   <div className='flex flex-col items-center justify-between'>
                     <Image src={`/images/dashboardImages/heart.png`} width={1024} height={1024} className='object-cover w-[.6rem] h-[.6rem]' alt='wa' />
                     <span className='text-thin text-[7.62px]'>120</span>
@@ -205,6 +211,7 @@ const HomeComponent = () => {
                   </div>
                 </div>
               </div>
+
               <div className='flex items-center justify-between bg-[#ffffff] p-2 rounded-md '>
                 <Image src={`/images/dashboardImages/recentpost.png`} width={1024} height={1024} className='w-full max-w-[40px]' alt='daw' />
                 <div className='leading-tight'>
@@ -212,6 +219,7 @@ const HomeComponent = () => {
                   <p className='text-[#9E9E9E]'>Feb-27-2025</p>
                 </div>
                 <div className='flex items-center justify-between gap-4'>
+
                   <div className='flex flex-col items-center justify-between'>
                     <Image src={`/images/dashboardImages/heart.png`} width={1024} height={1024} className="w-[.6rem] h-[.6rem] object-cover" alt='dwa' />
                     <span className='text-thin text-[7.62px]'>120</span>
@@ -232,7 +240,9 @@ const HomeComponent = () => {
               </div>
             </div>
           </div>
+
           <div className='bg-[#ffffff]/60 flex flex-col gap-2 rounded-xl p-5 max-w-[25%] z-[100]  flex-grow-0'>
+
             <div>
               <h1 className='font-semibold text-[18px]'>Growth Goal</h1>
               <p className='text-[#9E9E9E] text-[13px]'>Track Your Goal’s</p>
@@ -252,8 +262,10 @@ const HomeComponent = () => {
             </div>
           </div>
         </div>
+
         <div className='flex flex-row justify-between z-[100]'>
           <div className='bg-[#ffffff]/60  rounded-xl p-5 ml-0 w-[63%] flex-grow-0'>
+
             <div className='flex flex-col gap-2'>
               <div>
                 <h1 className='font-semibold text-[18px]'>Mentions & Comments</h1>
@@ -280,7 +292,9 @@ const HomeComponent = () => {
               </div>
             </div>
           </div>
+
           <div className='bg-[#ffffff]/60 flex flex-col justify-evenly rounded-xl p-5 w-[34%]'>
+
             <h2 className='text-lg font-bold'>Top Performing Post</h2>
             <div className='h-[60%] w-full flex flex-row justify-between'>
               <Image src={`/images/dashboardImages/recentpost.png`} width={110} height={85} className='w-[110px] h-[85%]' alt='recentPost' />

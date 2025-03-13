@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/interaction": "^6.1.15",
+    "@fullcalendar/react": "^6.1.15",
+    "@fullcalendar/timegrid": "^6.1.15",
     "apexcharts": "^4.5.0",
     "bcryptjs": "^3.0.2",
     "cookie": "^1.0.2",
@@ -20,7 +24,8 @@
     "react": "^19.0.0",
     "react-apexcharts": "^1.7.0",
     "react-dom": "^19.0.0",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "swiper": "^11.2.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
