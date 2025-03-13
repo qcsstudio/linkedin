@@ -66,14 +66,20 @@ export default function CalenderContainer() {
 
   return (
     <div className="p-10">
-      <nav className="flex justify-between mb-12 border-b border-violet-100 p-4">
+      <nav className="flex justify-between mb-4 border-b border-violet-100 p-4">
         <h1 className="font-bold text-2xl text-gray-700">Calendar</h1>
       </nav>
-      <main className="grid grid-cols-10 gap-4">
-        <div className="col-span-8">
-          <FullCalendar
+      <main className="grid grid-cols-10 gap-10" style={{ height: "90vh", width: "100%" }}>
+        <div className="col-span-8" style={{ height: "100%", width: "100%" }}>
+          <FullCalendar className="z-[100%]"
             plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
-            headerToolbar={{ left: "prev,next today", center: "title", right: "dayGridMonth,timeGridWeek,timeGridDay" }}
+            headerToolbar={{ left: "prev today next", center: "title", right: "dayGridMonth,timeGridWeek,timeGridDay createPost" }}
+            customButtons={{
+              createPost: {
+                text: "Create Post",
+                click: () => setShowModal(true)
+              }
+            }}
             initialView="dayGridMonth"
             events={allEvents}
             nowIndicator={true}
@@ -84,49 +90,52 @@ export default function CalenderContainer() {
             dateClick={handleDateClick}
             eventClick={handleDeleteModal}
             key={allEvents.length} 
-            eventContent={(arg) => {
-              if (arg.view.type === "dayGridMonth" && arg.date) {
-                const dateStr = arg.date.toISOString().split("T")[0];
-                const count = allEvents.filter(event => event.start.split("T")[0] === dateStr).length;
-                return count > 0 ? `${count} events` : null;
-              }
-              return arg.event.title;
+            dayCellContent={(arg) => {
+              const date = new Date(arg.date);
+              return date.getDate() ? (
+                <div className="flex flex-col items-center text-xs font-bold">
+                  <span>{date.toLocaleDateString("en-US", { weekday: "short" })}</span>
+                  <span>{date.getDate()}</span>
+                </div>
+              ) : null;
             }}
           />
         </div>
-        <div className="col-span-2 border-2 p-2 rounded-md bg-blue-500 text-white w-full">
-          <h2 className="font-bold text-lg text-center">Add Event</h2>
-          <input 
-            type="text" 
-            name="title" 
-            value={newEvent.title} 
-            onChange={handleChange} 
-            placeholder="Event Title" 
-            className="w-full p-2 border rounded-md mb-2 bg-white text-black"
-          />
-          <input 
-            type="datetime-local" 
-            name="start" 
-            value={newEvent.start} 
-            onChange={handleChange} 
-            className="w-full p-2 border rounded-md mb-2 bg-white text-black"
-          />
-          <button 
-            onClick={addEvent} 
-            className="w-full bg-white text-blue-500 p-2 rounded-md"
-          >
-            Add Event
-          </button>
-          <h2 className="font-bold text-lg text-center mt-4">Drag Event</h2>
-          <div id="draggable-el">
-            {events.map(event => (
-              <div key={event.id} className="fc-event border-2 p-1 m-2 w-full rounded-md text-center bg-white shadow-md" title={event.title} data-id={event.id}>
-                {event.title}
-              </div>
-            ))}
+      </main>
+      {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-5 rounded-md shadow-md w-96">
+            <h2 className="font-bold text-lg text-center">Add Event</h2>
+            <input 
+              type="text" 
+              name="title" 
+              value={newEvent.title} 
+              onChange={handleChange} 
+              placeholder="Event Title" 
+              className="w-full p-2 border rounded-md mb-2"
+            />
+            <input 
+              type="datetime-local" 
+              name="start" 
+              value={newEvent.start} 
+              onChange={handleChange} 
+              className="w-full p-2 border rounded-md mb-2"
+            />
+            <button 
+              onClick={addEvent} 
+              className="w-full bg-blue-500 text-white p-2 rounded-md"
+            >
+              Add Event
+            </button>
+            <button 
+              onClick={handleCloseModal} 
+              className="w-full mt-2 bg-gray-500 text-white p-2 rounded-md"
+            >
+              Cancel
+            </button>
           </div>
         </div>
-      </main>
+      )}
     </div>
   );
 }

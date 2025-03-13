@@ -14,6 +14,73 @@
   }
 } */
 
+.fc-button-group{
+  position: relative;
+  z-index: 1;
+}
+
+.fc-toolbar-title{
+  display: none;
+}
+.fc-button-group{
+  position: relative;
+  z-index: 1;
+  align-items: center !important;
+}
+
+.fc-button-primary{
+  background-color: white !important;
+  color: rgb(79, 72, 72) !important;
+}
+.fc-today-button{
+  position: relative;
+  z-index: 1;
+}
+
+.fc-button-active,
+.fc-button-active:focus,
+.fc-button-active:active,
+.fc-button-active:hover,
+.fc-button-active::before,
+.fc-button-active::after {
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fc-button-active:focus-visible {
+  outline: none !important;
+}
+
+.fc-button-active::-moz-focus-inner {
+  border: 0 !important;
+}
+
+
+
+.fc-button-active{
+  /* height: 27px !important; */
+  width: 62px !important;
+  background-color: #F1F5F9 !important;
+  border: none !important;
+}
+.fc-header-toolbar{
+  justify-content: end !important;
+  gap: 5px;
+}
+
+.popUpEvent{
+  position: absolute;
+  z-index: 10;
+}
+thead{
+  display: none;
+}
+.fc-createPost-button{
+  position: relative;
+  z-index: 1;
+}
 body {
   color: var(--foreground);
   background: var(--background);
