@@ -3,13 +3,15 @@ import User from "@/models/user.schema";
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import Client from "@/models/client.schema";
+import { serialize } from "cookie";
+import { generateToken } from "@/utils/tokenGenerator";
 
 export const POST = async(req)=>{
     try {
         await ConnectDB();
         const data = await req.json();
 
-        let {firstName,lastName,email,phoneNumber,clientName,planType,clientDomain,role} = data;
+        let {firstName,lastName,email,phoneNumber,planType,clientDomain,role} = data;
         const Password = data.password;
         // Checking Role
         if(!role){
@@ -22,12 +24,12 @@ export const POST = async(req)=>{
         }
 
         // Checking ClientDomain
-        if(!clientDomain){
-            clientDomain = clientName;
-        }
+        // if(!clientDomain){
+        //     clientDomain = clientName;
+        // }
 
         // Empty Field Check
-        if(!firstName || !lastName || !email || !phoneNumber || !Password || !clientName ){
+        if(!firstName || !lastName || !email || !phoneNumber || !Password ){
             return NextResponse.json({message:"All Fields Required! "},{status:400});
         }
         console.log("Empty Field Pass");
@@ -40,25 +42,47 @@ export const POST = async(req)=>{
         }
         console.log("User Exist Pass");
 
-        // Create Client
-        const clientCreated = await createClient({clientName,planType,clientDomain});
+        // Create Client   (! Temporary Commented)
+        // const clientCreated = await createClient({clientName,planType,clientDomain});
 
-        if(!clientCreated){
-            return NextResponse.json({message:"Server is Unable to Create Client ! "},{status:500});
-        }
+        // if(!clientCreated){
+        //     return NextResponse.json({message:"Server is Unable to Create Client ! "},{status:500});
+        // }
 
         // Password Hash
         const hashedPassword = await bcrypt.hash(Password,10);
 
         // User Create
-        const newUser = new User({firstName,lastName,email,phoneNumber,password:hashedPassword,role,clientName,planType,clientDomain});
+        const newUser = new User({firstName,lastName,email,phoneNumber,password:hashedPassword,role,planType});
         const SavedUser = await newUser.save();
         console.log("User Save Pass");
+
+        const userId = SavedUser?._id;
+
+        // Jwt Create
+        const token = await generateToken({userId});
+
+        if(!token){
+            return NextResponse.json({message:"Server Not Able To Generate Token"},{status:500});
+        }
+
+        // Setting Cookie
+        const cookie = serialize("access_token",token,{
+            httpOnly:true,
+            sameSite:"strict",
+            path:"/",
+            maxAge: 60 * 60 * 24
+        });
+        console.log("Cookie Creation Pass");
 
         // Send Response
         const {password, ...userData} = SavedUser._doc;
 
-        return NextResponse.json({message:"User Post Successfully",data:userData},{status:200});
+        const response = NextResponse.json({message:"User Register Successfully",data:userData},{status:200});
+        response.headers.set("Set-Cookie",cookie);
+
+        return response;
+
     } catch (error) {
         console.log("User Register Error !!!");
         return NextResponse.json({message:"User Register Failed",error:error},{status:500});

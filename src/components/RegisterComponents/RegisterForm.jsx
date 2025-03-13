@@ -4,6 +4,12 @@ import logo from "../../../public/images/registerImages/Logo.png";
 import { useEffect, useState } from "react";
 import {  IoEyeSharp, IoEyeOff } from "react-icons/io5";
 import Link from "next/link";
+<<<<<<< HEAD
+import { useRouter } from "next/navigation";
+
+const RegisterForm = () => {
+  const router = useRouter();
+=======
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import mainLogo from '../../../public/images/mainLogo.png'
@@ -19,6 +25,7 @@ import 'swiper/css/scrollbar';
 
 const RegisterForm = () => {
   const [showPassword,setShowPassword]=useState(false)
+>>>>>>> master
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -72,7 +79,8 @@ const RegisterForm = () => {
       });
 
       console.log("Registration successful!", json);
-      alert("Registration successful!");
+      // alert("Registration successful!");
+      router.push("/plans");
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred. Please try again.");
