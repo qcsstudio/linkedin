@@ -53,8 +53,8 @@ const LoginForm = () => {
           }
       
           // Handle successful login
-          console.log("Login successful!", json);
-          alert("Login successful!");
+
+          window.location.href = "/dashboard";
       
           // Reset form data
           setFormData({
@@ -66,7 +66,6 @@ const LoginForm = () => {
           // Example: router.push("/dashboard");
         } catch (error) {
           console.error("Error:", error);
-          alert("An error occurred. Please try again.");
         }
       };
 

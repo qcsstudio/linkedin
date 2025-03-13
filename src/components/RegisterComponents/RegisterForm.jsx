@@ -3,8 +3,10 @@ import Image from "next/image";
 import logo from "../../../public/images/registerImages/Logo.png";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
+  const router = useRouter();
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -58,7 +60,8 @@ const RegisterForm = () => {
       });
   
       console.log("Registration successful!", json);
-      alert("Registration successful!");
+      // alert("Registration successful!");
+      router.push("/plans");
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred. Please try again.");

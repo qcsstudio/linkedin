@@ -11,3 +11,14 @@ export const generateToken = async(userId)=>{
         return false;
     }
 }
+
+export const verifyToken = async(token)=>{
+    try {
+        const userId = jwt.verify(token,process.env.ACCESS_TOKEN_SECRET);
+        return userId;
+    } catch (error) {
+        console.log("Token Decode Error !");
+        console.log(error);
+        return false;
+    }
+}

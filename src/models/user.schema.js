@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     },
     clientName:{
         type:String,
-        require:true
+        default:null
     },
     planType:{
         type:String,
@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
     },
     clientDomain:{
         type:String,
-        require:true
+        default:null
     },
     planDuration:{
         type:Date,
