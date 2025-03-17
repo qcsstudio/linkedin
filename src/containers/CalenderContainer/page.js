@@ -152,7 +152,7 @@
                 className="w-full p-2 border rounded-md mb-2"
               />
               <button onClick={addEvent} className="w-full bg-blue-500 text-white p-2 rounded-md">
-                Add Event
+                Add Event 
               </button>
               <button onClick={handleCloseModal} className="w-full mt-2 bg-gray-500 text-white p-2 rounded-md">
                 Cancel
