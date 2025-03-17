@@ -1,6 +1,7 @@
 "use client";
 import { getAccessToken } from "@/utils/getAccessToken";
 import { useEffect ,useState } from "react";
+import { FaLinkedin } from "react-icons/fa";
 
 const CreateAccount = ({ addAccount, setAddAccount }) => {
 
@@ -19,7 +20,7 @@ const CreateAccount = ({ addAccount, setAddAccount }) => {
             <p onClick={() => setAddAccount(false)} className="w-[100%] flex justify-end items-center cursor-pointer h-[2rem] text-[#dc75ff] font-bold">X</p>
 
             {/* User Detail */}
-            <button onClick={startOAuth}>Sign in with LinkedIn</button>
+            <button onClick={startOAuth} className=" w-[10rem] h-[2.5rem] px-[3rem] py-[.5rem] bg-[#324282] text-[#ffffff]  flex rounded-[.8rem]">LinkedIn</button>
             {loading && <p>Loading user data...</p>}
             {user && (
                 <div>
