@@ -159,7 +159,7 @@ const HomeComponent = () => {
           <p className='text-[#9E9E9E] text-[22px] tracking-wide'>Let’s optimize your social media today</p>
         </div>
         <div className='flex justify-start gap-[1.8rem] z-[100]'>
-          <div className='bg-[#ffffff]/60 flex flex-col gap-2 rounded-xl p-5 w-full max-w-[403px] min-w-[403px] flex-grow-0 z-[100]'>
+          <div className='bg-[#ffffff]/60 flex flex-col gap-2  rounded-xl p-5  w-[50%] flex-grow-0 z-[100]'>
 
             <div>
               <h1 className='font-semibold text-[18px]'>Dashboard Overview</h1>
@@ -177,7 +177,7 @@ const HomeComponent = () => {
             </div>
           </div>
 
-          <div className='bg-[#ffffff]/60 flex flex-col gap-2 rounded-xl p-5 w-full max-w-[320px] min-w-[320px] flex-grow-0 z-[100]'>
+          <div className='bg-[#ffffff]/60 flex flex-col gap-2 rounded-xl p-5  w-[30%] flex-grow-0 z-[100]'>
 
             <div>
               <h1 className='font-semibold text-[18px]'>Recent Posts</h1>
@@ -241,7 +241,7 @@ const HomeComponent = () => {
             </div>
           </div>
 
-          <div className='bg-[#ffffff]/60 flex flex-col gap-2 rounded-xl p-5 max-w-[25%] z-[100]  flex-grow-0'>
+          <div className='bg-[#ffffff]/60 flex flex-col gap-2 rounded-xl p-5 w-[20%] z-[100]  flex-grow-0'>
 
             <div>
               <h1 className='font-semibold text-[18px]'>Growth Goal</h1>
