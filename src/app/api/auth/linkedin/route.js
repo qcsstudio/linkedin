@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
 export async function GET() {
+  const cookieStore = await cookies();
   const clientId = process.env.LINKEDIN_CLIENT_ID;
   const redirectUri = process.env.LINKEDIN_REDIRECT_URI;
   
@@ -12,7 +13,7 @@ export async function GET() {
 
   // Generate and store state
   const state = Math.random().toString(36).substring(2);
-  cookies().set('linkedin_oauth_state', state, {
+  cookieStore.set('linkedin_oauth_state', state, {
     httpOnly: true,
     // secure: process.env.NODE_ENV === 'production',
     maxAge: 300,
