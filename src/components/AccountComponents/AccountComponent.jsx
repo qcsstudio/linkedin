@@ -21,7 +21,7 @@ export default function AccountComponent() {
         {/* Upper Container*/}
         <div className="upperContainer w-[100%] my-[1.2rem] py-[.5rem] flex justify-between items-center z-[100]">
           <p className="heading text-[1.4rem] font-normal ">Hi, QCS <span className='text-[.9rem]'>Keep Moving Forward</span></p>
-          <button className='px-[3rem] py-[0.5rem] bg-[#007BFF] rounded-[.5rem] text-[#ffffff] z-[100]'>+ Add Account</button>
+          <button className='px-[3rem] py-[0.5rem] bg-[#007BFF] rounded-[.5rem] text-[#ffffff] z-[100]' onClick={()=>setAddAccount(true)}>+ Add Account</button>
         </div>
 
         {/* Lower Container */}
