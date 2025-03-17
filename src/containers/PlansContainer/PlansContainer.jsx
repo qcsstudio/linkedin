@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
 import instagram from '../../../public/images/dashboardImages/instagram.png'
 import linkedin from '../../../public/images/dashboardImages/linkedin.png'
@@ -8,11 +8,23 @@ import facebook from '../../../public/images/dashboardImages/facebook.png'
 import mainLogo from '../../../public/images/mainLogo.png'
 import { FaArrowRight } from "react-icons/fa";
 import tick from '../../../public/images/tick.png'
+import {userContext} from '@/Context/user.context'
+
 const PlansContainer = () => {
-  const [selectedPlan,setSelectedPlan]=useState('');
+
+  const {planType,setPlanType,updatePlan} = useContext(userContext);
 
    const handleChoosePlan=(plan)=>{
-    setSelectedPlan(plan)
+    setPlanType(plan);
+   }
+
+   useEffect(()=>{
+    console.log(planType);
+   },[planType]);
+
+
+   const handleSubmit = ()=>{
+    updatePlan(planType);
    }
   
   return (
@@ -52,8 +64,8 @@ const PlansContainer = () => {
                 <li>Lorem Ipsum is simply dummy</li>
                 <li>Lorem Ipsum is simply dummy</li>
               </ul>
-              <button onClick={()=>handleChoosePlan('personal')} className={`w-full flex items-center justify-center py-4 ${selectedPlan==='personal'?'bg-purple-500':'bg-white'}  text-purple-500 font-semibold rounded-lg shadow-md transition`}>
-                {selectedPlan==='personal'?<Image src={tick} alt='tick' />:'Choose Plan'}
+              <button onClick={()=>handleChoosePlan('personal')} className={`w-full flex items-center justify-center py-4 ${planType==='personal'?'bg-purple-500':'bg-white'}  text-purple-500 font-semibold rounded-lg shadow-md transition`}>
+                {planType==='personal'?<Image src={tick} alt='tick' />:'Choose Plan'}
               </button>
             </div>
 
@@ -70,15 +82,15 @@ const PlansContainer = () => {
                 <li>Lorem Ipsum is simply dummy</li>
               </ul>
               
-              <button onClick={()=>handleChoosePlan('team')} className={`w-full flex items-center justify-center py-4 ${selectedPlan==='team'?'bg-purple-500':'bg-white'}  text-purple-500 font-semibold rounded-lg shadow-md transition`}>
-                {selectedPlan==='team'?<Image src={tick} alt='tick' />:'Choose Plan'}
+              <button onClick={()=>handleChoosePlan('team')} className={`w-full flex items-center justify-center py-4 ${planType==='team'?'bg-purple-500':'bg-white'}  text-purple-500 font-semibold rounded-lg shadow-md transition`}>
+                {planType==='team'?<Image src={tick} alt='tick' />:'Choose Plan'}
               </button>
             </div>
           </div>
           
         </div>
         <div className="flex justify-end items-end w-full  px-10 pb-6">
-          <button disabled={!selectedPlan} className={`px-20 py-4 text-sm flex items-center ${selectedPlan?'text-purple-600 bg-white/50  cursor-pointer':'text-gray-600 bg-white/10  cursor-not-allowed'} justify-center gap-1  z-10    border-white border-2 font-semibold rounded-lg shadow-lg  transition`}>
+          <button disabled={!planType} className={`px-20 py-4 text-sm flex items-center ${planType?'text-purple-600 bg-white/50  cursor-pointer':'text-gray-600 bg-white/10  cursor-not-allowed'} justify-center gap-1  z-10    border-white border-2 font-semibold rounded-lg shadow-lg  transition`} onClick={handleSubmit}>
             Let’s go  <FaArrowRight />
           </button>
         </div>
