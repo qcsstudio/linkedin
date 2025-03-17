@@ -18,10 +18,6 @@ export const PATCH = async(req) => {
 
         // Updating User
         const updatedUser = await User.findByIdAndUpdate(userId,{planType:data},{new:true});
-        console.log(updatedUser);
-
-        console.log("Plan Updated !");
-
 
         return NextResponse.json({message:"plan Updated !",userData:updatedUser},{status:200});
     } catch (error) {
