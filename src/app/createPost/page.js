@@ -197,7 +197,6 @@ const Page = () => {
 
             {/* Right Section */}
             <div className="bg-white/50 w-[40%] z-10 rounded-lg h-screen">
-            
             </div>
         </div>
 
