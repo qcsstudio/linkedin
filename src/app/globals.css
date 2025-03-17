@@ -15,26 +15,43 @@
 } */
 
 .fc-button-group{
-  position: relative;
-  z-index: 1;
+  position: absolute;
+  z-index: 10;
 }
 
 .fc-toolbar-title{
   display: none;
 }
 .fc-button-group{
-  position: relative;
-  z-index: 1;
+  z-index: 10;
   align-items: center !important;
 }
 
-.fc-button-primary{
+.fc-createPost-button{
+  background-color: blue !important;
+  color: white !important;
+}
+.fc-button{
   background-color: white !important;
   color: rgb(79, 72, 72) !important;
 }
 .fc-today-button{
-  position: relative;
-  z-index: 1;
+  /* position: relative; */
+  z-index: 1000000000000;
+}
+
+.fc-timeGridWeek-view{
+  background: rgba(247, 247, 130, 0.295);
+}
+
+.fc-day-today {
+  background:none !important;
+  /* border-radius: 9px; */
+}
+.fc-day-today .fc-daygrid-day-frame{
+  background-color: black !important;
+  color: white;
+  border-radius: 9px;
 }
 
 .fc-button-active,
@@ -71,23 +88,45 @@
 }
 
 .popUpEvent{
-  position: absolute;
-  z-index: 10;
+  z-index: 10000;
+}
+.fc-daygrid-day-top{
+  /* width:auto !important; */
 }
 thead{
   display: none;
 }
 .fc-createPost-button{
   position: relative;
-  z-index: 1;
+  z-index: 100;
 }
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
-
-
+.fc-scrollgrid-sync-inner{
+  margin: 10px !important;
+  border: 1px solid gray !important;
+  box-shadow: gray 0 0 5px 0px ;
+  border-radius: 12px !important;
+  background-color: #e6eaf2;
+  height: 85px !important;
+  width: 119px !important;
+}
+.fc-theme-standard td, .fc-theme-standard th{
+  border: none !important;
+  
+}
+.fc-dayGridMonth-view{
+  background-color: rgba(255, 255, 255, 0.747);
+  backdrop-filter: blur(31px);
+  border-radius: 17px !important;
+}
+main{
+  backdrop-filter: blur(31px);
+  border-radius: 12px;
+}
 /* Login Form */
 .loginContainer{
   background: rgb(176,248,255);
@@ -136,5 +175,6 @@ input::-ms-clear {
 }
 
 .bgImageFloating{
+  position: absolute;
   -webkit-user-drag: none;
 }
