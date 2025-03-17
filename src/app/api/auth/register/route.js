@@ -11,7 +11,7 @@ export const POST = async(req)=>{
         await ConnectDB();
         const data = await req.json();
 
-        let {firstName,lastName,email,phoneNumber,planType,clientDomain,role} = data;
+        let {firstName,lastName,email,planType,role} = data;
         const Password = data.password;
         // Checking Role
         if(!role){
@@ -29,15 +29,15 @@ export const POST = async(req)=>{
         // }
 
         // Empty Field Check
-        if(!firstName || !lastName || !email || !phoneNumber || !Password ){
+        if(!firstName || !lastName || !email  || !Password ){
             return NextResponse.json({message:"All Fields Required! "},{status:400});
         }
         console.log("Empty Field Pass");
 
         // User Check 
         const userEmailExist = await User.findOne({email});
-        const userPhoneExist = await User.findOne({phoneNumber});
-        if(userEmailExist || userPhoneExist){
+        // const userPhoneExist = await User.findOne({phoneNumber});
+        if(userEmailExist ){
             return NextResponse.json({message:"User Already Exist ! "},{status:409});  
         }
         console.log("User Exist Pass");
@@ -53,7 +53,7 @@ export const POST = async(req)=>{
         const hashedPassword = await bcrypt.hash(Password,10);
 
         // User Create
-        const newUser = new User({firstName,lastName,email,phoneNumber,password:hashedPassword,role,planType});
+        const newUser = new User({firstName,lastName,email,password:hashedPassword,role,planType});
         const SavedUser = await newUser.save();
         console.log("User Save Pass");
 

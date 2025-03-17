@@ -3,8 +3,8 @@ import { NextResponse } from "next/server";
 
 export const middleware = async(req)=>{
 
-        const cookieStore = cookies();
-        const jwtToken = await cookieStore.get("access_token");
+        const cookieStore = await cookies();
+        const jwtToken =  cookieStore.get("access_token");
 
 
         if(req.nextUrl.pathname.startsWith('/dashboard') && !jwtToken){

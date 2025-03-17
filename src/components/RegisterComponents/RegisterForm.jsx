@@ -29,31 +29,31 @@ const RegisterForm = () => {
     firstName: "",
     lastName: "",
     email: "",
-    phoneNumber: "",
     password: ""
   });
-  const [user, setUser] = useState(null)
+  
+
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     // Destructure form state
-    const { firstName, lastName, email, phoneNumber, password } = form;
+    const { firstName, lastName, email, password } = form;
 
     // Basic validation
-    if (!firstName || !lastName || !email || !phoneNumber || !password) {
+    if (!firstName || !lastName || !email || !password) {
       alert("Please fill out all fields.");
       return;
     }
 
     // Prepare data for API request
-    const data = { firstName, lastName, email, phoneNumber, password };
+    const data = { firstName, lastName, email, password };
 
     try {
       // Make API request
       const res = await fetch("/api/auth/register", {
         method: "POST",
-        body: JSON.stringify(form),
+        body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
         },
@@ -73,13 +73,12 @@ const RegisterForm = () => {
         firstName: "",
         lastName: "",
         email: "",
-        phoneNumber: "",
         password: "",
       });
 
       console.log("Registration successful!", json);
       // alert("Registration successful!");
-      router.push("/plans");
+      window.location.href = "/dashboard";
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred. Please try again.");
@@ -183,6 +182,7 @@ const RegisterForm = () => {
                     <label htmlFor="name">Your name</label>
                     <div className="name flex flex-col lg:flex-row gap-4">
 
+                      
                       <input
                         id='name'
                         className="w-[100%] h-[3.5rem] px-[1.3rem]  focus:outline-none rounded-[.5rem] border border-white bg-[#ffffff]/30 flex items-center  "
@@ -229,7 +229,7 @@ const RegisterForm = () => {
                           onChange={formHandler} // Pass the function reference
                           required
                         />
-                      </div> */}
+                      </div>  */}
                   </div>
                   <div className="flex flex-col gap-2">
                     <label htmlFor="password">Password</label>
@@ -248,7 +248,7 @@ const RegisterForm = () => {
                       <IoEyeOff className="text-[2.5rem] text-white cursor-pointer " onClick={() => setShowPassword(false)} /> :
                       <IoEyeSharp className="text-[2.5rem] text-white cursor-pointer" onClick={() => setShowPassword(true)} />}
                     </div>
-                   
+                  
                   </div>
                   <div className="inputContainer w-[100%]  flex items-center justify-between">
                             <div className="labelContainer flex items-center gap-[1rem]">
