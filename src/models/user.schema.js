@@ -14,11 +14,6 @@ const userSchema = new mongoose.Schema({
         require:true,
         unique:true
     },
-    phoneNumber:{
-        type:String,
-        require:true,
-        unique:true
-    },
     password:{
         type:String,
         require:true,
@@ -29,7 +24,7 @@ const userSchema = new mongoose.Schema({
     },
     clientName:{
         type:String,
-        require:true
+        default:null
     },
     planType:{
         type:String,
@@ -37,7 +32,7 @@ const userSchema = new mongoose.Schema({
     },
     clientDomain:{
         type:String,
-        require:true
+        default:null
     },
     planDuration:{
         type:Date,

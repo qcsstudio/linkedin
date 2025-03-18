@@ -1,7 +1,11 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import DashboardContextProvider from "@/Context/Dashboard.context";
+
 import { PrimeReactProvider } from "primereact/api";
+
+import { UserContextProvider } from "@/Context/user.context";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,9 +28,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <PrimeReactProvider >
+
+<PrimeReactProvider >
+        <UserContextProvider>
           <DashboardContextProvider>{children}</DashboardContextProvider>
+        </UserContextProvider>
         </PrimeReactProvider>
+
       </body>
     </html>
   );
