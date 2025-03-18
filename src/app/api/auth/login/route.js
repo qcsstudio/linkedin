@@ -66,7 +66,7 @@ export const POST = async (req) => {
 
     const UserIdCookie = serialize("user_id", userId, {
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: "lax",
         path: "/",
         maxAge: 60 * 60 * 24,
       });
