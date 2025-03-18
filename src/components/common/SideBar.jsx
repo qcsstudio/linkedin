@@ -21,7 +21,8 @@ const SideBar = () => {
                     return (
                         <Link key={index} href={data.path}>
                             <div className={`border-[#D8CFE8] py-1 hover:bg-[#B4F2FC]/70 hover:rounded-[1rem] transition cursor-pointer 
-                                ${isActive ? "bg-[#B4F2FC]/70 rounded-[1rem] text-[#ffffff]" : "bg-transparent"}`}>
+                       
+                       ${isActive ? "bg-[#B4F2FC]/70 rounded-[1rem] text-[#ffffff]" : "bg-transparent"}`}>
                                 <div className="flex items-center space-x-3 w-full h-[53px] rounded-xl p-2 py-4">
                                     <Image 
                                         src={isActive ? data.activeImage : data.inActiveImage} 
