@@ -71,3 +71,13 @@ input::-ms-clear {
 .bgImageFloating{
   -webkit-user-drag: none;
 }
+
+/* Create Post Section */
+
+.postText{
+  display: -webkit-box;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
