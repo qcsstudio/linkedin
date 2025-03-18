@@ -11,8 +11,6 @@ import HomeComponent from './HomeComponent';
 import { dashboardContext } from '@/Context/Dashboard.context';
 
 const DashboardComponent = () => {
-
-
   const { currentComponent, setCurrentComponent } = useContext(dashboardContext);
 
   const renderComponent = () => {
@@ -39,7 +37,6 @@ const DashboardComponent = () => {
   // Componet 
   return (
     <div className='relative h-[100%] px-[1.5rem] py-5  '>
-      
       {renderComponent()}
     </div>
 
