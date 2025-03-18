@@ -212,3 +212,12 @@ input::-ms-clear {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+/* Create Post Section */
+
+.postText{
+  display: -webkit-box;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
