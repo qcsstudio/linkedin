@@ -8,7 +8,7 @@ export async function GET(request) {
   const code = searchParams.get("code");
   const error = searchParams.get("error");
   const state = searchParams.get("state");
-  const baseURL = process.env.NEXTAUTH_URL || "http://localhost:3000";
+  const baseURL = "http://localhost:3000";
 
   // Handle LinkedIn errors
   if (error) {
@@ -24,7 +24,10 @@ export async function GET(request) {
 
   // Validate state parameter
   const storedState = cookieStore.get("linkedin_oauth_state")?.value;
-  console.log("storedState" , storedState)
+
+  console.log("storedState", storedState);
+  console.log("state" , state);
+
   if (!state || state !== storedState) {
     return NextResponse.redirect(
       new URL("/?error=Invalid%20state%20parameter", baseURL)
@@ -73,9 +76,6 @@ export async function GET(request) {
 
     const userInfo = await userInfoResponse.json();
 
-    console.log("userInfo", userInfo);
-    console.log("");
-
     // Set secure HTTP-only cookies
     cookieStore.set("linkedin_access_token", tokenData.access_token, {
       httpOnly: true,
@@ -85,7 +85,7 @@ export async function GET(request) {
       maxAge: tokenData.expires_in,
     });
 
-    cookieStore().set("linkedin_user_id", userInfo.sub, {
+    cookieStore.set("linkedin_user_id", userInfo.sub, {
       httpOnly: true,
       // secure: process.env.NODE_ENV === 'production',
       sameSite: "lax",
@@ -93,23 +93,30 @@ export async function GET(request) {
       maxAge: 60 * 60 * 24 * 7, // 1 week
     });
 
-    const userId = cookieStore.get("user_id").value;
-    console.log("userId" ,userId);
-    const updadeUser = await fetch(`http://localhost:3000/api/auth/user/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // Correctly stringify the body
-        platformName: "linkedin", // Platform name
-        accessToken: tokenData.access_token, // LinkedIn access token
-      }),
-    });
+    const test = cookieStore.getAll();
+    console.log("test" , test);
+    
+    const userId = cookieStore.get("user_id")?.value; // Get the logged-in user ID
+    console.log("Updating user ID:", userId);
 
-    if (!updadeUser.ok) {
-      throw new Error("Failed to update user information");
+    if (userId) {
+      const updateResponse = await fetch(`${baseURL}/api/auth/user/${userId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _id:userId,
+          platformName: "linkedin",
+          accessToken: tokenData.access_token,
+        }),
+      });
+
+      if (!updateResponse.ok) {
+        console.error("Failed to update user with LinkedIn token");
+      }
     }
+
     // Redirect to homepage with success state
     const response = NextResponse.redirect(new URL("/", baseURL));
 
@@ -125,8 +132,6 @@ export async function GET(request) {
       path: "/",
       maxAge: 60 * 60 * 24 * 7, // 1 week
     });
-
-  
 
     return response;
   } catch (error) {

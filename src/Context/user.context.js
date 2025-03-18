@@ -10,7 +10,8 @@ const initialData = {
   userData: {},
   setUserData: () => {},
   loginAPI: () => {},
-  registerAPI:()=>{ }
+  registerAPI:()=>{ },
+  updateUserPlatforms:()=>{}
 };
 
 export const userContext = createContext(initialData);
@@ -34,7 +35,6 @@ export const UserContextProvider = ({ children }) => {
 
       if (response.status === 200) {
         const result = await response.json();
-        console.log(result);
         setUserData(result);
         router.push("/dashboard");
       }
@@ -52,7 +52,6 @@ export const UserContextProvider = ({ children }) => {
     }
 
     try {
-      // Send login request to the API
       const response = await fetch("/api/auth/login", {
         method: "POST",
         body: JSON.stringify(formData),
@@ -61,20 +60,22 @@ export const UserContextProvider = ({ children }) => {
         },
       });
 
-      const json = await response.json();
-
-      // Handle API response
+      const result = await response.json();
       if (!response.ok) {
         console.error("Error:", json.message || "Something went wrong!");
         return;
       }
+      
+      setUserData(result.data);
+      console.log(result.data);
+      
       window.location.href = "/dashboard";
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
-  const registerAPI = async () => {
+  const registerAPI = async (form) => {
     const { firstName, lastName, email, password } = form;
     if (!firstName || !lastName || !email || !password) {
       return;
@@ -93,29 +94,48 @@ export const UserContextProvider = ({ children }) => {
 
       const json = await res.json();
 
-      // Handle response
       if (!res.ok) {
         console.error("Error:", json.message || "Something went wrong");
         alert(json.message || "Registration failed. Please try again.");
         return;
       }
 
-      // Reset form on success
-      setForm({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-      });
+      window.location.href = "/plans";
 
-      console.log("Registration successful!", json);
-      // alert("Registration successful!");
-      window.location.href = "/dashboard";
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred. Please try again.");
     }
   };
+
+
+   const updateUserPlatforms = async (userId, platformName, accessToken) => {
+    try {
+      const response = await fetch(`/api/auth/user/${userId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          platformName, 
+          accessToken,
+        }),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to update user information");
+      }
+  
+      const data = await response.json();
+      return data;
+      
+    } catch (error) {
+      console.error("Error updating user:", error.message);
+      throw error;
+    }
+  };
+  
 
   return (
     <userContext.Provider
@@ -124,7 +144,8 @@ export const UserContextProvider = ({ children }) => {
         setPlanType,
         updatePlan,
         loginAPI,
-        registerAPI
+        registerAPI,
+        updateUserPlatforms
       }}
     >
       {children}

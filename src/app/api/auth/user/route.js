@@ -73,7 +73,6 @@ export const POST = async(req)=>{
             path:"/",
             maxAge: 60 * 60 * 24
         });
-        console.log("Cookie Creation Pass");
 
         // Send Response
         const {password, ...userData} = SavedUser._doc;
@@ -90,7 +89,6 @@ export const POST = async(req)=>{
 }
 
 
-// Create Client Method
 export const createClient = async(data)=>{
     try {
         const {clientName,planType,clientDomain} = data;

@@ -32,7 +32,7 @@ const RegisterForm = () => {
     password: "",
   });
 
-  const submitHandler = async (e) => {
+  const submitHandler = (e) => {
     e.preventDefault();
     registerAPI(form);
   };
