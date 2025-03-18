@@ -44,6 +44,7 @@ const RegisterForm = () => {
       [name]: value,
     }));
   };
+  
   const sliderParagraph = [
     {
       para: "Lorem Ipsum is simply dummy text of the printing industry.text of the printing industry",
