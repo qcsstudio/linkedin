@@ -9,6 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tiptap/extension-bold": "^2.11.5",
+    "@tiptap/extension-italic": "^2.11.5",
+    "@tiptap/extension-link": "^2.11.5",
+    "@tiptap/pm": "^2.11.5",
+    "@tiptap/react": "^2.11.5",
+    "@tiptap/starter-kit": "^2.11.5",
     "@fullcalendar/daygrid": "^6.1.15",
     "@fullcalendar/interaction": "^6.1.15",
     "@fullcalendar/react": "^6.1.15",

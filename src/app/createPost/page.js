@@ -10,6 +10,7 @@ import { IoLocation } from "react-icons/io5";
 import { CiFaceSmile } from "react-icons/ci";
 import { LuMessageCircleMore } from "react-icons/lu";
 import { CiHashtag } from "react-icons/ci";
+import TextEditor from "@/components/common/TextEditor";
 
 const Page = () => {
   const [selectedButton, setSelectedButton] = useState("");
@@ -27,6 +28,10 @@ const Page = () => {
         id:3
     }
 ]);
+
+  // Post States (Right Section) ------
+  const [showText,setShowText] = useState(false);
+
 
 const [activeSocialButton,setActiveSocialButton] = useState(1);
   const [socialButton,setsocialButton] = useState([
@@ -107,8 +112,10 @@ const [activeButton,setActiveButton] = useState(1);
   };
 
   return (
-    <div className="pt-8 pb-5 flex gap-1 overflow-hidden">
-      <div className="bg-white/50 w-[60%] z-10 flex flex-col gap-5 rounded-lg p-10 overflow-y-auto h-[100%]">
+    <div className="pt-8 pb-5 h-[82.5vh] py-[2rem] flex gap-1 overflow-hidden">
+
+      {/* Left Container */}
+      <div className="bg-white/50 w-[60%] z-10 flex flex-col gap-5 overflow-y-scroll no-scrollbar rounded-lg p-10 h-[100%]">
         <div className=" flex justify-start gap-2 items-center">
           <button
             className={`${
@@ -332,23 +339,27 @@ const [activeButton,setActiveButton] = useState(1);
                 <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/60 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">"Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions! 💡📢"</p></div>
                 <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/70 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">"Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions! 💡📢"</p></div>
             </div>
+
+            {/* Text Editor */}
+            <TextEditor/>
         </div>
 
       </div>
 
       {/* Right Section */}
-      <div className="bg-white/50 w-[40%] z-10 rounded-lg h-[80vh] py-[1.12rem] px-[0.68rem]">
+      <div className="bg-white/50 w-[40%] z-10 rounded-lg h-[100%] py-[.6rem] px-[0.68rem] overflow-y-scroll no-scrollbar">
             {/* heading */}
             <div className="heading"><p className="text-[0.93] font-semibold mb-[0.93rem]">Previewing on</p></div>
 
             {/* options */}
-            <div className="options w-[100%] h-[3rem] rounded-[.5rem] bg-[#ffffff] px-[1.18rem]  py-[0.3rem] flex items-center gap-[.8rem] mb-[.92rem]">
+            <div className="options w-[100%] h-[3rem] rounded-[.5rem] bg-[#ffffff] px-[1.18rem]  py-[0.3rem] flex items-center gap-[.8rem] mb-[0.62rem]">
 
                 {
                     socialButton.map((data)=>{
-                        return <Image onClick={()=>setActiveSocialButton(data.id)} src={data.img} width={32} height={32} alt="instagram" className={` ${data.id === activeSocialButton ? "w-[2.5rem] h-[2.4rem]" :"w-[2.rem] h-[2.rem]"} object-fill cursor-pointer `} />
+                        return <Image key={data.id} onClick={()=>setActiveSocialButton(data.id)} src={data.img} width={32} height={32} alt="instagram" className={` ${data.id === activeSocialButton ? "w-[2.5rem] h-[2.4rem] " :"w-[2.rem] h-[2.rem]"} object-fill cursor-pointer `} />
                     })
                 }
+                {/* shadow-[0px_0px_22px_-3px_rgba(84,85,106,1)] */}
 
                     {/* <Image src="/images/postImages/facebook.png" width={32} height={32} alt="instagram" className=" w-[2.5rem] h-[2.4rem] object-fill cursor-pointer " />
 
@@ -358,10 +369,10 @@ const [activeButton,setActiveButton] = useState(1);
             </div>
 
             {/* Post */}
-            <div className="post w-[100%] h-[30rem] bg-[#ffffff] rounded-[.5rem]">
+            <div className="post w-[100%] min-h-[30rem] bg-[#ffffff] rounded-[.5rem]">
 
                 {/* User Detail */}
-                <div className="upperContainer h-[3.12rem] py-[.81rem] px-[.43rem] flex items-center justify-between">
+                <div className="upperContainer h-[3.12rem] py-[.81rem] pl-[.43rem] pr-[.6rem] flex items-center justify-between">
 
                     <div className="leftPostDetail flex items-center">
 
@@ -377,7 +388,13 @@ const [activeButton,setActiveButton] = useState(1);
                     </div>
 
                 </div>
+                
 
+                <div className="postTextContent px-[.43rem] py-[.3rem] ">
+                  <p className={`${showText ? "" : "postText"} `}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi libero ipsa natus illum, fugiat facere praesentium voluptas laudantium qui. Dolor harum neque sequi iste aliquam maiores necessitatibus, inventore expedita, quasi saepe consequatur! Nesciunt ea laboriosam fugiat aspernatur culpa nam fuga. Perferendis voluptates quaerat maiores, culpa totam accusamus, esse distinctio alias debitis impedit non vitae ad. Illum eius nesciunt facere adipisci amet animi quam deserunt, molestias sit architecto enim iusto laboriosam consequuntur dicta odit non? Necessitatibus nobis est sunt ullam hic nihil nesciunt totam voluptatibus laborum cumque asperiores, omnis suscipit amet dolore distinctio incidunt animi vitae vero autem labore nam corporis?</p><span className="text-[#4d7ef9] cursor-pointer" onClick={()=>setShowText(!showText)}>{showText ? "less" :"more"}</span>
+                </div>
+                
+                {/* User Post Image */}
                 <div className="middleContainer w-[100%] h-[24.3rem]">
                 <Image src="/images/postImages/post.png" width={390} height={390} alt="avatar" className="w-[100%] h-[100%] object-fill" />
                 </div>
@@ -397,6 +414,7 @@ const [activeButton,setActiveButton] = useState(1);
                 </div>
             </div>
       </div>
+
     </div>
   );
 };

@@ -180,5 +180,13 @@ input::-ms-clear {
 }
 
 
+/* Create Post Section */
 
-/* temp */
+.postText{
+  display: -webkit-box;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
