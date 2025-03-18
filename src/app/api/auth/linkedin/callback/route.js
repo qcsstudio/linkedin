@@ -1,20 +1,21 @@
 // app/api/auth/linkedin/callback/route.js
-import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
 
 export async function GET(request) {
+  const cookieStore = await cookies();
   const { searchParams } = new URL(request.url);
-  const code = searchParams.get('code');
-  const error = searchParams.get('error');
-  const state = searchParams.get('state');
-  const baseURL = process.env.NEXTAUTH_URL || 'http://localhost:3000';
+  const code = searchParams.get("code");
+  const error = searchParams.get("error");
+  const state = searchParams.get("state");
+  const baseURL = "http://localhost:3000";
 
   // Handle LinkedIn errors
   if (error) {
     return NextResponse.redirect(
       new URL(
         `/?error=${encodeURIComponent(error)}&description=${encodeURIComponent(
-          searchParams.get('error_description')
+          searchParams.get("error_description")
         )}`,
         baseURL
       )
@@ -22,91 +23,123 @@ export async function GET(request) {
   }
 
   // Validate state parameter
-  const storedState = cookies().get('linkedin_oauth_state')?.value;
+  const storedState = cookieStore.get("linkedin_oauth_state")?.value;
+
+  console.log("storedState", storedState);
+  console.log("state" , state);
+
   if (!state || state !== storedState) {
     return NextResponse.redirect(
-      new URL('/?error=Invalid%20state%20parameter', baseURL)
+      new URL("/?error=Invalid%20state%20parameter", baseURL)
     );
   }
 
   try {
     // Exchange authorization code for access token
-    const tokenResponse = await fetch('https://www.linkedin.com/oauth/v2/accessToken', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({
-        grant_type: 'authorization_code',
-        code,
-        client_id: process.env.LINKEDIN_CLIENT_ID,
-        client_secret: process.env.LINKEDIN_CLIENT_SECRET,
-        redirect_uri: process.env.LINKEDIN_REDIRECT_URI,
-      }),
-    });
+    const tokenResponse = await fetch(
+      "https://www.linkedin.com/oauth/v2/accessToken",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          grant_type: "authorization_code",
+          code,
+          client_id: process.env.LINKEDIN_CLIENT_ID,
+          client_secret: process.env.LINKEDIN_CLIENT_SECRET,
+          redirect_uri: process.env.LINKEDIN_REDIRECT_URI,
+        }),
+      }
+    );
 
     if (!tokenResponse.ok) {
-      throw new Error('Failed to obtain access token');
+      throw new Error("Failed to obtain access token");
     }
 
     const tokenData = await tokenResponse.json();
-    console.log("tokenData" ,tokenData);
+    console.log("tokenData", tokenData);
 
     // Fetch user information
-    const userInfoResponse = await fetch('https://api.linkedin.com/v2/userinfo', {
-      headers: {
-        Authorization: `Bearer ${tokenData.access_token}`,
-      },
-    });
+    const userInfoResponse = await fetch(
+      "https://api.linkedin.com/v2/userinfo",
+      {
+        headers: {
+          Authorization: `Bearer ${tokenData.access_token}`,
+        },
+      }
+    );
 
     if (!userInfoResponse.ok) {
-      throw new Error('Failed to fetch user information');
+      throw new Error("Failed to fetch user information");
     }
 
     const userInfo = await userInfoResponse.json();
 
-    console.log("userInfo" ,userInfo);
-    console.log("")
-
     // Set secure HTTP-only cookies
-    cookies().set('linkedin_access_token', tokenData.access_token, {
+    cookieStore.set("linkedin_access_token", tokenData.access_token, {
       httpOnly: true,
       // secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/',
+      sameSite: "lax",
+      path: "/",
       maxAge: tokenData.expires_in,
     });
 
-    cookies().set('linkedin_user_id', userInfo.sub, {
+    cookieStore.set("linkedin_user_id", userInfo.sub, {
       httpOnly: true,
       // secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/',
+      sameSite: "lax",
+      path: "/",
       maxAge: 60 * 60 * 24 * 7, // 1 week
     });
 
-    // Redirect to homepage with success state
-    const response = NextResponse.redirect(new URL('/', baseURL));
+    const test = cookieStore.getAll();
+    console.log("test" , test);
     
+    const userId = cookieStore.get("user_id")?.value; // Get the logged-in user ID
+    console.log("Updating user ID:", userId);
+
+    if (userId) {
+      const updateResponse = await fetch(`${baseURL}/api/auth/user/${userId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          _id:userId,
+          platformName: "linkedin",
+          accessToken: tokenData.access_token,
+        }),
+      });
+
+      if (!updateResponse.ok) {
+        console.error("Failed to update user with LinkedIn token");
+      }
+    }
+
+    // Redirect to homepage with success state
+    const response = NextResponse.redirect(new URL("/", baseURL));
+
     // Set non-sensitive user data in session cookie
     response.cookies.set({
-      name: 'user_session',
+      name: "user_session",
       value: JSON.stringify({
         name: userInfo.name,
         picture: userInfo.picture,
       }),
       // secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      path: '/',
+      sameSite: "lax",
+      path: "/",
       maxAge: 60 * 60 * 24 * 7, // 1 week
     });
 
     return response;
-
   } catch (error) {
     return NextResponse.redirect(
       new URL(
-        `/?error=Authentication%20failed&details=${encodeURIComponent(error.message)}`,
+        `/?error=Authentication%20failed&details=${encodeURIComponent(
+          error.message
+        )}`,
         baseURL
       )
     );

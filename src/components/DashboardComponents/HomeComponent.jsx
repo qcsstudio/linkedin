@@ -177,7 +177,7 @@ const HomeComponent = () => {
             </div>
           </div>
 
-          <div className='bg-[#ffffff]/60 flex flex-col gap-2 rounded-xl p-5 w-[30%] min-w-[320px] flex-grow-0 z-[100]'>
+          <div className='bg-[#ffffff]/60 flex flex-col gap-2 rounded-xl p-5  w-[30%] flex-grow-0 z-[100]'>
 
             <div>
               <h1 className='font-semibold text-[18px]'>Recent Posts</h1>
