@@ -3,7 +3,7 @@ import CardChooseUs from "./CardChooseUs"
 const ChooseUs = () => {
     return (
         <>
-            <div className="chooseUsContainer w-[100%] min-h-[120vh] bg-[#5E788F]/85 px-[3.3rem] py-[.5rem] z-[10]">
+            <div className="chooseUsContainer w-[100%]  bg-[#5E788F]/85 px-[3.3rem] py-[.5rem] z-[10]">
 
                 {/* Inner Container */}
                 <div className="innerContainer w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10] pt-[1rem] pb-[3rem] px-[7.0625rem]">
