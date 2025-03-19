@@ -1,6 +1,9 @@
 import React from 'react'
 
 const SecurityStatus = () => {
+  const handleChanges = () =>{
+    console.log("type save changes logic")
+  }
   return (
     <>
     
@@ -9,7 +12,9 @@ const SecurityStatus = () => {
         {/* Security Status */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-semibold">Security Status</h2>
-          <button className="bg-[#007BFF] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <button
+          className="bg-[#007BFF] hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          onClick={handleChanges}>
             Save Changes
           </button>
         </div>

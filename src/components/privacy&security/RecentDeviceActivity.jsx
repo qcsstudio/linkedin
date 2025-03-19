@@ -41,7 +41,7 @@ const RecentDeviceActivity = () => {
               <span className="mr-2 text-xl">{device.icon}</span> 
               <div>
                 <h3 className="text-lg font-medium">{device.name}</h3>
-                <p className="text-sm text-gray-600">{device.location}</p>
+                <p className="text-base text-gray-600">{device.location}</p>
               </div>
             </div>
             <span className="text-sm text-gray-600">{device.time}</span>

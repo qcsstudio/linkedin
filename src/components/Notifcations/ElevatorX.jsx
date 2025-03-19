@@ -55,7 +55,7 @@ const ElevatorX = () => {
         <div key={index} className="flex items-center justify-between py-3 border-b-4 border-gray-200 ">
           <div>
             <h3 className="text-lg font-semibold text-gray-700">{item.title}</h3>
-            <p className="text-sm text-gray-500">{item.description}</p>
+            <p className="text-base text-gray-500">{item.description}</p>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
             <input
@@ -65,7 +65,7 @@ const ElevatorX = () => {
               onChange={() => handleToggle(index)}  
             />
             <div
-              className={`w-12 h-7 bg-gray-300 rounded-full transition-colors duration-300 ease-in-out 
+              className={`w-12 h-7 bg-gray-400 rounded-full transition-colors duration-300 ease-in-out 
                 ${item.enabled ? 'bg-green-500' : 'bg-gray-300'} 
                 peer-focus:outline-none  peer-focus:ring-green-300`}
             >
