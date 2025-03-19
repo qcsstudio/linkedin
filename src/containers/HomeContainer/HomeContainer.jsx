@@ -1,6 +1,9 @@
 import About from "@/components/HomeComponent/AboutSection/About"
 import ChooseUs from "@/components/HomeComponent/ChooseUs/ChooseUs"
 import HeroSection from "@/components/HomeComponent/HeroSection/HeroSection"
+import NeedHelp from "@/components/HomeComponent/NeedHelp/NeedHelp"
+import Plans from "@/components/HomeComponent/Plans/Plans"
+import SuccessStories from "@/components/HomeComponent/SuccessStories/SuccessStories"
 import Image from "next/image"
 
 const HomeContainer = () => {
@@ -10,8 +13,9 @@ const HomeContainer = () => {
                 <HeroSection />
                 <About />
                 <ChooseUs/>
-
-
+                <Plans/>
+               <NeedHelp/>
+               <SuccessStories/>
 
                 {/* Rays */}
 
