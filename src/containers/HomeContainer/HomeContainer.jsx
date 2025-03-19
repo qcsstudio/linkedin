@@ -1,0 +1,27 @@
+import About from "@/components/HomeComponent/AboutSection/About"
+import ChooseUs from "@/components/HomeComponent/ChooseUs/ChooseUs"
+import HeroSection from "@/components/HomeComponent/HeroSection/HeroSection"
+import Image from "next/image"
+
+const HomeContainer = () => {
+    return (
+        <>
+            <div className="mainContainer bg-[url(/images/homeImages/grain.png)]  w-[100%] min-h-[100vh]">
+                <HeroSection />
+                <About />
+                <ChooseUs/>
+
+
+
+                {/* Rays */}
+
+                <div className="w-[100%] h-[117.5rem] absolute top-[0rem] left-[0rem] z-[1]" >
+                    <Image src="/images/homeImages/rays.png" width={1024} height={1024} alt="logo" className="w-[100%] h-[100%] imageDrag opacity-80 z-[1]" />
+                </div>
+
+            </div>
+        </>
+    )
+}
+
+export default HomeContainer
