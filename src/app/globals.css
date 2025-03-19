@@ -180,5 +180,18 @@ input::-ms-clear {
 }
 
 
+.imageDrag{
+  -webkit-user-drag: none;
+}
 
-/* temp */
+.rays1{
+  background: rgb(255,255,255);
+  background: linear-gradient(90deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,1) 84%, rgba(255,255,255,0) 100%);
+}
+
+.aboutHeading{
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
