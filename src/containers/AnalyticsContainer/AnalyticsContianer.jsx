@@ -1,3 +1,4 @@
+"use client"
 import BestToPost2Analytics from '@/components/AnalyticsComponets/BestTimeToPost2Analytics';
 import BestTimeToPostAnalytics from '@/components/AnalyticsComponets/BestTimeToPostAnalytics';
 import FollowersOverview from '@/components/AnalyticsComponets/FollowersOverviewAnalytics';
