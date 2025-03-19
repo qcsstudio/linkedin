@@ -328,9 +328,9 @@ const [activeButton,setActiveButton] = useState(1);
 
             {/* Lower Container */}
             <div className="lowerAiContainer flex flex-col gap-[1rem]">
-                <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">"Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions! 💡📢"</p></div>
-                <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/60 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">"Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions! 💡📢"</p></div>
-                <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/70 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">"Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions! 💡📢"</p></div>
+                <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions </p></div>
+                <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/60 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions!</p></div>
+                <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/70 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions!</p></div>
             </div>
         </div>
 
@@ -345,8 +345,8 @@ const [activeButton,setActiveButton] = useState(1);
             <div className="options w-[100%] h-[3rem] rounded-[.5rem] bg-[#ffffff] px-[1.18rem]  py-[0.3rem] flex items-center gap-[.8rem] mb-[.92rem]">
 
                 {
-                    socialButton.map((data)=>{
-                        return <Image onClick={()=>setActiveSocialButton(data.id)} src={data.img} width={32} height={32} alt="instagram" className={` ${data.id === activeSocialButton ? "w-[2.5rem] h-[2.4rem]" :"w-[2.rem] h-[2.rem]"} object-fill cursor-pointer `} />
+                    socialButton.map((data , index)=>{
+                        return <Image key={index} onClick={()=>setActiveSocialButton(data.id)} src={data.img} width={32} height={32} alt="instagram" className={` ${data.id === activeSocialButton ? "w-[2.5rem] h-[2.4rem]" :"w-[2.rem] h-[2.rem]"} object-fill cursor-pointer `} />
                     })
                 }
 

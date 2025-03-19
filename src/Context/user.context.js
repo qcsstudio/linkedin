@@ -1,17 +1,23 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { getCookie } from "@/utils/getCookie";
 
 const initialData = {
   planType: "single",
-  setPlanType: () => {},
   loading: false,
+  userData: null,
+  linkedinAccounts: null,
+  linkedinProfileData:null,
+  setPlanType: () => {},
   setLoading: () => {},
-  userData: {},
   setUserData: () => {},
   loginAPI: () => {},
-  registerAPI:()=>{ },
-  updateUserPlatforms:()=>{}
+  registerAPI: () => {},
+  updateUserPlatforms: () => {},
+  setLinkedinAccounts: () => {},
+  getUserLinkedinProfiles:()=>{ },
+  setLinkedinProfileData:()=>{}
 };
 
 export const userContext = createContext(initialData);
@@ -20,6 +26,8 @@ export const UserContextProvider = ({ children }) => {
   const [userData, setUserData] = useState(initialData.userData);
   const [planType, setPlanType] = useState(initialData.planType);
   const [loading, setLoading] = useState(initialData.loading);
+  const [linkedinAccounts, setLinkedinAccounts] = useState(initialData.linkedinAccounts);
+  const [linkedinProfileData , setLinkedinProfileData] = useState(initialData.linkedinProfileData);
 
   const router = useRouter();
 
@@ -65,10 +73,10 @@ export const UserContextProvider = ({ children }) => {
         console.error("Error:", json.message || "Something went wrong!");
         return;
       }
-      
+
       setUserData(result.data);
       console.log(result.data);
-      
+
       window.location.href = "/dashboard";
     } catch (error) {
       console.error("Error:", error);
@@ -101,15 +109,13 @@ export const UserContextProvider = ({ children }) => {
       }
 
       window.location.href = "/plans";
-
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred. Please try again.");
     }
   };
 
-
-   const updateUserPlatforms = async (userId, platformName, accessToken) => {
+  const updateUserPlatforms = async (userId, platformName, accessToken) => {
     try {
       const response = await fetch(`/api/auth/user/${userId}`, {
         method: "PATCH",
@@ -117,35 +123,103 @@ export const UserContextProvider = ({ children }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          platformName, 
+          platformName,
           accessToken,
         }),
       });
-  
+
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to update user information");
+        throw new Error(
+          errorData.message || "Failed to update user information"
+        );
       }
-  
+
       const data = await response.json();
       return data;
-      
     } catch (error) {
       console.error("Error updating user:", error.message);
       throw error;
     }
   };
-  
+
+  const getUserLinkedinProfiles = async()=>{
+    try {
+      const res = await fetch("/api/linkedin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ linkedinAccounts }),
+      });
+
+      if (res.ok) {
+        const {   successful, failed } = await res.json();
+
+        setLinkedinProfileData(successful);
+
+        if (failed.length > 0) {
+          console.warn("Failed requests:", failed);
+        }
+      } else {
+        setError("Failed to fetch LinkedIn data");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setError("An error occurred while fetching data.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = await getCookie("access_token");
+        const userId = await getCookie("user_id");
+
+        if (token && userId) {
+          const res = await fetch(`/api/auth/user/${userId?.value}`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (res.ok) {
+            const result = await res.json();
+            setUserData(result.user_data);
+
+            const linkedinPlatforms = result.user_data.platforms.filter(
+              (platform) => platform.platformName === "linkedin"
+            );
+
+            setLinkedinAccounts(linkedinPlatforms);
+
+          } else {
+            console.error("Failed to fetch user:", res.status);
+          }
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <userContext.Provider
       value={{
         planType,
+        userData,
+        linkedinAccounts,
+        linkedinProfileData,
         setPlanType,
         updatePlan,
         loginAPI,
         registerAPI,
-        updateUserPlatforms
+        updateUserPlatforms,
+        getUserLinkedinProfiles,
+        setLinkedinProfileData
       }}
     >
       {children}
