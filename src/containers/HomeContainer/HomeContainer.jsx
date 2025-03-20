@@ -1,6 +1,7 @@
 import About from "@/components/HomeComponent/AboutSection/About"
 import Blogs from "@/components/HomeComponent/Blogs/Blogs"
 import ChooseUs from "@/components/HomeComponent/ChooseUs/ChooseUs"
+import FaqSection from "@/components/HomeComponent/FaqSection/FaqSection"
 import Footer from "@/components/HomeComponent/Footer/Footer"
 import HeroSection from "@/components/HomeComponent/HeroSection/HeroSection"
 import Integration from "@/components/HomeComponent/Integration/Integration"
@@ -27,7 +28,9 @@ const HomeContainer = () => {
                 <Blogs/>
                <NeedHelp/>
 
- 
+               <SuccessStories/>
+               <FaqSection/>
+            
 
                <Footer/>
                 {/* Rays */}
