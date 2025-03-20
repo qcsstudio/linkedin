@@ -10,6 +10,7 @@ import Plans from "@/components/HomeComponent/Plans/Plans"
 import SuccessStories from "@/components/HomeComponent/SuccessStories/SuccessStories"
 import Image from "next/image"
 import cloud from "../../../public/images/blogsImages/Cloud.png"
+import KeyFeatureSection from "@/components/HomeComponent/KeyFeature/KeyFeatureSection"
 
 const HomeContainer = () => {
     return (
@@ -19,6 +20,7 @@ const HomeContainer = () => {
                 <About />
                 <ChooseUs/>
                 <Integration/>
+                <KeyFeatureSection />
                 <Plans/>
                <NeedHelp/>
 
@@ -47,6 +49,7 @@ const HomeContainer = () => {
                 </div>
 
             </div>
+
         </>
     )
 }
