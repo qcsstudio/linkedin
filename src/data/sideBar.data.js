@@ -4,10 +4,7 @@ export const sideBarData = [
     activeImage:"/images/sideBarLogoImages/homeWhite.svg",
     inActiveImage: "/images/sideBarLogoImages/homeBlack.svg",
     heading: "Home",
-    // dropdown: true,
-    // options:[{
-
-    // }{}]
+    
   },
   {
     path: "/dashboard/accounts",
@@ -39,10 +36,5 @@ export const sideBarData = [
     inActiveImage: "/images/sideBarLogoImages/engagementBlack.svg",
     heading: "Engagement",
   },
-  {
-    path: "/dashboard/settings",
-    activeImage:"/images/sideBarLogoImages/settingWhite.svg",
-    inActiveImage: "/images/sideBarLogoImages/settingsBlack.svg",
-    heading: "Settings",
-  },
+ 
 ];

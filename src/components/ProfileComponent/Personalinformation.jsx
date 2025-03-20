@@ -18,6 +18,7 @@ const PersonalInformation = () => {
   const submitHandler = (e) => {
     e.preventDefault();  
     console.log(inputData);  
+    alert("form submitted")
   };
 
   return (
