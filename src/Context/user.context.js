@@ -8,7 +8,9 @@ const initialData = {
   loading: false,
   userData: null,
   linkedinAccounts: null,
-  linkedinProfileData:null,
+  linkedinProfileData: null,
+  linkedinOrganizationId: null,
+  linkedinOrganizationData: null,
   setPlanType: () => {},
   setLoading: () => {},
   setUserData: () => {},
@@ -16,8 +18,11 @@ const initialData = {
   registerAPI: () => {},
   updateUserPlatforms: () => {},
   setLinkedinAccounts: () => {},
-  getUserLinkedinProfiles:()=>{ },
-  setLinkedinProfileData:()=>{}
+  getUserLinkedinProfiles: () => {},
+  setLinkedinProfileData: () => {},
+  setLinkedinOrganizationId: () => {},
+  getLinkedinOrganizationsProfiles: () => {},
+  setLinkedinOrganizationData: () => {},
 };
 
 export const userContext = createContext(initialData);
@@ -26,8 +31,19 @@ export const UserContextProvider = ({ children }) => {
   const [userData, setUserData] = useState(initialData.userData);
   const [planType, setPlanType] = useState(initialData.planType);
   const [loading, setLoading] = useState(initialData.loading);
-  const [linkedinAccounts, setLinkedinAccounts] = useState(initialData.linkedinAccounts);
-  const [linkedinProfileData , setLinkedinProfileData] = useState(initialData.linkedinProfileData);
+  const [linkedinAccounts, setLinkedinAccounts] = useState(
+    initialData.linkedinAccounts
+  );
+  const [linkedinProfileData, setLinkedinProfileData] = useState(
+    initialData.linkedinProfileData
+  );
+  const [linkedinOrganizationId, setLinkedinOrganizationId] = useState(
+    initialData.linkedinOrganizationId
+  );
+
+  const [linkedinOrganizationData, setLinkedinOrganizationData] = useState(
+    initialData.linkedinOrganizationData
+  );
 
   const router = useRouter();
 
@@ -143,7 +159,7 @@ export const UserContextProvider = ({ children }) => {
     }
   };
 
-  const getUserLinkedinProfiles = async()=>{
+  const getUserLinkedinProfiles = async () => {
     try {
       const res = await fetch("/api/linkedin", {
         method: "POST",
@@ -152,23 +168,54 @@ export const UserContextProvider = ({ children }) => {
       });
 
       if (res.ok) {
-        const {   successful, failed } = await res.json();
+        const { successful, failed } = await res.json();
 
         setLinkedinProfileData(successful);
+        const allOrganizations = successful
+        .flatMap((user) => 
+          user.organizations.map((org) => ({
+            ...org,          // Spread existing org properties
+            token: user.token // Attach the user's token to the org
+          }))
+        )
+        .map((org) => ({
+          roleAssignee: org.roleAssignee,
+          state: org.state,
+          role: org.role,
+          organizationalTarget: org.organizationalTarget,
+          token: org.token // Now accessible via the org object
+        }));
+      
+
+        setLinkedinOrganizationId(allOrganizations);
+       console.log("allOrganizations" ,allOrganizations);
 
         if (failed.length > 0) {
           console.warn("Failed requests:", failed);
         }
       } else {
-        setError("Failed to fetch LinkedIn data");
+        console.error("Failed to fetch LinkedIn data");
       }
     } catch (error) {
       console.error("Error:", error);
-      setError("An error occurred while fetching data.");
     } finally {
       setLoading(false);
     }
-  }
+  };
+
+  const getLinkedinOrganizationsProfiles = async () => {
+    console.log(linkedinOrganizationId)
+    const res = await fetch("/api/linkedin/organizations", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ organizations : linkedinOrganizationId }),
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      setLinkedinOrganizationData(data.organizations);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -193,7 +240,6 @@ export const UserContextProvider = ({ children }) => {
             );
 
             setLinkedinAccounts(linkedinPlatforms);
-
           } else {
             console.error("Failed to fetch user:", res.status);
           }
@@ -213,13 +259,18 @@ export const UserContextProvider = ({ children }) => {
         userData,
         linkedinAccounts,
         linkedinProfileData,
+        linkedinOrganizationId,
+        linkedinOrganizationData,
         setPlanType,
         updatePlan,
         loginAPI,
         registerAPI,
         updateUserPlatforms,
         getUserLinkedinProfiles,
-        setLinkedinProfileData
+        setLinkedinProfileData,
+        setLinkedinOrganizationData,
+        getLinkedinOrganizationsProfiles,
+        setLinkedinOrganizationData
       }}
     >
       {children}

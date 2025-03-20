@@ -47,6 +47,7 @@ export async function POST(req) {
           data: {
             user: userData,
             organizations: orgData.elements || [],
+            token: account.accessToken,
           },
         };
       } catch (error) {

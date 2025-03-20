@@ -6,7 +6,7 @@ import CreateAccount from "./CreateAccount";
 import { userContext } from "@/Context/user.context";
 
 export default function AccountComponent() {
-  const { userData, getUserLinkedinProfiles, linkedinProfileData , linkedinAccounts } =
+  const { userData, getUserLinkedinProfiles, linkedinProfileData , linkedinAccounts  , getLinkedinOrganizationsProfiles , linkedinOrganizationId} =
     useContext(userContext);
   const [addAccount, setAddAccount] = useState(false);
 
@@ -17,6 +17,12 @@ export default function AccountComponent() {
       getUserLinkedinProfiles();
     }
   }, [linkedinAccounts]);
+
+  useEffect(() => {
+    if(linkedinOrganizationId){
+      getLinkedinOrganizationsProfiles();
+    }
+  }, [linkedinOrganizationId]);
 
 console.log("linkedinProfileData" ,linkedinProfileData)
 
@@ -44,20 +50,18 @@ if(!linkedinProfileData){
 
           {/* Lower Container */}
           <div className="lowerContainer bg-[#ffffff]/50 w-[100%] min-h-[65vh] max-h-[65vh] rounded-[.7rem] z-[100] flex gap-[1.2rem]  flex-wrap p-[1.37rem] overflow-x-hidden overflow-y-scroll right">
-           {/* {
-            linkedinProfileData && linkedinProfileData.map((index , item)=>{
+         
+           {
+            linkedinProfileData && linkedinProfileData.map((item , index  )=>{
+              console.log("item" ,item);
               return(
               <div key={item.user?.sub || index}>
                  <Card data={item.user} />
               </div>
               );
             })
-           }  */}
-             <Card />
-            <Card />
-            <Card />
-            <Card />
-            <Card />
+           }  
+
             <AddCard setAddAccount={setAddAccount} addAccount={addAccount} />
           </div>
         </div>
