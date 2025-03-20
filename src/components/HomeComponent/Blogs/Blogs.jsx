@@ -6,7 +6,7 @@ import cloud from "../../../../public/images/blogsImages/Cloud.png"
 const Blogs = () => {
     return (
         <>
-            <div className="blogsContainer relative w-[100%] bg-[#5E788F]/85 px-[3.37rem] pb-[5rem] overflow-hidden ">
+            <div className="blogsContainer relative w-[100%] bg-[#5E788F]/85 py-[.7rem] px-[3.37rem] pb-[5rem] overflow-hidden ">
 
                 {/* Inner Container */}
                 <div className="innerContainer w-[100%] px-[3.18rem] pb-[3.19rem] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10]">
