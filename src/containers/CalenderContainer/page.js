@@ -11,7 +11,8 @@ export default function CalenderContainer() {
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [idToDelete, setIdToDelete] = useState(null);
-  const [newEvent, setNewEvent] = useState({ title: "", start: "", id: 0 });
+  const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "", id: 0 });
+  const [colorIndex, setColorIndex] = useState(0); // To track event colors
 
   useEffect(() => {
     let draggableEl = document.getElementById("draggable-el");
@@ -29,16 +30,32 @@ export default function CalenderContainer() {
   }, []);
 
   function handleDateClick(arg) {
-    setNewEvent({ title: "", start: arg.date ? arg.date.toISOString() : "", id: new Date().getTime() });
+    const startDate = new Date(arg.date);
+    const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // Default 2-hour event
+
+    setNewEvent({
+      title: "",
+      start: startDate.toISOString().slice(0, 16),
+      end: endDate.toISOString().slice(0, 16),
+      id: new Date().getTime(),
+    });
     setShowModal(true);
   }
 
   function addEvent() {
     if (!newEvent.title || !newEvent.start) return;
-    const formattedEvent = { ...newEvent, start: new Date(newEvent.start).toISOString() };
+
+    const formattedEvent = {
+      ...newEvent,
+      start: new Date(newEvent.start).toISOString(),
+      end: newEvent.end ? new Date(newEvent.end).toISOString() : undefined,
+      backgroundColor: colorIndex % 2 === 0 ? "#B0F8FF" : "#B1B9F8", // Alternate between blue and pink
+    };
+
     setAllEvents((prevEvents) => [...prevEvents, formattedEvent]);
+    setColorIndex((prevIndex) => prevIndex + 1); // Toggle color index
     setShowModal(false);
-    setNewEvent({ title: "", start: "", id: 0 });
+    setNewEvent({ title: "", start: "", end: "", id: 0 });
   }
 
   function handleDeleteModal(data) {
@@ -56,7 +73,7 @@ export default function CalenderContainer() {
     setShowModal(false);
     setShowDeleteModal(false);
     setIdToDelete(null);
-    setNewEvent({ title: "", start: "", id: 0 });
+    setNewEvent({ title: "", start: "", end: "", id: 0 });
   }
 
   function handleChange(e) {
@@ -91,7 +108,7 @@ export default function CalenderContainer() {
           nowIndicator={true}
           editable={true}
           slotMinTime="06:00:00"
-          droppable={true}
+          droppable={false}
           selectable={true}
           selectMirror={true}
           dateClick={handleDateClick}
@@ -104,7 +121,7 @@ export default function CalenderContainer() {
             const date = new Date(arg.date);
             const formattedDate = date.getDate().toString().padStart(2, "0");
             return date.getDate() ? (
-              <div className="flex justify-start gap-10 items-center text-xs w-full">
+              <div className="flex justify-start gap-9 items-center text-xs w-full">
                 <span className="text-sm font-medium">
                   {date.toLocaleDateString("en-US", { weekday: "short" })}
                 </span>
@@ -126,7 +143,7 @@ export default function CalenderContainer() {
             return <div className="text-xs font-semibold">{arg.text}</div>;
           }}
           eventContent={({ event }) => (
-            <div className="text-xs bg-blue-500 text-white p-1 rounded">
+            <div className="text-xs text-white p-1 rounded" style={{ backgroundColor: event.backgroundColor || "#3b82f6" }}>
               {event.title}
             </div>
           )}
@@ -154,8 +171,30 @@ export default function CalenderContainer() {
               onChange={handleChange}
               className="w-full p-2 border rounded-md mb-2"
             />
+            <input
+              type="datetime-local"
+              name="end"
+              value={newEvent.end}
+              onChange={handleChange}
+              className="w-full p-2 border rounded-md mb-2"
+            />
             <button onClick={addEvent} className="w-full bg-blue-500 text-white p-2 rounded-md">
               Add Event 
+            </button>
+            <button onClick={handleCloseModal} className="w-full mt-2 bg-gray-500 text-white p-2 rounded-md">
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
+      {showDeleteModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-5 rounded-md shadow-md w-96">
+            <h2 className="font-bold text-lg text-center">Delete Event</h2>
+            <p className="text-center">Are you sure you want to delete this event?</p>
+            <button onClick={handleDelete} className="w-full bg-red-500 text-white p-2 rounded-md mt-4">
+              Delete
             </button>
             <button onClick={handleCloseModal} className="w-full mt-2 bg-gray-500 text-white p-2 rounded-md">
               Cancel
