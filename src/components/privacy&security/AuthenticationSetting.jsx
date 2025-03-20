@@ -38,7 +38,8 @@ const AuthenticationSettings = () => {
                 peer-focus:outline-none peer-focus:ring-green-300`}
             >
               <div
-                className={`w-6 h-6 bg-white rounded-full border border-gray-300 transition-transform duration-300 ease-in-out 
+                className={`w-6 h-6 bg-white rounded-full border border-gray-300 transition-transform 
+                  duration-300 ease-in-out 
                   ${authentication ? 'translate-x-5' : 'translate-x-0'}`}
               />
             </div>
