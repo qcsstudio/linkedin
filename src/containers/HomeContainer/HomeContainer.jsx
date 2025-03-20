@@ -1,5 +1,6 @@
 import About from "@/components/HomeComponent/AboutSection/About"
 import ChooseUs from "@/components/HomeComponent/ChooseUs/ChooseUs"
+import FaqSection from "@/components/HomeComponent/FaqSection/FaqSection"
 import Footer from "@/components/HomeComponent/Footer/Footer"
 import HeroSection from "@/components/HomeComponent/HeroSection/HeroSection"
 import NeedHelp from "@/components/HomeComponent/NeedHelp/NeedHelp"
@@ -17,6 +18,7 @@ const HomeContainer = () => {
                 <Plans/>
                <NeedHelp/>
                <SuccessStories/>
+               <FaqSection/>
                <Footer/>
 
                 {/* Rays */}
