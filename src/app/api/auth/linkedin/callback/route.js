@@ -70,6 +70,7 @@ export async function GET(request) {
       }
     );
 
+    
     if (!userInfoResponse.ok) {
       throw new Error("Failed to fetch user information");
     }
