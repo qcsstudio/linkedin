@@ -40,18 +40,25 @@
   z-index: 1000000000000;
 }
 
+.fc-timegrid-slot {
+  height: 45px !important; /* Increase height */
+}
+
+
+
 .fc-timeGridWeek-view{
-  background: rgba(247, 247, 130, 0.295);
+  background: #ffffff;
+  border-radius: 15px !important;
 }
 
 .fc-day-today {
   background:none !important;
-  /* border-radius: 9px; */
+  border-radius: 9px;
 }
 .fc-day-today .fc-daygrid-day-frame{
   background-color: black !important;
   color: white;
-  border-radius: 9px;
+  border-radius: 9px !important;
 }
 
 .fc-button-active,
@@ -92,6 +99,13 @@
 }
 .fc-daygrid-day-top{
   /* width:auto !important; */
+  padding-inline: 6px;
+}
+.fc-view-harness{
+  background-color: #ffffff;
+  border-radius: 25px !important;
+  border: 0px solid;
+
 }
 thead{
   display: none;
@@ -119,7 +133,7 @@ body {
   
 }
 .fc-dayGridMonth-view{
-  background-color: rgba(255, 255, 255, 0.747);
+  background-color: #ffffff;
   backdrop-filter: blur(31px);
   border-radius: 17px !important;
 }
