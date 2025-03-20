@@ -32,7 +32,7 @@ const NeedHelp = () => {
         },
     ];
   return ( 
-  <div className=" w-[100%]  bg-[#5E788F]/85 px-[3.3rem] pb-[1.87rem] z-[10]">
+  <div className=" w-[100%] bg-[#5E788F]/85 px-[3.3rem] pb-[1.87rem] z-[10]">
 
     <div className="innerContainer flex flex-col gap-1 justify-center items-start w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10]  py-[2rem] px-[7.0625rem]">
     <h2 className="text-4xl font-semibold text-white/50 mb-6">Need help?</h2>

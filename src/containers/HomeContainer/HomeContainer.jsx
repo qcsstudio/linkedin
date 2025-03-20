@@ -11,6 +11,7 @@ import SuccessStories from "@/components/HomeComponent/SuccessStories/SuccessSto
 import Image from "next/image"
 import cloud from "../../../public/images/blogsImages/Cloud.png"
 import KeyFeatureSection from "@/components/HomeComponent/KeyFeature/KeyFeatureSection"
+import Elevate from "@/components/HomeComponent/Elevate/Elevate"
 
 const HomeContainer = () => {
     return (
@@ -18,19 +19,18 @@ const HomeContainer = () => {
             <div className="mainContainer relative bg-[url(/images/homeImages/grain.png)]  w-[100%] min-h-[100vh] overflow-hidden">
                 <HeroSection />
                 <About />
-                <ChooseUs/>
                 <Integration/>
+                <ChooseUs/>
                 <KeyFeatureSection />
+                <Elevate />
                 <Plans/>
+                <SuccessStories/>
+                <Blogs/>
                <NeedHelp/>
 
                <SuccessStories/>
                <FaqSection/>
             
-
-
- 
-                <Blogs/>
 
                <Footer/>
                 {/* Rays */}

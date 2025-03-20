@@ -54,7 +54,7 @@ const Plans = () => {
     ];
 
     return (
-        <div className=" w-[100%]  bg-[#5E788F]/85 px-[3.3rem] py-[1.87rem] relative ">
+        <div className=" w-[100%]  bg-[#5E788F]/85 px-[3.3rem] relative ">
             <div className="cloudContainer h-full w-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1] ">
                 <Image src={cloud} alt="cloud" className="w-full h-[100%] imageDrag" />
             </div>

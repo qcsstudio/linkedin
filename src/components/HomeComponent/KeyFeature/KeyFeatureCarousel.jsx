@@ -32,6 +32,7 @@ import { EffectCards } from 'swiper/modules';
               width: '342px',
               height: '479px',
             }}
+            initialSlide={5}
           >
             {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((slide, index) => (
               <SwiperSlide
