@@ -24,10 +24,10 @@ const layout = ({ children }) => {
         </div>
 
         {/* Background Images */}
-        <Image className='bgImageFloating absolute top-16 left-36 select-none' src={`/images/dashboardImages/instagram.png`} height={350} width={350} alt='ad' />
-        <Image className='bgImageFloating absolute top-[21rem] right-36 select-none' src={`/images/dashboardImages/linkedin.png`} height={300} width={300} alt='dwa' />
-        <Image className='bgImageFloating absolute bottom-0 left-96 select-none' src={`/images/dashboardImages/pinterest.png`} height={250} width={250} alt='dwa' />
-        <Image className='bgImageFloating absolute right-32 bottom-0 select-none' src={`/images/dashboardImages/facebook.png`} height={200} width={200} alt='wda' />
+        <Image className='bgImageFloating absolute z-0 top-16 left-36 select-none' src={`/images/dashboardImages/instagram.png`} height={350} width={350} alt='ad' />
+        <Image className='bgImageFloating absolute z-0  top-[21rem] right-36 select-none' src={`/images/dashboardImages/linkedin.png`} height={300} width={300} alt='dwa' />
+        <Image className='bgImageFloating absolute z-0  bottom-0 left-96 select-none' src={`/images/dashboardImages/pinterest.png`} height={250} width={250} alt='dwa' />
+        <Image className='bgImageFloating absolute z-0 right-32 bottom-0 select-none' src={`/images/dashboardImages/facebook.png`} height={200} width={200} alt='wda' />
       </div>
     </>
   );

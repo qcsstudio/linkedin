@@ -31,17 +31,17 @@ if(!linkedinProfileData){
 }
   return (
     // Main Container
-    <div className="accountContainer w-[100%] z-[100] relative">
+    <div className="accountContainer w-[95%] p-6">
       {/* Inner Container */}
       {!addAccount && (
-        <div className="innerContainer w-[100%] z-[100]">
+        <div className="innerContainer w-[100%]">
           {/* Upper Container*/}
-          <div className="upperContainer w-[100%] my-[1.2rem] py-[.5rem] flex justify-between items-center z-[100]">
-            <p className="heading text-[1.4rem] font-normal ">
-              Hi, QCS <span className="text-[.9rem]">Keep Moving Forward</span>
+          <div className="upperContainer w-[100%] my-[1.2rem] py-[.5rem] flex justify-between items-center">
+            <p className="heading text-3xl font-semibold">
+              Hi, QCS <span className="text-base font-medium text-gray-500"> Keep Moving Forward</span>
             </p>
             <button
-              className="px-[3rem] py-[0.5rem] bg-[#007BFF] rounded-[.5rem] text-[#ffffff] z-[100]"
+              className="px-[3rem] py-[0.5rem] bg-[#007BFF] rounded-[.5rem] text-[#ffffff]"
               onClick={() => setAddAccount(true)}
             >
               + Add Account
@@ -49,7 +49,7 @@ if(!linkedinProfileData){
           </div>
 
           {/* Lower Container */}
-          <div className="lowerContainer bg-[#ffffff]/50 w-[100%] min-h-[65vh] max-h-[65vh] rounded-[.7rem] z-[100] flex gap-[1.2rem]  flex-wrap p-[1.37rem] overflow-x-hidden overflow-y-scroll right">
+          <div className="lowerContainer bg-[#ffffff]/50 w-[100%] min-h-[65vh] max-h-[65vh] rounded-[.7rem] flex gap-[1.2rem]  flex-wrap p-[1.37rem] overflow-x-hidden overflow-y-scroll right">
          
            {
             linkedinProfileData && linkedinProfileData.map((item , index  )=>{
