@@ -21,7 +21,10 @@ export async function POST(req) {
                     const error = await res.json();
                     throw new Error(`LinkedIn API Error: ${error.message}`);
                 }
-                return res.json();
+                
+                const data = await res.json();
+                data.token = token;
+                return data;
             });
         });
 
