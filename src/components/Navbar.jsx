@@ -16,14 +16,10 @@ const Navbar = () => {
 
   return (
     <div className=' bg-gradient-to-r from-purple-100 to-blue-200'>
-
-
       <div className='flex py-2 max-w-[1440px] h-[90px] md:py-4 lg:py-4 px-2 md:px-10 lg:px-[96px] mx-auto w-full justify-between items-center relative'>
-
 
         <div className='flex items-start max-w-[1440px] justify-between'>
           <Image src={mainLogo} className='object-contain ' alt='' />
-         
         </div>
 
         <div className='font-medium md:hidden lg:hidden flex items-center justify-between relative z-10'>
@@ -44,7 +40,6 @@ const Navbar = () => {
 
 
         <div className='lg:flex md:flex hidden justify-between gap-5 items-center'>
-
           <div className='relative'>
             <FaBell className='w-5 h-5 lg:w-[32px] lg:h-[31px] ' />
             <span className='absolute -top-1 left-4 bg-white text-black text-xs font-bold w-4 h-4 flex items-center justify-center rounded-full'>
@@ -71,7 +66,7 @@ const Navbar = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className='fixed top-[90px] right-0 h-screen rounded-md w-[90%] bg-[#ffffff]/90 shadow-lg p-4 flex flex-col gap-4 z-50'
+              className='fixed top-[90px] right-0 h-screen rounded-md w-[90%] bg-[#F6FBFF]/80= shadow- p-4 flex flex-col gap-4 z-50'
             >
 
               <div className='flex items-center gap-2'>

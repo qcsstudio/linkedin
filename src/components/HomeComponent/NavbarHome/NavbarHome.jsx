@@ -13,7 +13,7 @@ const Navbar = () => {
   const background = useTransform(
     scrollY,
     [0, 100],
-    ["rgba(255, 255, 255, 1)", "rgba(94, 120, 143, 0.85)"]
+    ["rgba(255, 255, 255, 0)", "rgba(112, 131, 149, 1)"]
   );
   const buttonBackground = useTransform(
     scrollY,
@@ -32,9 +32,9 @@ const Navbar = () => {
   );
 
 
-  const borderRadius = useTransform(scrollY, [0, 100], ["1.5rem", "0rem"]);
-  const width = useTransform(scrollY, [0, 100], ["90%", "100%"]);
-  const top = useTransform(scrollY, [0, 100], ["1rem", "0rem"]);
+  const borderRadius = useTransform(scrollY, [0, 100], ["1.5rem", "1.5rem"]);
+  const width = useTransform(scrollY, [0, 100], ["90%", "65%"]);
+  const top = useTransform(scrollY, [0, 100], ["1rem", "1rem"]);
   const paddingY = useTransform(scrollY, [0, 100], [".5rem", "1rem"]);
 
   return (
@@ -47,7 +47,7 @@ const Navbar = () => {
         paddingTop: paddingY,
         paddingBottom: paddingY,
       }}
-      className="fixed left-1/2 transform -translate-x-1/2 z-50 shadow-lg transition-all duration-300 ease-in-out"
+      className="fixed left-1/2 transform  -translate-x-1/2 z-50 shadow-lg transition-all duration-300 ease-in-out "
     >
 
       <div className="flex justify-between  items-center px-8">
