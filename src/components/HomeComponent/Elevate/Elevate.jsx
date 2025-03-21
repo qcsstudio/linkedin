@@ -30,10 +30,10 @@ const Elevate = () => {
 
                         {/* Right Container */}
                         <div className=" flex gap-2 w-[50%] rounded-lg bg-[#FF7171]">
-                            <div className=' w-[415px] rounded-[10px] bg-[#9B9B9BCC]'></div>
-                            <div className='flex flex-col gap-3'>
-                                <div className='w-[201px] h-[130px] rounded-lg bg-[#9B9B9BCC]'></div>
-                                <div className='w-[201px] h-[179px] rounded-lg bg-[#9B9B9BCC]'></div>
+                            <div className=' w-[70%] rounded-[10px] bg-[#9B9B9BCC]'></div>
+                            <div className='flex w-[40%] flex-col gap-3'>
+                                <div className='w-[100%] h-[130px] rounded-lg bg-[#9B9B9BCC]'></div>
+                                <div className='w-[100%] h-[179px] rounded-lg bg-[#9B9B9BCC]'></div>
                             </div>
                         </div>
 

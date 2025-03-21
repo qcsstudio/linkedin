@@ -25,7 +25,7 @@ const Footer = () => {
                                 AI-Powered Social Growth & Revenue Acceleration
                             </p>
                         </div>
-                        <Image src={logo} alt="ElevatrX Logo" className="absolute right-28 w-[40%]" />
+                        <Image src={logo} alt="ElevatrX Logo" className="absolute right-[35%] w-[40%]" />
                     </div>
     
                     {/* Address and Contact Info */}
