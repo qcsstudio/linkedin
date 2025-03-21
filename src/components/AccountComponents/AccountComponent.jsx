@@ -4,9 +4,10 @@ import AddCard from "./AddCard";
 import Card from "./Card";
 import CreateAccount from "./CreateAccount";
 import { userContext } from "@/Context/user.context";
+import OrganizationCard from "./OrganizationCard";
 
 export default function AccountComponent() {
-  const { userData, getUserLinkedinProfiles, linkedinProfileData , linkedinAccounts  , getLinkedinOrganizationsProfiles , linkedinOrganizationId} =
+  const { userData, getUserLinkedinProfiles, linkedinProfileData , linkedinAccounts  , getLinkedinOrganizationsProfiles , linkedinOrganizationId,linkedinOrganizationData} =
     useContext(userContext);
   const [addAccount, setAddAccount] = useState(false);
 
@@ -59,6 +60,14 @@ if(!linkedinProfileData){
                  <Card data={item.user} />
               </div>
               );
+            })
+           }  
+          
+
+           {
+            linkedinOrganizationData?.map((item , index  )=>{
+              console.log("item" ,item);
+              return <OrganizationCard key={index} data={item} />
             })
            }  
 
