@@ -42,7 +42,7 @@ if(!linkedinProfileData){
               Hi, QCS <span className="text-[.9rem]">Keep Moving Forward</span>
             </p>
             <button
-              className="px-[3rem] py-[0.5rem] bg-[#007BFF] rounded-[.5rem] text-[#ffffff] z-[100]"
+              className="px-[3rem] py-[0.5rem] bg-[#007BFF] rounded-[.5rem] text-[#ffffff]"
               onClick={() => setAddAccount(true)}
             >
               + Add Account

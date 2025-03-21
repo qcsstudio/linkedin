@@ -107,7 +107,7 @@ const [activeButton,setActiveButton] = useState(1);
   };
 
   return (
-    <div className="pt-8 pb-5 flex gap-1 overflow-hidden">
+    <div className="w-[95%] mx-auto mt-8 flex gap-1 overflow-hidden">
       <div className="bg-white/50 w-[60%] z-10 flex flex-col gap-5 rounded-lg p-10 overflow-y-auto h-[100%]">
         <div className=" flex justify-start gap-2 items-center">
           <button
