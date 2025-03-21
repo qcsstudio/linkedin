@@ -23,12 +23,12 @@ const PersonalInformation = () => {
 
   return (
     <>
-      <div className='w-full h-[297px] rounded-lg border bg-[#ffffff]/50 p-4 justify-between items-center mt-5'>
+      <div className='w-full  rounded-lg border bg-[#ffffff]/50 p-5 justify-between items-center mt-5'>
         <h2 className="text-lg font-bold">Personal Information</h2>
         <p className="text-gray-500 text-base">Change your identity information</p>
 
         <div className="w-full mt-5 rounded-lg shadow-md">
-          <form onSubmit={submitHandler}>
+          <form >
             <div className="relative mb-4">
               <label className="absolute -top-2 left-2 bg-[#ffffff]/10 px-1  text-gray-700">Full Name</label>
               <input
@@ -59,16 +59,18 @@ const PersonalInformation = () => {
                 onChange={formHandler}
               />
             </div>
-            <div className="flex justify-center mt-5">
-              <button
-                type="submit"
-                className="w-full h-[33px] rounded-lg text-center bg-sky-500 text-white hover:bg-sky-700"
-              >
-                Save Changes
-              </button>
-            </div>
+            
           </form>
         </div>
+      </div>
+      <div className="flex justify-center mt-5">
+        <button
+          type="submit"
+          className="w-full h-[33px] rounded-lg text-center bg-sky-400 text-white hover:bg-sky-500"
+          onClick={submitHandler}
+        >
+          Save Changes
+        </button>
       </div>
     </>
   )
