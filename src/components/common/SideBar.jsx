@@ -3,7 +3,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { sideBarData } from "@/data/sideBar.data"
-import { useState } from "react"
+import { useState } from "react";
+import { FaArrowLeftLong } from "react-icons/fa6";
+
 
 const SideBar = () => {
   const pathname = usePathname(); // Get current route
@@ -49,10 +51,13 @@ const SideBar = () => {
   const handleSettingsClick = () => {
     setOpenDropdown(!openDropdown); 
   };
-
+  
   const handleSidebarToggle = () => {
-    setSidebarVisible(false); 
+    setSidebarVisible(!sidebarVisible); 
+    setOpenDropdown(!openDropdown)
+   
   };
+ 
 
   return (
     <div className="flex flex-col w-[100%] gap-3 py-[2rem]">
@@ -132,7 +137,17 @@ const SideBar = () => {
       {!sidebarVisible && (
         <div className="w-[100%] min-w-[241px] min-h-[600px]  rounded-xl p-2 z-[100]">
           {/* Render Settings Panel */}
-          <div className="text-center font-semibold text-xl">Settings</div>
+          <div className="text-center flex font-semibold  gap-x-14 text-xl">
+            <span
+            className="float-left"
+            >
+            <button 
+              className="ms-4 p-1 text-gray-500"
+              onClick={handleSidebarToggle}><FaArrowLeftLong  className="text-2xl"/>
+            </button>
+            </span>
+            <h5 className=" text-2xl">Settings</h5>
+            </div>
 
           {/* Dropdown Options for Settings */}
           {openDropdown && (
