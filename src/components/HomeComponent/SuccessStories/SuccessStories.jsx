@@ -91,7 +91,7 @@ const SuccessStories = () => {
             >
                 {testimonials.map((testimonial, index) => (
                     <SwiperSlide key={index} className="flex items-stretch">
-                    <div className="p-6 w-full min-h-[300px] bg-white/50 rounded-xl gap-2 text-white shadow-lg flex flex-col justify-between items-start">
+                    <div className="p-6 w-full min-h-[400px] bg-white/50 rounded-xl gap-2 text-white shadow-lg flex flex-col justify-between items-start">
                         <Image src={testimonial.image} alt={testimonial.name} className="w-16 h-16 rounded-full mb-4" />
                         <p className=" text-xl flex-grow">{testimonial.review}</p>
                         <h4 className="mt-4 text-xl font-semibold">{testimonial.name}</h4>
