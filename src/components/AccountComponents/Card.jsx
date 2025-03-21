@@ -9,9 +9,12 @@ const Card = ({ data }) => {
   const [status, setStatus] = useState("Active");
   return (
     <>
-      <div className="card p-[2px] min-w-[32%] max-w-[32% ] min-h-[15.3rem] max-h-[15.3rem] bg-gradient-to-l from-[rgba(177,185,248,1)] to-[rgba(176,248,255,1)] rounded-[.5rem] overflow-hidden flex justify-center items-center z-[100] ">
-        <div className="innerCard w-[100%] h-[100%] bg-[#ffffff]/60  mx-6 py-4    rounded-[.4rem]">
-          <div className="upperCard w-[100%] h-[50%] flex items-center justify-center ">
+      <div className="card  min-w-[32%] max-w-[32% ] min-h-[12.5rem] max-h-[15.3rem]
+       
+      bg-gradient-to-l from-[rgba(177,185,248,1)] to-[rgba(176,248,255,1)] 
+      rounded-[.5rem] overflow-hidden flex  z-[100] ">
+        <div className="innerCard w-[100%] h-[100%] mx-[2px] my-[1px] bg-white/80  rounded-[.4rem]">
+          <div className="upperCard w-[100%] h-[100%] flex items-center justify-center ">
             <Image
               src={data.picture}
               alt="addIcon"
