@@ -33,10 +33,10 @@ if(!linkedinProfileData){
   return (
     // Main Container
     <div className="accountContainer w-[100%] z-[100] relative">
-      {/* Inner Container */}
+  
       {!addAccount && (
         <div className="innerContainer w-[100%] z-[100]">
-          {/* Upper Container*/}
+        
           <div className="upperContainer w-[100%] my-[1.2rem] py-[.5rem] flex justify-between items-center z-[100]">
             <p className="heading text-[1.4rem] font-normal ">
               Hi, QCS <span className="text-[.9rem]">Keep Moving Forward</span>
@@ -49,7 +49,7 @@ if(!linkedinProfileData){
             </button>
           </div>
 
-          {/* Lower Container */}
+    
           <div className="lowerContainer bg-[#ffffff]/50 w-[100%] min-h-[65vh] max-h-[65vh] rounded-[.7rem] z-[100] flex gap-[1.2rem]  flex-wrap p-[1.37rem] overflow-x-hidden overflow-y-scroll right">
          
            {
