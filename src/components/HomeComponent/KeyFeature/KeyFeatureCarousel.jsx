@@ -12,7 +12,7 @@ import 'swiper/css/effect-cards';
 // import required modules
 import { EffectCards } from 'swiper/modules';
 
- function KeyFeatureCarousel() {
+ function KeyFeatureCarousel({featureData,setActiveIndex,activeindex}) {
     return (
         <div
           id="app"
@@ -33,8 +33,9 @@ import { EffectCards } from 'swiper/modules';
               height: '479px',
             }}
             initialSlide={5}
+            onSlideChange={(swiper)=>setActiveIndex(swiper.activeIndex)}
           >
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((slide, index) => (
+            {featureData.map((slide, index) => (
               <SwiperSlide
                 key={index}
                 style={{
@@ -57,9 +58,10 @@ import { EffectCards } from 'swiper/modules';
                     'rgb(218, 12, 218)',
                     'rgb(54, 94, 77)',
                   ][index % 10],
+                  
                 }}
               >
-                Slide {slide}
+                {activeindex}
               </SwiperSlide>
             ))}
           </Swiper>

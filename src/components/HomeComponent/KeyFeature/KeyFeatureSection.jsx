@@ -1,5 +1,6 @@
+'use client'
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
 // Images Import ---------------------------------------------
 import logo from "../../../../public/images/integrationImages/logo.svg"
 import instagram from "../../../../public/images/integrationImages/instagram.svg"
@@ -13,6 +14,146 @@ import rightLine from "../../../../public/images/integrationImages/right.png"
 import KeyFeatureCarousel from './KeyFeatureCarousel'
 
 const KeyFeatureSection = () => {
+const [activeIndex,setActiveIndex]=useState(0)
+    
+const featureData = [
+    {
+        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
+        description:
+          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
+        details: [
+          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
+          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
+          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
+        ],
+        benefits: [
+          "Saves hours brainstorming content. ",
+          "Keeps your brand voice consistent & engaging.",
+          "Ensures your content is always trending & relevant.",
+        ],
+      },
+    {
+        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
+        description:
+          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
+        details: [
+          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
+          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
+          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
+        ],
+        benefits: [
+          "Saves hours brainstorming content. ",
+          "Keeps your brand voice consistent & engaging.",
+          "Ensures your content is always trending & relevant.",
+        ],
+      },
+    {
+        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
+        description:
+          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
+        details: [
+          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
+          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
+          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
+        ],
+        benefits: [
+          "Saves hours brainstorming content. ",
+          "Keeps your brand voice consistent & engaging.",
+          "Ensures your content is always trending & relevant.",
+        ],
+      },
+    {
+        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
+        description:
+          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
+        details: [
+          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
+          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
+          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
+        ],
+        benefits: [
+          "Saves hours brainstorming content. ",
+          "Keeps your brand voice consistent & engaging.",
+          "Ensures your content is always trending & relevant.",
+        ],
+      },
+      {
+        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
+        description:
+          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
+        details: [
+          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
+          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
+          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
+        ],
+        benefits: [
+          "Saves hours brainstorming content. ",
+          "Keeps your brand voice consistent & engaging.",
+          "Ensures your content is always trending & relevant.",
+        ],
+      },
+      {
+        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
+        description:
+          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
+        details: [
+          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
+          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
+          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
+        ],
+        benefits: [
+          "Saves hours brainstorming content. ",
+          "Keeps your brand voice consistent & engaging.",
+          "Ensures your content is always trending & relevant.",
+        ],
+      },
+      {
+        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
+        description:
+          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
+        details: [
+          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
+          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
+          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
+        ],
+        benefits: [
+          "Saves hours brainstorming content. ",
+          "Keeps your brand voice consistent & engaging.",
+          "Ensures your content is always trending & relevant.",
+        ],
+      },
+      {
+        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
+        description:
+          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
+        details: [
+          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
+          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
+          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
+        ],
+        benefits: [
+          "Saves hours brainstorming content. ",
+          "Keeps your brand voice consistent & engaging.",
+          "Ensures your content is always trending & relevant.",
+        ],
+      },
+      {
+        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
+        description:
+          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
+        details: [
+          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
+          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
+          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
+        ],
+        benefits: [
+          "Saves hours brainstorming content. ",
+          "Keeps your brand voice consistent & engaging.",
+          "Ensures your content is always trending & relevant.",
+        ],
+      },
+  ];
+
     return (
         <>
             {/* Main Container */}
@@ -42,27 +183,29 @@ const KeyFeatureSection = () => {
                         <div className='leftSide' >
                             <div className='flex flex-col gap-6'>
                                 <h2 className='text-[22px] w-[70%] '>
-                                    AI-Enhanced Content Creation – Your Personal Content Assistant
+                                    {featureData[activeIndex].title}
                                 </h2>
                                 <span className='w-[80%]'>
-                                    Our AI comes up with better post ideas faster than you can decide on your morning coffee order!
+                                {featureData[activeIndex].description}
                                 </span>
                                 <h4 className='text-[19px]'>What It Does:</h4>
                                 <ul className='flex flex-col gap-2 list-disc'>
-                                    <li>AI-powered caption & post generator – Write compelling captions and post content in seconds.</li>
-                                    <li>Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.</li>
-                                    <li>Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.</li>
+                                {featureData[activeIndex].details.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+
                                 </ul>
                                 <h4>What It Does:</h4>
                                 <ul className='flex flex-col gap-2 list-disc'>
-                                    <li>Saves hours brainstorming content. </li>
-                                    <li>Keeps your brand voice consistent & engaging</li>
-                                    <li>Ensures your content is always trending & relevant.</li>
+                                {featureData[activeIndex].benefits.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+
                                 </ul>
                             </div>
                         </div>
                         <div className='rightSide'>
-                            <KeyFeatureCarousel />
+                            <KeyFeatureCarousel featureData={featureData} activeindex={activeIndex} setActiveIndex={setActiveIndex}    />
                         </div>
 
                     </div>
