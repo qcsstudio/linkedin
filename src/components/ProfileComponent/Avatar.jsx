@@ -13,12 +13,18 @@ const Avatar = () => {
     </div>
     <div className="w-full  sm:w-[50%] flex justify-center sm:justify-end z-[100]">
      
-      <div className='w-28 h-28 relative '>
-      <IoIosAddCircle className='absolute top-3 right-3 text-sky-500' />
-        <div className="w-[100px] bg-[#ECECEE] h-[100px] rounded-full z-[100] cursor-pointer justify-center items-center">
-          <FaCamera className='w-8 h-8 absolute top-8 left-8'/>
-        </div>
-      </div>
+    <div className="w-28 h-28 relative">
+      {/* Plus Icon */}
+      <IoIosAddCircle className="absolute top-3 right-3 text-sky-500 z-10" />
+
+      {/* File Upload Trigger */}
+      <label htmlFor="fileInput" className="w-[100px] h-[100px] bg-[#ECECEE] rounded-full cursor-pointer flex justify-center items-center relative">
+        <FaCamera className="w-8 h-8" />
+      </label>
+
+      {/* Hidden File Input */}
+      <input type="file" id="fileInput" className="hidden" />
+    </div>
       
     </div>
   </div>
