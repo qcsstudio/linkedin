@@ -51,7 +51,7 @@ const FaqSection = () => {
         ]
     };
     return (
-        <div className=" w-[100%]  bg-[#5E788F]/85 px-[3.3rem] pb-[1.87rem] relative   z-10">
+        <div id='faq' className=" w-[100%]  bg-[#5E788F]/85 px-[3.3rem] pb-[1.87rem] relative   z-10">
 
             <div className="innerContainer flex flex-col   gap-4 w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10]  pb-[3rem] px-[7.0625rem]">
 

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return <>
@@ -24,8 +25,7 @@ export default function Home() {
 
                 {/* button Container   */}
                 <div className="buttonsContainer w-[40%] flex justify-center  gap-[1.25rem] z-[2]">
-                    <button className="px-[2.37rem] py-[.70rem] flex justify-center items-center bg-[rgb(14,28,41)] bg-gradient-to-r from-[rgba(14,28,41,1)] to-[rgba(50,61,104,1)] text-white  rounded-lg text-[.93rem] ">Start 14 Day Free Trial</button>
-
+                    <Link href='/register'><button className="px-[2.37rem] py-[.70rem] flex justify-center items-center bg-[rgb(14,28,41)] bg-gradient-to-r from-[rgba(14,28,41,1)] to-[rgba(50,61,104,1)] text-white  rounded-lg text-[.93rem] ">Start 14 Day Free Trial</button></Link>
                     <button className="px-[2.37rem] py-[.70rem] flex justify-center items-center bg-[#FFFFFF]/20 border border-[#ffffff] text-white  rounded-lg text-[.93rem]">Watch Demo</button>
                 </div>
 

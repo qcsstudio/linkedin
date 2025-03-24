@@ -33,12 +33,12 @@ const Footer = () => {
                         <div>
                             <h2 className="text-lg font-semibold tracking-wide">Company Address:</h2>
                             <p className="text-sm tracking-wide">QuantumCrafters Studio Private Limited</p>
-                            <p className="text-sm tracking-wide">1234 Innovation Drive, Tech Park, Bengaluru, India - 560001</p>
+                            <p className="text-sm tracking-wide">Prosperity Arcade, D-229, Industrial Area, Sector 74, Sahibzada Ajit Singh Nagar, Punjab 160071</p>
                         </div>
                         <div>
                             <h3 className="text-lg font-semibold tracking-wide">Contact Info:</h3>
-                            <p className="text-sm tracking-wide">Email: support@elevatrx.com</p>
-                            <p className="text-sm tracking-wide">Phone: +91-XXXX-XXXXX</p>
+                            <p className="text-sm tracking-wide">Email: info@qcsstudio.in</p>
+                            <p className="text-sm tracking-wide">Phone: +91 771-960-7776</p>
                         </div>
                     </div>
                 </div>
