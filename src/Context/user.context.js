@@ -321,7 +321,7 @@ export const UserContextProvider = ({ children }) => {
         setLinkedinOrganizationData,
         linkedinOrganizationData,
         oneOrganizationAnalticsData,
-        getOrganizationAnalyticsData
+        getOrganizationAnalyticsData,
       }}
     >
       {children}

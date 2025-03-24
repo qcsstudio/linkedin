@@ -6,14 +6,13 @@ import { FaCommentDots, FaBookmark, FaMousePointer } from "react-icons/fa";
 import { MdOutlineAnalytics } from "react-icons/md";
 
 
-const TotalOverview = () => {
-  
+const TotalOverview = ({data}) => {
     const engagementData = [
         { name: "Followers", value: 1450,engagement:'2.1%', color: "text-blue-500", icon: <FaUsers /> },
-        { name: "Likes", value: 1450,engagement:'2.1%', color: "text-red-500", icon: <AiFillHeart /> },
-        { name: "Comments", value: 1450,engagement:'2.1%', color: "text-purple-500", icon: <FaCommentDots /> },
+        { name: "Likes", value: data.likeCount ,engagement:'2.1%', color: "text-red-500", icon: <AiFillHeart /> },
+        { name: "Comments", value: data.commentCount ,engagement:'2.1%', color: "text-purple-500", icon: <FaCommentDots /> },
         { name: "Saved", value: 1450,engagement:'2.1%', color: "text-blue-500", icon: <FaBookmark /> },
-        { name: "Engagement",engagement:'2.1%', value: 1450, color: "text-orange-500", icon: <MdOutlineAnalytics /> },
+        { name: "Engagement",engagement:'2.1%', value: `${(data?.engagement * 100).toFixed(2)}%` , color: "text-orange-500", icon: <MdOutlineAnalytics /> },
         { name: "Views",engagement:'2.1%', value: 1450, color: "text-black", icon: <AiFillEye /> },
         { name: "Clicks",engagement:'2.1%', value: 1450, color: "text-gray-500", icon: <FaMousePointer /> },
         { name: "Shares",engagement:'2.1%', value: 1450, color: "text-green-500", icon: <AiOutlineShareAlt /> },
