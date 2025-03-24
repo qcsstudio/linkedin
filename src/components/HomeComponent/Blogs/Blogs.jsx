@@ -2,6 +2,9 @@ import { sliderData } from "@/data/homePageSlider.data"
 import BlogCard from "./BlogCard"
 import Image from "next/image"
 import cloud from "../../../../public/images/blogsImages/Cloud.png"
+import Heading from "../Heading/Heading"
+import Subheading from '../Subheading/Subheading'
+import Description from '../Description/Description'
 
 const Blogs = () => {
     return (
@@ -12,25 +15,17 @@ const Blogs = () => {
                 <div className="innerContainer w-[100%] px-[3.18rem] pb-[3.19rem] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10]">
 
                     {/* Upper Container */}
-                    <div className='upperContainer z-[10]'>
-                        <div className="headingContainer z-[10]">
-                            <p className="aboutHeading z-[10] text-[6.25rem] text-center opacity-30">Blog’s</p>
-                        </div>
-                    </div>
+                    <Heading heading={"Blog's"}></Heading>
 
                     {/* Middle Container */}
                     <div className='middleContainer flex flex-col  items-center z-[10]'>
 
-                        {/* Upper Container */}
-                        <div className='headingContainer mb-[.5rem] z-[10]'>
-                            <p className="heading text-[2.25rem] z-[10] text-center font-semibold text-[#D8DFE5]">Insights, Tips, and Trends to Elevate Your Social Media Game</p>
-                        </div>
+                        
+                       
 
-                        {/* Lower Container */}
-                        <div className='descriptionContainer w-[80%] z-[10] mb-[3.12rem]'>
-                            <p className="description text-[1.12rem] z-[10] text-center text-[#D8DFE5]">Welcome to the ElevatrX Blog—your go-to resource for mastering social media automation, content strategy, and analytics. Explore expert tips, case studies, and AI-powered insights to grow your brand effortlessly.</p>
-                        </div>
-
+                        <Subheading subHeading={"Insights, Tips, and Trends to Elevate Your Social Media Game"}/>
+                        
+                        <Description description={"Welcome to the ElevatrX Blog—your go-to resource for mastering social media automation, content strategy, and analytics. Explore expert tips, case studies, and AI-powered insights to grow your brand effortlessly."}/>
                     </div>
 
                     {/* Lower Container */}

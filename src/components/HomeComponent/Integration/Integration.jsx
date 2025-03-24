@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Description from "../Description/Description"
 
 // Images Import ---------------------------------------------
 import logo from "../../../../public/images/integrationImages/logo.svg"
@@ -10,6 +11,8 @@ import youtube from "../../../../public/images/integrationImages/youtube.svg"
 import x from "../../../../public/images/integrationImages/x.svg"
 import leftLine from "../../../../public/images/integrationImages/left.png"
 import rightLine from "../../../../public/images/integrationImages/right.png"
+import Heading from "../Heading/Heading"
+import Subheading from "../Subheading/Subheading"
 
 const Integration = () => {
     return (
@@ -21,18 +24,15 @@ const Integration = () => {
                 <div className="innerContainer bg-[#FFFFFF]/35 w-[100%] rounded-[.5rem] px-[6.7rem] pb-[3.125rem] z-20">
 
                     {/* Upper Container */}
-                    <div className='upperContainer w-[100%] z-20'>
-                        <p className="aboutHeading text-[6.25rem] z-20 text-center opacity-30">Integrations</p>
-                    </div>
+                  
+                    <Heading heading={"Integrations"}/>
 
                     {/* Middle Container */}
                     <div className='middleContainer w-[100%] flex flex-col items-center z-20'>
-                        <div className="headingContainer mb-[1rem] z-20">
-                            <p className="text-[2.25rem] font-semibold text-center text-[#D8DFE5] z-20">Seamless Integrations That Power Your Social Media Strategy</p>
-                        </div>
-                        <div className="descriptionContainer w-[80%] text-[#D8DFE5] mb-[3.25rem] z-20">
-                            <p className="text-[1rem] font-semibold text-center z-20">ElevatrX effortlessly integrates with your favorite social media platforms and digital tools, allowing you to unify your workflow and boost productivity. Spend less time juggling apps and more time achieving results!</p>
-                        </div>
+                        <Subheading subHeading={"Seamless Integrations That Power Your Social Media Strategy"}/>
+                        
+                        <Description description={"ElevatrX is your AI-powered assistant for seamless social media management. Whether you're a solo entrepreneur or a growing business, our intuitive platform automates content creation, scheduling, and analytics. Save time, streamline your strategy, and focus on growth with ElevatrX."}/>
+                            <div className="buttonContainer flex gap-[1rem] mt-[1.8rem]"></div>
                     </div>
 
                     {/* Lower Container */}

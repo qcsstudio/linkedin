@@ -14,12 +14,12 @@ export default function Home() {
 
                 {/* heading Container   */}
                 <div className="headingContainer w-[100%] flex justify-center mb-[2.18rem] z-[2]">
-                    <h1 className="heading text-[3.43rem] w-[70%] font-medium text-center text-[#000000] leading-tight">Transform Your Social Media Presence with AI-Powered Automation</h1>
+                    <h1 className="heading text-[3.43rem] w-[70%] font-medium text-center text-[#0E1C29] leading-tight">Transform Your Social Media Presence with AI-Powered Automation</h1>
                 </div>
 
                 {/* description Container   */}
                 <div className="descriptionContainer w-[100%] flex justify-center items-center mb-[1.87rem] z-[2]">
-                    <p className="w-[70%] text-[1.12rem] text-center" >Intelligently automating content creation, scheduling, and analytics. Effortlessly boost brand visibility, increase audience engagement, and reclaim hours every week</p>
+                    <p className="w-[70%] text-[1.12rem] text-center text-[#212121]" >Intelligently automating content creation, scheduling, and analytics. Effortlessly boost brand visibility, increase audience engagement, and reclaim hours every week</p>
                 </div>
 
                 {/* button Container   */}

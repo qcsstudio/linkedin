@@ -30,8 +30,6 @@ const HomeContainer = () => {
                 <SuccessStories/>
                 <Blogs/>
                <NeedHelp/>
-
-               <SuccessStories/>
                <FaqSection/>
             
 

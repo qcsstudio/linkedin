@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { GoPlus } from "react-icons/go";
 import { MdClose } from "react-icons/md";
 import { motion } from "framer-motion";
+import Heading from '../Heading/Heading';
+import Subheading from '../Subheading/Subheading'
+import Description from '../Description/Description'
 
 
 
@@ -50,19 +53,16 @@ const FaqSection = () => {
     return (
         <div className=" w-[100%]  bg-[#5E788F]/85 px-[3.3rem] pb-[1.87rem] relative   z-10">
 
-            <div className="innerContainer flex flex-col   gap-12  w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10]  pb-[3rem] px-[7.0625rem]">
+            <div className="innerContainer flex flex-col   gap-4 w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10]  pb-[3rem] px-[7.0625rem]">
 
 
                 <div className='flex flex-col justify-center items-center'>
-                    <p className="aboutHeading text-[6.25rem] text-center opacity-30">
-                        FAQ's
-                    </p>
+                <Heading heading={"FAQ's"}></Heading>
                     <div className="upperContainer w-[100%] gap-3 z-[10] flex flex-col justify-center items-center">
-                        <p className="text-[3rem] font-semibold text-center text-white/50">
-                            Got Questions? We've Got Answers!
-                        </p>
-                        <p className="text-white/50 text-xl text-center max-w-6xl leading-8">Explore quick solutions and expert insights on social media automation, content strategy, and analytics to maximize your success with ElevatrX.</p>
-
+                    
+                        <Subheading subHeading={"Got Questions? We've Got Answers!"}/>
+                        
+                        <Description description={"Explore quick solutions and expert insights on social media automation, content strategy, and analytics to maximize your success with ElevatrX."}/>
                     </div>
                 </div>
                 <div className='flex items-start gap-10 p-3 rounded-lg bg-white/50'>
@@ -88,7 +88,7 @@ const FaqSection = () => {
                                 className={`w-[100%] flex justify-between items-center text-left p-4 rounded-lg transition-all duration-300
                                     ${openAnswer === index
                                         ? "bg-slate-500 text-white border-none rounded-b-none"
-                                        : "bg-white/50 text-white/80"
+                                        : "bg-white/50 text-[#3F4142]"
                                     }`}
                                 onClick={() => setOpenAnswer(openAnswer === index ? null : index)}
                             >
