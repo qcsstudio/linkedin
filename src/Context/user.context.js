@@ -11,6 +11,7 @@ const initialData = {
   linkedinProfileData: null,
   linkedinOrganizationId: null,
   linkedinOrganizationData: null,
+  oneOrganizationAnalticsData:null,
   setPlanType: () => {},
   setLoading: () => {},
   setUserData: () => {},
@@ -23,6 +24,8 @@ const initialData = {
   setLinkedinOrganizationId: () => {},
   getLinkedinOrganizationsProfiles: () => {},
   setLinkedinOrganizationData: () => {},
+  getOrganizationAnalyticsData:()=>{},
+  setOneOrganizationAnalticsData:()=>{}
 };
 
 export const userContext = createContext(initialData);
@@ -44,6 +47,8 @@ export const UserContextProvider = ({ children }) => {
   const [linkedinOrganizationData, setLinkedinOrganizationData] = useState(
     initialData.linkedinOrganizationData
   );
+
+  const [oneOrganizationAnalticsData , setOneOrganizationAnalticsData] = useState()
 
   const router = useRouter();
 
@@ -172,23 +177,22 @@ export const UserContextProvider = ({ children }) => {
 
         setLinkedinProfileData(successful);
         const allOrganizations = successful
-        .flatMap((user) => 
-          user.organizations.map((org) => ({
-            ...org,          // Spread existing org properties
-            token: user.token // Attach the user's token to the org
-          }))
-        )
-        .map((org) => ({
-          roleAssignee: org.roleAssignee,
-          state: org.state,
-          role: org.role,
-          organizationalTarget: org.organizationalTarget,
-          token: org.token // Now accessible via the org object
-        }));
-      
+          .flatMap((user) =>
+            user.organizations.map((org) => ({
+              ...org, // Spread existing org properties
+              token: user.token, // Attach the user's token to the org
+            }))
+          )
+          .map((org) => ({
+            roleAssignee: org.roleAssignee,
+            state: org.state,
+            role: org.role,
+            organizationalTarget: org.organizationalTarget,
+            token: org.token, // Now accessible via the org object
+          }));
 
         setLinkedinOrganizationId(allOrganizations);
-       console.log("allOrganizations" ,allOrganizations);
+        console.log("allOrganizations", allOrganizations);
 
         if (failed.length > 0) {
           console.warn("Failed requests:", failed);
@@ -204,20 +208,62 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const getLinkedinOrganizationsProfiles = async () => {
-    console.log(linkedinOrganizationId)
     const res = await fetch("/api/linkedin/organizations", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ organizations : linkedinOrganizationId }),
+      body: JSON.stringify({ organizations: linkedinOrganizationId }),
     });
 
     if (res.ok) {
       const data = await res.json();
-      console.log("Organization Data ================--------------->",data.organizations);
+      console.log(
+        "Organization Data ================--------------->",
+        data.organizations
+      );
       setLinkedinOrganizationData(data.organizations);
-      
     }
   };
+
+  const getOrganizationAnalyticsData = async ({ id, token }) => {
+    try {
+      if (!id) {
+        throw new Error("Organization ID is required");
+      }
+      if (!token) {
+        throw new Error("Authorization token is missing");
+      }
+  
+      const url = `/api/linkedin/analytics/${id}`;
+  
+      const response = await fetch(url, {
+        method: "GET",   
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        }
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to fetch analytics data");
+      }
+  
+      const data = await response.json();
+      setOneOrganizationAnalticsData(data?.analyticsData?.elements);
+      return {
+        success: true,
+        data: data.analyticsData,
+        message: data.message
+      };
+    } catch (error) {
+      console.error("Error fetching organization analytics:", error.message);
+      return {
+        success: false,
+        message: error.message
+      };
+    }
+  };
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -273,8 +319,9 @@ export const UserContextProvider = ({ children }) => {
         setLinkedinOrganizationData,
         getLinkedinOrganizationsProfiles,
         setLinkedinOrganizationData,
-        linkedinOrganizationData
-
+        linkedinOrganizationData,
+        oneOrganizationAnalticsData,
+        getOrganizationAnalyticsData,
       }}
     >
       {children}
