@@ -43,6 +43,11 @@ const SideBar = () => {
       label: "Notification",
       logo:"/images/settinglogos/notification.png" ,
     },
+    { 
+      path: "/dashboard/settings/feedback", 
+      label: "Feedback",
+      logo:"/images/settinglogos/feedback.png" ,
+    },
     
     
   ];
@@ -60,15 +65,15 @@ const SideBar = () => {
  
 
   return (
-    <div className="flex flex-col w-[100%] gap-3 py-[2rem]">
+    <div className="flex flex-col w-[100%] gap-2 py-[2rem]">
       {/* Upper Dropdown */}
-      <div className="flex justify-center gap-3 items-center rounded-2xl py-5 w-full min-w-[200px] bg-[#ffffff]/60">
+      <div className="flex justify-center items-center rounded-2xl py-5 w-full min-w-[200px] bg-[#ffffff]/60">
         <h6 className="font-bold text-[20px]">QUANTUM</h6>
       </div>
 
       {/* Sidebar */}
       {sidebarVisible && ( // Conditionally render the sidebar based on the state
-        <div className="w-[100%] min-w-[241px] min-h-[600px] bg-white/50 rounded-xl p-5 z-[100]">
+        <div className="w-[100%] min-w-[241px] min-h-[400px] bg-white/50 rounded-xl px-5 py-2 z-[100]">
           {/* Regular Sidebar Links */}
           {sideBarData.map((data, index) => {
             const isActive = pathname === data.path; // Check if the link is active
@@ -77,7 +82,7 @@ const SideBar = () => {
                 {/* Render the link for each sidebar item */}
                 <Link href={data.path}>
                   <div
-                    className={`border-[#D8CFE8] py-1 hover:bg-[#B4F2FC]/70 hover:rounded-[1rem] transition cursor-pointer 
+                    className={`border-[#D8CFE8]  hover:bg-[#B4F2FC]/70 hover:rounded-[1rem] transition cursor-pointer 
                       ${isActive ? "bg-[#B4F2FC]/70 rounded-[1rem] text-[#ffffff]" : "bg-transparent"}`}
                   >
                     <div className="flex items-center space-x-3 w-full h-[53px] rounded-xl p-2 py-4">
@@ -132,12 +137,12 @@ const SideBar = () => {
       )}
       
       {/* Settings Sidebar (when sidebar is hidden) */}
-      <div className="w-[100%] min-w-[241px] min-h-[600px] bg-white/40 rounded-xl z-[100]">
+      <div className="w-[100%] min-w-[241px]  bg-white/40 rounded-xl z-[100]">
 
       {!sidebarVisible && (
-        <div className="w-[100%] min-w-[241px] min-h-[600px]  rounded-xl p-2 z-[100]">
+        <div className="w-[100%] min-w-[241px] min-h-[400px]  rounded-xl p-2 z-[100]">
           {/* Render Settings Panel */}
-          <div className="text-center flex font-semibold  gap-x-14 text-xl">
+          <div className="text-center flex font-semibold  gap-x-5 text-xl">
             <span
             className="float-left"
             >
@@ -157,8 +162,8 @@ const SideBar = () => {
 
                 <Link href={option.path}>
                       <div
-                    className={`border-[#D8CFE8] py-1 hover:bg-[#B4F2FC]/70 hover:rounded-[1rem] transition cursor-pointer 
-                       rounded-[1rem] text-[#ffffff] bg-transparent}`}
+                    className={`border-[#D8CFE8] py-1  hover:bg-[#B4F2FC]/70 hover:rounded-[1rem] transition cursor-pointer 
+                       rounded-[1rem] text-[#ffffff] bg-transparent`}
                   >
                     <div className="flex items-center space-x-3 w-full h-[53px] rounded-xl p-2 py-4">
                       <Image
