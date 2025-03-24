@@ -107,8 +107,8 @@ const [activeButton,setActiveButton] = useState(1);
   };
 
   return (
-    <div className="w-[95%] mx-auto mt-8 flex gap-1 overflow-hidden">
-      <div className="bg-white/50 w-[60%] z-10 flex flex-col gap-5 rounded-lg p-10 overflow-y-auto h-[100%]">
+    <div className="w-[95%] mx-auto mt-8 flex gap-1 ">
+      <div className="bg-white/50 w-[60%] z-10 flex flex-col gap-5 rounded-lg p-4 h-[80vh] scrollbar-hide overflow-y-scroll">
         <div className=" flex justify-start gap-2 items-center">
           <button
             className={`${
@@ -337,7 +337,7 @@ const [activeButton,setActiveButton] = useState(1);
       </div>
 
       {/* Right Section */}
-      <div className="bg-white/50 w-[40%] z-10 rounded-lg h-[80vh] py-[1.12rem] px-[0.68rem]">
+      <div className="bg-white/50 w-[41%] z-10 rounded-lg h-[80vh] py-[1.12rem] px-[0.68rem] overflow-y-scroll overflow-x-hidden scrollbar-hide">
             {/* heading */}
             <div className="heading"><p className="text-[0.93] font-semibold mb-[0.93rem]">Previewing on</p></div>
 

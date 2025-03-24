@@ -32,7 +32,7 @@ if(!linkedinProfileData){
 }
   return (
     // Main Container
-    <div className="accountContainer w-[100%] z-[100] relative">
+    <div className="accountContainer w-[95%] mx-auto p-4 z-[100] relative">
   
       {!addAccount && (
         <div className="innerContainer w-[100%] z-[100]">
@@ -50,13 +50,14 @@ if(!linkedinProfileData){
           </div>
 
     
-          <div className="lowerContainer bg-[#ffffff]/50 w-[100%] min-h-[65vh] max-h-[65vh] rounded-[.7rem] z-[100] flex gap-[1.2rem]  flex-wrap p-[1.37rem] overflow-x-hidden overflow-y-scroll right">
+          <div className="lowerContainer bg-[#ffffff]/50 w-[100%]  min-h-[67vh] max-h-[67vh] rounded-[.7rem]
+           z-[100] flex gap-[1.2rem]  flex-wrap p-[1.37rem] overflow-x-hidden overflow-y-scroll right">
          
            {
             linkedinProfileData && linkedinProfileData.map((item , index  )=>{
               console.log("item" ,item);
               return(
-              <div key={item.user?.sub || index}>
+              <div key={item.user?.sub || index} className=" w-[31%]">
                  <Card data={item.user} />
               </div>
               );
@@ -67,9 +68,13 @@ if(!linkedinProfileData){
            {
             linkedinOrganizationData?.map((item , index  )=>{
               console.log("item" ,item);
-              return <OrganizationCard key={index} data={item} />
+              return ( <div key={index} className="w-[31%]">
+              <OrganizationCard key={index} data={item} />
+           </div>
+            );
             })
            }  
+           
 
             <AddCard setAddAccount={setAddAccount} addAccount={addAccount} />
           </div>

@@ -10,10 +10,13 @@ const OrganizationCard = ({ data }) => {
   const [status, setStatus] = useState("Active");
   return (
     <>
-      <div className="card p-[2px] min-w-[32%] max-w-[32% ] min-h-[15.3rem] max-h-[15.3rem] bg-gradient-to-l from-[rgba(177,185,248,1)] to-[rgba(176,248,255,1)] rounded-[.5rem] overflow-hidden flex justify-center items-center z-[100] ">
-        <div className="innerCard w-[100%] h-[100%] bg-[#ffffff]/60  mx-6 py-4    rounded-[.4rem]">
-          <div className="upperCard w-[100%] h-[50%] flex items-center justify-center ">
-          <CgOrganisation className="w-[4rem] h-[4rem] " />
+       <div className="card w-[100%] h-[100%] px-[2px] 
+       
+       bg-gradient-to-l from-[rgba(177,185,248,1)] to-[rgba(176,248,255,1)] 
+       rounded-[.5rem] overflow-hidden flex  z-[100] ">
+        <div className="innerCard w-[100%]  mx-[px] my-[2px] p-2 bg-white/80  rounded-[.4rem]">
+        <div className="upperCard w-[100%]  flex items-center justify-center ">
+        <CgOrganisation className="w-[4rem] h-[4rem] " />
             {/* <Image
               src={data.picture}
               alt="addIcon"
@@ -23,12 +26,13 @@ const OrganizationCard = ({ data }) => {
             /> */}
           </div>
 
-          <div className="upperCard w-[100%] h-[20%] flex flex-col items-center justify-center ">
-            <p className="headingCard text-[1.1rem]">@{data.localizedName}</p>
+          <div className="upperCard w-[100%]  flex flex-col items-center justify-center  ">
+            <p className="headingCard w-[100%] p-[1px] text-center text-wrap break-words
+             overflow-hidden text-[1.1rem]">@{data.localizedName}</p>
 
             <div className="status flex items-center gap-[.5rem]">
               <div
-                className={`status w-[.5rem] h-[.5rem] ${
+                 className={`status w-[.5rem] h-[.5rem] ${
                   status === "Active" ? "bg-[#29CE29]" : "bg-[#FCD53F]"
                 } rounded-[50%] `}
               ></div>
@@ -37,11 +41,16 @@ const OrganizationCard = ({ data }) => {
             </div>
           </div>
 
-          <div className="lowerCard w-[100%] h-[30%] flex items-center justify-center">
+          <div className="lowerCard w-[100%] h-[30%]  gap-2 p-2 flex">
             <Button
               text={"Connected"}
               backgroundColor={"#007BFF"}
               textColor={"#ffffff"}
+            />
+            <Button
+              text={"Disconnected"}
+              backgroundColor={"#F0F0F0"}
+              textColor={"gray"}
             />
           </div>
         </div>
