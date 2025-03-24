@@ -1,7 +1,9 @@
 import React from 'react'
 import Heading from '../Heading/Heading'
+import Link from 'next/link'
 
 const Elevate = () => {
+    
     return (
         <>
             <div id='getStarted' className="aboutSection w-[100%] bg-[#5E788F]/85 px-[3.37rem] text-[#D8DFE5]  py-[2.8rem] z-[10]">
@@ -24,9 +26,8 @@ const Elevate = () => {
                             <div className="descriptionContainer max-w-xl text-[1.12rem] tracking-wide mt-[1rem] text-[#212121]">Join thousands of marketers, creators, and businesses who are revolutionizing their social media presence with ElevatrX. Experience firsthand how our AI-driven tools effortlessly streamline your content creation, scheduling, and analytics—giving you the freedom to focus on growing your business.</div>
 
                             <div className="buttonContainer flex gap-[1rem] mt-[1.8rem]">
-                                <button className="px-[2.37rem] py-[.70rem] flex justify-center items-center bg-[rgb(14,28,41)] bg-gradient-to-r from-[rgba(14,28,41,1)] to-[rgba(50,61,104,1)] text-white w-[320px] rounded-lg text-[.93rem] cursor-pointer">Start Your Free 14-Day Trial Now</button>
-
-                                <button className="px-[2.37rem] py-[.70rem] w-[236px] flex justify-center items-center bg-[#FFFFFF]/20 border border-[#ffffff] text-white  rounded-lg text-[.93rem] cursor-pointer">Explore Pricing Plans</button>
+                                <Link href='/register'><button className="px-[2.37rem] py-[.70rem] flex justify-center items-center bg-[rgb(14,28,41)] bg-gradient-to-r from-[rgba(14,28,41,1)] to-[rgba(50,61,104,1)] text-white w-[320px] rounded-lg text-[.93rem] cursor-pointer">Start Your Free 14-Day Trial Now</button></Link>
+                                <Link href='/register'><button className="px-[2.37rem] py-[.70rem] w-[236px] flex justify-center items-center bg-[#FFFFFF]/20 border border-[#ffffff] text-white  rounded-lg text-[.93rem] cursor-pointer">Explore Pricing Plans</button></Link>
                             </div>
                         </div>
 

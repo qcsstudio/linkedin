@@ -1,4 +1,5 @@
 import Heading from "../Heading/Heading"
+import Link from "next/link"
 const About = () => {
     return (
         <>
@@ -27,9 +28,8 @@ const About = () => {
                             <div className="descriptionContainer text-[1.12rem] mt-[1rem] text-[#212121]">ElevatrX is your AI-powered assistant for seamless social media management. Whether you're a solo entrepreneur or a growing business, our intuitive platform automates content creation, scheduling, and analytics. Save time, streamline your strategy, and focus on growth with ElevatrX.</div>
 
                             <div className="buttonContainer flex gap-[1rem] mt-[1.8rem]">
-                                <button className="px-[2.37rem] py-[.70rem] flex justify-center items-center bg-[rgb(14,28,41)] bg-gradient-to-r from-[rgba(14,28,41,1)] to-[rgba(50,61,104,1)] text-white  rounded-lg text-[.93rem] cursor-pointer">Start 14 Day Free Trial</button>
-
-                                <button className="px-[2.37rem] py-[.70rem] flex justify-center items-center bg-[#FFFFFF]/20 border border-[#ffffff] text-white  rounded-lg text-[.93rem] cursor-pointer">Explore Plans</button>
+                               <Link href='/register'> <button className="px-[2.37rem] py-[.70rem] flex justify-center items-center bg-[rgb(14,28,41)] bg-gradient-to-r from-[rgba(14,28,41,1)] to-[rgba(50,61,104,1)] text-white  rounded-lg text-[.93rem] cursor-pointer">Start 14 Day Free Trial</button></Link>
+                               <Link href='/register'> <button className="px-[2.37rem] py-[.70rem] flex justify-center items-center bg-[#FFFFFF]/20 border border-[#ffffff] text-white  rounded-lg text-[.93rem] cursor-pointer">Explore Plans</button></Link>
                             </div>
                         </div>
 

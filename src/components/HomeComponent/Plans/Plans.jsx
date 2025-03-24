@@ -4,6 +4,7 @@ import cloud from '../../../../public/images/homeImages/cloud.png'
 import Heading from "../Heading/Heading";
 import Subheading from '../Subheading/Subheading'
 import Description from '../Description/Description'
+import Link from "next/link";
 
 
 
@@ -125,9 +126,9 @@ const Plans = () => {
                                 </ul>
 
 
-                                <button className="w-full mt-auto bg-gradient-to-r from-gray-800/40   to-white/50 border-2 border-gray-200 text-white py-2 rounded-lg hover:bg-[#B0BAC4]">
+                              <Link href='/register'> <button className="w-full mt-auto bg-gradient-to-r from-gray-800/40   to-white/50 border-2 border-gray-200 text-white py-2 rounded-lg hover:bg-[#B0BAC4]">
                                     Start 14 Day Free Trial
-                                </button>
+                                </button></Link> 
                             </div>
                         </div>
                     ))}
