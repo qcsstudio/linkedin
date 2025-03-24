@@ -7,36 +7,42 @@ import { userContext } from "@/Context/user.context";
 import OrganizationCard from "./OrganizationCard";
 
 export default function AccountComponent() {
-  const { userData, getUserLinkedinProfiles, linkedinProfileData , linkedinAccounts  , getLinkedinOrganizationsProfiles , linkedinOrganizationId,linkedinOrganizationData} =
-    useContext(userContext);
+  const {
+    userData,WW
+    getUserLinkedinProfiles,
+    linkedinProfileData,
+    linkedinAccounts,
+    getLinkedinOrganizationsProfiles,
+    linkedinOrganizationId,
+    linkedinOrganizationData,
+  } = useContext(userContext);
   const [addAccount, setAddAccount] = useState(false);
 
   console.log("userData", userData);
 
   useEffect(() => {
-    if(linkedinAccounts){
+    if (linkedinAccounts) {
       getUserLinkedinProfiles();
     }
   }, [linkedinAccounts]);
 
   useEffect(() => {
-    if(linkedinOrganizationId){
+    if (linkedinOrganizationId) {
       getLinkedinOrganizationsProfiles();
     }
   }, [linkedinOrganizationId]);
 
-console.log("linkedinProfileData" ,linkedinProfileData)
+  console.log("linkedinProfileData", linkedinProfileData);
 
-if(!linkedinProfileData){
-  return <div>...Loading</div>
-}
+  if (!linkedinProfileData) {
+    return <div>...Loading</div>;
+  }
   return (
     // Main Container
     <div className="accountContainer w-[95%] mx-auto p-4 z-[100] relative">
   
       {!addAccount && (
         <div className="innerContainer w-[100%] z-[100]">
-        
           <div className="upperContainer w-[100%] my-[1.2rem] py-[.5rem] flex justify-between items-center z-[100]">
             <p className="heading text-[1.4rem] font-normal ">
               Hi, QCS <span className="text-[.9rem]">Keep Moving Forward</span>

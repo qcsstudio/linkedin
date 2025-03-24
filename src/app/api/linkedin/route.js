@@ -41,12 +41,13 @@ export async function POST(req) {
         }
 
         const orgData = await orgResponse.json();
+        const filteredOrgs = orgData.elements.filter((org) => org.state !== "REVOKED");
 
         return {
           success: true,
           data: {
             user: userData,
-            organizations: orgData.elements || [],
+            organizations: filteredOrgs || [],
             token: account.accessToken,
           },
         };
@@ -72,7 +73,6 @@ export async function POST(req) {
         token: r.value.token,
       }));
 
-    // Cache headers
     const headers = new Headers({
       "Cache-Control": "s-maxage=300, stale-while-revalidate",
       "Content-Type": "application/json",
