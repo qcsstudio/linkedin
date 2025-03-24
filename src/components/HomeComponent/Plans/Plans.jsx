@@ -1,6 +1,9 @@
 import { TiTick } from "react-icons/ti";
 import Image from "next/image";
 import cloud from '../../../../public/images/homeImages/cloud.png'
+import Heading from "../Heading/Heading";
+import Subheading from '../Subheading/Subheading'
+import Description from '../Description/Description'
 
 
 
@@ -54,7 +57,7 @@ const Plans = () => {
     ];
 
     return (
-        <div className=" w-[100%]  bg-[#5E788F]/85 px-[3.3rem] relative ">
+        <div id='pricing' className="w-[100%]  bg-[#5E788F]/85 px-[3.3rem] relative ">
             <div className="cloudContainer h-full w-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1] ">
                 <Image src={cloud} alt="cloud" className="w-full h-[100%] imageDrag" />
             </div>
@@ -62,14 +65,12 @@ const Plans = () => {
 
 
                 <div>
-                    <p className="aboutHeading text-[6.25rem] text-center opacity-30 z-20">
-                        Flexible Plans
-                    </p>
+                    <Heading heading={"Flexible Plans"}/>
                     <div className="upperContainer w-[100%] gap-3  flex flex-col justify-center items-center z-20">
-                        <p className="text-[3rem] font-semibold text-center text-white/50 z-20">
-                            Flexible Pricing for Every Social Media Superhero
-                        </p>
-                        <p className="text-white/50 text-xl text-center max-w-6xl leading-8 z-20">At ElevatrX, we make social media marketing simple and affordable. Our flexible plans grow with your business—choose yours and streamline your success.</p>
+                        
+                        <Subheading subHeading={" Flexible Pricing for Every Social Media Superhero"}/>
+                        
+                        <Description description={"At ElevatrX, we make social media marketing simple and affordable. Our flexible plans grow with your business—choose yours and streamline your success."}/>
                         <div className="flex bg-white p-2 rounded-lg space-x-10 z-20">
                             <button className="px-4 py-2 bg-[#5E788F]/20  border text-xl rounded-md text-gray-700 hover:bg-gray-200 z-20">
                                 Monthly
