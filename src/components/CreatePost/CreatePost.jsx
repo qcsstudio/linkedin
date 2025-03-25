@@ -156,7 +156,10 @@ const CreatePost = () => {
     const HandleSubmit = () => {
         console.log({ postCaption, privacy, formImage, selectedaccount });
         postLinkedin({ postCaption, privacy, formImage, selectedaccount });
-    }
+        
+
+            }
+
 
     // File Upload handle
     const handleFileChange = async (e) => {
