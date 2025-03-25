@@ -1,12 +1,19 @@
+'use client'
 import React from 'react'
 import Heading from '../Heading/Heading'
 import Link from 'next/link'
 
 const Elevate = () => {
     
+    const scrollToSection = (id) => {
+        const section = document.getElementById(id);
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      };
     return (
         <>
-            <div id='getStarted' className="aboutSection w-[100%] bg-[#5E788F]/85 px-[3.37rem] text-[#D8DFE5]  py-[2.8rem] z-[10]">
+            <div id='getStarted' className="aboutSection w-[100%] px-[3.37rem] text-[#D8DFE5]   z-[10]">
 
                 {/* Inner Container */}
                 <div className="innerAboutContainer w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem] px-[3.12rem] py-[2.8rem] z-[10]">
@@ -27,7 +34,7 @@ const Elevate = () => {
 
                             <div className="buttonContainer flex gap-[1rem] mt-[1.8rem]">
                                 <Link href='/register'><button className="px-[2.37rem] py-[.70rem] flex justify-center items-center bg-[rgb(14,28,41)] bg-gradient-to-r from-[rgba(14,28,41,1)] to-[rgba(50,61,104,1)] text-white w-[320px] rounded-lg text-[.93rem] cursor-pointer">Start Your Free 14-Day Trial Now</button></Link>
-                                <Link href='/register'><button className="px-[2.37rem] py-[.70rem] w-[236px] flex justify-center items-center bg-[#FFFFFF]/20 border border-[#ffffff] text-white  rounded-lg text-[.93rem] cursor-pointer">Explore Pricing Plans</button></Link>
+                                <button onClick={() => scrollToSection("pricing")} className="px-[2.37rem] py-[.70rem] w-[236px] flex justify-center items-center bg-[#FFFFFF]/20 border border-[#ffffff] text-white  rounded-lg text-[.93rem] cursor-pointer">Explore Pricing Plans</button>
                             </div>
                         </div>
 

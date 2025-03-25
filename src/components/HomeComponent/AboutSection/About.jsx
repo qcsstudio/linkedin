@@ -1,9 +1,17 @@
+'use client'
 import Heading from "../Heading/Heading"
 import Link from "next/link"
 const About = () => {
+    const scrollToSection = (id) => {
+        const section = document.getElementById(id);
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
+      };
+    
     return (
         <>
-            <div className="aboutSection w-[100%] bg-[#5E788F]/85 px-[3.37rem] py-[1.87rem] z-[10]">
+            <div className="aboutSection w-[100%]  px-[3.37rem]  z-[10]">
 
                 {/* Inner Container */}
                 <div className="innerAboutContainer w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem] px-[3.12rem] py-[1.5rem] z-[10]">
@@ -29,7 +37,7 @@ const About = () => {
 
                             <div className="buttonContainer flex gap-[1rem] mt-[1.8rem]">
                                <Link href='/register'> <button className="px-[2.37rem] py-[.70rem] flex justify-center items-center bg-[rgb(14,28,41)] bg-gradient-to-r from-[rgba(14,28,41,1)] to-[rgba(50,61,104,1)] text-white  rounded-lg text-[.93rem] cursor-pointer">Start 14 Day Free Trial</button></Link>
-                               <Link href='/register'> <button className="px-[2.37rem] py-[.70rem] flex justify-center items-center bg-[#FFFFFF]/20 border border-[#ffffff] text-white  rounded-lg text-[.93rem] cursor-pointer">Explore Plans</button></Link>
+                               <button onClick={() => scrollToSection("pricing")}  className="px-[2.37rem] py-[.70rem] flex justify-center items-center bg-[#FFFFFF]/20 border border-[#ffffff] text-white  rounded-lg text-[.93rem] cursor-pointer">Explore Plans</button>
                             </div>
                         </div>
 

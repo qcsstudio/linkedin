@@ -18,8 +18,10 @@ const socialLinks = [
 
 const Footer = () => {
     return (
+
         <footer className="w-full  bg-[#5E788F]/85 bg-[url('/images/homeImages/bgfooter.png')] bg-contain py-3">
         <div className="px-[4rem]  mb-6 flex flex-col ">
+
             
          
             <div className="flex flex-wrap lg:flex-nowrap justify-between items-center w-full ">
