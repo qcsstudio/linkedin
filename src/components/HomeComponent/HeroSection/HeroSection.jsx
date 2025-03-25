@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Home() {
   return <>
-        <div className="heroSection w-[100%] bg-[#5E788F]/85 h-[100vh] relative overflow-x-hidden ">
+        <div className="heroSection w-[100%]  h-[100vh] relative overflow-x-hidden ">
 
             {/* Inner Container */}
             <div className="innerHeroContainer w-[100%] h-[100%] flex flex-col justify-center items-center z-[2] select-none">

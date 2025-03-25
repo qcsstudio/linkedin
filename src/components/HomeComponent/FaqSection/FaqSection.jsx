@@ -15,43 +15,46 @@ const FaqSection = () => {
     const [openAnswer, setOpenAnswer] = useState(null)
     const faqData = {
         "General": [
-            { question: "What is ElevatrX?", answer: "ElevatrX is an AI-powered social media automation tool..." },
-            { question: "Which social media platforms does ElevatrX support?", answer: "It supports Facebook, Instagram, Twitter, etc." },
-            { question: "Can I try ElevatrX for free?", answer: "Yes, there is a free trial available." },
-            { question: "Who should use ElevatrX?", answer: "Businesses, agencies, and content creators." },
-            { question: "Do I need technical skills to use ElevatrX?", answer: "No, it is user-friendly and requires no technical skills." }
+            { question: "What is ElevatrX?", answer: "ElevatrX is an AI-powered social media automation tool that helps businesses, agencies, and creators automate content creation, scheduling, analytics, and competitor tracking—saving time and maximizing engagement." },
+            { question: "Which social media platforms does ElevatrX support?", answer: "We integrate seamlessly with:\n✔ LinkedIn\n✔ Facebook\n✔ Instagram\n✔ Twitter (X)\n✔ Pinterest\n✔ YouTube\nMore integrations coming soon!" },
+            { question: "Can I try ElevatrX for free?", answer: "Absolutely! We offer a 14-day free trial with full access to all features. No credit card is required to sign up." },
+            { question: "Who should use ElevatrX?", answer: "ElevatrX is built for:\n- **Social Media Managers** – Automate posts, track engagement, and improve efficiency.\n- **Small Businesses & Startups** – Save time while scaling social media growth.\n- **Agencies** – Manage multiple clients with AI-driven insights.\n- **Creators & Influencers** – Optimize content strategy and maximize reach." },
+            { question: "Do I need technical skills to use ElevatrX?", answer: "Not at all! ElevatrX is designed for everyone, from beginners to pros. Our simple dashboard makes automation effortless." }
         ],
         "Features & Capabilities": [
-            { question: "What is ElevatrX?", answer: "ElevatrX is an AI-powered social media automation tool..." },
-            { question: "Which social media platforms does ElevatrX support?", answer: "It supports Facebook, Instagram, Twitter, etc." },
-            { question: "Can I try ElevatrX for free?", answer: "Yes, there is a free trial available." },
-            { question: "Who should use ElevatrX?", answer: "Businesses, agencies, and content creators." },
-            { question: "Do I need technical skills to use ElevatrX?", answer: "No, it is user-friendly and requires no technical skills." }
+            { question: "Can ElevatrX generate content automatically?", answer: "Yes! Our AI-powered assistant creates captions, hashtags, and post ideas based on trends and audience insights.\n📌 Fun Fact: Our AI writes faster than your morning coffee gets cold! ☕🔥" },
+            { question: "How does ElevatrX schedule and post content?", answer: "Our intelligent scheduler automatically posts at the best engagement times, ensuring maximum visibility and audience reach.\n📌 Fun Fact: No more “Oops, I forgot to post today” moments—ElevatrX never misses a schedule! 🎯" },
+            { question: "Can I track competitors with ElevatrX?", answer: "Absolutely! Our AI-powered competitor analysis helps you:\n✔ Monitor their engagement & strategies\n✔ Identify trending content\n✔ Benchmark your performance\n📌 Pro Tip: Use competitor insights to outperform and gain an edge in your industry." },
+            { question: "Does ElevatrX provide real-time analytics?", answer: "Yes! Our advanced analytics dashboard gives you:\n✔ Engagement trends\n✔ Audience demographics\n✔ Post performance insights\n✔ ROI measurement\n📌 Pro Tip: Make data-driven decisions without crunching numbers manually!" },
+            { question: "Can I manage multiple social media accounts?", answer: "Yes! ElevatrX supports multiple account management, allowing agencies and businesses to handle multiple clients or brands from one dashboard.\n📌 Fun Fact: No more logging in and out of different accounts—we make it seamless!" }
         ],
         "Plans, Pricing & Billing": [
-            { question: "What is ElevatrX?", answer: "ElevatrX is an AI-powered social media automation tool..." },
-            { question: "Which social media platforms does ElevatrX support?", answer: "It supports Facebook, Instagram, Twitter, etc." },
-            { question: "Can I try ElevatrX for free?", answer: "Yes, there is a free trial available." },
-            { question: "Who should use ElevatrX?", answer: "Businesses, agencies, and content creators." },
-            { question: "Do I need technical skills to use ElevatrX?", answer: "No, it is user-friendly and requires no technical skills." }
+            { question: "What pricing plans does ElevatrX offer?", answer: "We have flexible pricing options:\n💡 Starter - $9/month (for small businesses & individuals)\n🚀 Pro - $29/month (for growing businesses & marketers)\n🏆 Agency - $79/month (for agencies & large teams)\n📌 Pro Tip: Annual plans come with exclusive discounts!" },
+            { question: "Can I switch or cancel my plan anytime?", answer: "Yes! You can upgrade, downgrade, or cancel anytime—no hidden fees or penalties." },
+            { question: "Are there any hidden charges?", answer: "No! ElevatrX has transparent pricing with no hidden costs." },
+            { question: "What payment methods do you accept?", answer: "We accept all major credit cards, debit cards, and online payment gateways." },
+            { question: "Do you offer refunds?", answer: "We provide a 14-day money-back guarantee on all paid plans. If ElevatrX isn’t for you, cancel anytime within 14 days for a full refund." }
         ],
         "Security & Privacy": [
-            { question: "What is ElevatrX?", answer: "ElevatrX is an AI-powered social media automation tool..." },
-            { question: "Which social media platforms does ElevatrX support?", answer: "It supports Facebook, Instagram, Twitter, etc." },
-            { question: "Can I try ElevatrX for free?", answer: "Yes, there is a free trial available." },
-            { question: "Who should use ElevatrX?", answer: "Businesses, agencies, and content creators." },
-            { question: "Do I need technical skills to use ElevatrX?", answer: "No, it is user-friendly and requires no technical skills." }
+            { question: "Is ElevatrX GDPR compliant?", answer: "Yes! We adhere strictly to GDPR, CCPA, and other data privacy regulations to keep your information secure." },
+            { question: "How secure is my data with ElevatrX?", answer: "We use state-of-the-art encryption and regular security audits to safeguard all user data.\n📌 Fun Fact: We take security more seriously than your bank does! 💼🔐" },
+            { question: "What happens to my data if I cancel my account?", answer: "Your data remains secure for 30 days post-cancellation. After that, it is permanently deleted." }
         ],
         "Support & Resources": [
-            { question: "What is ElevatrX?", answer: "ElevatrX is an AI-powered social media automation tool..." },
-            { question: "Which social media platforms does ElevatrX support?", answer: "It supports Facebook, Instagram, Twitter, etc." },
-            { question: "Can I try ElevatrX for free?", answer: "Yes, there is a free trial available." },
-            { question: "Who should use ElevatrX?", answer: "Businesses, agencies, and content creators." },
-            { question: "Do I need technical skills to use ElevatrX?", answer: "No, it is user-friendly and requires no technical skills." }
+            { question: "What kind of customer support does ElevatrX offer?", answer: "We provide dedicated support via:\n📧 Email Support (All Plans)\n💬 Live Chat Support (Pro & Agency Plans)\n👨‍💼 Dedicated Account Manager (Agency Plan)\n📌 Pro Tip: Got a quick question? Our chatbot provides instant answers 24/7! 🚀" },
+            { question: "Where can I find tutorials and guides?", answer: "We have a comprehensive Help Center with:\n📺 Video Tutorials\n📖 Step-by-Step Guides" },
+            { question: "Does ElevatrX offer team collaboration features?", answer: "Yes! Our Agency Plan includes multi-user access with custom roles and permissions." },
+            { question: "Can ElevatrX remind me of important social media holidays?", answer: "Absolutely! We automatically remind you of major trends and social media events." }
+        ],
+        "Bonus Fun Facts": [
+            { question: "What makes ElevatrX better than other social media tools?", answer: "Unlike others, we blend AI with automation—so you spend less time on social media management and more time growing your brand!" },
+            { question: "Can ElevatrX make my posts go viral?", answer: "While we can't promise instant viral fame, our AI-driven strategy helps you create high-impact content that maximizes engagement." },
+            { question: "What’s the funniest thing about ElevatrX?", answer: "Our AI never runs out of content ideas—but we’re still working on teaching it how to tell jokes! 😂" }
         ]
     };
+    
     return (
-        <div id='faq' className=" w-[100%]  bg-[#5E788F]/85 px-[3.3rem] pb-[1.87rem] relative   z-10">
+        <div id='faq' className=" w-[100%]   px-[3.3rem] relative   z-10">
 
             <div className="innerContainer flex flex-col   gap-4 w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10]  pb-[3rem] px-[7.0625rem]">
 
@@ -65,10 +68,10 @@ const FaqSection = () => {
                         <Description description={"Explore quick solutions and expert insights on social media automation, content strategy, and analytics to maximize your success with ElevatrX."}/>
                     </div>
                 </div>
-                <div className='flex items-start gap-10 p-3 rounded-lg bg-white/50'>
+                <div className='flex items-start p-3 rounded-lg bg-white/50'>
                     {
                         Object.keys(faqData).map((category) => (
-                            <button key={category} className={`text-sm w-[20%]    p-2 rounded-lg ${activeCategory === category ? "bg-slate-500 text-white  border-2 border-gray-200" : "bg-none text-gray-600"} `}
+                            <button key={category} className={`text-xs w-[40%]    p-2 rounded-lg ${activeCategory === category ? "bg-slate-500 text-white  border-2 border-gray-200" : "bg-none text-gray-600"} `}
                                 onClick={() => {
                                     setActiveCategory(category);
                                     setOpenAnswer(null);

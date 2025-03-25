@@ -5,6 +5,8 @@ import Heading from "../Heading/Heading";
 import Subheading from '../Subheading/Subheading'
 import Description from '../Description/Description'
 import Link from "next/link";
+import { AiOutlineFire } from "react-icons/ai";
+
 
 
 
@@ -58,7 +60,7 @@ const Plans = () => {
     ];
 
     return (
-        <div id='pricing' className="w-[100%]  bg-[#5E788F]/85 px-[3.3rem] relative ">
+        <div id='pricing' className="w-[100%]   px-[3.3rem] relative ">
             <div className="cloudContainer h-full w-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1] ">
                 <Image src={cloud} alt="cloud" className="w-full h-[100%] imageDrag" />
             </div>
@@ -98,8 +100,9 @@ const Plans = () => {
                                 }`}
                         >
                             {plan.popular && (
-                                <span className="absolute top-10 left-32 bg-gray-500/50 text-white px-3 py-1 text-lg rounded-full z-20">
-                                    Popular
+                                <span className="absolute flex items-center justify-center gap-1 top-10 left-32 bg-gray-800/40 text-white px-3 py-1 text-lg rounded-full z-20">
+                                  <AiOutlineFire />
+                                  Popular
                                 </span>
                             )}
                             <div className="border-b-[3px] px-[1.8rem] pb-5 flex flex-col gap-5 border-gray-500 border-dashed z-20">
@@ -126,7 +129,7 @@ const Plans = () => {
                                 </ul>
 
 
-                              <Link href='/register'> <button className="w-full mt-auto bg-gradient-to-r from-gray-800/40   to-white/50 border-2 border-gray-200 text-white py-2 rounded-lg hover:bg-[#B0BAC4]">
+                              <Link href='/register'> <button className={`w-full mt-auto ${plan.popular?"bg-gray-800/40":"bg-gradient-to-r from-gray-800/40   to-white/50"}  border-2 border-gray-200 text-white py-2 rounded-lg hover:bg-[#B0BAC4]`}>
                                     Start 14 Day Free Trial
                                 </button></Link> 
                             </div>

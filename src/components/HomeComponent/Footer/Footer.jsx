@@ -8,7 +8,7 @@ import bgfooter from '../../../../public/images/homeImages/bgfooter.png'
 
 const Footer = () => {
     return (
-        <footer className="w-full relative bg-[#5E788F]/85 overflow-hidden">
+        <footer className="w-full relative  overflow-hidden">
         <div className="px-[3.3rem] flex flex-col gap-10">
             
             {/* Top Section */}
