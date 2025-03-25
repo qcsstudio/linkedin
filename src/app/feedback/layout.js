@@ -20,7 +20,7 @@ const layout = ({ children }) => {
           </div>
 
           {/* Dashboard Container */}
-          <div className="right w-[80%] h-[100%] overflow-y-scroll overflow-x-hidden no-scrollbar">{children}</div>
+          <div className="rightContainer w-[80%] h-[100%] overflow-y-hidden overflow-x-hidden no-scrollbar">{children}</div>
         </div>
 
         {/* Background Images */}

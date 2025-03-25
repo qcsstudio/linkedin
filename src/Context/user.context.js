@@ -174,6 +174,7 @@ export const UserContextProvider = ({ children }) => {
 
       if (res.ok) {
         const { successful, failed } = await res.json();
+        console.log("Successful data from linkedin ?????//",successful);
 
         setLinkedinProfileData(successful);
         const allOrganizations = successful
@@ -216,10 +217,12 @@ export const UserContextProvider = ({ children }) => {
 
     if (res.ok) {
       const data = await res.json();
+
       console.log(
         "Organization Data ================--------------->",
         data.organizations
       );
+
       setLinkedinOrganizationData(data.organizations);
     }
   };
