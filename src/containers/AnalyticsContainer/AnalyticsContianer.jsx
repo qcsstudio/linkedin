@@ -25,6 +25,7 @@ const AnalyticsContianer = () => {
     oneOrganizationAnalticsData,
     organizationFollowerCount,
     linkedinProfileData,
+    linkedinOrganizationData
   } = useContext(userContext);
 
   useEffect(() => {
@@ -41,22 +42,26 @@ const AnalyticsContianer = () => {
 
   useEffect(() => {
     getOrganizationAnalyticsData({
-      id: 13740206,
-      token:
-        "AQUiuxOcGlVFGu_0lbZ68YyBg_3cpM6dvrzU4fY-cuzpCZHwMu6P9XJg0VAGnoY4zwXcl5iWwA9Co3sGoSyhx9hqTsPGT9daWWV8AdscgRSUgNO3Y9-27DNcGzWgvu8C_FyVkLSTluIgOAL6NmWX7ga0-CwQq6BPqi07SbmYyHxcxGp-9dupUO8D9haLkzStT6VEMMYumgzyiVSEickWav_JcsFVouDcpUP24tURBXygqVrqqPeEIYZGaMqPhvFrdQ7_O93ccc2uHz3javYUBrFcgEY8vRpqHktu1CwFpEtxiMQ6ZDx09dWf2g1oyqEJ8sy0rRrW7UT8JNLfKIoz4Od2qMjZAA",
+      id: selectedaccount.id,
+      token : selectedaccount.token
     });
-  }, []);
+  }, [selectedaccount]);
+
+
+  console.log("selectedaccount" , selectedaccount);
 
   const accountOptionTemplate = (option) => (
     <div className="flex items-center justify-between w-full px-2 py-1">
-      <span className="font-medium">{option.user.name}</span>
-      <img
+      <span className="font-medium">{option.vanityName}</span>
+      {/* <img
         src={option.image}
         alt={option.name}
         className="w-5 h-5 rounded-full"
-      />
+      /> */}
     </div>
   );
+
+
   const selectedaccountTemplate = (option) => {
     if (!option) return <span>Select a account</span>;
 
@@ -67,14 +72,14 @@ const AnalyticsContianer = () => {
           alt={"linkedin"}
           className="w-5 h-5 rounded-full"
         />
-        <span className="font-medium">{option.user.name}</span>
+        <span className="font-medium">{option.vanityName}</span>
 
         <button
           className="text-gray-500 hover:text-red-500"
           onClick={(e) => {
             e.stopPropagation();
             setSelectedaccount(
-              selectedaccount.filter((c) => c.user.name !== option.user.name)
+              selectedaccount.filter((c) => c.vanityName !== option.vanityName)
             );
           }}
         >
@@ -92,17 +97,19 @@ const AnalyticsContianer = () => {
         </h1>
 
         <div className="w-[30%]">
-          {linkedinProfileData && (
-            <Dropdown
-            value={selectedaccount}
-            onChange={(e) => setSelectedaccount(e.value)}
-            options={linkedinProfileData ? linkedinProfileData : ""}
-            optionLabel="name"
-            placeholder="Select Platforms"
-            valueTemplate={selectedaccountTemplate}
-            itemTemplate={accountOptionTemplate}
-            className="w-full md:w-14rem"
-          />
+          {linkedinOrganizationData && (
+           <Dropdown
+           value={selectedaccount}
+           onChange={(e) => setSelectedaccount(e.value)}
+           options={linkedinOrganizationData || []}
+           optionLabel="vanityName" // Ensure this matches your object structure
+           placeholder="Select Platforms"
+           className="w-full md:w-14rem"
+           itemTemplate={accountOptionTemplate}
+           valueTemplate={(option) =>
+             option ? selectedaccountTemplate(option) : <span>Select an account</span>
+           }
+         />
           )}
 
         </div>
