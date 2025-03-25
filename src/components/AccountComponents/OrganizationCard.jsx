@@ -41,7 +41,7 @@ const OrganizationCard = ({ data }) => {
             </div>
           </div>
 
-          <div className="lowerCard w-[100%] h-[30%]  gap-2 p-2 flex">
+          <div className="lowerCard w-[100%] h-[30%]  gap-2 p-2 flex justify-center">
             <Button
               text={"Connected"}
               backgroundColor={"#007BFF"}
