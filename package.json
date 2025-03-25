@@ -23,6 +23,7 @@
     "bcryptjs": "^3.0.2",
     "cookie": "^1.0.2",
     "dotenv": "^16.4.7",
+    "formidable": "^3.5.2",
     "framer-motion": "^12.4.10",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.10.1",

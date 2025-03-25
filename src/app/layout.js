@@ -6,6 +6,7 @@ import { PrimeReactProvider } from "primereact/api";
 
 import { UserContextProvider } from "@/Context/user.context";
 import Script from "next/script";
+import { PostContextProvider } from "@/Context/post.context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +27,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <meta name="google-site-verification" content="FE1jcS7Gi8yAWxnnLZ-lweGrna3FI5zh61v14-5q1Og" />
+      <meta
+        name="google-site-verification"
+        content="FE1jcS7Gi8yAWxnnLZ-lweGrna3FI5zh61v14-5q1Og"
+      />
       <Script
         id="google-tag-manager"
         strategy="afterInteractive"
@@ -44,7 +48,6 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-KLNTT48L"
@@ -55,9 +58,11 @@ export default function RootLayout({ children }) {
         </noscript>
 
         <PrimeReactProvider>
-          <UserContextProvider>
-            <DashboardContextProvider>{children}</DashboardContextProvider>
-          </UserContextProvider>
+          <PostContextProvider>
+            <UserContextProvider>
+              <DashboardContextProvider>{children}</DashboardContextProvider>
+            </UserContextProvider>
+          </PostContextProvider>
         </PrimeReactProvider>
       </body>
     </html>

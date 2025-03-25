@@ -16,12 +16,16 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import postContext from "@/Context/post.context";
 
 const CreatePost = () => {
 
     // Use Context 
     const { userData, getUserLinkedinProfiles, linkedinProfileData, linkedinAccounts, getLinkedinOrganizationsProfiles, linkedinOrganizationId, linkedinOrganizationData } =
         useContext(userContext);
+
+
+    const {loading,setLoading,error,setError,postLinkedin} = useContext(postContext);
 
 
 
@@ -150,7 +154,8 @@ const CreatePost = () => {
 
     // Post Submit 
     const HandleSubmit = () => {
-        console.log({ postCaption, privacy, formImage, selectedaccount })
+        console.log({ postCaption, privacy, formImage, selectedaccount });
+        postLinkedin({ postCaption, privacy, formImage, selectedaccount });
     }
 
     // File Upload handle
