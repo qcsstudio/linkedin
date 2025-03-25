@@ -4,6 +4,7 @@ import React from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import logo from "../../../../public/images/homeImages/logofooter.png";
+import Link from "next/link";
 
 const Navbar = () => {
 
@@ -34,8 +35,16 @@ const Navbar = () => {
 
   const borderRadius = useTransform(scrollY, [0, 100], ["1.5rem", "1.5rem"]);
   const width = useTransform(scrollY, [0, 100], ["90%", "65%"]);
-  const top = useTransform(scrollY, [0, 100], ["1rem", "1rem"]);
+  const top = useTransform(scrollY, [0, 100], ["2rem", "2rem"]);
   const paddingY = useTransform(scrollY, [0, 100], [".5rem", "1rem"]);
+
+  const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
 
   return (
     <motion.div
@@ -47,8 +56,7 @@ const Navbar = () => {
         paddingTop: paddingY,
         paddingBottom: paddingY,
       }}
-      className="fixed left-1/2 transform  -translate-x-1/2 z-50 shadow-lg transition-all duration-300 ease-in-out "
-    >
+      className="fixed left-1/2 transform  -translate-x-1/2 z-50 shadow-lg transition-all duration-300 ease-in-out ">
 
       <div className="flex justify-between  items-center px-8">
 
@@ -72,18 +80,21 @@ const Navbar = () => {
 
 
         <nav className="hidden md:flex space-x-8 text-[#0E1C29] text-lg font-medium">
-          <a href="#" className="hover:text-gray-600 transition">Home</a>
-          <a href="#" className="hover:text-gray-600 transition">Features</a>
-          <a href="#" className="hover:text-gray-600 transition">Pricing</a>
-          <a href="#" className="hover:text-gray-600 transition">Contact</a>
+          <Link href="/" className="hover:text-gray-600 transition">Home</Link>
+          <button onClick={() => scrollToSection("features")} className="hover:text-gray-600 transition">Features</button>
+          <button onClick={() => scrollToSection("pricing")} className="hover:text-gray-600 transition">Pricing</button>
+          <button onClick={() => scrollToSection("contact")} className="hover:text-gray-600 transition">Contact</button>
         </nav>
 
-        <motion.button
-          style={{ background: buttonBackground, color: buttonTextColor }}
-          className="px-5 py-2 rounded-lg transition duration-300"
-        >
-          Get Started
-        </motion.button>
+        <Link href='/register'>
+          <motion.button
+            style={{ background: buttonBackground, color: buttonTextColor }}
+            className="px-5 py-2 rounded-lg transition duration-300"
+          >
+            Get Started
+          </motion.button>
+        </Link>
+
 
       </div>
     </motion.div>

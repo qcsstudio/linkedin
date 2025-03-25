@@ -31,7 +31,7 @@ export const sideBarData = [
     heading: "Analytics",
   },
   {
-    path: "/dashbaord/engagement",
+    path: "/dashboard/engagement",
     activeImage:"/images/sideBarLogoImages/engagementWhite.svg",
     inActiveImage: "/images/sideBarLogoImages/engagementBlack.svg",
     heading: "Engagement",

@@ -18,8 +18,9 @@ import Navbar from "@/components/HomeComponent/NavbarHome/NavbarHome"
 const HomeContainer = () => {
     return (
         <>
-            <div className="mainContainer relative bg-[url(/images/homeImages/grain.png)]  w-[100%] min-h-[100vh] overflow-hidden">
-               <Navbar/>
+            <div className="mainContainer    relative bg-[url(/images/homeImages/grain.png)]  w-[100%] min-h-[100vh] overflow-hidden">
+              <div className="bg-[#5E788F]/85 flex flex-col gap-10">
+              <Navbar/>
                 <HeroSection />
                 <About />
                 <Integration/>
@@ -30,12 +31,10 @@ const HomeContainer = () => {
                 <SuccessStories/>
                 <Blogs/>
                <NeedHelp/>
-
-               <SuccessStories/>
                <FaqSection/>
-            
-
-               <Footer/>
+             <Footer/>
+              </div>
+              
                 {/* Rays */}
 
                 <div className="w-[100%] h-[117.5rem] absolute top-[0rem] left-[0rem] z-[1]" >

@@ -27,19 +27,19 @@ const PersonalInformation = () => {
         <h2 className="text-lg font-bold">Personal Information</h2>
         <p className="text-gray-500 text-base">Change your identity information</p>
 
-        <div className="w-full mt-5 rounded-lg shadow-md">
+        <div className="w-full mt-5 rounded-lg ">
           <form >
-            <div className="relative mb-4">
+            <div className="relative mb-4 z-[100]">
               <label className="absolute -top-2 left-2 bg-[#ffffff]/10 px-1  text-gray-700">Full Name</label>
               <input
                 name='fullName'
                 type="text"
-                className="w-full h-[52px] border rounded-md p-2 focus:outline-none"
+                className="w-full h-[52px] border rounded-md p-2 focus:outline-none "
                 value={inputData.fullName}
                 onChange={formHandler}
               />
             </div>
-            <div className="relative mb-4">
+            <div className="relative mb-4 z-[100]">
               <label className="absolute -top-2 left-2 bg-white px-1 text-gray-700">Email</label>
               <input
                 name='email'
@@ -49,12 +49,12 @@ const PersonalInformation = () => {
                 onChange={formHandler}
               />
             </div>
-            <div className="relative mb-4">
+            <div className="relative mb-4 z-[100] ">
               <label className="absolute -top-2 left-2 bg-white px-1 text-gray-700">Phone</label>
               <input
                 name='phone'
                 type="tel"
-                className="w-full h-[52px] border rounded-md p-2 focus:outline-none"
+                className="w-full h-[52px] border rounded-md p-2 focus:outline-none "
                 value={inputData.phone}
                 onChange={formHandler}
               />

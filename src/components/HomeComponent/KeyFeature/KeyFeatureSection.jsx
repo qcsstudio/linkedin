@@ -12,193 +12,194 @@ import x from "../../../../public/images/integrationImages/x.svg"
 import leftLine from "../../../../public/images/integrationImages/left.png"
 import rightLine from "../../../../public/images/integrationImages/right.png"
 import KeyFeatureCarousel from './KeyFeatureCarousel'
+import Heading from '../Heading/Heading'
+import Subheading from '../Subheading/Subheading'
+import Description from '../Description/Description'
 
 const KeyFeatureSection = () => {
 const [activeIndex,setActiveIndex]=useState(0)
     
 const featureData = [
-    {
-        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
-        description:
-          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
-        details: [
-          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
-          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
-          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
-        ],
-        benefits: [
-          "Saves hours brainstorming content. ",
-          "Keeps your brand voice consistent & engaging.",
-          "Ensures your content is always trending & relevant.",
-        ],
-      },
-    {
-        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
-        description:
-          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
-        details: [
-          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
-          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
-          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
-        ],
-        benefits: [
-          "Saves hours brainstorming content. ",
-          "Keeps your brand voice consistent & engaging.",
-          "Ensures your content is always trending & relevant.",
-        ],
-      },
-    {
-        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
-        description:
-          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
-        details: [
-          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
-          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
-          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
-        ],
-        benefits: [
-          "Saves hours brainstorming content. ",
-          "Keeps your brand voice consistent & engaging.",
-          "Ensures your content is always trending & relevant.",
-        ],
-      },
-    {
-        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
-        description:
-          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
-        details: [
-          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
-          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
-          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
-        ],
-        benefits: [
-          "Saves hours brainstorming content. ",
-          "Keeps your brand voice consistent & engaging.",
-          "Ensures your content is always trending & relevant.",
-        ],
-      },
-      {
-        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
-        description:
-          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
-        details: [
-          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
-          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
-          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
-        ],
-        benefits: [
-          "Saves hours brainstorming content. ",
-          "Keeps your brand voice consistent & engaging.",
-          "Ensures your content is always trending & relevant.",
-        ],
-      },
-      {
-        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
-        description:
-          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
-        details: [
-          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
-          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
-          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
-        ],
-        benefits: [
-          "Saves hours brainstorming content. ",
-          "Keeps your brand voice consistent & engaging.",
-          "Ensures your content is always trending & relevant.",
-        ],
-      },
-      {
-        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
-        description:
-          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
-        details: [
-          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
-          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
-          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
-        ],
-        benefits: [
-          "Saves hours brainstorming content. ",
-          "Keeps your brand voice consistent & engaging.",
-          "Ensures your content is always trending & relevant.",
-        ],
-      },
-      {
-        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
-        description:
-          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
-        details: [
-          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
-          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
-          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
-        ],
-        benefits: [
-          "Saves hours brainstorming content. ",
-          "Keeps your brand voice consistent & engaging.",
-          "Ensures your content is always trending & relevant.",
-        ],
-      },
-      {
-        title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
-        description:
-          "Our AI comes up with better post ideas faster than you can decide on your morning coffee order! ",
-        details: [
-          "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
-          "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
-          "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
-        ],
-        benefits: [
-          "Saves hours brainstorming content. ",
-          "Keeps your brand voice consistent & engaging.",
-          "Ensures your content is always trending & relevant.",
-        ],
-      },
-  ];
+  {
+    title: "AI-Optimized Scheduling & Auto-Posting – The Set & Forget Method",
+    description:
+      "  With ElevatrX, your posts are always on time—unlike that friend who’s “5 minutes away” but still at home!",
+    details: [
+      "AI determines the best posting times for maximum engagement.",
+      "Drag-and-drop content calendar makes planning effortless.",
+      "Cross-platform auto-posting to LinkedIn, Instagram, Facebook, Twitter, YouTube, Pinterest, and TikTok.",
+      "Evergreen content recycling ensures your best posts get seen again.",
+    ],
+    benefits: [
+      "More reach, less effort.",
+      "Eliminates manual posting.",
+      "Maximizes engagement automatically.",
+    ],
+  },
+  {
+    title: "Advanced Analytics & Real-Time Performance Insights – Know What Works",
+    description:
+      "  Our AI analytics know your audience better than your best friend!",
+    details: [
+      "Real-time post engagement tracking – See likes, shares, clicks & interactions in one dashboard.",
+      "Audience growth & behavior analysis – Understand who’s engaging and why.",
+      "Competitor benchmarking – Track how you stack up against the competition.",
+      "Custom performance reports – Share beautifully designed, AI-generated reports with your team or clients.",
+    ],
+    benefits: [
+      "Stop guessing. Start optimizing.",
+      "Data-driven strategy without spreadsheets.",
+      "Helps you fine-tune your content & ad strategy.",
+    ],
+  },
+  {
+    title: "Multi-Platform Management – One Dashboard to Rule Them All",
+    description:
+      "  Juggling multiple accounts is now easier than switching between TV shows on Netflix!",
+    details: [
+      "Connects multiple social accounts – Manage LinkedIn, Facebook, Instagram, Twitter, Pinterest, TikTok, and YouTube in one place.",
+      "Auto-formatting for each platform – Tailors content to fit platform-specific best practices.",
+      "Bulk upload & schedule – Queue up months of content in one session.",
+    ],
+    benefits: [
+      "Saves time by managing everything in one place.",
+      "Keeps brand messaging consistent across platforms.",
+      "Eliminates repetitive posting tasks.",
+    ],
+  },
+  {
+    title: "AI-Driven Competitor Tracking – Stay Ahead of the Game",
+    description:
+      "  We track competitors so well, you might think we have a social media crystal ball!",
+    details: [
+      "Monitor competitor engagement & trends.",
+      "See what’s working for them & adapt.",
+      "AI-powered competitor insights & recommendations.",
+    ],
+    benefits: [
+      "Find out what works before your competitors do.",
+      "Spot trends early & adapt faster.",
+      "Benchmark against top brands & influencers.",
+    ],
+  },
+  {
+    title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
+    description:
+      "  Our AI comes up with better post ideas faster than you can decide on your morning coffee order!",
+    details: [
+      "AI-powered caption & post generator – Write compelling captions and post content in seconds.",
+      "Trending hashtags & keyword suggestions – Get AI-backed hashtag recommendations to boost visibility.",
+      "Content idea inspiration – Never run out of fresh, relevant content ideas for your brand.",
+    ],
+    benefits: [
+      "Saves hours brainstorming content.",
+      "Keeps your brand voice consistent & engaging.",
+      "Ensures your content is always trending & relevant.",
+    ],
+  },
+  {
+    title: "AI-Powered Engagement & Auto-Replies – Never Miss a Comment Again",
+    description:
+      "  ElevatrX responds to comments faster than your crush does!",
+    details: [
+      "Auto-respond to comments, messages & DMs with AI-generated smart replies.",
+      "Suggests personalized responses to keep interactions authentic.",
+      "Saves time with auto-reply templates for common queries.",
+    ],
+    benefits: [
+      "Boosts engagement effortlessly.",
+      "Makes social media feel more personal.",
+      "Saves hours responding to repetitive messages.",
+    ],
+  },
+  {
+    title: "AI-Powered Hashtag & Trend Suggestions – Get More Reach",
+    description:
+      "  We know what’s trending before your cool Gen Z cousin does!",
+    details: [
+      "Smart AI picks the most viral hashtags.",
+      "Gives real-time insights into trending topics.",
+      "Helps you create buzzworthy content before it’s mainstream.",
+    ],
+    benefits: [
+      "Increases organic reach & visibility.",
+      "Boosts chances of viral content.",
+      "Keeps content fresh & up-to-date.",
+    ],
+  },
+  {
+    title: "Team Collaboration & Custom User Roles – Work Smarter Together",
+    description:
+      "  Finally, a tool that keeps your social media team on the same page!",
+    details: [
+      "Multi-user access with custom roles & permissions.",
+      "Approval workflows to keep content quality high.",
+      "Seamless team collaboration on content creation & strategy.",
+    ],
+    benefits: [
+      "Perfect for agencies & big teams.",
+      "Keeps social media workflows smooth.",
+      "Ensures quality control before posting.",
+    ],
+  },
+  {
+    title: "Security & Compliance – Your Data is Safe with Us",
+    description:
+      "  We protect your data like it’s the recipe for the best chocolate chip cookies!",
+    details: [
+      "GDPR-compliant data security.",
+      "End-to-end encryption to protect sensitive information.",
+      "Automated compliance reports for business accounts.",
+    ],
+    benefits: [
+      "Keeps sensitive data safe.",
+      "Complies with global privacy laws.",
+      "Protects your brand reputation.",
+    ],
+  },
+];
 
     return (
         <>
             {/* Main Container */}
-            <div className="mainContainer pt-[30px] w-[100%] bg-[#5E788F]/85 px-[3.37rem]">
+            <div id='features' className="mainContainer  w-[100%]  px-[3.37rem]">
 
                 {/* Inner Container */}
                 <div className="innerContainer bg-[#FFFFFF]/35 w-[100%] rounded-[.5rem] px-[6.7rem] pb-[3.125rem] z-20">
 
                     {/* Upper Container */}
-                    <div className='upperContainer w-[100%] z-20'>
-                        <p className="aboutHeading text-[6.25rem] z-20 text-center opacity-30">Key Features</p>
-                    </div>
+                    <Heading heading={"Key Features"}/>
 
                     {/* Middle Container */}
                     <div className='middleContainer w-[100%] flex flex-col items-center z-20'>
-                        <div className=" flex justify-center items-center headingContainer mb-[1rem] z-20">
-                            <p className="text-[36px] font-semibold text-center text-[#D8DFE5] z-20 w-[80%]">ElevatrX Features – Automate, Engage, and Dominate Your Social Media</p>
-                        </div>
-                        <div className="descriptionContainer w-[80%] text-[#D8DFE5] mb-[3.25rem] z-20">
-                            <p className="text-[18px] font-[100] text-center z-20">Managing social media shouldn’t feel like a full-time job. ElevatrX automates, optimizes, and simplifies social media management, helping businesses, agencies, and creators save time, boost engagement, and drive real results.</p>
-                        </div>
-                    </div>
+                        
+                        <Subheading subHeading={"ElevatrX Features – Automate, Engage, and Dominate Your Social Media"}/>
+                        
+                        <Description description={"Managing social media shouldn’t feel like a full-time job. ElevatrX automates, optimizes, and simplifies social media management, helping businesses, agencies, and creators save time, boost engagement, and drive real results."}/>
+            </div>
 
                     {/* Lower Container */}
-                    <div className='lowerContainer w-[100%] text-[#D8DFE5] flex justify-between items-center z-20'>
+                    <div className='lowerContainer w-[100%] flex justify-between items-center z-20'>
 
                         <div className='leftSide' >
                             <div className='flex flex-col gap-6'>
-                                <h2 className='text-[22px] w-[70%] '>
+                                <h2 className='text-[22px] w-[70%] font-bold  text-[#0E1C29] '>
                                     {featureData[activeIndex].title}
                                 </h2>
-                                <span className='w-[80%]'>
+                                <span className='w-[80%] text-[#0E1C29]'>
                                 {featureData[activeIndex].description}
                                 </span>
-                                <h4 className='text-[19px]'>What It Does:</h4>
+                                <h4 className='text-lg font-bold text-[#0E1C29]'>What It Does:</h4>
                                 <ul className='flex flex-col gap-2 list-disc'>
                                 {featureData[activeIndex].details.map((item, index) => (
-                  <li key={index}>{item}</li>
+                  <li className='text-[#212121]' key={index}>{item}</li>
                 ))}
 
                                 </ul>
-                                <h4>What It Does:</h4>
+                                <h4 className='text-[#0E1C29] text-lg font-bold'>What It Does:</h4>
                                 <ul className='flex flex-col gap-2 list-disc'>
                                 {featureData[activeIndex].benefits.map((item, index) => (
-                  <li key={index}>{item}</li>
+                  <li className='text-[#212121]' key={index}>{item}</li>
                 ))}
 
                                 </ul>

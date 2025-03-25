@@ -7,36 +7,36 @@ import { userContext } from "@/Context/user.context";
 import OrganizationCard from "./OrganizationCard";
 
 export default function AccountComponent() {
-  const { userData, getUserLinkedinProfiles, linkedinProfileData , linkedinAccounts  , getLinkedinOrganizationsProfiles , linkedinOrganizationId,linkedinOrganizationData} =
-    useContext(userContext);
+  const {
+    userData,
+    getUserLinkedinProfiles,
+    linkedinProfileData,
+    linkedinAccounts,
+    getLinkedinOrganizationsProfiles,
+    linkedinOrganizationId,
+    linkedinOrganizationData,
+  } = useContext(userContext);
   const [addAccount, setAddAccount] = useState(false);
 
-  console.log("userData", userData);
-
   useEffect(() => {
-    if(linkedinAccounts){
+    if (linkedinAccounts) {
       getUserLinkedinProfiles();
     }
   }, [linkedinAccounts]);
 
   useEffect(() => {
-    if(linkedinOrganizationId){
+    if (linkedinOrganizationId) {
       getLinkedinOrganizationsProfiles();
     }
   }, [linkedinOrganizationId]);
 
-console.log("linkedinProfileData" ,linkedinProfileData)
-
-if(!linkedinProfileData){
-  return <div>...Loading</div>
-}
+  if (!linkedinProfileData) {
+    return <div>...Loading</div>;
+  }
   return (
-    // Main Container
     <div className="accountContainer w-[95%] mx-auto p-4 z-[100] relative">
-  
       {!addAccount && (
         <div className="innerContainer w-[100%] z-[100]">
-        
           <div className="upperContainer w-[100%] my-[1.2rem] py-[.5rem] flex justify-between items-center z-[100]">
             <p className="heading text-[1.4rem] font-normal ">
               Hi, QCS <span className="text-[.9rem]">Keep Moving Forward</span>
@@ -49,32 +49,28 @@ if(!linkedinProfileData){
             </button>
           </div>
 
-    
-          <div className="lowerContainer bg-[#ffffff]/50 w-[100%]  min-h-[67vh] max-h-[67vh] rounded-[.7rem]
-           z-[100] flex gap-[1.2rem]  flex-wrap p-[1.37rem] overflow-x-hidden overflow-y-scroll right">
-         
-           {
-            linkedinProfileData && linkedinProfileData.map((item , index  )=>{
-              console.log("item" ,item);
-              return(
-              <div key={item.user?.sub || index} className=" w-[31%]">
-                 <Card data={item.user} />
-              </div>
-              );
-            })
-           }  
-          
+          <div
+            className="lowerContainer bg-[#ffffff]/50 w-[100%]  min-h-[67vh] max-h-[67vh] rounded-[.7rem]
+           z-[100] flex gap-[1.2rem]  flex-wrap p-[1.37rem] overflow-x-hidden overflow-y-scroll right"
+          >
+            {linkedinProfileData &&
+              linkedinProfileData.map((item, index) => {
+                console.log("item", item);
+                return (
+                  <div key={item.user?.sub || index} className=" w-[31%]">
+                    <Card data={item.user} />
+                  </div>
+                );
+              })}
 
-           {
-            linkedinOrganizationData?.map((item , index  )=>{
-              console.log("item" ,item);
-              return ( <div key={index} className="w-[31%]">
-              <OrganizationCard key={index} data={item} />
-           </div>
-            );
-            })
-           }  
-           
+            {linkedinOrganizationData?.map((item, index) => {
+              console.log("item", item);
+              return (
+                <div key={index} className="w-[31%]">
+                  <OrganizationCard key={index} data={item} />
+                </div>
+              );
+            })}
 
             <AddCard setAddAccount={setAddAccount} addAccount={addAccount} />
           </div>
