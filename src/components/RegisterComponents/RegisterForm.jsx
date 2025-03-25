@@ -47,16 +47,25 @@ const RegisterForm = () => {
   
   const sliderParagraph = [
     {
-      para: "Lorem Ipsum is simply dummy text of the printing industry.text of the printing industry",
+      para: "Switching between social platforms is easier with ElevatrX than switching streaming shows on Netflix!",
     },
     {
-      para: "Lorem Ipsum is simply dummy text of the printing industry.text of the printing industry.",
+      para: "Our analytics are so clear, even your grandparents would finally understand what you do for a living!",
     },
     {
-      para: "Lorem Ipsum is simply dummy text of the printing industry.text of the printing industry",
+      para: "ElevatrX was built after we spent one too many nights manually scheduling posts—because even marketers deserve weekends!",
     },
     {
-      para: "Lorem Ipsum is simply dummy text of the printing industry.text of the printing industry",
+      para: "Our security protocols are tighter than your favorite jeans after the holidays—keeping your data snug and safe!",
+    },
+    {
+      para: "Early adopters don't just get special perks—they also earn eternal bragging rights at networking events!",
+    },
+    {
+      para: "Our AI is smart because our engineers never settle for ‘good enough’—except maybe when choosing pizza toppings.",
+    },
+    {
+      para: "Media buzz for ElevatrX is louder than your notifications during a viral post—stay tuned!",
     },
   ];
 
@@ -75,7 +84,7 @@ const RegisterForm = () => {
               return (
                 <SwiperSlide key={i}>
                   <div className=" relative w-full h-full gap-16 flex flex-col items-center justify-center">
-                    <div className="absolute top-10 left-10">
+                    <div className="absolute top-0 left-10">
                       <Image src={mainLogo} height={200} width={200} alt="" />
                     </div>
                     <div className="rounded-full w-[200px] h-[200px] sm:w-[250px] sm:h-[250px] md:w-[300px] md:h-[300px] lg:w-[45%] lg:h-[45%] 2xl:w-[400px] 2xl:h-[400px] z-10 bg-white flex relative"></div>
@@ -119,11 +128,11 @@ const RegisterForm = () => {
         </div>
         <div className=" w-1/2 bg-gradient-to-b from-blue-300 to-purple-300 text-black mx-auto p-10">
           <div className="inputContainer w-[100%] gap-2  justify-end  flex items-center ">
-            <p className="forgetPassword">Don't have account ?</p>
+            <p className="forgetPassword">Already have a account?</p>
 
             <Link href="/login">
               <p className="signUpLink text-purple-500 cursor-pointer">
-                Create an account{" "}
+              Log in
               </p>
             </Link>
           </div>

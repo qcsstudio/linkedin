@@ -71,7 +71,7 @@ const FaqSection = () => {
                 <div className='flex items-start p-3 rounded-lg bg-white/50'>
                     {
                         Object.keys(faqData).map((category) => (
-                            <button key={category} className={`text-xs w-[40%]    p-2 rounded-lg ${activeCategory === category ? "bg-slate-500 text-white  border-2 border-gray-200" : "bg-none text-gray-600"} `}
+                            <button key={category} className={`text-xs w-[40%]    p-2 rounded-lg ${activeCategory === category ? "bg-[#5E788F] text-white  border-2 border-gray-200" : "bg-none text-gray-600"} `}
                                 onClick={() => {
                                     setActiveCategory(category);
                                     setOpenAnswer(null);
@@ -96,7 +96,7 @@ const FaqSection = () => {
                                 onClick={() => setOpenAnswer(openAnswer === index ? null : index)}
                             >
                                 {faq.question}
-                                <span>{openAnswer === index ? <MdClose />  : <GoPlus />}</span>
+                                <span>{openAnswer === index ? <MdClose strokeWidth={1} className=' text-2xl text-white' />  : <GoPlus strokeWidth={1}  className='text-2xl text-white' />}</span>
                             </button>
 
 

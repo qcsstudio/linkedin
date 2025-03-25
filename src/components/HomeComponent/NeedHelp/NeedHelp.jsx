@@ -52,7 +52,7 @@ const NeedHelp = () => {
 
                  
                     <a 
-                        href="mailto:info@qcsstudio.in" 
+                        href="mailto:info@qcsstudio.com" 
                         className="flex items-center p-5 bg-gray-300/50 justify-between rounded-lg text-white cursor-pointer transition"
                     >
                         <div className="flex items-center gap-5">
