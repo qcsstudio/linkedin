@@ -53,14 +53,15 @@ const Navbar = () => {
         borderRadius,
         width,
         top,
-        paddingTop: paddingY,
-        paddingBottom: paddingY,
+        // paddingTop: paddingY,
+        // paddingBottom: paddingY,
       }}
-      className="fixed left-1/2 transform  -translate-x-1/2 z-50 shadow-lg transition-all duration-300 ease-in-out ">
+      className="fixed left-1/2 transform  -translate-x-1/2 z-50  transition-all duration-300 ease-in-out ">
 
       <div className="flex justify-between  items-center px-8">
 
-        <div className="flex items-center relative">
+<Link href='/'>
+<div className="flex items-center relative">
           <div className="leading-3 flex flex-col">
             <h1 className="text-5xl font-bold tracking-wide bg-gradient-to-r from-[#0E1C29] to-[#323D68] bg-clip-text text-transparent">
               Elevatr
@@ -77,6 +78,8 @@ const Navbar = () => {
             className="absolute -top-10 left-[80%] w-[70%] "
           />
         </div>
+</Link>
+        
 
 
         <nav className="hidden md:flex space-x-8 text-[#0E1C29] text-lg font-medium">
