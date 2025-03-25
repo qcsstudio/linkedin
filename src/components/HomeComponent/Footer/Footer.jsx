@@ -3,53 +3,50 @@ import Image from 'next/image';
 import logo from '../../../../public/images/homeImages/logofooter.png';
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaTwitter, FaYoutube } from "react-icons/fa";
 import { FaChevronCircleRight } from "react-icons/fa";
-import bgfooter from '../../../../public/images/homeImages/bgfooter.png'
+import { Syne } from "next/font/google";
+import Link from 'next/link';
+
+const syne = Syne({ subsets: ["latin"], weight: "400" });
+
+const socialLinks = [
+    { href: "https://www.linkedin.com/company/qcsstudio", icon: FaLinkedinIn },
+    { href: "https://www.facebook.com/qcsstudio", icon: FaFacebookF },
+    { href: "https://www.instagram.com/qcsstudio/", icon: FaInstagram },
+    { href: "https://www.youtube.com/@QCS-IT", icon: FaYoutube },
+  ];
 
 
 const Footer = () => {
     return (
-        <footer className="w-full relative bg-[#5E788F]/85 overflow-hidden">
-        <div className="px-[3.3rem] flex flex-col gap-10">
+        <footer className="w-full  bg-[#5E788F]/85 bg-[url('/images/homeImages/bgfooter.png')] bg-contain py-3">
+        <div className="px-[4rem]  mb-6 flex flex-col ">
             
-            {/* Top Section */}
-            <div className="flex flex-wrap lg:flex-nowrap justify-between items-center w-full">
+         
+            <div className="flex flex-wrap lg:flex-nowrap justify-between items-center w-full ">
     
-                {/* Left - Company Info */}
-                <div className="flex flex-col w-full lg:w-[35%]">
-                    <div className="relative flex items-center py-12 w-full">
+                <div className="flex flex-col w-[40%] lg:w-[35%] relative ">
+                    <div className=" flex items-center py-12 w-full">
                         <div className="left-0">
-                            <h1 className="text-5xl font-bold tracking-wide bg-gradient-to-r from-[#0E1C29] to-[#323D68] bg-clip-text text-transparent">
+                            <h1 className="text-7xl font-bold tracking-wide bg-gradient-to-r from-[#0E1C29] to-[#323D68] bg-clip-text text-transparent">
                                 Elevatr
                             </h1>
-                            <p className="text-sm max-w-52">
+                            <p className={`text-lg text-[#0E1C29] max-w-60 ${syne.className}`}>
                                 AI-Powered Social Growth & Revenue Acceleration
                             </p>
                         </div>
-                        <Image src={logo} alt="ElevatrX Logo" className="absolute right-[35%] w-[40%]" />
                     </div>
+                        <Image src={logo} alt="ElevatrX Logo" className="absolute right-[15%] w-[40%]" />
     
-                    {/* Address and Contact Info */}
-                    <div className="flex flex-col gap-4 text-gray-300">
-                        <div>
-                            <h2 className="text-lg font-semibold tracking-wide">Company Address:</h2>
-                            <p className="text-sm tracking-wide">QuantumCrafters Studio Private Limited</p>
-                            <p className="text-sm tracking-wide">Prosperity Arcade, D-229, Industrial Area, Sector 74, Sahibzada Ajit Singh Nagar, Punjab 160071</p>
-                        </div>
-                        <div>
-                            <h3 className="text-lg font-semibold tracking-wide">Contact Info:</h3>
-                            <p className="text-sm tracking-wide">Email: info@qcsstudio.in</p>
-                            <p className="text-sm tracking-wide">Phone: +91 771-960-7776</p>
-                        </div>
-                    </div>
+             
+                    
+             
                 </div>
+                <div className="w-[60%] lg:w-[55%] flex flex-col font- space-y-4 mt-3  items-end ">
+                <h3 className={`text-4xl font-semibold  tracking-wide text-right text-white ${syne.className}`}>
+                    Get Weekly Social Media Insights <br/>Delivered
+                </h3>
     
-                {/* Right - Subscription and Social Media */}
-                <div className="w-full lg:w-[55%] flex flex-col space-y-4">
-                    <h3 className="text-3xl font-semibold leading-tight tracking-wide text-gray-300">
-                        Get Weekly Social Media Insights Delivered
-                    </h3>
-    
-                    <div className="relative w-full">
+                    <div className=" w-full">
                         <input
                             type="email"
                             placeholder="E-mail"
@@ -60,22 +57,49 @@ const Footer = () => {
                         </button>
                     </div>
     
-                    {/* Social Media Icons */}
                     <div className="flex justify-start space-x-4">
-                        {[FaLinkedinIn, FaFacebookF, FaInstagram, FaTwitter, FaYoutube].map((Icon, index) => (
-                            <div key={index} className="p-2 rounded-full border-[1px]">
-                                <Icon className="text-xl cursor-pointer text-white hover:text-gray-300" />
+                        {socialLinks.map(({ href, icon: Icon }, index) => (
+                            <Link key={index} href={href} target="_blank" rel="noopener noreferrer">
+                            <div className="p-2 rounded-full border-[1px] cursor-pointer">
+                                <Icon className="text-xl text-white hover:text-gray-300" />
                             </div>
+                            </Link>
                         ))}
                     </div>
-                </div>
+                </div> 
             </div>
+
+            <div className='w-full flex '>
+                
+                        <div className={`w-[60%] text-gray-300 ${syne.className}`}>
+                            <h2 className="text-xl font-medium tracking-wide text-white">Company Address:</h2>
+                            <p className="text-base mt-2 tracking-wide">QuantumCrafters Studio Private Limited</p>
+                            <p className="text-base tracking-wide">Prosperity Arcade, D-229, Industrial Area, Sector 74,<br/> Sahibzada Ajit Singh Nagar, Punjab 160071</p>
+                        </div>
+                       
+                        <div className={` text-gray-300 ${syne.className}`}>
+                            <h3 className="text-xl mt-2 font-medium tracking-wide text-white">Contact Info:</h3>
+                            <p className="text-base  tracking-wide">
+                                <Link href="mailto:info@qcsstudio.com">
+                                Email: info@qcsstudio.com
+                                </Link>
+                            </p>
+                            <p className="text-base tracking-wide">
+                                <Link href="tel:+91 771-960-7776">
+                                Phone: +91 771-960-7776
+                                </Link>
+                            </p>
+                        </div>
+                    
+                </div>
+                </div>
     
             {/* Footer Links */}
+            <div  className={`px-[4rem] ${syne.className}`}>
             <div className="grid grid-cols-5  gap-6 text-gray-300">
 
                         <div>
-                            <h3 className="text-lg font-semibold">Quick Links</h3>
+                            <h3 className="text-xl font-medium text-white">Quick Links</h3>
                             <ul className="text-sm space-y-1 mt-2">
                                 <li>Partner With Us</li>
                                 <li>Blog</li>
@@ -86,18 +110,32 @@ const Footer = () => {
 
 
                         <div>
-                            <h3 className="text-lg font-semibold">Product</h3>
+                            <h3 className="text-xl font-medium text-white">Product</h3>
                             <ul className="text-sm space-y-1 mt-2">
-                                <li>Features</li>
-                                <li>Pricing</li>
-                                <li>Integrations</li>
+                                <li>
+                                    <Link href="#features">
+                                    Features
+                                    </Link>
+                                    </li>
+                                <li>
+                                    <Link href="#pricing">
+                                    Pricing
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="#integration">
+                                    Integrations
+                                    </Link>
+                                </li>
                                 <li>Request a Demo</li>
+
                             </ul>
                         </div>
+                        
 
 
                         <div>
-                            <h3 className="text-lg font-semibold">Resources</h3>
+                            <h3 className="text-xl font-medium text-white">Resources</h3>
                             <ul className="text-sm space-y-1 mt-2">
                                 <li>Help Center</li>
                                 <li>FAQs</li>
@@ -108,31 +146,63 @@ const Footer = () => {
 
 
                         <div>
-                            <h3 className="text-lg font-semibold">Legal</h3>
+                            <h3 className="text-xl font-medium text-white">Legal</h3>
                             <ul className="text-sm space-y-1 mt-2">
-                                <li>Privacy Policy</li>
-                                <li>Terms of Services</li>
-                                <li>Cookie Policy</li>
-                                <li>Data Protection</li>
+                            <li>
+                            <Link href={"https://www.qcsstudio.in/privacy-policy"}>
+                                Privacy Policy
+                            </Link>
+                            </li>
+                                <li>
+                                    <Link href="https://www.qcsstudio.in/terms-of-service">
+                                        Terms of Services
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href={"https://www.qcsstudio.in/privacy-policy"}>
+                                    Cookie Policy
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href={"https://www.qcsstudio.in/privacy-policy"}>
+                                    Data Protection
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
 
 
                         <div>
-                            <h3 className="text-lg font-semibold">Social Media</h3>
+                            <h3 className="text-xl font-medium text-white">Social Media</h3>
                             <ul className="text-sm space-y-1 mt-2">
-                                <li>LinkedIn</li>
-                                <li>Facebook</li>
-                                <li>Instagram</li>
-                                <li>Twitter</li>
-                                <li>YouTube</li>
+                                <li>
+                                    <Link href="https://www.linkedin.com/company/qcsstudio">
+                                    LinkedIn
+                                    </Link>
+                                    
+                                </li>
+                                <li>
+                                    <Link href="https://www.facebook.com/qcsstudio">
+                                    Facebook
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="https://www.instagram.com/qcsstudio/">
+                                    Instagram
+                                    </Link>
+                                </li>
+                                
+                                <li>
+                                    <Link href="https://www.youtube.com/@QCS-IT">
+                                    YouTube
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
                     </div>
-        </div>
+                    </div>
+       
     
-        {/* Background Image Fix */}
-        <Image className="absolute bottom-0 w-full h-[70%] object-cover" src={bgfooter} alt="Footer Background" />
     
         {/* Copyright Section */}
         <div className="border-t border-gray-400 mt-6 text-gray-300 text-center text-md py-5">
