@@ -1,7 +1,7 @@
 export async function GET(request, { params }) {
     try {
-        // 1. Validate required parameters
-        const {slug} = await params
+        const { slug } = await params;
+
         if (!slug) {
             return Response.json(
                 { message: "Organization ID is required" },
@@ -9,7 +9,6 @@ export async function GET(request, { params }) {
             );
         }
 
-        // 2. Get authorization token from headers
         const authHeader = request.headers.get('Authorization');
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             return Response.json(
@@ -17,42 +16,58 @@ export async function GET(request, { params }) {
                 { status: 401 }
             );
         }
+
         const token = authHeader.split(' ')[1];
- 
+
+        // LinkedIn Analytics API
         const analyticsURL = `https://api.linkedin.com/v2/organizationalEntityShareStatistics?q=organizationalEntity&organizationalEntity=urn:li:organization:${slug}`;
 
-        // 4. Make request to LinkedIn API
-        const analyticsResponse = await fetch(analyticsURL, {
-            method: "GET",
-            headers: {
-                "Authorization": `Bearer ${token}`,
-                "Content-Type": "application/json",
-            }
-        });
+        const [analyticsResponse, followersResponse] = await Promise.all([
+            fetch(analyticsURL, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            }),
+            fetch(`https://api.linkedin.com/v2/networkSizes/urn:li:organization:${slug}?edgeType=CompanyFollowedByMember`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            })
+        ]);
 
-        // 5. Handle LinkedIn API response
-        if (!analyticsResponse.ok) {
-            const errorData = await analyticsResponse.json();
-            throw new Error(`LinkedIn API error: ${errorData.message}`);
+        if (!analyticsResponse.ok || !followersResponse.ok) {
+            const errorData = {
+                analyticsError: !analyticsResponse.ok ? await analyticsResponse.json() : null,
+                followersError: !followersResponse.ok ? await followersResponse.json() : null,
+            };
+            throw new Error(`LinkedIn API error: ${JSON.stringify(errorData)}`);
         }
 
         const analyticData = await analyticsResponse.json();
+        const followersData = await followersResponse.json();
 
-        // 6. Return successful response
+        // Extracting the total follower count
+        const totalFollowers = followersData?.firstDegreeSize || 0;
+
         return Response.json(
-            { 
+            {
                 analyticsData: analyticData,
-                message: "Organization Analytics fetched successfully" 
+                followers: totalFollowers,  // New key with total followers
+                message: "Organization Analytics and Followers fetched successfully"
             },
             { status: 200 }
         );
 
     } catch (error) {
-        console.error("LinkedIn Analytics error /linkedin/analytics:", error);
+        console.error("LinkedIn API error /linkedin/analytics:", error);
         return Response.json(
-            { 
-                message: "Unable to fetch Analytics",
-                error: error.message 
+            {
+                message: "Unable to fetch Analytics and Followers",
+                error: error.message
             },
             { status: 500 }
         );
