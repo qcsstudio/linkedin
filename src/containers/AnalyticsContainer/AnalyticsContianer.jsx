@@ -7,12 +7,12 @@ import ImpressionOverviewAnalytics from "@/components/AnalyticsComponets/Impress
 import ReadyToScdeduleAnalytics from "@/components/AnalyticsComponets/ReadyToScdeduleAnalytics";
 import TotalOverview from "@/components/AnalyticsComponets/TotalOverviewAnalytics";
 import { userContext } from "@/Context/user.context";
-import React, { useContext, useEffect , useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { MultiSelect } from "primereact/multiselect";
 import { GoPlus } from "react-icons/go";
 import { CiCircleRemove } from "react-icons/ci";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
-
+import { Dropdown } from "primereact/dropdown";
 
 const AnalyticsContianer = () => {
   const [selectedaccount, setSelectedaccount] = useState([]);
@@ -24,10 +24,8 @@ const AnalyticsContianer = () => {
     getOrganizationAnalyticsData,
     oneOrganizationAnalticsData,
     organizationFollowerCount,
-    linkedinProfileData
+    linkedinProfileData,
   } = useContext(userContext);
-
-
 
   useEffect(() => {
     if (linkedinAccounts) {
@@ -51,41 +49,40 @@ const AnalyticsContianer = () => {
 
   const accountOptionTemplate = (option) => (
     <div className="flex items-center justify-between w-full px-2 py-1">
-        <span className="font-medium">{option.user.name}</span>
-        <img
-            src={option.image}
-            alt={option.name}
-            className="w-5 h-5 rounded-full"
-        />
+      <span className="font-medium">{option.user.name}</span>
+      <img
+        src={option.image}
+        alt={option.name}
+        className="w-5 h-5 rounded-full"
+      />
     </div>
-);
-const selectedaccountTemplate = (option) => {
-  if (!option) return <span>Select a account</span>;
-
-  return (
-      <div className="flex items-center gap-2 flex-nowrap overflow-x-auto">
-          <img
-              src={"/images/createPostImages/linkdin.png"}
-              alt={"linkedin"}
-              className="w-5 h-5 rounded-full"
-          />
-          <span className="font-medium">{option.user.name}</span>
-
-          <button
-              className="text-gray-500 hover:text-red-500"
-              onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedaccount(
-                      selectedaccount.filter((c) => c.user.name !== option.user.name)
-                  );
-              }}
-          >
-              <CiCircleRemove />
-          </button>
-      </div>
   );
-};
+  const selectedaccountTemplate = (option) => {
+    if (!option) return <span>Select a account</span>;
 
+    return (
+      <div className="flex items-center gap-2 flex-nowrap overflow-x-auto">
+        <img
+          src={"/images/createPostImages/linkdin.png"}
+          alt={"linkedin"}
+          className="w-5 h-5 rounded-full"
+        />
+        <span className="font-medium">{option.user.name}</span>
+
+        <button
+          className="text-gray-500 hover:text-red-500"
+          onClick={(e) => {
+            e.stopPropagation();
+            setSelectedaccount(
+              selectedaccount.filter((c) => c.user.name !== option.user.name)
+            );
+          }}
+        >
+          <CiCircleRemove />
+        </button>
+      </div>
+    );
+  };
 
   return (
     <div className="p-8 flex flex-col gap-2">
@@ -93,27 +90,21 @@ const selectedaccountTemplate = (option) => {
         <h1 className="font-semibold text-xl">
           Hi,QCS <span className="text-lg font-thin">keep Moving Forward</span>
         </h1>
-        {/* <button className="p-2 z-10 rounded-lg text-sm w-[20%] bg-[#4379EE] text-white flex items-center justify-center">
-          <GoPlus />
-          Add Account
-        </button> */}
 
-        <div className="p-5 flex flex-col gap-2 bg-white/50 rounded-lg">
-          <h2 className=" font-bold text-lg">Posting on</h2>
+        <div className="w-[30%]">
           {linkedinProfileData && (
-            <MultiSelect
-              value={selectedaccount}
-              onChange={(e) => setSelectedaccount(e.value)}
-              options={linkedinProfileData ? linkedinProfileData : ""}
-              optionLabel="name"
-              placeholder="Select Platforms"
-              filter
-              selectedItemTemplate={selectedaccountTemplate}
-              itemTemplate={accountOptionTemplate}
-              display="chip"
-              className="w-full bg-white border rounded-md px-3 py-2 shadow focus:ring-0 focus:outline-none"
-            />
+            <Dropdown
+            value={selectedaccount}
+            onChange={(e) => setSelectedaccount(e.value)}
+            options={linkedinProfileData ? linkedinProfileData : ""}
+            optionLabel="name"
+            placeholder="Select Platforms"
+            valueTemplate={selectedaccountTemplate}
+            itemTemplate={accountOptionTemplate}
+            className="w-full md:w-14rem"
+          />
           )}
+
         </div>
       </div>
       <div className="p-6 flex flex-col gap-3 z-10 rounded-lg bg-white/40">
