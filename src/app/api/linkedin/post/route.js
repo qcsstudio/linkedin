@@ -38,7 +38,7 @@ export const POST = async(req)=>{
             };
 
             // Image Registery:
-            const file = await imageData.map(async(file,index)=>{
+            const result = await imageData.map(async(file,index)=>{
 
                 // Preprocessing:
                 const base64Data = file.split(',')[1];
@@ -57,6 +57,7 @@ export const POST = async(req)=>{
                     },
                     body:JSON.stringify(uploadPayload)
                 });
+                // If response is 200 then the 
                 if(response.status === 200){
                     const result = await response.json();
                     const uploadURL = result.value.uploadMechanism['com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest'].uploadUrl;
@@ -76,6 +77,7 @@ export const POST = async(req)=>{
 
                     if(uploadedImageResponse.status == 201){
                         console.log("Image Upload Success");
+                        filesData.push(assetURN);
                     }else{
                         console.log("Error in upload Image.",uploadedImageResponse);
                         return false;
