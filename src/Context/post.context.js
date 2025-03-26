@@ -24,12 +24,12 @@ export const PostContextProvider = ({ children }) => {
             const res = await fetch("/api/schedulePost",{
                 method:"POST",
                 headers:{
-                    "Context-Type":"application/json"
+                    "Context-Type":"application/json",
                 },
                 body: JSON.stringify(data)
             })
 
-            const resData = await res;
+            const resData = await res.json();
 
             if(!res.ok) throw new Error(resData.message);
 

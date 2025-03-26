@@ -1,19 +1,40 @@
 import connectDB from "@/libs/mongodb";
-import Post from "@/models/post.schema";
+import SchedulePost from "@/models/post.schema";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
 export const POST = async (req) => {
     try {
         await connectDB();
-        const  body = await req.json();
-        const { user_id , postDescription , privacy , formImage , selectedAccount } = body;
-        const newPost = new Post({
-            userId:user_id,
-            postDescription:postDescription,
-            privacy: privacy,
-            formImage: formImage, // Array of file objects
-            selectedAccount: selectedAccount, // Array of accounts
+
+        // ✅ Fix: Await cookies before using
+        const cookieStore = await cookies();
+        const user_id = cookieStore.get("user_id")?.value;
+
+        if (!user_id) {
+            return NextResponse.json({ message: "Unauthorized: user_id is missing in cookies" }, { status: 401 });
+        }
+
+        // Parse request body
+        const body = await req.json();
+        const { postCaption, privacy, formImage, selectedAccount  } = body;
+
+        // ✅ Fix: Ensure missing fields in formImage are handled
+        const formattedImages = formImage.map((img) => ({
+            imageFile: img.imageFile || "",
+            type: img.type || "",
+            size: img.size || 0,
+            lastModifiedDate: img.lastModifiedDate || new Date(),
+            lastModified: img.lastModified || Date.now(),
+            name: img.name || "unknown",
+        }));
+
+        const newPost = new SchedulePost({
+            userId: user_id,
+            postCaption,
+            privacy,
+            formImage: formattedImages, // Ensures required fields exist
+            selectedAccount,
         });
 
         await newPost.save();

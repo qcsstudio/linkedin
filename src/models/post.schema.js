@@ -1,60 +1,40 @@
 import mongoose from "mongoose";
 
-const postSchema = new mongoose.Schema(
-  {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User", // Assuming there’s a User model
-      required: true,
+const SchedulePostSchema = new mongoose.Schema({
+  formImage: [
+    {
+      imageFile: { type: String, required: true } // Base64 image data
+    }
+  ],
+  postCaption: { type: String, required: true }, // HTML formatted caption
+  privacy: { type: String, enum: ["Public", "Private"], default: "Public" }, // Privacy setting
+  selectedAccount: [
+    {
+      organizations: [
+        {
+          organizationalTarget: { type: String, required: true }, // Organization ID (URN)
+          role: { type: String, required: true }, // Role (ADMINISTRATOR)
+          roleAssignee: { type: String, required: true }, // Role Assignee ID (URN)
+          state: { type: String, required: true } // State (APPROVED)
+        }
+      ],
+      token: { type: String, required: true } // Authorization token
+    }
+  ],
+  user: {
+    email: { type: String, required: true }, // User email
+    email_verified: { type: Boolean, required: true }, // Email verification status
+    family_name: { type: String, required: true }, // User's last name
+    given_name: { type: String, required: true }, // User's first name
+    locale: {
+      country: { type: String, required: true }, // Country code (e.g., US)
+      language: { type: String, required: true } // Language code (e.g., en)
     },
-    postDescription: {
-      type: String,
-      required: true,
-    },
-    privacy: {
-      type: String,
-      enum: ["Public", "Private", "Friends"], // Ensuring valid privacy options
-      required: true,
-    },
-    formImage: [
-      {
-        name: { type: String, required: true },
-        lastModified: { type: Number, required: true },
-        lastModifiedDate: { type: Date, required: true },
-        size: { type: Number, required: true },
-        type: { type: String, required: true }, // e.g., "image/png"
-        webkitRelativePath: { type: String, default: "" },
-      },
-    ],
-    selectedAccount: [
-      {
-        user: {
-          email: { type: String, required: true },
-          email_verified: { type: Boolean, default: false },
-          family_name: { type: String, required: true },
-          given_name: { type: String, required: true },
-          name: { type: String, required: true },
-          locale: {
-            country: { type: String, required: true },
-            language: { type: String, required: true },
-          },
-          picture: { type: String, required: true }, // Profile image URL
-          sub: { type: String, required: true }, // Unique user ID
-        },
-        token: { type: String, required: true }, // Authentication token
-        organizations: [
-          {
-            orgId: { type: mongoose.Schema.Types.ObjectId, ref: "Organization" },
-            name: { type: String, required: true },
-          },
-        ],
-      },
-    ],
-  },
-  { timestamps: true }
-);
+    name: { type: String, required: true }, // Full name
+    picture: { type: String, required: true }, // Profile picture URL
+    sub: { type: String, required: true } // Unique user ID
+  }
+}, { timestamps: true });
 
-// Prevent multiple model declarations in Next.js
-const Post = mongoose.models.SchedulePost || mongoose.model("SchedulePost", postSchema);
-
-export default Post;
+const SchedulePost = mongoose.models.SchedulePost || mongoose.model("SchedulePost", SchedulePostSchema);
+export default SchedulePost;
