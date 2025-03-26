@@ -187,7 +187,7 @@ export const UserContextProvider = ({ children }) => {
           }));
 
         setLinkedinOrganizationId(allOrganizations);
-        console.log("allOrganizations", allOrganizations);
+
 
         if (failed.length > 0) {
           console.warn("Failed requests:", failed);
@@ -264,9 +264,7 @@ export const UserContextProvider = ({ children }) => {
 
   const getAllOrganizationsData = async (data) => {
     try {
-        console.log("Raw data:", data);
 
-   
         const organizations = data.map(org => ({
             id: org.id,     
             token: org.token  
@@ -299,7 +297,6 @@ export const UserContextProvider = ({ children }) => {
     }
 };
 
-console.log("oneOrganizationAnalticsData" , oneOrganizationAnalticsData);
 
   useEffect(() => {
     const fetchData = async () => {

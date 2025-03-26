@@ -54,7 +54,7 @@ export default function AccountComponent() {
             {linkedinProfileData ? (
               <>
                 {linkedinProfileData.map((item, index) => {
-                  console.log("item", item);
+                
                   return (
                     <div key={item.user?.sub || index} className="w-[31%]">
                       <Card data={item.user} />
@@ -63,7 +63,6 @@ export default function AccountComponent() {
                 })}
 
                 {linkedinOrganizationData?.map((item, index) => {
-                  console.log("item", item);
                   return (
                     <div key={index} className="w-[31%]">
                       <OrganizationCard data={item} />

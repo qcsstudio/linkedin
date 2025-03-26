@@ -6,7 +6,6 @@ import icon from "../../../public/images/accountImages/linkdedin.png";
 import { CgOrganisation } from "react-icons/cg";
 
 const OrganizationCard = ({ data }) => {
-  console.log("data", data);
   const [status, setStatus] = useState("Active");
   return (
     <>
