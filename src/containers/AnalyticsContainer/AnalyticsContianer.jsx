@@ -15,7 +15,7 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { Dropdown } from "primereact/dropdown";
 
 const AnalyticsContianer = () => {
-  const [selectedaccount, setSelectedaccount] = useState([]);
+  const [selectedaccount, setSelectedaccount] = useState(null);
   const {
     getUserLinkedinProfiles,
     linkedinAccounts,
@@ -25,7 +25,8 @@ const AnalyticsContianer = () => {
     oneOrganizationAnalticsData,
     organizationFollowerCount,
     linkedinProfileData,
-    linkedinOrganizationData
+    linkedinOrganizationData,
+    getAllOrganizationsData
   } = useContext(userContext);
 
   useEffect(() => {
@@ -41,14 +42,19 @@ const AnalyticsContianer = () => {
   }, [linkedinOrganizationId]);
 
   useEffect(() => {
-    getOrganizationAnalyticsData({
-      id: selectedaccount.id,
-      token : selectedaccount.token
-    });
+    if(selectedaccount){
+      getOrganizationAnalyticsData({
+        id: selectedaccount.id,
+        token: selectedaccount.token,
+      });
+    }
   }, [selectedaccount]);
 
-
-  console.log("selectedaccount" , selectedaccount);
+  useEffect(()=>{
+     if(linkedinOrganizationData){
+      getAllOrganizationsData(linkedinOrganizationData);
+     }
+  },[linkedinOrganizationData])
 
   const accountOptionTemplate = (option) => (
     <div className="flex items-center justify-between w-full px-2 py-1">
@@ -60,7 +66,6 @@ const AnalyticsContianer = () => {
       /> */}
     </div>
   );
-
 
   const selectedaccountTemplate = (option) => {
     if (!option) return <span>Select a account</span>;
@@ -78,9 +83,8 @@ const AnalyticsContianer = () => {
           className="text-gray-500 hover:text-red-500"
           onClick={(e) => {
             e.stopPropagation();
-            setSelectedaccount(
-              selectedaccount.filter((c) => c.vanityName !== option.vanityName)
-            );
+            setSelectedaccount(null);  
+            getAllOrganizationsData(linkedinOrganizationData);
           }}
         >
           <CiCircleRemove />
@@ -98,20 +102,23 @@ const AnalyticsContianer = () => {
 
         <div className="w-[30%]">
           {linkedinOrganizationData && (
-           <Dropdown
-           value={selectedaccount}
-           onChange={(e) => setSelectedaccount(e.value)}
-           options={linkedinOrganizationData || []}
-           optionLabel="vanityName" // Ensure this matches your object structure
-           placeholder="Select Platforms"
-           className="w-full md:w-14rem"
-           itemTemplate={accountOptionTemplate}
-           valueTemplate={(option) =>
-             option ? selectedaccountTemplate(option) : <span>Select an account</span>
-           }
-         />
+            <Dropdown
+              value={selectedaccount}
+              onChange={(e) => setSelectedaccount(e.value)}
+              options={linkedinOrganizationData || []}
+              optionLabel="vanityName" // Ensure this matches your object structure
+              placeholder="Select Platforms"
+              className="w-full md:w-14rem"
+              itemTemplate={accountOptionTemplate}
+              valueTemplate={(option) =>
+                option ? (
+                  selectedaccountTemplate(option)
+                ) : (
+                  <span>Select an account</span>
+                )
+              }
+            />
           )}
-
         </div>
       </div>
       <div className="p-6 flex flex-col gap-3 z-10 rounded-lg bg-white/40">

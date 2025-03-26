@@ -25,8 +25,6 @@ export async function GET(request) {
   // Validate state parameter
   const storedState = cookieStore.get("linkedin_oauth_state")?.value;
 
-  console.log("storedState", storedState);
-  console.log("state" , state);
 
   if (!state || state !== storedState) {
     return NextResponse.redirect(
@@ -58,7 +56,7 @@ export async function GET(request) {
     }
 
     const tokenData = await tokenResponse.json();
-    console.log("tokenData", tokenData);
+
 
     // Fetch user information
     const userInfoResponse = await fetch(
@@ -95,10 +93,9 @@ export async function GET(request) {
     });
 
     const test = cookieStore.getAll();
-    console.log("test" , test);
+  
     
     const userId = cookieStore.get("user_id")?.value; // Get the logged-in user ID
-    console.log("Updating user ID:", userId);
 
     if (userId) {
       const updateResponse = await fetch(`${baseURL}/api/auth/user/${userId}`, {

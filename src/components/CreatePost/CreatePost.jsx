@@ -154,7 +154,6 @@ const CreatePost = () => {
 
     // Post Submit 
     const HandleSubmit = () => {
-        console.log({ postCaption, privacy, formImage, selectedaccount });
         postLinkedin({ postCaption, privacy, formImage, selectedaccount });
     }
 
