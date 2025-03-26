@@ -3,8 +3,12 @@
 const { createContext, useState } = require("react");
 
 const initialData = {
-    schedulePost:()=>{}
-};
+    schedulePost:()=>{},
+    error : false,
+    setError:()=>{},
+    loading:false,
+    setLoading:()=>{}
+}
 
 const postContext = createContext(initialData);
 
@@ -38,34 +42,25 @@ export const PostContextProvider = ({ children }) => {
         }
     }
 
-    const postLinkedin = async (data) => {
+
+    
+
+    // Linkedin Post function -------------------------------------------------
+    const postLinkedin = async(data)=>{
         try {
             setLoading(true);
 
-            // Construct JSON payload
-            const payload = {
-                user_id: data.user_id, 
-                postDescription: data.postCaption, 
-                privacy: data.privacy, 
-                formImage: data.formImage, 
-                selectedAccount: data.selectedaccount 
-            };
-
-            console.log("Sending Data:", payload);
-
-            const response = await fetch("/api/post", {  // ✅ Ensure this matches your API route
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
+            console.log("User Data:-----",data);
+            
+            console.log("User Data :->",data);
+            const response = await fetch("/api/linkedin/post/",{
+                method:"POST",
+                headers:{
+                    "Content-type":"application/json"
                 },
-                body: JSON.stringify(payload)
-            });
-
-            const responseData = await response.json();
-            console.log("Response:", responseData);
-
-            if (!response.ok) throw new Error(responseData.message);
-
+                body:JSON.stringify(data)
+            })
+            // console.log(response);
             setLoading(false);
         } catch (error) {
             console.error("Unable to post on LinkedIn /context/post.context:", error);
