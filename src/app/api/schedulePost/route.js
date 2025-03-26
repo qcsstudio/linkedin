@@ -7,8 +7,8 @@ export const POST = async (req) => {
     try {
         await connectDB();
 
-        // ✅ Fix: Await cookies before using
-        const cookieStore = await cookies();
+        // ✅ Get user_id from cookies
+        const cookieStore = cookies();
         const user_id = cookieStore.get("user_id")?.value;
 
         if (!user_id) {
@@ -17,23 +17,24 @@ export const POST = async (req) => {
 
         // Parse request body
         const body = await req.json();
-        const { postCaption, privacy, formImage, selectedAccount  } = body;
+        const { postCaption, privacy, formImage, selectedAccount } = body;
 
-        // ✅ Fix: Ensure missing fields in formImage are handled
-        const formattedImages = formImage.map((img) => ({
+        // ✅ Ensure image fields are properly formatted
+        const formattedImages = formImage?.map((img) => ({
             imageFile: img.imageFile || "",
             type: img.type || "",
             size: img.size || 0,
             lastModifiedDate: img.lastModifiedDate || new Date(),
             lastModified: img.lastModified || Date.now(),
             name: img.name || "unknown",
-        }));
+        })) || [];
 
+        // ✅ Create new post with userId (no full user object needed)
         const newPost = new SchedulePost({
-            userId: user_id,
+            userId: user_id, // Only storing user ID
             postCaption,
             privacy,
-            formImage: formattedImages, // Ensures required fields exist
+            formImage: formattedImages,
             selectedAccount,
         });
 

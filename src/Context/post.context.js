@@ -1,79 +1,74 @@
 "use client";
 
-const { createContext, useState } = require("react");
+import { createContext, useState } from "react";
 
 const initialData = {
-    schedulePost:()=>{},
-    error : false,
-    setError:()=>{},
-    loading:false,
-    setLoading:()=>{}
-}
+    schedulePost: () => {},
+    postLinkedin: () => {},
+};
 
-const postContext = createContext(initialData);
+const PostContext = createContext(initialData);
 
 export const PostContextProvider = ({ children }) => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const schedulePost = async (data) =>{
-        try{
+    // ✅ Schedule Post Function
+    const schedulePost = async (data) => {
+        try {
             setLoading(true);
-              console.log("data",data);
-              
-            const res = await fetch("/api/schedulePost",{
-                method:"POST",
-                headers:{
-                    "Context-Type":"application/json",
+            console.log("data", data);
+
+            const res = await fetch("/api/schedulePost", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json", // ✅ Fixed Header Typo
                 },
-                body: JSON.stringify(data)
-            })
+                body: JSON.stringify(data),
+            });
 
             const resData = await res.json();
 
-            if(!res.ok) throw new Error(resData.message);
+            if (!res.ok) throw new Error(resData.message);
 
-            setLoading(false)
-        }
-        catch(error){
-            console.error("Unable to perform shit", error);
+            setLoading(false);
+            return resData; // ✅ Return response data if needed
+        } catch (error) {
+            console.error("Unable to perform schedulePost:", error);
             setError(true);
             setLoading(false);
         }
-    }
+    };
 
-
-    
-
-    // Linkedin Post function -------------------------------------------------
-    const postLinkedin = async(data)=>{
+    // ✅ LinkedIn Post Function
+    const postLinkedin = async (data) => {
         try {
             setLoading(true);
+            console.log("User Data:-----", data);
 
-            console.log("User Data:-----",data);
-            
-            console.log("User Data :->",data);
-            const response = await fetch("/api/linkedin/post/",{
-                method:"POST",
-                headers:{
-                    "Content-type":"application/json"
+            const response = await fetch("/api/linkedin/post/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
                 },
-                body:JSON.stringify(data)
-            })
-            // console.log(response);
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) throw new Error("LinkedIn post failed.");
+
             setLoading(false);
         } catch (error) {
-            console.error("Unable to post on LinkedIn /context/post.context:", error);
+            console.error("Unable to post on LinkedIn:", error);
             setError(true);
             setLoading(false);
         }
     };
 
     return (
-        <postContext.Provider value={{ loading, setLoading, error, setError, postLinkedin ,schedulePost }}>
+        <PostContext.Provider value={{ loading, setLoading, error, setError, postLinkedin, schedulePost }}>
             {children}
-        </postContext.Provider>
+        </PostContext.Provider>
     );
 };
 
-export default postContext;
+export default PostContext;
