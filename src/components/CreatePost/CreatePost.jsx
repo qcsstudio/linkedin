@@ -14,9 +14,9 @@ import TextEditor from "@/components/common/TextEditor";
 import { userContext } from "@/Context/user.context";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
+import postContext from "@/Context/post.context";
 import 'swiper/css';
 import 'swiper/css/pagination';
-import postContext from "@/Context/post.context";
 
 const CreatePost = () => {
 
@@ -25,7 +25,7 @@ const CreatePost = () => {
         useContext(userContext);
 
 
-    const {loading,setLoading,error,setError,postLinkedin} = useContext(postContext);
+    const { loading, setLoading, error, setError, postLinkedin } = useContext(postContext);
 
 
 
@@ -160,20 +160,40 @@ const CreatePost = () => {
 
     // File Upload handle
     const handleFileChange = async (e) => {
-        if (!e.target.files || e.target.files.length === 0) {
-            alert("No files selected!");
-            return;
+        try {
+
+            const images = Array.from(e.target.files);
+
+            const imagesUrl = images.map(file => URL.createObjectURL(file));
+            console.log("Images URl: ", imagesUrl);
+            setPostImages(prev => [...prev, ...imagesUrl]);
+
+            // Convert images to base64 string
+            const base64Images = await Promise.all(
+                images.map(async (file) => {
+                    const base64 = await convertToBase64(file); // Convert each file to base64
+                    return { imageFile: base64 };
+                })
+            );
+
+            setFormImage(prev => [...prev, ...base64Images]);
+
+        } catch (error) {
+            console.log("Unable to upload Images Please Try again Later");
+
         }
-
-        const images = Array.from(e.target.files);
-        // console.log(images);
-        const imagesUrl = images.map(file => URL.createObjectURL(file));
-        console.log("Images URl: ", imagesUrl);
-        setPostImages(prev => [...prev, ...imagesUrl]);
-
-        setFormImage(prev => [...prev, ...images])
-
     }
+
+    
+    // Function to convert a file to a Base64 string
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result); // On success, resolve with base64 string
+            reader.onerror = reject; // Reject on error
+            reader.readAsDataURL(file); // Read the file as base64
+        });
+    };
 
     return (
         <div className="w-[95%] mx-auto mt-8 flex gap-1 ">
@@ -483,11 +503,11 @@ const CreatePost = () => {
                     {/* User Post Image */}
                     <div className={`middleContainer w-[100%] h-[24.3rem] ${postImages.length <= 0 ? "bg-[#E0E0E0]/40" : "bg-transparent"}`}>
                         <Swiper pagination={true} modules={[Pagination]} className="mySwiper w-[100%] h-[24.3rem]">
+
                             {postImages.length <= 0 ?
                                 <div className="w-[100%] h-[100%] bg-[#E0E0E0]"></div> :
                                 postImages.map((item, index) => {
-                                    console.log(index, " : -> ", item);
-                                    return <SwiperSlide key={index}><img key={index} src={item} width={390} height={390} alt="avatar" className="w-[100%] h-[100%] object-fill" /></SwiperSlide>
+                                    return <SwiperSlide key={index}><Image src={item} width={390} height={390} alt="avatar" className="w-[100%] h-[100%] object-fill" /></SwiperSlide>
                                 })
                             }
                         </Swiper>
