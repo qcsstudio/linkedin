@@ -25,7 +25,7 @@ const CreatePost = () => {
         useContext(userContext);
 
 
-    const {loading,setLoading,error,setError,postLinkedin} = useContext(postContext);
+    const {loading,setLoading,error,setError,postLinkedin,schedulePost} = useContext(postContext);
 
 
 
@@ -156,6 +156,7 @@ const CreatePost = () => {
     const HandleSubmit = () => {
         console.log({ postCaption, privacy, formImage, selectedaccount });
         postLinkedin({ postCaption, privacy, formImage, selectedaccount });
+        schedulePost({ postCaption, privacy, formImage, selectedaccount });
         
 
             }
