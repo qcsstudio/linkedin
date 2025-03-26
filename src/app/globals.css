@@ -254,7 +254,7 @@ input::-ms-clear {
   align-items: center;
 }
 
-.swiper-slide img {
+.create-post-slider .swiper-slide img {
   display: block;
   width: 100%;
   height: 100%;

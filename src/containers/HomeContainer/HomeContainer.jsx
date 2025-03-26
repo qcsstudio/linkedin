@@ -13,6 +13,7 @@ import cloud from "../../../public/images/blogsImages/Cloud.png"
 import KeyFeatureSection from "@/components/HomeComponent/KeyFeature/KeyFeatureSection"
 import Elevate from "@/components/HomeComponent/Elevate/Elevate"
 import Navbar from "@/components/HomeComponent/NavbarHome/NavbarHome"
+import ContactUsSection from "@/components/HomeComponent/ContactUsSection/ContactUsSection"
 
 
 const HomeContainer = () => {
@@ -32,6 +33,7 @@ const HomeContainer = () => {
                 <Blogs/>
                <NeedHelp/>
                <FaqSection/>
+               <ContactUsSection/>
              <Footer/>
               </div>
               

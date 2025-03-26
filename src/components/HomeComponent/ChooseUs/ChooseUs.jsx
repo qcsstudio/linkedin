@@ -61,11 +61,11 @@ const ChooseUs = () => {
                         className="pb-10"
                     >
                         {features.map((feature, index) => (
-                            <SwiperSlide key={index} className="flex items-center justify-center">
+                            <SwiperSlide key={index} className="flex items-center justify-center rounded-lg">
                                 <div className="p-6 w-full min-h-[270px] bg-white/50 rounded-xl shadow-lg flex flex-col justify-between items-start ">
                                    {feature.icon}
-                                    <h4 className="text-xl tracking-wider font-semibold text-[#0E1C29] ">{feature.heading}</h4>
-                                    <p className="text-md text-[#0E1C29]/75 ">{feature.description}</p>
+                                    <h4 className="text-xl text-start tracking-wider font-semibold text-[#0E1C29] ">{feature.heading}</h4>
+                                    <p className="text-start text-[#0E1C29]/75 ">{feature.description}</p>
                                 </div>
                             </SwiperSlide>
                         ))}
