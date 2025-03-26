@@ -196,7 +196,7 @@ const featureData = [
                 ))}
 
                                 </ul>
-                                <h4 className='text-[#0E1C29] text-lg font-bold'>What It Does:</h4>
+                                <h4 className='text-[#0E1C29] text-lg font-bold'>Why It Matters:</h4>
                                 <ul className='flex flex-col gap-2 list-disc'>
                                 {featureData[activeIndex].benefits.map((item, index) => (
                   <li className='text-[#212121]' key={index}>{item}</li>

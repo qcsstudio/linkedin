@@ -481,7 +481,7 @@ const CreatePost = () => {
                     <span className="text-[#4d7ef9] cursor-pointer" onClick={() => setShowText(!showText)}>{showText ? "less" : "more"}</span>
 
                     {/* User Post Image */}
-                    <div className={`middleContainer w-[100%] h-[24.3rem] ${postImages.length <= 0 ? "bg-[#E0E0E0]/40" : "bg-transparent"}`}>
+                    <div className={`middleContainer create-post-slider w-[100%] h-[24.3rem] ${postImages.length <= 0 ? "bg-[#E0E0E0]/40" : "bg-transparent"}`}>
                         <Swiper pagination={true} modules={[Pagination]} className="mySwiper w-[100%] h-[24.3rem]">
                             {postImages.length <= 0 ?
                                 <div className="w-[100%] h-[100%] bg-[#E0E0E0]"></div> :

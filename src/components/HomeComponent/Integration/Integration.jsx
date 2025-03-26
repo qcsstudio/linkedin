@@ -19,7 +19,7 @@ const Integration = () => {
         <>
             {/* Main Container */}
 
-            <div id="integration" className="mainContainer w-[100%] bg-[#5E788F]/85 py-[2rem] px-[3.37rem]">
+            <div id="integration" className="mainContainer w-[100%]  py-[2rem] px-[3.37rem]">
 
 
                 {/* Inner Container */}
