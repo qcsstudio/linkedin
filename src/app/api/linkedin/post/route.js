@@ -4,13 +4,14 @@ export const POST = async(req)=>{
         // console.log(data);
 
         const postImages = data.formImage;
+        console.log(data);
         // console.log("Post Images",postImages);
 
         const imageData = postImages.map((item)=>{
             return item.imageFile;
         })
 
-        console.log(imageData.length);
+        // console.log(imageData.length);
 
 
         // // User Linkedin Data payload ---------------------------------------------
@@ -38,7 +39,8 @@ export const POST = async(req)=>{
             };
 
             // Image Registery:
-            const result = await imageData.map(async(file,index)=>{
+            
+            const imageUploaded = await imageData.map(async(file,index)=>{
 
                 // Preprocessing:
                 const base64Data = file.split(',')[1];
@@ -59,10 +61,13 @@ export const POST = async(req)=>{
                 });
                 // If response is 200 then the 
                 if(response.status === 200){
+
+                    // Preprocessing
                     const result = await response.json();
                     const uploadURL = result.value.uploadMechanism['com.linkedin.digitalmedia.uploading.MediaUploadHttpRequest'].uploadUrl;
                     const assetURN = result.value.asset;
                     const imageBlob = await fetch(`data:image/jpeg;base64,${base64Data}`).then(res => res.blob());
+                    
 
                     const formData = new FormData();
                     formData.append('file', imageBlob, imageType); 
@@ -74,7 +79,7 @@ export const POST = async(req)=>{
                         },
                         body:formData
                     });
-                    
+
 
                     if(uploadedImageResponse.status == 201){
                         console.log("Image Upload Success");
@@ -84,17 +89,72 @@ export const POST = async(req)=>{
                         return false;
                     }
 
-                    return result;
-                }else{
-                    return false;
-                }
-            })
+                    return filesData;
 
-            // if(file){
-            //     console.log(file);
-            // }else{
-            //     console.log(false);
-            // }
+                }else{
+
+                    return false;
+
+                }
+
+            });
+
+            const imageSuccess = await Promise.allSettled(imageUploaded);
+
+            console.log("Image Urn List",filesData);
+            // console.log("jajbcvyibwhf d qw h ddwq nk ",filesData);
+
+            const mediaObject = filesData.map((urn)=>{
+                const objectData =  {
+                    "status": "READY",
+                    "description": {
+                    "text": ""
+                    },
+                    "media": `${urn}`,
+                    "title": {
+                        "text": ""
+                    }
+                }
+                console.log("faltu console ", objectData);
+                return objectData;
+            });
+            console.log("media object:",mediaObject);
+
+            const payloadForPost = {
+                "author": `urn:li:person:${linkedinUserID}`,
+                "lifecycleState": "PUBLISHED",
+                "specificContent": {
+                    "com.linkedin.ugc.ShareContent": {
+                    "shareCommentary": {
+                        "text": "🚀 My LinkedIn post with an image!"
+                    },
+                    "shareMediaCategory": "IMAGE",
+                    "media":mediaObject 
+                    }
+                    },
+                    "visibility": {
+                    "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"
+                    }
+                }
+            
+
+            console.log("payload data",payloadForPost);
+            
+
+            const postResponse = await fetch('https://api.linkedin.com/v2/ugcPosts',{
+                method:"POST",
+                headers:{
+                    'Authorization':`Bearer ${linkedinUserAuthToken}`,
+                    'Content-Type':'application/json'
+                },
+                body:JSON.stringify(payloadForPost)
+            })
+            console.log(postResponse);
+
+            if(postResponse.status == 201){
+                const result = await postResponse.json();
+                console.log("Post Created Successfully",result);
+            }
 
         }
 
