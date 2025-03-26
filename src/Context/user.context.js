@@ -28,6 +28,7 @@ const initialData = {
   getOrganizationAnalyticsData: () => {},
   setOneOrganizationAnalticsData: () => {},
   setOrganizationFollowerCount: () => {},
+  getAllOrganizationsData:()=>{}
 };
 
 export const userContext = createContext(initialData);
@@ -261,6 +262,45 @@ export const UserContextProvider = ({ children }) => {
     }
   };
 
+  const getAllOrganizationsData = async (data) => {
+    try {
+        console.log("Raw data:", data);
+
+   
+        const organizations = data.map(org => ({
+            id: org.id,     
+            token: org.token  
+        }));
+
+        console.log("Formatted organizations:", organizations);
+
+        const url = "/api/linkedin/analytics";
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(organizations)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error("Error fetching analytics:", errorData);
+            return { error: errorData.message };
+        }
+
+        const result = await response.json();
+        setOneOrganizationAnalticsData(result?.data?.analyticsData?.elements);
+        setOrganizationFollowerCount(result?.data?.followers)
+
+    } catch (error) {
+        console.error("Failed to fetch organization data:", error);
+        return { error: "An error occurred while fetching data." };
+    }
+};
+
+console.log("oneOrganizationAnalticsData" , oneOrganizationAnalticsData);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -319,7 +359,8 @@ export const UserContextProvider = ({ children }) => {
         oneOrganizationAnalticsData,
         getOrganizationAnalyticsData,
         organizationFollowerCount, 
-        setOrganizationFollowerCount
+        setOrganizationFollowerCount,
+        getAllOrganizationsData
       }}
     >
       {children}

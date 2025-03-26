@@ -13,6 +13,7 @@
     "@fullcalendar/interaction": "^6.1.15",
     "@fullcalendar/react": "^6.1.15",
     "@fullcalendar/timegrid": "^6.1.15",
+    "@react-spring/web": "^9.7.5",
     "@tiptap/extension-bold": "^2.11.5",
     "@tiptap/extension-italic": "^2.11.5",
     "@tiptap/extension-link": "^2.11.5",
