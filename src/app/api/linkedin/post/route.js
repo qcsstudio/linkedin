@@ -74,6 +74,7 @@ export const POST = async(req)=>{
                         },
                         body:formData
                     });
+                    
 
                     if(uploadedImageResponse.status == 201){
                         console.log("Image Upload Success");
