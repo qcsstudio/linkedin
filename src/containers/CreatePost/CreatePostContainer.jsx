@@ -1,3 +1,4 @@
+"use client"
 import CreatePost from "@/components/CreatePost/CreatePost"
 
 const CreatePostContainer = () => {
