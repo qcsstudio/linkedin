@@ -13,10 +13,11 @@ import { CiHashtag } from "react-icons/ci";
 import TextEditor from "@/components/common/TextEditor";
 import { userContext } from "@/Context/user.context";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import { Pagination,Navigation } from 'swiper/modules';
+import postContext from "@/Context/post.context";
 import 'swiper/css';
 import 'swiper/css/pagination';
-import postContext from "@/Context/post.context";
+import 'swiper/css/navigation';
 
 const CreatePost = () => {
 
@@ -25,7 +26,7 @@ const CreatePost = () => {
         useContext(userContext);
 
 
-    const {loading,setLoading,error,setError,postLinkedin} = useContext(postContext);
+    const { loading, setLoading, error, setError, postLinkedin } = useContext(postContext);
 
 
 
@@ -50,10 +51,14 @@ const CreatePost = () => {
     const [postCaption, setPostCaption] = useState("");
     const [privacy, setPrivacy] = useState("Public");
     const [formImage, setFormImage] = useState([]);
+    const [formVideo,setFormVideo] = useState([]);
 
     // Post States (Right Section) --------------------------
     const [showText, setShowText] = useState(false);
+    const [fileType, setFileType] = useState(false);
     const [postImages, setPostImages] = useState([]);
+    const [postVideos, setPostVideos] = useState([]);
+
 
 
     const [activeSocialButton, setActiveSocialButton] = useState(1);
@@ -154,25 +159,79 @@ const CreatePost = () => {
 
     // Post Submit 
     const HandleSubmit = () => {
-        postLinkedin({ postCaption, privacy, formImage, selectedaccount });
+        // console.log({ postCaption, privacy, formImage, selectedaccount, fileType, formVideo });
+        postLinkedin({ postCaption, privacy, formImage, selectedaccount, fileType, formVideo  });
     }
 
-    // File Upload handle
+    // Image Upload handle
     const handleFileChange = async (e) => {
-        if (!e.target.files || e.target.files.length === 0) {
-            alert("No files selected!");
-            return;
+        try {
+
+            const images = Array.from(e.target.files);
+
+            const imagesUrl = images.map(file => URL.createObjectURL(file));
+            setPostImages(prev => [...prev, ...imagesUrl]);
+            setFileType("images");
+
+            // Convert images to base64 string
+            const base64Images = await Promise.all(
+                images.map(async (file) => {
+                    const base64 = await convertToBase64(file); // Convert each file to base64
+                    return { imageFile: base64 };
+                })
+            );
+
+            setFormImage(prev => [...prev, ...base64Images]);
+            setFormVideo([]);
+
+
+        } catch (error) {
+            console.log("Unable to upload Images Please Try again Later");
+
         }
-
-        const images = Array.from(e.target.files);
-        // console.log(images);
-        const imagesUrl = images.map(file => URL.createObjectURL(file));
-        console.log("Images URl: ", imagesUrl);
-        setPostImages(prev => [...prev, ...imagesUrl]);
-
-        setFormImage(prev => [...prev, ...images])
-
     }
+
+    // Video Upload handle
+    const handleVideoFileChange = async(e) => {
+        try {
+            // converting file type into array
+            const videos = Array.from(e.target.files);
+
+            // Converting videos to url:
+            const videoUrl = videos.map((file)=>URL.createObjectURL(file));
+            setPostVideos(prev => [...prev,...videoUrl]);
+            setFileType("videos");
+
+            // Converting video into base64 
+            const base64Videos = await Promise.all(
+                videos.map(async(file)=>{
+                    const base64Data = await convertToBase64(file);
+                    return {videoFile:base64Data};
+                })
+            );
+
+            setFormVideo(prev=>[...prev,...base64Videos]);
+            setFormImage([]);
+
+            
+        } catch (error) {
+            console.log("Unable to upload Video File.");
+        }
+    }
+    
+    console.log("video Url Data: ",postVideos);
+
+
+    
+    // Function to convert a file to a Base64 string
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result); // On success, resolve with base64 string
+            reader.onerror = reject; // Reject on error
+            reader.readAsDataURL(file); // Read the file as base64
+        });
+    };
 
     return (
         <div className="w-[95%] mx-auto mt-8 flex gap-1 ">
@@ -248,13 +307,10 @@ const CreatePost = () => {
                     </p>
                     <div className=" flex justify-start gap-4 items-center">
                         <button className="bg-[#4379EE] text-white py-2 w-[20%] rounded-md text-sm">
-                            Instagram
+                            Photos
                         </button>
                         <button className="bg-[#4379EE] text-white py-2 w-[20%] rounded-md text-sm">
-                            Facebook
-                        </button>
-                        <button className="bg-[#4379EE] text-white py-2 w-[20%] rounded-md text-sm">
-                            Linkdin
+                            Videos
                         </button>
                     </div>
                 </div>
@@ -271,6 +327,7 @@ const CreatePost = () => {
 
                     <div className="flex justify-between items-center">
                         <div className="flex gap-3 ">
+                            {/* Image upload input field */}
                             <label htmlFor="imageUpload" className="input">
                                 <CiImageOn className="text-[#4379EE] cursor-pointer" />
                             </label>
@@ -282,8 +339,20 @@ const CreatePost = () => {
                                 style={{ display: "none" }}
                                 onChange={handleFileChange}
                             />
-
-                            <CiYoutube className="text-[#4379EE]" />
+                            {/* Video upload input field */}
+                            <label htmlFor="videoUpload" className="input">
+                                <CiYoutube className="text-[#4379EE] cursor-pointer" />
+                            </label>
+                            <input
+                                type="file"
+                                accept="video/*"
+                                id="videoUpload"
+                                multiple
+                                style={{ display: "none" }}
+                                onChange={handleVideoFileChange}
+                            />
+                            
+                            
                             <IoLocation className="text-[#4379EE]" />
                             <CiFaceSmile className="text-[#4379EE]" />
                             <LuMessageCircleMore className="text-[#4379EE]" />
@@ -473,22 +542,51 @@ const CreatePost = () => {
 
                     </div>
 
-
+                            
 
                     <div className={`postTextContent px-[.43rem] py-[.3rem]  ${showText ? "" : "postText"} `} dangerouslySetInnerHTML={{ __html: postCaption }}>
                     </div>
-                    <span className="text-[#4d7ef9] cursor-pointer" onClick={() => setShowText(!showText)}>{showText ? "less" : "more"}</span>
+                    {postCaption.length>165 && 
+                        <span className="text-[#4d7ef9] select-none cursor-pointer px-[.43rem]" onClick={() => setShowText(!showText)}>{showText ? "less" : "more"}</span>
+                    }
 
                     {/* User Post Image */}
-                    <div className={`middleContainer create-post-slider w-[100%] h-[24.3rem] ${postImages.length <= 0 ? "bg-[#E0E0E0]/40" : "bg-transparent"}`}>
-                        <Swiper pagination={true} modules={[Pagination]} className="mySwiper w-[100%] h-[24.3rem]">
-                            {postImages.length <= 0 ?
-                                <div className="w-[100%] h-[100%] bg-[#E0E0E0]"></div> :
-                                postImages.map((item, index) => {
-                                    console.log(index, " : -> ", item);
-                                    return <SwiperSlide key={index}><img key={index} src={item} width={390} height={390} alt="avatar" className="w-[100%] h-[100%] object-fill" /></SwiperSlide>
-                                })
-                            }
+                    <div className={`middleContainer w-[100%] h-[24.3rem] ${postImages.length <= 0 ? "bg-[#E0E0E0]/40" : "bg-transparent"}`}>
+                        <Swiper pagination={true} navigation={true} modules={[Pagination,Navigation]} className="mySwiper w-[100%] h-[24.3rem]">
+
+                        {
+                            fileType === "images" ? (
+                                postImages.length === 0 ? (
+                                    <div className="w-[100%] h-[100%] bg-[#E0E0E0]"></div>
+                                ) : (
+                                    postImages.map((item, index) => (
+                                        <SwiperSlide key={index}>
+                                            <Image
+                                                src={item}
+                                                width={390}
+                                                height={390}
+                                                alt="avatar"
+                                                className="w-[100%] h-[100%] object-fill"
+                                            />
+                                        </SwiperSlide>
+                                    ))
+                                )
+                            ) : (
+                                postVideos.length === 0 ? (
+                                    <div className="w-[100%] h-[100%] bg-[#E0E0E0]">data</div>
+                                ) : (
+                                    postVideos.map((item, index) => (
+                                        <SwiperSlide key={index}>
+                                            <video width="320" height="240" controls className="w-[100%] h-[100%] object-fill">
+                                                <source src={item} type="video/mp4" />
+                                            </video>
+                                        </SwiperSlide>
+                                    ))
+                                )
+                            )
+                        }
+
+
                         </Swiper>
 
                     </div>

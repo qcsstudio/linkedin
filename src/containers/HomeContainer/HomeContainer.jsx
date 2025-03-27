@@ -44,9 +44,9 @@ const HomeContainer = () => {
                 </div>
 
                 {/* cloud */}
-                <div className="clouds w-[100vw] h-[65.3rem] absolute bottom-[5%] left-[0%] z-0">
+                {/* <div className="clouds w-[100vw] h-[65.3rem] absolute bottom-[5%] left-[0%] z-0">
                     <Image src={cloud} width={1024} height={1024} alt="cloud" className="w-[100%] h-[100%] z-20"  />
-                </div>
+                </div> */}
 
                 <div className="clouds w-[100vw] h-[65.3rem] absolute bottom-[48%] left-[0%] z-0 ">
                     <Image src={cloud} width={1024} height={1024} alt="cloud" className="w-[100%] h-[100%] z-20 opacity-70"  />
