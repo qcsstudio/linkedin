@@ -1,3 +1,4 @@
+"use client";
 import CreatePostContainer from "@/containers/CreatePost/CreatePostContainer"
 
 const CreatePostPage = () => {
