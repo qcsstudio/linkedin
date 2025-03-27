@@ -10,10 +10,10 @@ const ContactUsSection = () => {
       <h2 className="text-3xl text-center md:text-start md:text-3xl text-[#0E1C29] font-bold">Get in Touch</h2>
       <p className="text-[#3F4142]  md:text-start text-center">Feel free to reach out to us for any inquiries or assistance.</p>
       <form className="space-y-4">
-        <input type="text" placeholder="Contact Name" className="w-full placeholder-gray-600 bg-transparent text-gray-600 p-3 border-b border-gray-500 focus:outline-none" />
-        <input type="text" placeholder="State" className="w-full p-3 placeholder-gray-600 bg-transparent text-gray-600 border-b border-gray-500 focus:outline-none" />
-        <input type="text" placeholder="Contact Phone" className="w-full placeholder-gray-600 bg-transparent p-3 border-b border-gray-500 focus:outline-none" />
-        <input type="email" placeholder="E-mail" className="w-full placeholder-gray-600 bg-transparent p-3 border-b border-gray-500 focus:outline-none" />
+        <input type="text" placeholder="Your Name" className="w-full placeholder-gray-600 bg-transparent text-gray-600 p-3 border-b border-gray-500 focus:outline-none" />
+        <input type="email" placeholder="Email" className="w-full p-3 placeholder-gray-600 bg-transparent text-gray-600 border-b border-gray-500 focus:outline-none" />
+        <input type="phone" placeholder="Phone" className="w-full placeholder-gray-600 bg-transparent p-3 border-b border-gray-500 focus:outline-none" />
+        <textarea type="message" rows="2" col="2" placeholder="Your Message" className="w-full placeholder-gray-600 bg-transparent p-3 border-b border-gray-500 focus:outline-none" />
         <button className="w-full bg-[rgb(14,28,41)] bg-gradient-to-r from-[rgba(14,28,41,1)] to-[rgba(50,61,104,1)] text-white py-3 rounded-lg hover:bg-blue-700 transition">
           SUBMIT
         </button>
