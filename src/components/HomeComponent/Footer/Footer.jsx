@@ -48,7 +48,7 @@ const Footer = () => {
                     Get Weekly Social Media Insights <br/>Delivered
                 </h3>
     
-                    <div className=" w-full">
+                    <div className="relative w-full">
                         <input
                             type="email"
                             placeholder="E-mail"

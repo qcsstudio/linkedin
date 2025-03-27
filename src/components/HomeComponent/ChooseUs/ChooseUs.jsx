@@ -41,8 +41,8 @@ const ChooseUs = () => {
 
 
     return (
-        <div className="chooseUsContainer w-[100%] 5 px-[3.3rem]  z-[10]">
-            <div className="innerContainer w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10] pt-[1rem] pb-[3rem] px-[7.0625rem]">
+        <div className="chooseUsContainer w-[100%] 5 px-4 lg:px-[3.37rem] md:px-[3.12rem]   z-[10]">
+            <div className="innerContainer w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10]  px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[1.5rem] ">
                 <Heading heading={"Why Choose Us"} />
                 <div className="flex flex-col justify-center items-center middleContainer w-[100%] z-[10]">
                     <Subheading subHeading={"Why ElevatrX is the Ultimate AI-Driven Social Media Solution"} />
@@ -62,10 +62,10 @@ const ChooseUs = () => {
                     >
                         {features.map((feature, index) => (
                             <SwiperSlide key={index} className="flex items-center justify-center rounded-lg">
-                                <div className="p-6 w-full min-h-[270px] bg-white/50 rounded-xl shadow-lg flex flex-col justify-between items-start ">
+                                <div className="p-6 w-full min-h-[350px] bg-white/50 rounded-xl shadow-lg flex flex-col gap-6 justify-center items-start ">
                                    {feature.icon}
                                     <h4 className="text-xl text-start tracking-wider font-semibold text-[#0E1C29] ">{feature.heading}</h4>
-                                    <p className="text-start text-[#0E1C29]/75 ">{feature.description}</p>
+                                    <p className="text-start text-[#0E1C29]/75  text-[1rem] lg:text-[1rem] ">{feature.description}</p>
                                 </div>
                             </SwiperSlide>
                         ))}

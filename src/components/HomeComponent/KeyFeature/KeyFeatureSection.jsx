@@ -162,10 +162,10 @@ const featureData = [
     return (
         <>
             {/* Main Container */}
-            <div id='features' className="mainContainer  w-[100%]  px-[3.37rem]">
+            <div id='features' className="mainContainer  w-[100%]  px-4 lg:px-[3.37rem] md:px-[3.12rem]">
 
                 {/* Inner Container */}
-                <div className="innerContainer bg-[#FFFFFF]/35 w-[100%] rounded-[.5rem] px-[6.7rem] pb-[3.125rem] z-20">
+                <div className="innerContainer bg-[#FFFFFF]/35 w-[100%] rounded-[.5rem] px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[1.5rem] z-20">
 
                     {/* Upper Container */}
                     <Heading heading={"Key Features"}/>
@@ -179,27 +179,27 @@ const featureData = [
             </div>
 
                     {/* Lower Container */}
-                    <div className='lowerContainer w-[100%] flex justify-between items-center z-20'>
+                    <div className='lowerContainer gap-2 w-[100%] flex flex-col-reverse md:flex-col-reverse lg:flex-row justify-between items-center z-20'>
 
                         <div className='leftSide' >
-                            <div className='flex flex-col gap-6'>
-                                <h2 className='text-[22px] w-[70%] font-bold  text-[#0E1C29] '>
+                            <div className='flex flex-col gap-2 md:gap-6 lg:gap-6'>
+                                <h2 className='text-[1rem] md:text-[1.5rem] lg:text-[1.5rem] md:w-[100%] lg:w-[70%] font-bold  text-[#0E1C29] '>
                                     {featureData[activeIndex].title}
                                 </h2>
-                                <span className='w-[80%] text-[#0E1C29]'>
+                                <span className='w-[80%] text-sm text-[#0E1C29]'>
                                 {featureData[activeIndex].description}
                                 </span>
-                                <h4 className='text-lg font-bold text-[#0E1C29]'>What It Does:</h4>
-                                <ul className='flex flex-col gap-2 list-disc'>
+                                <h4 className='text-md md:text-lg lg:text-lg font-bold text-[#0E1C29]'>What It Does:</h4>
+                                <ul className='flex flex-col px-2 gap-2 list-disc'>
                                 {featureData[activeIndex].details.map((item, index) => (
-                  <li className='text-[#212121]' key={index}>{item}</li>
+                  <li className='text-[#212121]  text-[.8rem] md:text-[1rem] lg:text-[1rem]' key={index}>{item}</li>
                 ))}
 
                                 </ul>
-                                <h4 className='text-[#0E1C29] text-lg font-bold'>Why It Matters:</h4>
-                                <ul className='flex flex-col gap-2 list-disc'>
+                                <h4 className='text-[#0E1C29] text-md md:text-lg lg:text-lg font-bold'>Why It Matters:</h4>
+                                <ul className='flex flex-col gap-2 px-2 list-disc'>
                                 {featureData[activeIndex].benefits.map((item, index) => (
-                  <li className='text-[#212121]' key={index}>{item}</li>
+                  <li className='text-[#212121]  text-[.8rem] md:text-[1rem] lg:text-[1rem]' key={index}>{item}</li>
                 ))}
 
                                 </ul>

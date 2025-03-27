@@ -5,7 +5,7 @@ import FaqSection from "@/components/HomeComponent/FaqSection/FaqSection"
 import Footer from "@/components/HomeComponent/Footer/Footer"
 import HeroSection from "@/components/HomeComponent/HeroSection/HeroSection"
 import Integration from "@/components/HomeComponent/Integration/Integration"
-import NeedHelp from "@/components/HomeComponent/NeedHelp/NeedHelp"
+
 import Plans from "@/components/HomeComponent/Plans/Plans"
 import SuccessStories from "@/components/HomeComponent/SuccessStories/SuccessStories"
 import Image from "next/image"
@@ -20,7 +20,7 @@ const HomeContainer = () => {
     return (
         <>
             <div className="mainContainer    relative bg-[url(/images/homeImages/grain.png)]  w-[100%] min-h-[100vh] overflow-hidden">
-              <div className="bg-[#5E788F]/85 flex flex-col gap-10">
+              <div className="bg-[#5E788F]/85 flex flex-col gap-3 md:gap-6 lg:gap-10">
               <Navbar/>
                 <HeroSection />
                 <About />
@@ -31,7 +31,7 @@ const HomeContainer = () => {
                 <Plans/>
                 <SuccessStories/>
                 <Blogs/>
-               <NeedHelp/>
+             
                <FaqSection/>
                <ContactUsSection/>
              <Footer/>
