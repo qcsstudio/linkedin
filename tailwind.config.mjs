@@ -15,10 +15,7 @@ export default {
       fontFamily: {
         syne: ["Syne", "sans-serif"],
       },
-      screens: {
-        'xs-custom': '320px', // 320px से शुरू होगा
-        'xs-max': { 'raw': '(max-width: 340px)' } // 340px से छोटा होगा
-      },
+      
     },
   },
   plugins: [],
