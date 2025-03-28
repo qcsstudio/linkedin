@@ -75,7 +75,7 @@ const TotalOverview = ({ data, followers }) => {
             <div className="flex items-center justify-around">
               <p className="text-xl text-blue-500">
                 {item.name === "Engagement" ? (
-                  item.value  // Display percentage as a string
+                  item.value 
                 ) : (
                   <AnimatedNumber value={parseInt(item.value)} duration={0.8} />
                 )}
