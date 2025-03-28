@@ -4,7 +4,7 @@
   import { motion, useScroll, useTransform } from "framer-motion";
   import Image from "next/image";
   import logo from "../../../../public/images/homeImages/logofooter.png";
-  import Logo from '../../../../public/images/homeImages/ElevatrXLogo.svg'
+  import Logo from '../../../../public/images/homeImages/elevatrxlogo.png'
   import Link from "next/link";
   import { FiMenu, FiX } from "react-icons/fi";
   import mainLogo from "../../../../public/images/mainLogo.png";
