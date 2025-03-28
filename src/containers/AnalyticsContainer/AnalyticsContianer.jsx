@@ -26,7 +26,7 @@ const AnalyticsContianer = () => {
     organizationFollowerCount,
     linkedinProfileData,
     linkedinOrganizationData,
-    getAllOrganizationsData
+    getAllOrganizationsData,
   } = useContext(userContext);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const AnalyticsContianer = () => {
   }, [linkedinOrganizationId]);
 
   useEffect(() => {
-    if(selectedaccount){
+    if (selectedaccount) {
       getOrganizationAnalyticsData({
         id: selectedaccount.id,
         token: selectedaccount.token,
@@ -50,11 +50,11 @@ const AnalyticsContianer = () => {
     }
   }, [selectedaccount]);
 
-  useEffect(()=>{
-     if(linkedinOrganizationData){
+  useEffect(() => {
+    if (linkedinOrganizationData) {
       getAllOrganizationsData(linkedinOrganizationData);
-     }
-  },[linkedinOrganizationData])
+    }
+  }, [linkedinOrganizationData]);
 
   const accountOptionTemplate = (option) => (
     <div className="flex items-center justify-between w-full px-2 py-1">
@@ -83,7 +83,7 @@ const AnalyticsContianer = () => {
           className="text-gray-500 hover:text-red-500"
           onClick={(e) => {
             e.stopPropagation();
-            setSelectedaccount(null);  
+            setSelectedaccount(null);
             getAllOrganizationsData(linkedinOrganizationData);
           }}
         >
@@ -93,6 +93,7 @@ const AnalyticsContianer = () => {
     );
   };
 
+  console.log("selectedaccount", selectedaccount);
   return (
     <div className="p-8 flex flex-col gap-2">
       <div className="flex py-5 items-center justify-between">
@@ -129,9 +130,21 @@ const AnalyticsContianer = () => {
             followers={organizationFollowerCount}
           />
         )}
+        
+        {selectedaccount && (
+          <FollowersOverview
+            id={selectedaccount.id}
+            token={selectedaccount.token}
+          />
+        )}
 
-        <FollowersOverview />
-        <ImpressionOverviewAnalytics />
+        {selectedaccount && (
+          <ImpressionOverviewAnalytics
+            id={selectedaccount.id}
+            token={selectedaccount.token}
+          />
+        )}
+
         <div className="bg-white/50 flex flex-col gap-5 rounded-lg p-5">
           <BestTimeToPostAnalytics />
           <HeatMapAnalytics />
