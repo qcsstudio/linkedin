@@ -59,6 +59,7 @@ const Footer = () => {
                     </div>
                 </div>
 
+
                 <div className="w-full flex flex-col sm:flex-row sm:gap-8 text-center sm:text-left lg:mt-1 mt-6">
                     <div className={`w-full lg:w-[60%] sm:w-[50%] text-gray-300 ${syne.className}`}>
                         <h2 className="text-lg sm:text-xl font-medium tracking-wide text-white">Company Address:</h2>

@@ -9,10 +9,10 @@ import Description from '../Description/Description'
 const Blogs = () => {
     return (
         <>
-            <div className="blogsContainer flex justify-center mx-auto relative w-[100%]   px-[3.37rem]  overflow-hidden ">
+            <div className="blogsContainer flex justify-center mx-auto relative w-[100%]   px-4 lg:px-[3.37rem] md:px-[3.12rem]   overflow-hidden ">
 
                 {/* Inner Container */}
-                <div className="innerContainer w-[100%] px-[3.18rem] pb-[3.19rem] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10]">
+                <div className="innerContainer w-[100%] px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[1.5rem] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10]">
 
                     {/* Upper Container */}
                     <Heading heading={"Blog's"}></Heading>
