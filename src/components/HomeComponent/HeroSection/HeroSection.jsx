@@ -46,9 +46,16 @@ export default function Home() {
       </div>
 
       {/* Background Image */}
-      <div className="cloudContainer absolute  transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[900px] opacity-60 sm:opacity-100">
-      <Image src="/images/homeImages/cloud.png" width={1024} height={1024} alt="cloud" className="w-full h-auto imageDrag" />
-      </div>
+  <div className="cloudContainer absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[900px] opacity-60 sm:opacity-100">
+    <Image
+      src="/images/homeImages/cloud.png"
+      width={1024}
+      height={1024}
+      alt="cloud"
+      className="w-full h-auto imageDrag"
+    />
+  </div>
+
 
     </div>
   );
