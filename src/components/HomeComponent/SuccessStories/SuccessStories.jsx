@@ -11,6 +11,7 @@ import profile from '../../../../public/images/homeImages/profile.png'
 import Heading from '../Heading/Heading';
 import Subheading from '../Subheading/Subheading'
 import Description from '../Description/Description'
+import CloudSection from '../CloudSection/CloudSection';
 
 const SuccessStories = () => {
     const testimonials = [
@@ -59,9 +60,7 @@ const SuccessStories = () => {
 
   return (
      <div className=" w-[100%]  px-4 lg:px-[3.37rem] md:px-[3.12rem]  relative   z-10">
-                <div className="cloudContainer h-full w-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1] ">
-                    <Image src={cloud} alt="cloud" className="w-full h-[100%] imageDrag" />
-                </div>
+               <CloudSection bottom={1} left={0} opacity={0.7} />
                 <div className="innerContainer   md:px-[3.12rem] lg:px-[3.12rem] flex flex-col gap-12 justify-center items-center w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10] px-4  pb-[3rem] ">
     
     

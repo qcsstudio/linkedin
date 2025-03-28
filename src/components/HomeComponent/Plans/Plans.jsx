@@ -8,6 +8,7 @@ import Description from '../Description/Description'
 import Link from "next/link";
 import { AiOutlineFire } from "react-icons/ai";
 import { useState } from "react";
+import CloudSection from "../CloudSection/CloudSection";
 
 
 
@@ -63,9 +64,7 @@ const Plans = () => {
 
     return (
         <div id='pricing' className="w-[100%]   px-4 lg:px-[3.37rem] md:px-[3.12rem] relative ">
-            <div className="cloudContainer hidden lg:block h-full w-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1]  ">
-                <Image src={cloud} alt="cloud" className="w-full h-[100%] imageDrag" />
-            </div>
+            <CloudSection bottom={0} left={0} opacity={0.7} />
             <div className="innerContainer px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[1.5rem] flex flex-col gap-12 justify-center items-center w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem]  pb-[3rem]  z-20">
 
 
