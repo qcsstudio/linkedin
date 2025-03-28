@@ -49,7 +49,7 @@ const HomeContainer = () => {
               </div>
               
                 {/* Rays */}
-                <div className="w-[100%] h-[117.5rem] absolute top-[0rem] left-[0rem] z-[1] animate-cloudMove" >
+                <div className="w-[100%] h-[117.5rem] absolute top-[0rem] left-[0rem] z-[1] " >
                     <Image src="/images/homeImages/rays.png" width={1024} height={1024} alt="logo" className="w-[100%] h-[100%] imageDrag opacity-80 z-[1]" />
                 </div>
 
