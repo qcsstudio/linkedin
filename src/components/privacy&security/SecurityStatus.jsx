@@ -21,7 +21,7 @@ const SecurityStatus = () => {
 
         {/* Status Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-gray-50 p-4 rounded-lg shadow-sm h-24">
+          <div className="bg-gray-50 p-4 rounded-lg shadow-sm ">
             <h3 className="text-lg font-bold">2FA</h3>
             <p className="text-base text-gray-500">Enabled</p>
           </div>

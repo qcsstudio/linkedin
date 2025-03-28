@@ -38,6 +38,56 @@
   background-color: white !important;
   color: rgb(79, 72, 72) !important;
 }
+.fc .fc-button {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background-color: white !important;
+  color: #333 !important; /* Default text color */
+  padding: 8px 12px !important;
+  transition: background-color 0.2s ease-in-out;
+}
+.fc-button:hover{
+  background-color: rgb(201, 197, 197) !important;
+  
+}
+
+.fc-button:active,
+.fc-button:focus,
+.fc-button::after,
+.fc-button::before{
+  background-color: rgb(201, 197, 197) !important;
+}
+
+
+/* .fc-button-active,
+.fc-button-active:focus,
+.fc-button-active:active,
+.fc-button-active:hover,
+.fc-button-active::before,
+.fc-button-active::after {
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent;
+} */
+
+.fc-button-active:focus-visible {
+  outline: none !important;
+}
+
+.fc-button-active::-moz-focus-inner {
+  border: 0 !important;
+}
+
+
+
+.fc-button-active{
+  /* height: 27px !important; */
+  width: 62px !important;
+  background-color: #F1F5F9 !important;
+  border: none !important;
+}
 .fc-today-button{
   /* position: relative; */
   z-index: 1000000000000;
@@ -45,6 +95,7 @@
 
 .fc-timegrid-slot {
   height: 45px !important; /* Increase height */
+  
 }
 
 
@@ -64,34 +115,7 @@
   border-radius: 9px !important;
 }
 
-.fc-button-active,
-.fc-button-active:focus,
-.fc-button-active:active,
-.fc-button-active:hover,
-.fc-button-active::before,
-.fc-button-active::after {
-  border: 0 !important;
-  outline: none !important;
-  box-shadow: none !important;
-  -webkit-tap-highlight-color: transparent;
-}
 
-.fc-button-active:focus-visible {
-  outline: none !important;
-}
-
-.fc-button-active::-moz-focus-inner {
-  border: 0 !important;
-}
-
-
-
-.fc-button-active{
-  /* height: 27px !important; */
-  width: 62px !important;
-  background-color: #F1F5F9 !important;
-  border: none !important;
-}
 .fc-header-toolbar{
   justify-content: end !important;
   gap: 5px;

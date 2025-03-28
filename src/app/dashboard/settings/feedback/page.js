@@ -31,7 +31,7 @@ const page = () => {
    };
  
    return (
-     <div className="w-[95%] mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
+     <div className="w-[95%] mx-auto mt-8 p-6 bg-white rounded-lg shadow-md relative z-10">
        <h2 className="text-2xl font-semibold">Feedback</h2>
        <p className="text-gray-600 mb-6">
          We would love to hear your thoughts, suggestions, concerns or problems, with anything so we can improve!

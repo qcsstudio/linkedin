@@ -9,8 +9,8 @@ import TeamMember from "@/components/Account&Subscription/TeamMember";
 const Account = () => {
   return (
     <>
-      <div className="w-[95%]  mx-auto mt-8 p-6 bg-white/30 rounded-2xl shadow-md">
-        <h1 className="text-2xl font-semibold text-black dark:text-white mb-6">
+      <div className="w-[95%]  mx-auto mt-8 p-6 bg-white/60 rounded-2xl relative z-10">
+        <h1 className="text-2xl font-bold text-black  mb-6">
           Account & Subscription
         </h1>
         <UserInformation />
