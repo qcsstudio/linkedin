@@ -2,8 +2,8 @@ import React from 'react';
 
 const ContactUsSection = () => {
     return (
-        <div id="contact" className="w-full px-6 md:px-[3.3rem] ">
-  <div className="innerContainer flex flex-col md:flex-row gap-6 md:gap-10 w-full h-full bg-[#FFFFFF]/35 rounded-lg   md:pl-[3.37rem] ">
+        <div id="contact" className="w-full px-4 lg:px-[3.37rem] md:px-[3.12rem] ">
+  <div className="innerContainer flex flex-col md:flex-row gap-6 md:gap-10 w-full h-full bg-[#FFFFFF]/35 rounded-lg   pl-4 md:pl-[3.12rem] lg:pl-[3.12rem] ">
     
     {/* Form Section */}
     <div className="p-4 md:p-6 py-8 md:py-[3rem] w-full md:w-1/2 flex flex-col gap-4">
