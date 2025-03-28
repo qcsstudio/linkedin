@@ -6,6 +6,7 @@ import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useEffect, useState } from "react";
 
+
 export default function CalenderContainer() {
   const [allEvents, setAllEvents] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -81,7 +82,7 @@ export default function CalenderContainer() {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-6 relative z-10 ">
       <nav className="flex justify-between items-center mb-4 border-b border-violet-100 p-4">
         <div className="flex items-center gap-4">
           <h1 className="font-bold text-2xl text-gray-700">Hi, QCS</h1>
@@ -89,9 +90,10 @@ export default function CalenderContainer() {
         </div>
       </nav>
 
-      <main className="w-full grid gap-5" style={{ height: "90vh" }}>
+      <main className="w-full grid gap-5 bg-none  " style={{ height: "90vh" }}>
+      
         <FullCalendar
-          className="z-[100%] text-xs"
+          className=" text-xs  "
           plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
           headerToolbar={{
             left: "prev today next",
@@ -121,7 +123,7 @@ export default function CalenderContainer() {
             const date = new Date(arg.date);
             const formattedDate = date.getDate().toString().padStart(2, "0");
             return date.getDate() ? (
-              <div className="flex justify-start gap-9 items-center text-xs w-full">
+              <div className="flex justify-start gap-9  items-center text-xs w-full">
                 <span className="text-sm font-medium">
                   {date.toLocaleDateString("en-US", { weekday: "short" })}
                 </span>

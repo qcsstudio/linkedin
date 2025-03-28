@@ -39,7 +39,7 @@ const CurrentPlan = () => {
         {/* Plan Management Buttons */}
         <div className="flex space-x-2">
           <button 
-          className="bg-[#4379EE] text-white p-2 rounded h-8 w-40 text-xs"
+          className="bg-[#4379EE] text-white p-2 rounded h-8 w-40 text-xs relative z-10"
           onClick={upgradePlan}>
             Upgrade Plan
           </button>
