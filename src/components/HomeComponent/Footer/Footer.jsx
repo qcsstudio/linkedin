@@ -1,3 +1,4 @@
+'use client'
 import React from 'react';
 import Image from 'next/image';
 import logo from '../../../../public/images/homeImages/elevatrxlogo.png';
@@ -15,6 +16,13 @@ const socialLinks = [
     { href: "https://www.youtube.com/@QCS-IT", icon: FaYoutube },
 ];
 
+
+const scrollToSection = (id) => {
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
 const Footer = () => {
     return (
@@ -94,27 +102,27 @@ const Footer = () => {
                         <h3 className="sm:text-xl lg:text-xl text-[18px] text-nowrap font-medium text-white">Quick Links</h3>
                         <ul className="text-sm space-y-1 mt-2">
                             <li>Partner With Us</li>
-                            <li>Blog</li>
+                            <li onClick={() => scrollToSection("blog")}>Blog</li>
                             <li>Careers</li>
-                            <li>Contact Us</li>
+                            <li onClick={() => scrollToSection("contact")}>Contact Us</li>
                         </ul>
                     </div>
 
                     <div>
                         <h3 className="sm:text-xl lg:text-xl text-[18px] text-nowrap font-medium text-white">Product</h3>
                         <ul className="text-sm space-y-1 mt-2">
-                            <li><Link href="#features">Features</Link></li>
-                            <li><Link href="#pricing">Pricing</Link></li>
-                            <li><Link href="#integration">Integrations</Link></li>
-                            <li>Request a Demo</li>
+                            <li onClick={() => scrollToSection("features")}>Features</li>
+                            <li onClick={() => scrollToSection("pricing")}>Pricing</li>
+                            <li onClick={() => scrollToSection("integration")}>Integration</li>
+                            <li onClick={() => scrollToSection("contact")}>Request a Demo</li>
                         </ul>
                     </div>
 
                     <div>
                         <h3 className="sm:text-xl lg:text-xl text-[18px] text-nowrap font-medium text-white">Resources</h3>
                         <ul className="text-sm space-y-1 mt-2 text-nowrap">
-                            <li>Help Center</li>
-                            <li>FAQs</li>
+                            <li onClick={() => scrollToSection("contact")}>Help Center</li>
+                            <li onClick={() => scrollToSection("faq")}>FAQs</li>
                             <li>Case Studies</li>
                             <li>Early  Program</li>
                         </ul>

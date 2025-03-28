@@ -15,6 +15,9 @@ import KeyFeatureCarousel from './KeyFeatureCarousel'
 import Heading from '../Heading/Heading'
 import Subheading from '../Subheading/Subheading'
 import Description from '../Description/Description'
+import AdvanceAnalytics from '../../../../public/images/homeImages/AdvanceAnalytics.png'
+import AIOptimize from '../../../../public/images/homeImages/AI-Enhanced.png'
+import AIEnhanced from '../../../../public/images/homeImages/AI-Enhanced.png'
 
 const KeyFeatureSection = () => {
 const [activeIndex,setActiveIndex]=useState(0)
@@ -35,6 +38,7 @@ const featureData = [
       "Eliminates manual posting.",
       "Maximizes engagement automatically.",
     ],
+    Image:AIEnhanced,
   },
   {
     title: "Advanced Analytics & Real-Time Performance Insights – Know What Works",
@@ -51,6 +55,7 @@ const featureData = [
       "Data-driven strategy without spreadsheets.",
       "Helps you fine-tune your content & ad strategy.",
     ],
+    Image:AIEnhanced,
   },
   {
     title: "Multi-Platform Management – One Dashboard to Rule Them All",
@@ -66,6 +71,7 @@ const featureData = [
       "Keeps brand messaging consistent across platforms.",
       "Eliminates repetitive posting tasks.",
     ],
+    Image:AIEnhanced,
   },
   {
     title: "AI-Driven Competitor Tracking – Stay Ahead of the Game",
@@ -81,6 +87,7 @@ const featureData = [
       "Spot trends early & adapt faster.",
       "Benchmark against top brands & influencers.",
     ],
+    Image:AIEnhanced,
   },
   {
     title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
@@ -96,6 +103,7 @@ const featureData = [
       "Keeps your brand voice consistent & engaging.",
       "Ensures your content is always trending & relevant.",
     ],
+    Image:AIEnhanced,
   },
   {
     title: "AI-Powered Engagement & Auto-Replies – Never Miss a Comment Again",
@@ -111,6 +119,7 @@ const featureData = [
       "Makes social media feel more personal.",
       "Saves hours responding to repetitive messages.",
     ],
+    Image:AIEnhanced,
   },
   {
     title: "AI-Powered Hashtag & Trend Suggestions – Get More Reach",
@@ -126,6 +135,7 @@ const featureData = [
       "Boosts chances of viral content.",
       "Keeps content fresh & up-to-date.",
     ],
+    Image:AIEnhanced,
   },
   {
     title: "Team Collaboration & Custom User Roles – Work Smarter Together",
@@ -141,6 +151,7 @@ const featureData = [
       "Keeps social media workflows smooth.",
       "Ensures quality control before posting.",
     ],
+    Image:AIEnhanced,
   },
   {
     title: "Security & Compliance – Your Data is Safe with Us",
@@ -156,6 +167,7 @@ const featureData = [
       "Complies with global privacy laws.",
       "Protects your brand reputation.",
     ],
+    Image:AIEnhanced,
   },
 ];
 

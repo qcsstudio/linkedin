@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-cards';
 import { EffectCards } from 'swiper/modules';
+import Image from 'next/image';
 
 function KeyFeatureCarousel({ featureData, setActiveIndex, activeindex }) {
   const [cardSize, setCardSize] = useState({ width: 342, height: 479 });
@@ -48,31 +49,34 @@ function KeyFeatureCarousel({ featureData, setActiveIndex, activeindex }) {
       >
         {featureData.map((slide, index) => (
           <SwiperSlide
-            key={index}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: '18px',
-              fontSize: '22px',
-              fontWeight: 'bold',
-              color: '#fff',
-              backgroundColor: [
-                'rgb(206, 17, 17)',
-                'rgb(0, 140, 255)',
-                'rgb(10, 184, 111)',
-                'rgb(211, 122, 7)',
-                'rgb(118, 163, 12)',
-                'rgb(180, 10, 47)',
-                'rgb(35, 99, 19)',
-                'rgb(0, 68, 255)',
-                'rgb(218, 12, 218)',
-                'rgb(54, 94, 77)',
-              ][index % 10],
-            }}
-          >
-            {activeindex}
-          </SwiperSlide>
+          key={index}
+          className="relative w-full h-full overflow-hidden "
+          style={{
+            borderRadius: '18px',
+            backgroundColor: [
+              'rgb(255, 255, 255,0.7)',
+              'rgb(255, 255, 255,0.7)',
+              'rgb(255, 255, 255,0.7)',
+              'rgb(255, 255, 255,0.7)',
+              'rgb(255, 255, 255,0.7)',
+              'rgb(255, 255, 255,0.7)',
+              'rgb(255, 255, 255,0.7)',
+              'rgb(255, 255, 255,0.7)',
+              'rgb(255, 255, 255,0.7)',
+              'rgb(255, 255, 255,0.7)',
+            ][index % 10],
+          }}
+        >
+          <div className="relative w-full h-full z-10 overflow-hidden">
+            <Image 
+              src={slide.Image} 
+              alt="img"
+              fill
+              className="object-cover z-10"
+            />
+          </div>
+        </SwiperSlide>
+        
         ))}
       </Swiper>
     </div>

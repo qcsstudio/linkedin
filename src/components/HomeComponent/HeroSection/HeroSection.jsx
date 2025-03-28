@@ -4,12 +4,15 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="heroSection w-full h-screen  relative overflow-hidden flex flex-col items-center justify-center px-4 ">
+    <div className="heroSection w-full h-screen  relative overflow-hidden pt-16 flex flex-col items-center justify-center px-4 ">
       
       {/* Inner Container */}
       <div className="innerHeroContainer w-full h-full flex flex-col  gap-3 md-gap-6 lg:gap-6  justify-center items-center text-center z-[2] select-none">
 
         {/* Logo Container */}
+        <div className="flex flex-col-reverse md:flex-col lg:flex-col gap-3 md-gap-6 lg:gap-6 ">
+
+        
         <div className="logoContainer w-full flex justify-center  ">
           <Image src={logo} width={95} height={95} alt="logo" className="w-14 h-16 lg:w-20 lg:h-20 imageDrag" />
         </div>
@@ -19,6 +22,7 @@ export default function Home() {
           <h1 className="text-xl md:text-4xl lg:text-6xl font-medium text-[#0E1C29] leading-tight w-[80%] ">
             Transform Your Social Media Presence with AI-Powered Automation
           </h1>
+        </div>
         </div>
 
         {/* Description Container */}

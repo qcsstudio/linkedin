@@ -40,7 +40,7 @@ const Integration = () => {
                     {/* Lower Container */}
                     <div className='lowerContainer w-[100%]  flex justify-center items-center z-20'>
 
-                        <div className="innerLowerContainer relative w-[80%] md:w-[90%] lg:w-[90%] h-[20rem] md:h-[29.18rem]  lg:h-[29.18rem] z-20">
+                        <div className="innerLowerContainer relative w-[70%] md:w-[90%] lg:w-[90%] h-[15rem] md:h-[29.18rem]  lg:h-[29.18rem] z-20">
 
                             {/* Middle Icon */}
                             <div className="middleIcon hidden md:block lg:block w-[6rem] h-[6rem] bg-[#ffffff] rounded-[1.2rem] p-[.4rem] absolute left-1/2 top-1/2 transfrom -translate-x-1/2 -translate-y-1/2 shadow-[0px_28px_56px_-31px_rgba(218,235,248,1)] z-20">
@@ -67,21 +67,21 @@ const Integration = () => {
 
                             {/* left Social logos */}
                             {/* linkedin */}
-                            <div className="middleIcon w-[6rem] h-[6rem] bg-[#ffffff] rounded-[1.2rem] p-[.4rem] absolute top-1/8 transfrom  -translate-y-1/8  border-t border-[4px] border-[rgba(218,235,248,1)]/50 flex justify-center items-center z-20">
+                            <div className="middleIcon w-[4rem] h-[4rem] md:w-[6rem] md:h-[6rem] lg:w-[6rem] lg:h-[6rem] bg-[#ffffff] rounded-[1.2rem] p-[.4rem] absolute top-1/8 transfrom  -translate-y-1/8  border-t border-[4px] border-[rgba(218,235,248,1)]/50 flex justify-center items-center z-20">
 
                                 <Image src={linkedin} width={1024} height={1024} alt="logo"  className=" w-[70%] h-[70%] drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)] z-20" />
 
                             </div>
 
                             {/* linkedin logos */}
-                            <div className="middleIcon w-[6rem] h-[6rem] bg-[#ffffff] rounded-[1.2rem] p-[.4rem] absolute bottom-[0%] transfrom  border-t border-[4px] border-[rgba(218,235,248,1)]/50 flex justify-center items-center z-20">
+                            <div className="middleIcon w-[4rem] h-[4rem] md:w-[6rem] md:h-[6rem] lg:w-[6rem] lg:h-[6rem] bg-[#ffffff] rounded-[1.2rem] p-[.4rem] absolute bottom-[0%] transfrom  border-t border-[4px] border-[rgba(218,235,248,1)]/50 flex justify-center items-center z-20">
 
                                 <Image src={instagram} width={1024} height={1024} alt="logo"  className=" w-[70%] h-[70%] drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)] z-20" />
 
                             </div>
 
                             {/* facebook logos */}
-                            <div className="middleIcon w-[6rem] h-[6rem] bg-[#ffffff] rounded-[1.2rem] p-[.4rem] absolute top-1/2 transfrom -translate-y-1/2 left-[0%] md:left-[5%] lg:left-[5%]  border-t border-[4px] border-[rgba(218,235,248,1)]/70 flex justify-center items-center z-20">
+                            <div className="middleIcon w-[4rem] h-[4rem] md:w-[6rem] md:h-[6rem] lg:w-[6rem] lg:h-[6rem] bg-[#ffffff] rounded-[1.2rem] p-[.4rem] absolute top-1/2 transfrom -translate-y-1/2 left-[0%] md:left-[5%] lg:left-[5%]  border-t border-[4px] border-[rgba(218,235,248,1)]/70 flex justify-center items-center z-20">
 
                                 <Image src={facebook} width={1024} height={1024} alt="logo"  className=" w-[70%] h-[70%] drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)] z-20" />
 
@@ -89,21 +89,21 @@ const Integration = () => {
 
                             {/* right Social logos */}
                             {/* x */}
-                            <div className="middleIcon w-[6rem] h-[6rem] bg-[#ffffff] rounded-[1.2rem] p-[.4rem] absolute top-1/8 transfrom  -translate-y-1/8 right-[0%]  border-t border-[4px] border-[rgba(218,235,248,1)]/50 flex justify-center items-center z-20">
+                            <div className="middleIcon w-[4rem] h-[4rem] md:w-[6rem] md:h-[6rem] lg:w-[6rem] lg:h-[6rem] bg-[#ffffff] rounded-[1.2rem] p-[.4rem] absolute top-1/8 transfrom  -translate-y-1/8 right-[0%]  border-t border-[4px] border-[rgba(218,235,248,1)]/50 flex justify-center items-center z-20">
 
                                 <Image src={x} width={1024} height={1024} alt="logo"  className=" w-[70%] h-[70%] drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)] z-20" />
 
                             </div>
 
                             {/* pintrest logos */}
-                            <div className="middleIcon w-[6rem] h-[6rem] bg-[#ffffff] rounded-[1.2rem] p-[.4rem] absolute bottom-[0%] right-[0%] transfrom  border-t border-[4px] border-[rgba(218,235,248,1)]/50 flex justify-center items-center z-20">
+                            <div className="middleIcon w-[4rem] h-[4rem] md:w-[6rem] md:h-[6rem] lg:w-[6rem] lg:h-[6rem] bg-[#ffffff] rounded-[1.2rem] p-[.4rem] absolute bottom-[0%] right-[0%] transfrom  border-t border-[4px] border-[rgba(218,235,248,1)]/50 flex justify-center items-center z-20">
 
                                 <Image src={youtube} width={1024} height={1024} alt="logo"  className=" w-[70%] h-[70%] drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)] z-20" />
 
                             </div>
 
                             {/* youtube logos */}
-                            <div className="middleIcon w-[6rem] h-[6rem] bg-[#ffffff] rounded-[1.2rem] p-[.4rem] absolute top-1/2 transfrom -translate-y-1/2 right-[0%] md:right-[5%] lg:right-[5%]  border-t border-[4px] border-[rgba(218,235,248,1)]/70 flex justify-center items-center z-20">
+                            <div className="middleIcon w-[4rem] h-[4rem] md:w-[6rem] md:h-[6rem] lg:w-[6rem] lg:h-[6rem] bg-[#ffffff] rounded-[1.2rem] p-[.4rem] absolute top-1/2 transfrom -translate-y-1/2 right-[0%] md:right-[5%] lg:right-[5%]  border-t border-[4px] border-[rgba(218,235,248,1)]/70 flex justify-center items-center z-20">
 
                                 <Image src={pintrest} width={1024} height={1024} alt="logo"  className=" w-[70%] h-[70%] drop-shadow-[0_4px_6px_rgba(0,0,0,0.3)] z-20" />
 
