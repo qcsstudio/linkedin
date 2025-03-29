@@ -83,7 +83,7 @@ export const POST = async (req) => {
 
     return response;
   } catch (error) {
-    console.log("User Login Error");
+    console.errror("User Login Error");
     return NextResponse.json({ message: "User Login Failed" }, { status: 500 });
   }
 };

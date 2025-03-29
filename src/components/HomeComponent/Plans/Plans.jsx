@@ -1,3 +1,4 @@
+'use client'
 import { TiTick } from "react-icons/ti";
 import Image from "next/image";
 import cloud from '../../../../public/images/homeImages/cloud.png'
@@ -6,12 +7,14 @@ import Subheading from '../Subheading/Subheading'
 import Description from '../Description/Description'
 import Link from "next/link";
 import { AiOutlineFire } from "react-icons/ai";
-
+import { useState } from "react";
+import CloudSection from "../CloudSection/CloudSection";
 
 
 
 
 const Plans = () => {
+    const [buttonPlans,setButtonPlans]=useState('Monthly');
     const pricingPlans = [
         {
             title: "Starter",
@@ -60,11 +63,9 @@ const Plans = () => {
     ];
 
     return (
-        <div id='pricing' className="w-[100%]   px-[3.3rem] relative ">
-            <div className="cloudContainer h-full w-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1] ">
-                <Image src={cloud} alt="cloud" className="w-full h-[100%] imageDrag" />
-            </div>
-            <div className="innerContainer flex flex-col gap-12 justify-center items-center w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem]  pb-[3rem] px-[7.0625rem] z-20">
+        <div id='pricing' className="w-[100%]   px-4 lg:px-[3.37rem] md:px-[3.12rem] relative ">
+            <CloudSection bottom={0} left={0} opacity={0.7} />
+            <div className="innerContainer px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[1.5rem] flex flex-col gap-12 justify-center items-center w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem]  pb-[3rem]  z-20">
 
 
                 <div>
@@ -74,11 +75,11 @@ const Plans = () => {
                         <Subheading subHeading={" Flexible Pricing for Every Social Media Superhero"}/>
                         
                         <Description description={"At ElevatrX, we make social media marketing simple and affordable. Our flexible plans grow with your business—choose yours and streamline your success."}/>
-                        <div className="flex bg-white p-2 rounded-lg space-x-10 z-20">
-                            <button className="px-4 py-2 bg-[#5E788F]/20  border text-xl rounded-md text-gray-700 hover:bg-gray-200 z-20">
+                        <div className="flex bg-white p-2 rounded-lg  z-20">
+                            <button onClick={()=>setButtonPlans('Monthly')}  className={`${buttonPlans==='Monthly'?"bg-[#5E788F]/50 ":""} px-2 md:px-4 lg:px-4 py-2    text-md md:text-xl lg:text-xl rounded-md text-gray-700 `}>
                                 Monthly
                             </button>
-                            <button className="px-4 text-xl text-gray-500 py-2 z-20">
+                            <button onClick={()=>setButtonPlans('yearly')} className={`${buttonPlans==="yearly"?"bg-[#5E788F]/50 ":""} px-1 md:px-4 lg:px-4 text-md md:text-xl lg:text-xl rounded-md text-gray-700 py-2 z-20`}>
                                 Yearly <span className='text-black z-20'>Save 20%</span>
                             </button>
 
@@ -92,7 +93,7 @@ const Plans = () => {
 
 
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full z-20">
+                <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-5 w-full z-20">
                     {pricingPlans.map((plan, index) => (
                         <div
                             key={index}
@@ -100,23 +101,27 @@ const Plans = () => {
                                 }`}
                         >
                             {plan.popular && (
-                                <span className="absolute flex items-center justify-center gap-1 top-10 left-32 bg-gray-800/40 text-white px-3 py-1 text-lg rounded-full z-20">
+                                <span className="absolute flex items-center justify-center gap-1 top-10 left-32 bg-[#5E788F] text-white px-3 py-1 text-lg rounded-full z-20">
                                   <AiOutlineFire />
                                   Popular
                                 </span>
                             )}
-                            <div className="border-b-[3px] px-[1.8rem] pb-5 flex flex-col gap-5 border-gray-500 border-dashed z-20">
+                            <div className="border-b-[3px] px-[1rem] pb-5 flex flex-col gap-5 border-gray-500 border-dashed z-20">
                                 <h3 className="text-md font-thin text-gray-800 z-20">
                                     {plan.title}
                                 </h3>
                                 <div className="flex items-center justify-start gap-2">
-                                    <p className="text-5xl font-bold text-gray-900">{plan.price}</p>
-                                    <p className="text-md font-thin text-gray-500">{plan.duration}</p>
+                                    <p className="text-5xl font-bold text-gray-900">
+                                    {buttonPlans === "yearly"
+        ? `$${(parseFloat(plan.price.replace("$", "")) * 12 * 0.8).toFixed(0)}`
+        : plan.price}
+                                        </p>
+                                    <p className="text-md font-thin text-gray-500"> {buttonPlans === "yearly" ? "user/year" : plan.duration}</p>
                                 </div>
 
                             </div>
 
-                            <div className=" last-contianer flex flex-col justify-between gap-5 h-full px-[1.8rem]">
+                            <div className=" last-contianer flex flex-col justify-between gap-5 h-full px-[1rem]">
 
                                 <ul className="space-y-3 flex-grow">
                                     <h1 className="font-semibold">{plan.cardsHeading}</h1>
@@ -129,7 +134,7 @@ const Plans = () => {
                                 </ul>
 
 
-                              <Link href='/register'> <button className={`w-full mt-auto ${plan.popular?"bg-gray-800/40":"bg-gradient-to-r from-gray-800/40   to-white/50"}  border-2 border-gray-200 text-white py-2 rounded-lg hover:bg-[#B0BAC4]`}>
+                              <Link href='/register'> <button className={`w-full mt-auto ${plan.popular?"bg-gradient-to-r from-[#5E788F]   to-[#5E788F]/40   ":"bg-gradient-to-r from-[#5E788F]   to-white/50"}  border-2 border-gray-200 text-white py-2 rounded-lg hover:bg-[#B0BAC4]`}>
                                     Start 14 Day Free Trial
                                 </button></Link> 
                             </div>

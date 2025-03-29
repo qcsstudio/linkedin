@@ -26,8 +26,6 @@ const TextEditor = ({setPostCaption}) => {
     extensions: [
         StarterKit,
         Bold,
-        Document,
-        Text,
         Italic,
         
     ],

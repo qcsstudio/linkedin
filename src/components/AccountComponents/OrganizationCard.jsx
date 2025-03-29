@@ -6,7 +6,6 @@ import icon from "../../../public/images/accountImages/linkdedin.png";
 import { CgOrganisation } from "react-icons/cg";
 
 const OrganizationCard = ({ data }) => {
-  console.log("data", data);
   const [status, setStatus] = useState("Active");
   return (
     <>
@@ -41,7 +40,7 @@ const OrganizationCard = ({ data }) => {
             </div>
           </div>
 
-          <div className="lowerCard w-[100%] h-[30%]  gap-2 p-2 flex">
+          <div className="lowerCard w-[100%] h-[30%]  gap-2 p-2 flex justify-center">
             <Button
               text={"Connected"}
               backgroundColor={"#007BFF"}
