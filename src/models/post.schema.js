@@ -25,7 +25,11 @@ const SchedulePostSchema = new mongoose.Schema(
         ],
         token: { type: String, required: true } // Authorization token
       }
-    ]
+    ],
+    scheduled:{
+      type:Boolean,
+      default:false
+    }
   },
   { timestamps: true }
 );

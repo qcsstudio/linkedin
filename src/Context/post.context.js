@@ -5,6 +5,8 @@ import { createContext, useState } from "react";
 const initialData = {
     schedulePost: () => {},
     postLinkedin: () => {},
+    fetchPosts: () => {}, // Added fetch method
+    posts: [], // Store fetched posts
 };
 
 const PostContext = createContext(initialData);
@@ -12,6 +14,32 @@ const PostContext = createContext(initialData);
 export const PostContextProvider = ({ children }) => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [posts, setPosts] = useState([]);
+
+    // Schedule Get Function
+
+    const fetchPost = async () =>{
+        try{
+            setLoading(true);
+            const response = await fetch("/api/schedulePost",{
+                method:"GET"
+            });
+
+            const responseData = await response.json();
+            if(!response.ok) throw new Error(responseData.message);
+
+            setPosts(responseData.posts);
+            setLoading(false);
+        }
+        catch(error){
+            console.error("Error fetching posts:", error);
+            setError(true);
+            setLoading(false);
+        }
+    }
+    useEffect(() => {
+        fetchPosts();
+    }, []);
 
     // ✅ Schedule Post Function
     const schedulePost = async (data) => {
@@ -65,7 +93,7 @@ export const PostContextProvider = ({ children }) => {
     };
 
     return (
-        <PostContext.Provider value={{ loading, setLoading, error, setError, postLinkedin, schedulePost }}>
+        <PostContext.Provider value={{ loading, setLoading, error, setError, postLinkedin, schedulePost  }}>
             {children}
         </PostContext.Provider>
     );

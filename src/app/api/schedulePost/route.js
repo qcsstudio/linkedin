@@ -3,6 +3,26 @@ import SchedulePost from "@/models/post.schema";
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
+export const GET = async ()=>{
+   try{
+    await connectDB();
+    const cookieStore = cookies();
+    const user_id = cookieStore.get("user_id")?.value;
+
+    if (!user_id) {
+        return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    // Fetch posts from MongoDB
+    const posts = await SchedulePost.find({ userId: user_id });
+
+    return NextResponse.json({ posts }, { status: 200 });
+} catch (error) {
+    console.error("Error fetching posts:", error);
+    return NextResponse.json({ message: "Error fetching posts" }, { status: 500 });
+}
+};
+
 export const POST = async (req) => {
     try {
         await connectDB();
@@ -17,7 +37,7 @@ export const POST = async (req) => {
 
         // Parse request body
         const body = await req.json();
-        const { postCaption, privacy, formImage, selectedAccount } = body;
+        const { postCaption, privacy, formImage, selectedAccount , scheduled } = body;
 
         // ✅ Ensure image fields are properly formatted
         const formattedImages = formImage?.map((img) => ({
@@ -36,6 +56,7 @@ export const POST = async (req) => {
             privacy,
             formImage: formattedImages,
             selectedAccount,
+            scheduled,
         });
 
         await newPost.save();

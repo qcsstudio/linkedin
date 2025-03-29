@@ -32,6 +32,7 @@ const CreatePost = () => {
     // use State
     const [selectedButton, setSelectedButton] = useState("");
     const [selectedaccount, setSelectedaccount] = useState([]);
+    const [scheduled,setScheduled] =useState(false);
 
     const [suggestionButton, setSuggestionButton] = useState([
         {
@@ -156,7 +157,7 @@ const CreatePost = () => {
     const HandleSubmit = () => {
         console.log({ postCaption, privacy, formImage, selectedaccount });
         postLinkedin({ postCaption, privacy, formImage, selectedaccount });
-        schedulePost({ postCaption, privacy, formImage, selectedaccount});
+        schedulePost({ postCaption, privacy, formImage, selectedaccount,scheduled});
             }
 
 
@@ -340,8 +341,8 @@ const CreatePost = () => {
                     </div>
 
                     <div className="flex justify-between items-center">
-                        <label className="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" 
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" checked={scheduled} onChange={(e)=>setScheduled(!scheduled)}
                           className="sr-only peer" />
                             <div className="w-11 h-6 bg-gray-300 peer-focus:ring-2  rounded-full peer dark:bg-gray-400 peer-checked:after:translate-x-5 peer-checked:bg-[#4379EE] after:absolute after:top-1 after:start-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
                         </label>
