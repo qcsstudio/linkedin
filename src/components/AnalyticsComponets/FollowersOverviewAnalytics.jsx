@@ -49,9 +49,7 @@ export default function FollowersChart({id, token}) {
         };
       });
 
-      if (selectedRange === "30d") {
-        transformedData = transformedData.filter((_, index) => index % 3 === 0);
-      }
+
 
       setChartData(transformedData);
     } catch (err) {

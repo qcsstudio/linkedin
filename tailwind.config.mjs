@@ -15,7 +15,6 @@ export default {
       fontFamily: {
         syne: ["Syne", "sans-serif"],
       },
-      
     },
   },
   plugins: [],
