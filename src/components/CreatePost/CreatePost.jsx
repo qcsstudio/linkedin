@@ -13,11 +13,17 @@ import { CiHashtag } from "react-icons/ci";
 import TextEditor from "@/components/common/TextEditor";
 import { userContext } from "@/Context/user.context";
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import postContext from "@/Context/post.context";
+import 'swiper/css';
+import 'swiper/css/pagination';
+=======
 import { Pagination,Navigation } from 'swiper/modules';
 import postContext from "@/Context/post.context";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+
 
 const CreatePost = () => {
 
@@ -26,13 +32,15 @@ const CreatePost = () => {
         useContext(userContext);
 
 
-    const { loading, setLoading, error, setError, postLinkedin } = useContext(postContext);
+    const {loading,setLoading,error,setError,postLinkedin,schedulePost} = useContext(postContext);
+
 
 
 
     // use State
     const [selectedButton, setSelectedButton] = useState("");
     const [selectedaccount, setSelectedaccount] = useState([]);
+    const [scheduled,setScheduled] =useState(false);
 
     const [suggestionButton, setSuggestionButton] = useState([
         {
@@ -159,9 +167,16 @@ const CreatePost = () => {
 
     // Post Submit 
     const HandleSubmit = () => {
+
+        console.log({ postCaption, privacy, formImage, selectedaccount });
+        schedulePost({ postCaption, privacy, formImage, selectedaccount,scheduled});
+
+
+
         // console.log({ postCaption, privacy, formImage, selectedaccount, fileType, formVideo });
         postLinkedin({ postCaption, privacy, formImage, selectedaccount, fileType, formVideo  });
     }
+
 
     // Image Upload handle
     const handleFileChange = async (e) => {
@@ -185,11 +200,13 @@ const CreatePost = () => {
             setFormVideo([]);
 
 
+
         } catch (error) {
             console.log("Unable to upload Images Please Try again Later");
 
         }
     }
+
 
     // Video Upload handle
     const handleVideoFileChange = async(e) => {
@@ -385,8 +402,9 @@ const CreatePost = () => {
                     </div>
 
                     <div className="flex justify-between items-center">
-                        <label className="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" className="sr-only peer" />
+                          <label className="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" checked={scheduled} onChange={(e)=>setScheduled(!scheduled)}
+                          className="sr-only peer" />
                             <div className="w-11 h-6 bg-gray-300 peer-focus:ring-2  rounded-full peer dark:bg-gray-400 peer-checked:after:translate-x-5 peer-checked:bg-[#4379EE] after:absolute after:top-1 after:start-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
                         </label>
                     </div>
@@ -552,6 +570,16 @@ const CreatePost = () => {
 
                     {/* User Post Image */}
                     <div className={`middleContainer w-[100%] h-[24.3rem] ${postImages.length <= 0 ? "bg-[#E0E0E0]/40" : "bg-transparent"}`}>
+
+                        <Swiper pagination={true} modules={[Pagination]} className="mySwiper w-[100%] h-[24.3rem]">
+
+                            {postImages.length <= 0 ?
+                                <div className="w-[100%] h-[100%] bg-[#E0E0E0]"></div> :
+                                postImages.map((item, index) => {
+                                    return <SwiperSlide key={index}><Image src={item} width={390} height={390} alt="avatar" className="w-[100%] h-[100%] object-fill" /></SwiperSlide>
+                                })
+                            }
+
                         <Swiper pagination={true} navigation={true} modules={[Pagination,Navigation]} className="mySwiper w-[100%] h-[24.3rem]">
 
                         {
