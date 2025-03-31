@@ -12,12 +12,12 @@ const timeRanges = {
   "30d": 30 * 24 * 60 * 60 * 1000,
 };
 
-const chartTypes = ["line", "bar", "area"];
+
 
 export default function FollowersChart({id, token}) {
   const [selectedRange, setSelectedRange] = useState("7d");
   const [chartData, setChartData] = useState([]);
-  const [chartType, setChartType] = useState("line");
+  
 
   const fetchData = async () => {
     const now = Date.now();
@@ -91,6 +91,15 @@ export default function FollowersChart({id, token}) {
         speed: 800,
       },
     },
+    fill: {
+      
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.3,
+        opacityTo: 0.1,
+        stops: [0, 90, 100],
+      },
+    },
     plotOptions: {
       bar: {
         columnWidth: "50%",
@@ -139,8 +148,9 @@ export default function FollowersChart({id, token}) {
     },
     stroke: {
       curve: "smooth",
-      width: chartType === "bar" ? 0 : 2,
+      width: 2,
     },
+    
     tooltip: {
       shared: true,
       intersect: false,
@@ -170,9 +180,9 @@ export default function FollowersChart({id, token}) {
   ];
 
   return (
-    <div className="p-6 bg-white/30 backdrop-blur-xl shadow-2xl rounded-2xl border border-white/40">
+    <div className="p-6 bg-white/50 backdrop-blur-xl shadow-2xl rounded-2xl border border-white/40">
       <h2 className="text-2xl font-bold mb-2 text-gray-800">
-        📈 LinkedIn Follower Growth
+       Followers Overview
       </h2>
 
       {/* Total Summary */}
@@ -206,27 +216,14 @@ export default function FollowersChart({id, token}) {
         ))}
       </div>
 
-      {/* Chart Type Toggle */}
-      <div className="flex gap-3 mb-6">
-        {chartTypes.map((type) => (
-          <button
-            key={type}
-            onClick={() => setChartType(type)}
-            className={`px-4 py-1.5 text-sm font-medium capitalize rounded-full border transition-all ${
-              chartType === type
-                ? "bg-indigo-600 text-white border-indigo-700"
-                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
-            }`}
-          >
-            {type} Chart
-          </button>
-        ))}
-      </div>
+   
+      
 
       <Chart
+      className='bg-white/60'
         options={chartOptions}
         series={series}
-        type={chartType}
+        type="area"
         height={380}
       />
     </div>
