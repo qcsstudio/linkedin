@@ -13,6 +13,8 @@ import { GoPlus } from "react-icons/go";
 import { CiCircleRemove } from "react-icons/ci";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { Dropdown } from "primereact/dropdown";
+import analyticsContext from "@/Context/analytics.context";
+import Loader from "../Loader/Loader";
 
 const AnalyticsContianer = () => {
   const [selectedaccount, setSelectedaccount] = useState(null);
@@ -27,7 +29,11 @@ const AnalyticsContianer = () => {
     linkedinProfileData,
     linkedinOrganizationData,
     getAllOrganizationsData,
+    views
   } = useContext(userContext);
+  console.log("views",views)
+
+  const {GetGrowthDataAPI , growthData} = useContext(analyticsContext);
 
   useEffect(() => {
     if (linkedinAccounts) {
@@ -47,6 +53,10 @@ const AnalyticsContianer = () => {
         id: selectedaccount.id,
         token: selectedaccount.token,
       });
+      GetGrowthDataAPI({
+        id: selectedaccount.id,
+        token: selectedaccount.token,
+      })
     }
   }, [selectedaccount]);
 
@@ -93,6 +103,8 @@ const AnalyticsContianer = () => {
     );
   };
 
+ 
+
   console.log("selectedaccount", selectedaccount);
   return (
     <div className="p-8 flex flex-col gap-2">
@@ -122,36 +134,46 @@ const AnalyticsContianer = () => {
           )}
         </div>
       </div>
-      <div className="p-6 flex flex-col gap-3 z-10 rounded-lg bg-white/40">
-        <h1 className="font-bold text-lg">Social Media Engagement</h1>
-        {oneOrganizationAnalticsData && (
-          <TotalOverview
-            data={oneOrganizationAnalticsData[0]?.totalShareStatistics}
-            followers={organizationFollowerCount}
-          />
-        )}
-        
-        {selectedaccount && (
-          <FollowersOverview
-            id={selectedaccount.id}
-            token={selectedaccount.token}
-          />
-        )}
+      {
+        !oneOrganizationAnalticsData ?
+         <div className=" flex   min-h-[600px] z-10 rounded-lg bg-white/40">
+           <Loader/>
+         </div>   :   <div className="p-6 flex flex-col gap-3 z-10 rounded-lg bg-white/40">
+           <h1 className="font-bold text-lg">Social Media Engagement</h1>
+           {oneOrganizationAnalticsData && (
+             <TotalOverview
+               data={oneOrganizationAnalticsData[0]?.totalShareStatistics}
+               followers={organizationFollowerCount}
+               growthData={growthData}
+               views={views}
+             />
+           )}
+           
+           {selectedaccount && (
+             <FollowersOverview
+               id={selectedaccount.id}
+               token={selectedaccount.token}
+             />
+           )}
+   
+           {selectedaccount && (
+             <ImpressionOverviewAnalytics
+               id={selectedaccount.id}
+               token={selectedaccount.token}
+             />
+           )}
+   
+           <div className="bg-white/50 flex flex-col gap-5 rounded-lg p-5">
+             <BestTimeToPostAnalytics />
+             <HeatMapAnalytics />
+             <BestToPost2Analytics />
+             <ReadyToScdeduleAnalytics />
+           </div>
+         </div>
+      
+      }
 
-        {selectedaccount && (
-          <ImpressionOverviewAnalytics
-            id={selectedaccount.id}
-            token={selectedaccount.token}
-          />
-        )}
-
-        <div className="bg-white/50 flex flex-col gap-5 rounded-lg p-5">
-          <BestTimeToPostAnalytics />
-          <HeatMapAnalytics />
-          <BestToPost2Analytics />
-          <ReadyToScdeduleAnalytics />
-        </div>
-      </div>
+    
     </div>
   );
 };

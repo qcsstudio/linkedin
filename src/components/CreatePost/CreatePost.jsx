@@ -22,11 +22,11 @@ import 'swiper/css/navigation';
 const CreatePost = () => {
 
     // Use Context 
-    const { userData, getUserLinkedinProfiles, linkedinProfileData, linkedinAccounts, getLinkedinOrganizationsProfiles, linkedinOrganizationId, linkedinOrganizationData } =
+    const { userData, getUserLinkedinProfiles, linkedinProfileData, linkedinAccounts, getLinkedinOrganizationsProfiles, linkedinOrganizationId, linkedinOrganizationData  } =
         useContext(userContext);
 
 
-    const { loading, setLoading, error, setError, postLinkedin } = useContext(postContext);
+    const { loading, setLoading, error, setError, postLinkedin,generatePostCaption,generatedCaption,setGeneratedCaption } = useContext(postContext);
 
 
 
@@ -58,8 +58,9 @@ const CreatePost = () => {
     const [fileType, setFileType] = useState(false);
     const [postImages, setPostImages] = useState([]);
     const [postVideos, setPostVideos] = useState([]);
+    const [prompt, setPrompt] = useState("");
 
-
+    console.log("Caption data:",postImages);
 
     const [activeSocialButton, setActiveSocialButton] = useState(1);
     const [socialButton, setsocialButton] = useState([
@@ -171,7 +172,7 @@ const CreatePost = () => {
 
             const imagesUrl = images.map(file => URL.createObjectURL(file));
             setPostImages(prev => [...prev, ...imagesUrl]);
-            setFileType("images");
+            setFileType("image");
 
             // Convert images to base64 string
             const base64Images = await Promise.all(
@@ -200,7 +201,7 @@ const CreatePost = () => {
             // Converting videos to url:
             const videoUrl = videos.map((file)=>URL.createObjectURL(file));
             setPostVideos(prev => [...prev,...videoUrl]);
-            setFileType("videos");
+            setFileType("video");
 
             // Converting video into base64 
             const base64Videos = await Promise.all(
@@ -232,6 +233,12 @@ const CreatePost = () => {
             reader.readAsDataURL(file); // Read the file as base64
         });
     };
+
+
+    // generate caption
+    const generateCaption = ()=>{
+        generatePostCaption({prompt});
+    }
 
     return (
         <div className="w-[95%] mx-auto mt-8 flex gap-1 ">
@@ -347,7 +354,6 @@ const CreatePost = () => {
                                 type="file"
                                 accept="video/*"
                                 id="videoUpload"
-                                multiple
                                 style={{ display: "none" }}
                                 onChange={handleVideoFileChange}
                             />
@@ -465,12 +471,13 @@ const CreatePost = () => {
 
                         {/* Input */}
                         <div className="textFieldBox w-[100%] h-[3.5rem] rounded-[.5rem] bg-[#ffffff] pl-[1.25rem] pr-[1.375rem] py-[0.56rem] flex gap-[3rem]">
-                            <input type="text" name="aiPrompt" id="aiPrompt" placeholder="Tell me what should i generate for you!" className="w-[70%] focus:border-none focus:outline-none text-[.80rem]" />
-                            <button type="button" className="bg-[#4379EE] text-[#ffffff] px-[2rem] rounded-[.5rem]">Generate</button>
+                            <input type="text" name="aiPrompt" id="aiPrompt" placeholder="Tell me what should i generate for you!" className="w-[70%] focus:border-none focus:outline-none text-[.80rem]" onChange={(e)=>setPrompt(e.target.value)} />
+                            <button onClick={generateCaption} type="button" className="bg-[#4379EE] text-[#ffffff] px-[2rem] rounded-[.5rem]">Generate</button>
                         </div>
 
                         {/* Suggestions */}
                         <div className="suggestionXontainer w-[50%] h-[2.78rem] flex items-center justify-between bg-[#ffffff] rounded-[.5rem] px-[.93rem] py-[0.5rem] mt-[0.75rem] text-[0.8rem] ">
+                            
 
                             {
                                 suggestionButton.map((data) => {
@@ -486,7 +493,7 @@ const CreatePost = () => {
 
                     {/* Lower Container */}
                     <div className="lowerAiContainer flex flex-col gap-[1rem]">
-                        <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions </p></div>
+                        <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">{generatedCaption && generatedCaption}</p></div>
                         <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/60 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions!</p></div>
                         <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/70 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions!</p></div>
                     </div>
@@ -494,7 +501,6 @@ const CreatePost = () => {
                     {/* Text Editor */}
 
                 </div>
-
             </div>
 
             {/* Right Section */}
@@ -522,7 +528,7 @@ const CreatePost = () => {
                 </div>
 
                 {/* Post */}
-                <div className="post w-[100%] min-h-[30rem] bg-[#ffffff] rounded-[.5rem]">
+                <div className="post w-[100%] min-h-[30rem] bg-[#ffffff] rounded-[.5rem] ">
 
                     {/* User Detail */}
                     <div className="upperContainer h-[3.12rem] py-[.81rem] pl-[.43rem] pr-[.6rem] flex items-center justify-between">
@@ -555,21 +561,22 @@ const CreatePost = () => {
                         <Swiper pagination={true} navigation={true} modules={[Pagination,Navigation]} className="mySwiper w-[100%] h-[24.3rem]">
 
                         {
-                            fileType === "images" ? (
+                            fileType === "image" ? (
                                 postImages.length === 0 ? (
                                     <div className="w-[100%] h-[100%] bg-[#E0E0E0]"></div>
                                 ) : (
-                                    postImages.map((item, index) => (
-                                        <SwiperSlide key={index}>
+                                    postImages.map((item, index) => {
+                                        console.log("item data",item)
+                                        return <SwiperSlide key={index}>
                                             <Image
                                                 src={item}
                                                 width={390}
                                                 height={390}
-                                                alt="avatar"
-                                                className="w-[100%] h-[100%] object-fill"
+                                                alt="post"
+                                                className="w-[100%] h-[100%] object-fill "
                                             />
                                         </SwiperSlide>
-                                    ))
+                                    })
                                 )
                             ) : (
                                 postVideos.length === 0 ? (

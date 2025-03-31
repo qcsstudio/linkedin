@@ -5,12 +5,13 @@ import cloud from "../../../../public/images/blogsImages/Cloud.png"
 import Heading from "../Heading/Heading"
 import Subheading from '../Subheading/Subheading'
 import Description from '../Description/Description'
+import CloudSection from "../CloudSection/CloudSection"
 
 const Blogs = () => {
     return (
         <>
-            <div id='blog' className="blogsContainer flex justify-center mx-auto relative w-[100%]   px-4 lg:px-[3.37rem] md:px-[3.12rem]   overflow-hidden ">
-
+            <div id='blog' className="relaive blogsContainer flex justify-center mx-auto relative w-[100%]   px-4 lg:px-[3.37rem] md:px-[3.12rem]   overflow-hidden ">
+            <CloudSection bottom={-20} left={0} opacity={0.7} />
                 {/* Inner Container */}
                 <div className="innerContainer w-[100%] px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[1.5rem] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10]">
 

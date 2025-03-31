@@ -7,7 +7,9 @@ const initialData = {
     error : false,
     setError:()=>{},
     loading:false,
-    setLoading:()=>{}
+    setLoading:()=>{},
+    generatedCaption:false,
+    setGeneratedCaption:()=>{}
 }
 
 const postContext = createContext(initialData);
@@ -17,6 +19,7 @@ export const PostContextProvider = ({ children })=>{
     // States -------------------------------------------------
     const [error,setError] = useState(initialData.error);
     const [loading,setLoading] = useState(initialData.loading);
+    const [generatedCaption,setGeneratedCaption] = useState(initialData.generatedCaption);
     
 
     // Linkedin Post function -------------------------------------------------
@@ -43,8 +46,36 @@ export const PostContextProvider = ({ children })=>{
         }
     }
 
+    // generate caption function -------------------------------------------------
+    const generatePostCaption = async(data)=>{
+        try {
+            setLoading(true);
+
+            const response = await fetch("/api/chatgpt/",{
+                method:"POST",
+                headers:{
+                    "Content-type":"application/json"
+                },
+                body:JSON.stringify(data)
+            })
+            // console.log(response);
+            if(response.status === 200){
+                const result = await response.json();
+                setGeneratedCaption(result?.data?.choices[0].message.content);
+
+            }
+            // console.log(response.data);
+            // setGeneratedCaption()
+            setLoading(false);
+        } catch (error) {
+            console.log("Unable to post on Linkedin /context/post.context : ",error);
+            setError(true);
+            setLoading(false);
+        }
+    }
+
     return (
-        <postContext.Provider value={{loading,setLoading,error,setError,postLinkedin}}>
+        <postContext.Provider value={{loading,setLoading,error,setError,postLinkedin,generatePostCaption,generatedCaption,setGeneratedCaption}}>
             {children}
         </postContext.Provider>
     )
