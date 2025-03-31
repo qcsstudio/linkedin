@@ -24,7 +24,7 @@ import teamCollab from '../../../../public/images/homeImages/teamCollab.png'
 import security from '../../../../public/images/homeImages/security.png'
 import AiPowered from '../../../../public/images/homeImages/Ai-Powered.png'
 import Hashtags from '../../../../public/images/homeImages/Hashtags.png'
-
+import CloudSection from "../CloudSection/CloudSection"
 
 
 
@@ -184,8 +184,9 @@ const featureData = [
     return (
         <>
             {/* Main Container */}
-            <div id='features' className="mainContainer  w-[100%]  px-4 lg:px-[3.37rem] md:px-[3.12rem]">
+            <div id='features' className="relative mainContainer z-10  w-[100%]  px-4 lg:px-[3.37rem] md:px-[3.12rem]">
 
+            <CloudSection bottom={-20} left={0} opacity={0.7} />
                 {/* Inner Container */}
                 <div className="innerContainer bg-[#FFFFFF]/35 w-[100%] rounded-[.5rem] px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[1.5rem] z-20">
 
@@ -193,7 +194,7 @@ const featureData = [
                     <Heading heading={"Key Features"}/>
 
                     {/* Middle Container */}
-                    <div className='middleContainer w-[100%] flex flex-col items-center z-20'>
+                    <div className=' middleContainer w-[100%] flex flex-col items-center z-20'>
                         
                         <Subheading subHeading={"ElevatrX Features – Automate, Engage, and Dominate Your Social Media"}/>
                         
@@ -201,24 +202,24 @@ const featureData = [
             </div>
 
                     {/* Lower Container */}
-                    <div className='lowerContainer gap-2 w-[100%] flex flex-col-reverse md:flex-col-reverse lg:flex-row justify-between items-center z-20'>
+                    <div className='lowerContainer gap-2 w-[100%]  flex flex-col-reverse md:flex-col-reverse lg:flex-row justify-between items-center z-20'>
 
                         <div className='leftSide' >
                             <div className='flex flex-col gap-2 md:gap-6 lg:gap-6'>
-                                <h2 className='text-[1rem] md:text-[1.5rem] lg:text-[1.5rem] md:w-[100%] lg:w-[70%] font-bold  text-[#0E1C29] '>
+                                <h2 className='text-[1rem] z-10 md:text-[1.5rem] lg:text-[1.5rem] md:w-[100%] lg:w-[70%] font-bold  text-[#0E1C29] '>
                                     {featureData[activeIndex].title}
                                 </h2>
-                                <span className='w-[80%] text-sm text-[#0E1C29]'>
+                                <span className='w-[80%] text-sm z-10 text-[#0E1C29]'>
                                 {featureData[activeIndex].description}
                                 </span>
-                                <h4 className='text-md md:text-lg lg:text-lg font-bold text-[#0E1C29]'>What It Does:</h4>
+                                <h4 className='text-md md:text-lg lg:text-lg font-bold text-[#0E1C29] z-10'>What It Does:</h4>
                                 <ul className='flex flex-col px-2 gap-2 list-disc'>
                                 {featureData[activeIndex].details.map((item, index) => (
-                  <li className='text-[#212121]  text-[.8rem] md:text-[1rem] lg:text-[1rem]' key={index}>{item}</li>
+                  <li className='text-[#212121]  text-[.8rem] md:text-[1rem] lg:text-[1rem] z-10' key={index}>{item}</li>
                 ))}
 
                                 </ul>
-                                <h4 className='text-[#0E1C29] text-md md:text-lg lg:text-lg font-bold'>Why It Matters:</h4>
+                                <h4 className='text-[#0E1C29] text-md md:text-lg lg:text-lg font-bold z-10'>Why It Matters:</h4>
                                 <ul className='flex flex-col gap-2 px-2 list-disc'>
                                 {featureData[activeIndex].benefits.map((item, index) => (
                   <li className='text-[#212121]  text-[.8rem] md:text-[1rem] lg:text-[1rem]' key={index}>{item}</li>

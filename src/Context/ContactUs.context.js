@@ -1,92 +1,54 @@
-"use client"
-import { createContext, useState, useEffect } from "react"
+"use client";
+import { createContext, useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
-
-const ContactUsIntialData = {
+const ContactUsInitialData = {
     status: "",
-    setStatus: () => { },
-}
-export const ContactUsContext = createContext(ContactUsIntialData);
+    setStatus: () => {},
+    handleSendMail: () => {},
+};
+
+export const ContactUsContext = createContext(ContactUsInitialData);
 
 export const ContactUsContextProvider = ({ children }) => {
-
     const [status, setStatus] = useState("");
 
     const handleSendMail = async (formData) => {
-        setStatus("Sending...");
-        console.log(formData);
+        try {
+            const res = await fetch("/api/contact-us", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
 
-        formData.toMail = "company";
+            const data = await res.json(); // Parse response JSON
 
-        if (!formData.message) {
-            formData.message = "Any Message";
-        }
+            if (!res.ok) {
+                console.error("Error sending email:", data);
+                setStatus("error");
+                return { ok: false, error: data };
+            }
 
-        const res = await fetch("/api/contact-us", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-        });
-
-        if (res.ok) {
-            setStatus("Contact form submitted successfully!");
-
-
-            formData.toMail = "user";
-            formData.message = "Thanks for contacting us! We will get back to you soon.";
-            handleUserSendMail(formData);
-        } else {
-            setStatus("Error sending message.");
+            setStatus("contact successfully!");
+            return { ok: true, data };
+        } catch (error) {
+            console.error("Fetch error:", error);
+            setStatus("error");
+            return { ok: false, error: error.message };
         }
     };
 
-
-    const handleUserSendMail = async (formData) => {
-
-        console.log(formData);
-
-
-        const res = await fetch("/api/contact-us", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-        });
-
-        if (res.ok) {
-        } else {
-
-        }
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(formData);
-        handleSendMail(formData);
-
-    }
-
     useEffect(() => {
         if (status === "contact successfully!") {
-            toast.success("Message submit successfully!");
+            toast.success("Message submitted successfully!");
+        } else if (status === "error") {
+            toast.error("Failed to send message. Please try again.");
         }
-    }, [status])
-
+    }, [status]);
 
     return (
-        <ContactUsContext.Provider
-            value={
-                {
-                    handleSendMail,
-                    status
-                }
-            }
-        >
+        <ContactUsContext.Provider value={{ handleSendMail, status }}>
             {children}
         </ContactUsContext.Provider>
-    )
-
-}
+    );
+};

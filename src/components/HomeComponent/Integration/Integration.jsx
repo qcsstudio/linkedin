@@ -13,19 +13,22 @@ import leftLine from "../../../../public/images/integrationImages/left.png"
 import rightLine from "../../../../public/images/integrationImages/right.png"
 import Heading from "../Heading/Heading"
 import Subheading from "../Subheading/Subheading"
+import CloudSection from "../CloudSection/CloudSection"
 
 const Integration = () => {
     return (
         <>
             {/* Main Container */}
 
-            <div id="integration" className="mainContainer w-[100%]  px-4 lg:px-[3.37rem] md:px-[3.12rem] ">
+            <div id="integration" className="relative mainContainer w-[100%]  px-4 lg:px-[3.37rem] md:px-[3.12rem] ">
 
-
+            <CloudSection bottom={-20} left={0} opacity={0.7} />
                 {/* Inner Container */}
-                <div className="innerContainer bg-[#FFFFFF]/35 w-[100%] rounded-[.5rem] px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[1.5rem] z-20">
+                <div className=" innerContainer bg-[#FFFFFF]/35 w-[100%] rounded-[.5rem] px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[1.5rem] z-20">
 
                     {/* Upper Container */}
+
+                    
                   
                     <Heading heading={"Integrations"}/>
 
