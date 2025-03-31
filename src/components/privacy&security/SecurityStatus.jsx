@@ -21,19 +21,19 @@ const SecurityStatus = () => {
 
         {/* Status Cards */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-gray-50 p-4 rounded-lg shadow-sm h-24">
+          <div className="bg-gray-50 p-4 rounded-lg shadow-sm border-l-[.3rem] border-[#2ECC71]">
             <h3 className="text-lg font-bold">2FA</h3>
             <p className="text-base text-gray-500">Enabled</p>
           </div>
-          <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+          <div className="bg-gray-50 p-4 rounded-lg shadow-sm border-l-[.3rem] border-[#2ECC71]">
             <h3 className="text-lg font-bold">Password</h3>
             <p className="text-base text-gray-500 ">Strong</p>
           </div>
-          <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+          <div className="bg-gray-50 p-4 rounded-lg shadow-sm border-l-[.3rem] border-[#E74C3C]">
             <h3 className="text-lg font-bold">Recovery Email</h3>
             <p className="text-base text-gray-500">Not Verified</p>
           </div>
-          <div className="bg-gray-50 p-4 rounded-lg shadow-sm">
+          <div className="bg-gray-50 p-4 rounded-lg shadow-sm border-l-[.3rem] border-[#2ECC71]">
             <h3 className="text-lg font-bold">Last Password Changed</h3>
             <p className="text-base text-gray-500">32 days ago</p>
           </div>
