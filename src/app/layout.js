@@ -7,6 +7,7 @@ import { PrimeReactProvider } from "primereact/api";
 import { UserContextProvider } from "@/Context/user.context";
 import Script from "next/script";
 import { PostContextProvider } from "@/Context/post.context";
+import { AnalyticsContextProvider } from "@/Context/analytics.context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -58,11 +59,13 @@ export default function RootLayout({ children }) {
         </noscript>
 
         <PrimeReactProvider>
+          <AnalyticsContextProvider>
           <PostContextProvider>
             <UserContextProvider>
               <DashboardContextProvider>{children}</DashboardContextProvider>
             </UserContextProvider>
           </PostContextProvider>
+          </AnalyticsContextProvider>
         </PrimeReactProvider>
       </body>
     </html>

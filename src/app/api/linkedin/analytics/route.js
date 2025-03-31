@@ -30,7 +30,8 @@ export async function POST(req) {
                             likeCount: 0,
                             impressionCount: 0,
                             commentMentionsCount: 0,
-                            commentCount: 0
+                            commentCount: 0,
+                            views: 0 // ✅ New field added
                         },
                         organizationalEntity: "urn:li:organization:all"
                     }
@@ -45,9 +46,10 @@ export async function POST(req) {
 
             const analyticsURL = `https://api.linkedin.com/v2/organizationalEntityShareStatistics?q=organizationalEntity&organizationalEntity=urn:li:organization:${id}`;
             const followersURL = `https://api.linkedin.com/v2/networkSizes/urn:li:organization:${id}?edgeType=CompanyFollowedByMember`;
+            const pageViewsURL = `https://api.linkedin.com/rest/organizationPageStatistics?q=organization&organization=urn:li:organization:${id}`;
 
             try {
-                const [analyticsResponse, followersResponse] = await Promise.all([
+                const [analyticsResponse, followersResponse, pageViewsResponse] = await Promise.all([
                     fetch(analyticsURL, {
                         method: "GET",
                         headers: {
@@ -61,44 +63,63 @@ export async function POST(req) {
                             "Authorization": `Bearer ${token}`,
                             "Content-Type": "application/json",
                         }
+                    }),
+                    fetch(pageViewsURL, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "LinkedIn-Version": "202306",
+                            "Content-Type": "application/json",
+                        }
                     })
                 ]);
 
-                if (!analyticsResponse.ok || !followersResponse.ok) {
+                if (!analyticsResponse.ok || !followersResponse.ok || !pageViewsResponse.ok) {
                     console.error(`Error fetching data for organization: ${id}`);
                     throw new Error(`Failed to fetch data for org ${id}`);
                 }
 
-                const [analyticData, followersData] = await Promise.all([
+                const [analyticData, followersData, pageViewsData] = await Promise.all([
                     analyticsResponse.json(),
-                    followersResponse.json()
+                    followersResponse.json(),
+                    pageViewsResponse.json()
                 ]);
 
                 const stats = analyticData?.elements?.[0]?.totalShareStatistics || {};
                 const followers = followersData?.firstDegreeSize || 0;
 
-          
-                aggregatedData.analyticsData.elements[0].totalShareStatistics.uniqueImpressionsCount += stats.uniqueImpressionsCount || 0;
-                aggregatedData.analyticsData.elements[0].totalShareStatistics.shareCount += stats.shareCount || 0;
-                aggregatedData.analyticsData.elements[0].totalShareStatistics.shareMentionsCount += stats.shareMentionsCount || 0;
-                aggregatedData.analyticsData.elements[0].totalShareStatistics.engagement += stats.engagement || 0;
-                aggregatedData.analyticsData.elements[0].totalShareStatistics.clickCount += stats.clickCount || 0;
-                aggregatedData.analyticsData.elements[0].totalShareStatistics.likeCount += stats.likeCount || 0;
-                aggregatedData.analyticsData.elements[0].totalShareStatistics.impressionCount += stats.impressionCount || 0;
-                aggregatedData.analyticsData.elements[0].totalShareStatistics.commentMentionsCount += stats.commentMentionsCount || 0;
-                aggregatedData.analyticsData.elements[0].totalShareStatistics.commentCount += stats.commentCount || 0;
-                
+                // ✅ Parse views from rest API structure
+                let views = 0;
+                if (pageViewsData?.elements && typeof pageViewsData.elements === "object") {
+                    for (const key in pageViewsData.elements) {
+                        const viewCount = pageViewsData.elements[key]?.pageStatistics?.views?.pageViews || 0;
+                        views += viewCount;
+                    }
+                }
+
+                // ✅ Aggregate values
+                const aggStats = aggregatedData.analyticsData.elements[0].totalShareStatistics;
+                aggStats.uniqueImpressionsCount += stats.uniqueImpressionsCount || 0;
+                aggStats.shareCount += stats.shareCount || 0;
+                aggStats.shareMentionsCount += stats.shareMentionsCount || 0;
+                aggStats.engagement += stats.engagement || 0;
+                aggStats.clickCount += stats.clickCount || 0;
+                aggStats.likeCount += stats.likeCount || 0;
+                aggStats.impressionCount += stats.impressionCount || 0;
+                aggStats.commentMentionsCount += stats.commentMentionsCount || 0;
+                aggStats.commentCount += stats.commentCount || 0;
+                aggStats.views += views || 0;
+
                 aggregatedData.followers += followers;
 
             } catch (error) {
-                console.error(`Error processing organization ${id}:`, error.message);
+                console.error(`Error processing organization ${org.id}:`, error.message);
             }
         });
 
-        
         await Promise.allSettled(fetchPromises);
 
-    
+        // Average engagement per org
         const orgCount = organizations.length;
         if (orgCount > 0) {
             aggregatedData.analyticsData.elements[0].totalShareStatistics.engagement /= orgCount;

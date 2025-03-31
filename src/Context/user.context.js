@@ -28,7 +28,9 @@ const initialData = {
   getOrganizationAnalyticsData: () => {},
   setOneOrganizationAnalticsData: () => {},
   setOrganizationFollowerCount: () => {},
-  getAllOrganizationsData:()=>{}
+  getAllOrganizationsData:()=>{},
+  views:null,
+  setViews:()=>{}
 };
 
 export const userContext = createContext(initialData);
@@ -44,6 +46,7 @@ export const UserContextProvider = ({ children }) => {
   const [linkedinOrganizationData, setLinkedinOrganizationData] = useState(initialData.linkedinOrganizationData);
   const [oneOrganizationAnalticsData, setOneOrganizationAnalticsData] = useState(initialData.oneOrganizationAnalticsData);
   const [organizationFollowerCount, setOrganizationFollowerCount] = useState(initialData.organizationFollowerCount);
+  const [views , setViews] = useState(initialData.views);
   const router = useRouter();
 
   const updatePlan = async (plan) => {
@@ -247,7 +250,8 @@ export const UserContextProvider = ({ children }) => {
 
       const data = await response.json();
       setOneOrganizationAnalticsData(data?.analyticsData?.elements);
-      setOrganizationFollowerCount(data?.followers)
+      setOrganizationFollowerCount(data?.followers);
+      setViews(data?.totalPageViews);
       return {
         success: true,
         data: data.analyticsData,
@@ -290,7 +294,7 @@ export const UserContextProvider = ({ children }) => {
         const result = await response.json();
         setOneOrganizationAnalticsData(result?.data?.analyticsData?.elements);
         setOrganizationFollowerCount(result?.data?.followers)
-
+        setViews(result?.data?.totalPageViews)
     } catch (error) {
         console.error("Failed to fetch organization data:", error);
         return { error: "An error occurred while fetching data." };
@@ -357,7 +361,8 @@ export const UserContextProvider = ({ children }) => {
         getOrganizationAnalyticsData,
         organizationFollowerCount, 
         setOrganizationFollowerCount,
-        getAllOrganizationsData
+        getAllOrganizationsData,
+        views
       }}
     >
       {children}
