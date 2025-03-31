@@ -18,9 +18,9 @@ const Navbar = () => {
     <div className=' bg-gradient-to-r border border-gray-500 from-purple-100 to-blue-200'>
       <div className='flex py-2 max-w-[1440px] h-[90px] md:py-4 lg:py-4 px-2 md:px-10 lg:px-[96px] mx-auto w-full justify-between items-center relative'>
 
-        <div className='flex items-start max-w-[1440px] justify-between'>
-          <Image src={mainLogo} className='object-contain ' alt='' />
-        </div>
+        
+          <Image src={mainLogo} className='object-contain w-[20%]'  alt='' />
+        
 
         <div className='font-medium md:hidden lg:hidden flex items-center justify-between relative z-10'>
           <button className='flex flex-col justify-center items-center' onClick={handleClick}>

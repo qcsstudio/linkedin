@@ -15,6 +15,19 @@ import KeyFeatureCarousel from './KeyFeatureCarousel'
 import Heading from '../Heading/Heading'
 import Subheading from '../Subheading/Subheading'
 import Description from '../Description/Description'
+import Multiplatform from '../../../../public/images/homeImages/Multi-platform.png'
+import AIOptimize from '../../../../public/images/homeImages/AI-Optimized.png'
+import AIEnhanced from '../../../../public/images/homeImages/AI-Enhanced.png'
+import AdvancedAnalytics from '../../../../public/images/homeImages/Advanced-Analytics.png'
+import AIdriven from '../../../../public/images/homeImages/AI-driven.png'
+import teamCollab from '../../../../public/images/homeImages/teamCollab.png'
+import security from '../../../../public/images/homeImages/security.png'
+import AiPowered from '../../../../public/images/homeImages/Ai-Powered.png'
+import Hashtags from '../../../../public/images/homeImages/Hashtags.png'
+
+
+
+
 
 const KeyFeatureSection = () => {
 const [activeIndex,setActiveIndex]=useState(0)
@@ -35,6 +48,7 @@ const featureData = [
       "Eliminates manual posting.",
       "Maximizes engagement automatically.",
     ],
+    Image:AIOptimize,
   },
   {
     title: "Advanced Analytics & Real-Time Performance Insights – Know What Works",
@@ -51,6 +65,7 @@ const featureData = [
       "Data-driven strategy without spreadsheets.",
       "Helps you fine-tune your content & ad strategy.",
     ],
+    Image:AdvancedAnalytics,
   },
   {
     title: "Multi-Platform Management – One Dashboard to Rule Them All",
@@ -66,6 +81,7 @@ const featureData = [
       "Keeps brand messaging consistent across platforms.",
       "Eliminates repetitive posting tasks.",
     ],
+    Image:Multiplatform,
   },
   {
     title: "AI-Driven Competitor Tracking – Stay Ahead of the Game",
@@ -81,6 +97,7 @@ const featureData = [
       "Spot trends early & adapt faster.",
       "Benchmark against top brands & influencers.",
     ],
+    Image:AIdriven,
   },
   {
     title: "AI-Enhanced Content Creation – Your Personal Content Assistant",
@@ -96,6 +113,7 @@ const featureData = [
       "Keeps your brand voice consistent & engaging.",
       "Ensures your content is always trending & relevant.",
     ],
+    Image:AIEnhanced,
   },
   {
     title: "AI-Powered Engagement & Auto-Replies – Never Miss a Comment Again",
@@ -111,6 +129,7 @@ const featureData = [
       "Makes social media feel more personal.",
       "Saves hours responding to repetitive messages.",
     ],
+    Image:AiPowered,
   },
   {
     title: "AI-Powered Hashtag & Trend Suggestions – Get More Reach",
@@ -126,6 +145,7 @@ const featureData = [
       "Boosts chances of viral content.",
       "Keeps content fresh & up-to-date.",
     ],
+    Image:Hashtags,
   },
   {
     title: "Team Collaboration & Custom User Roles – Work Smarter Together",
@@ -141,6 +161,7 @@ const featureData = [
       "Keeps social media workflows smooth.",
       "Ensures quality control before posting.",
     ],
+    Image:teamCollab,
   },
   {
     title: "Security & Compliance – Your Data is Safe with Us",
@@ -156,16 +177,17 @@ const featureData = [
       "Complies with global privacy laws.",
       "Protects your brand reputation.",
     ],
+    Image:security,
   },
 ];
 
     return (
         <>
             {/* Main Container */}
-            <div id='features' className="mainContainer  w-[100%]  px-[3.37rem]">
+            <div id='features' className="mainContainer  w-[100%]  px-4 lg:px-[3.37rem] md:px-[3.12rem]">
 
                 {/* Inner Container */}
-                <div className="innerContainer bg-[#FFFFFF]/35 w-[100%] rounded-[.5rem] px-[6.7rem] pb-[3.125rem] z-20">
+                <div className="innerContainer bg-[#FFFFFF]/35 w-[100%] rounded-[.5rem] px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[1.5rem] z-20">
 
                     {/* Upper Container */}
                     <Heading heading={"Key Features"}/>
@@ -179,27 +201,27 @@ const featureData = [
             </div>
 
                     {/* Lower Container */}
-                    <div className='lowerContainer w-[100%] flex justify-between items-center z-20'>
+                    <div className='lowerContainer gap-2 w-[100%] flex flex-col-reverse md:flex-col-reverse lg:flex-row justify-between items-center z-20'>
 
                         <div className='leftSide' >
-                            <div className='flex flex-col gap-6'>
-                                <h2 className='text-[22px] w-[70%] font-bold  text-[#0E1C29] '>
+                            <div className='flex flex-col gap-2 md:gap-6 lg:gap-6'>
+                                <h2 className='text-[1rem] md:text-[1.5rem] lg:text-[1.5rem] md:w-[100%] lg:w-[70%] font-bold  text-[#0E1C29] '>
                                     {featureData[activeIndex].title}
                                 </h2>
-                                <span className='w-[80%] text-[#0E1C29]'>
+                                <span className='w-[80%] text-sm text-[#0E1C29]'>
                                 {featureData[activeIndex].description}
                                 </span>
-                                <h4 className='text-lg font-bold text-[#0E1C29]'>What It Does:</h4>
-                                <ul className='flex flex-col gap-2 list-disc'>
+                                <h4 className='text-md md:text-lg lg:text-lg font-bold text-[#0E1C29]'>What It Does:</h4>
+                                <ul className='flex flex-col px-2 gap-2 list-disc'>
                                 {featureData[activeIndex].details.map((item, index) => (
-                  <li className='text-[#212121]' key={index}>{item}</li>
+                  <li className='text-[#212121]  text-[.8rem] md:text-[1rem] lg:text-[1rem]' key={index}>{item}</li>
                 ))}
 
                                 </ul>
-                                <h4 className='text-[#0E1C29] text-lg font-bold'>What It Does:</h4>
-                                <ul className='flex flex-col gap-2 list-disc'>
+                                <h4 className='text-[#0E1C29] text-md md:text-lg lg:text-lg font-bold'>Why It Matters:</h4>
+                                <ul className='flex flex-col gap-2 px-2 list-disc'>
                                 {featureData[activeIndex].benefits.map((item, index) => (
-                  <li className='text-[#212121]' key={index}>{item}</li>
+                  <li className='text-[#212121]  text-[.8rem] md:text-[1rem] lg:text-[1rem]' key={index}>{item}</li>
                 ))}
 
                                 </ul>

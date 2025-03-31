@@ -32,7 +32,7 @@ export const POST = async(req)=>{
         if(!firstName || !lastName || !email  || !Password ){
             return NextResponse.json({message:"All Fields Required! "},{status:400});
         }
-        console.log("Empty Field Pass");
+       
 
         // User Check 
         const userEmailExist = await User.findOne({email});
@@ -40,7 +40,7 @@ export const POST = async(req)=>{
         if(userEmailExist ){
             return NextResponse.json({message:"User Already Exist ! "},{status:409});  
         }
-        console.log("User Exist Pass");
+       
 
         // Create Client   (! Temporary Commented)
         // const clientCreated = await createClient({clientName,planType,clientDomain});
@@ -55,8 +55,7 @@ export const POST = async(req)=>{
         // User Create
         const newUser = new User({firstName,lastName,email,password:hashedPassword,role,planType});
         const SavedUser = await newUser.save();
-        console.log("User Save Pass");
-
+       
         const userId = SavedUser?._id;
 
         // Jwt Create
@@ -83,7 +82,7 @@ export const POST = async(req)=>{
         return response;
 
     } catch (error) {
-        console.log("User Register Error !!!");
+   
         return NextResponse.json({message:"User Register Failed",error:error},{status:500});
     }
 }
@@ -95,13 +94,13 @@ export const createClient = async(data)=>{
         const newClient = Client({clientName,planType,clientDomain});
         const savedClient = await newClient.save();
         if(savedClient){
-            console.log(savedClient);
+
             return true;
         }else{
             return false;
         }
     } catch (error) {
-        console.log("Client Not Created Error !!! : ",error);
+        console.error("Client Not Created Error !!! : ",error);
         return false;
     }
 }

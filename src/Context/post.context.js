@@ -3,6 +3,7 @@
 import { createContext, useState } from "react";
 
 const initialData = {
+
     schedulePost: () => {},
     postLinkedin: () => {},
     fetchPosts: () => {}, // Added fetch method
@@ -15,6 +16,13 @@ export const PostContextProvider = ({ children }) => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const [posts, setPosts] = useState([]);
+
+    error : false,
+    setError:()=>{},
+    loading:false,
+    setLoading:()=>{}
+}
+
 
     // Schedule Get Function
 
@@ -59,6 +67,27 @@ export const PostContextProvider = ({ children }) => {
 
             if (!res.ok) throw new Error(resData.message);
 
+    // States -------------------------------------------------
+    const [error,setError] = useState(initialData.error);
+    const [loading,setLoading] = useState(initialData.loading);
+    
+
+    // Linkedin Post function -------------------------------------------------
+    const postLinkedin = async(data)=>{
+        try {
+            setLoading(true);
+
+            console.log("User Data:-----",data);
+            
+            console.log("User Data :->",data);
+            const response = await fetch("/api/linkedin/post/",{
+                method:"POST",
+                headers:{
+                    "Content-type":"application/json"
+                },
+                body:JSON.stringify(data)
+            })
+            // console.log(response);
             setLoading(false);
             return resData; // ✅ Return response data if needed
         } catch (error) {

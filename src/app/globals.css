@@ -38,6 +38,56 @@
   background-color: white !important;
   color: rgb(79, 72, 72) !important;
 }
+.fc .fc-button {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background-color: white !important;
+  color: #333 !important; /* Default text color */
+  padding: 8px 12px !important;
+  transition: background-color 0.2s ease-in-out;
+}
+.fc-button:hover{
+  background-color: rgb(201, 197, 197) !important;
+  
+}
+
+.fc-button:active,
+.fc-button:focus,
+.fc-button::after,
+.fc-button::before{
+  background-color: rgb(201, 197, 197) !important;
+}
+
+
+/* .fc-button-active,
+.fc-button-active:focus,
+.fc-button-active:active,
+.fc-button-active:hover,
+.fc-button-active::before,
+.fc-button-active::after {
+  border: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent;
+} */
+
+.fc-button-active:focus-visible {
+  outline: none !important;
+}
+
+.fc-button-active::-moz-focus-inner {
+  border: 0 !important;
+}
+
+
+
+.fc-button-active{
+  /* height: 27px !important; */
+  width: 62px !important;
+  background-color: #F1F5F9 !important;
+  border: none !important;
+}
 .fc-today-button{
   /* position: relative; */
   z-index: 1000000000000;
@@ -45,6 +95,7 @@
 
 .fc-timegrid-slot {
   height: 45px !important; /* Increase height */
+  
 }
 
 
@@ -64,34 +115,7 @@
   border-radius: 9px !important;
 }
 
-.fc-button-active,
-.fc-button-active:focus,
-.fc-button-active:active,
-.fc-button-active:hover,
-.fc-button-active::before,
-.fc-button-active::after {
-  border: 0 !important;
-  outline: none !important;
-  box-shadow: none !important;
-  -webkit-tap-highlight-color: transparent;
-}
 
-.fc-button-active:focus-visible {
-  outline: none !important;
-}
-
-.fc-button-active::-moz-focus-inner {
-  border: 0 !important;
-}
-
-
-
-.fc-button-active{
-  /* height: 27px !important; */
-  width: 62px !important;
-  background-color: #F1F5F9 !important;
-  border: none !important;
-}
 .fc-header-toolbar{
   justify-content: end !important;
   gap: 5px;
@@ -243,7 +267,7 @@ input::-ms-clear {
   height: 100%;
 }
 
-.swiper-slide {
+.create-post-slider .swiper-slide {
   text-align: center;
   font-size: 18px;
   background: #fff;
@@ -254,7 +278,9 @@ input::-ms-clear {
   align-items: center;
 }
 
-.swiper-slide img {
+
+
+.create-post-slider .swiper-slide img {
   display: block;
   width: 100%;
   height: 100%;
@@ -266,3 +292,115 @@ html {
   scroll-behavior: smooth;
 }
 
+
+/* Loader Css */
+.spinner {
+  width: 70.4px;
+  height: 70.4px;
+  --clr: rgb(0, 0, 0);
+  --clr-alpha: rgb(0, 0, 0, 0);
+  /* Try changing the animation to 'spinner', 'spinner2', or 'spinner3' */
+  animation: spinner 3s infinite ease;
+  transform-style: preserve-3d;
+  perspective: none;
+}
+
+.spinner > div {
+  background-color: var(--clr-alpha);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  border: 3.5px solid var(--clr);
+}
+
+.spinner div:nth-of-type(1) {
+  transform: translateZ(-35.26px) rotateY(180deg);
+}
+
+.spinner div:nth-of-type(2) {
+  transform: rotateY(-270deg) translateX(50%);
+  transform-origin: top right;
+}
+
+.spinner div:nth-of-type(3) {
+  transform: rotateY(270deg) translateX(-50%);
+  transform-origin: center left;
+}
+
+.spinner div:nth-of-type(4) {
+  transform: rotateX(90deg) translateY(-50%);
+  transform-origin: top center;
+}
+
+.spinner div:nth-of-type(5) {
+  transform: rotateX(-90deg) translateY(50%);
+  transform-origin: bottom center;
+}
+
+.spinner div:nth-of-type(6) {
+  transform: translateZ(35.26px);
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg) rotateX(-55deg) rotateY(46.5deg);
+  }
+
+  100% {
+    transform: rotate(0deg) rotateX(-415deg) rotateY(406.5deg);
+  }
+}
+@keyframes spinner2 {
+  0% {
+    transform: rotate(0deg) rotateX(-55deg) rotateY(46.5deg);
+  }
+
+  50% {
+    transform: rotate(90deg) rotateX(-415deg) rotateY(46.5deg);
+  }
+
+  100% {
+    transform: rotate(0deg) rotateX(-415deg) rotateY(406.5deg);
+  }
+}
+@keyframes spinner3 {
+  0% {
+    transform: rotate(45deg) rotateX(0) rotateY(0);
+  }
+  
+  50% {
+    transform: rotate(0deg) rotateX(-144deg) rotateY(226.5deg);
+  }
+
+  100% {
+    transform: rotate(45deg) rotateX(-360deg) rotateY(360deg);
+  }
+}
+
+@keyframes cloudMove {
+  0% {
+    transform: translateX(-10px) translateY(0px);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateX(10px) translateY(5px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-10px) translateY(0px);
+    opacity: 0.6;
+  }
+}
+
+.animate-cloudMove {
+  animation: cloudMove 4s infinite alternate ease-in-out;
+}
+
+/* Hide scrollbar but keep scrolling */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}

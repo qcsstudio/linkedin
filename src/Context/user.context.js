@@ -11,7 +11,8 @@ const initialData = {
   linkedinProfileData: null,
   linkedinOrganizationId: null,
   linkedinOrganizationData: null,
-  oneOrganizationAnalticsData:null,
+  oneOrganizationAnalticsData: null,
+  organizationFollowerCount: null,
   setPlanType: () => {},
   setLoading: () => {},
   setUserData: () => {},
@@ -24,32 +25,28 @@ const initialData = {
   setLinkedinOrganizationId: () => {},
   getLinkedinOrganizationsProfiles: () => {},
   setLinkedinOrganizationData: () => {},
-  getOrganizationAnalyticsData:()=>{},
-  setOneOrganizationAnalticsData:()=>{}
+  getOrganizationAnalyticsData: () => {},
+  setOneOrganizationAnalticsData: () => {},
+  setOrganizationFollowerCount: () => {},
+  getAllOrganizationsData:()=>{},
+  views:null,
+  setViews:()=>{}
 };
 
 export const userContext = createContext(initialData);
 
 export const UserContextProvider = ({ children }) => {
+  
   const [userData, setUserData] = useState(initialData.userData);
   const [planType, setPlanType] = useState(initialData.planType);
   const [loading, setLoading] = useState(initialData.loading);
-  const [linkedinAccounts, setLinkedinAccounts] = useState(
-    initialData.linkedinAccounts
-  );
-  const [linkedinProfileData, setLinkedinProfileData] = useState(
-    initialData.linkedinProfileData
-  );
-  const [linkedinOrganizationId, setLinkedinOrganizationId] = useState(
-    initialData.linkedinOrganizationId
-  );
-
-  const [linkedinOrganizationData, setLinkedinOrganizationData] = useState(
-    initialData.linkedinOrganizationData
-  );
-
-  const [oneOrganizationAnalticsData , setOneOrganizationAnalticsData] = useState()
-
+  const [linkedinAccounts, setLinkedinAccounts] = useState(initialData.linkedinAccounts);
+  const [linkedinProfileData, setLinkedinProfileData] = useState(initialData.linkedinProfileData);
+  const [linkedinOrganizationId, setLinkedinOrganizationId] = useState(initialData.linkedinOrganizationId);
+  const [linkedinOrganizationData, setLinkedinOrganizationData] = useState(initialData.linkedinOrganizationData);
+  const [oneOrganizationAnalticsData, setOneOrganizationAnalticsData] = useState(initialData.oneOrganizationAnalticsData);
+  const [organizationFollowerCount, setOrganizationFollowerCount] = useState(initialData.organizationFollowerCount);
+  const [views , setViews] = useState(initialData.views);
   const router = useRouter();
 
   const updatePlan = async (plan) => {
@@ -193,7 +190,7 @@ export const UserContextProvider = ({ children }) => {
           }));
 
         setLinkedinOrganizationId(allOrganizations);
-        console.log("allOrganizations", allOrganizations);
+
 
         if (failed.length > 0) {
           console.warn("Failed requests:", failed);
@@ -235,38 +232,75 @@ export const UserContextProvider = ({ children }) => {
       if (!token) {
         throw new Error("Authorization token is missing");
       }
-  
+
       const url = `/api/linkedin/analytics/${id}`;
-  
+
       const response = await fetch(url, {
-        method: "GET",   
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
-  
+
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || "Failed to fetch analytics data");
       }
-  
+
       const data = await response.json();
       setOneOrganizationAnalticsData(data?.analyticsData?.elements);
+      setOrganizationFollowerCount(data?.followers);
+      setViews(data?.totalPageViews);
       return {
         success: true,
         data: data.analyticsData,
-        message: data.message
+        message: data.message,
       };
     } catch (error) {
       console.error("Error fetching organization analytics:", error.message);
       return {
         success: false,
-        message: error.message
+        message: error.message,
       };
     }
   };
-  
+
+  const getAllOrganizationsData = async (data) => {
+    try {
+
+        const organizations = data.map(org => ({
+            id: org.id,     
+            token: org.token  
+        }));
+
+        console.log("Formatted organizations:", organizations);
+
+        const url = "/api/linkedin/analytics";
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(organizations)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            console.error("Error fetching analytics:", errorData);
+            return { error: errorData.message };
+        }
+
+        const result = await response.json();
+        setOneOrganizationAnalticsData(result?.data?.analyticsData?.elements);
+        setOrganizationFollowerCount(result?.data?.followers)
+        setViews(result?.data?.totalPageViews)
+    } catch (error) {
+        console.error("Failed to fetch organization data:", error);
+        return { error: "An error occurred while fetching data." };
+    }
+};
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -325,6 +359,10 @@ export const UserContextProvider = ({ children }) => {
         linkedinOrganizationData,
         oneOrganizationAnalticsData,
         getOrganizationAnalyticsData,
+        organizationFollowerCount, 
+        setOrganizationFollowerCount,
+        getAllOrganizationsData,
+        views
       }}
     >
       {children}
