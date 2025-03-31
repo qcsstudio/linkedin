@@ -15,9 +15,6 @@ export default {
       fontFamily: {
         syne: ["Syne", "sans-serif"],
       },
-      cursor: {
-        custom: "url('/images/cursor.svg'), auto",
-      },
     },
   },
   plugins: [],

@@ -11,6 +11,7 @@ import profile from '../../../../public/images/homeImages/profile.png'
 import Heading from '../Heading/Heading';
 import Subheading from '../Subheading/Subheading'
 import Description from '../Description/Description'
+import CloudSection from '../CloudSection/CloudSection';
 
 const SuccessStories = () => {
     const testimonials = [
@@ -58,11 +59,9 @@ const SuccessStories = () => {
     ];
 
   return (
-     <div className=" w-[100%]   px-[3.3rem] relative   z-10">
-                <div className="cloudContainer h-full w-full absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[1] ">
-                    <Image src={cloud} alt="cloud" className="w-full h-[100%] imageDrag" />
-                </div>
-                <div className="innerContainer flex flex-col gap-12 justify-center items-center w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10]  pb-[3rem] px-[7.0625rem]">
+     <div className=" w-[100%]  px-4 lg:px-[3.37rem] md:px-[3.12rem]  relative   z-10">
+               <CloudSection bottom={1} left={0} opacity={0.7} />
+                <div className="innerContainer   md:px-[3.12rem] lg:px-[3.12rem] flex flex-col gap-12 justify-center items-center w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10] px-4  pb-[3rem] ">
     
     
                     <div>
@@ -90,11 +89,11 @@ const SuccessStories = () => {
                 className="pb-10"
             >
                 {testimonials.map((testimonial, index) => (
-                    <SwiperSlide key={index} className="flex items-stretch">
-                    <div className="p-6 w-full min-h-[400px] bg-white/50 rounded-xl gap-2  shadow-lg flex flex-col justify-between items-start">
+                    <SwiperSlide key={index} className="flex items-stretch ">
+                    <div className="success-stories p-6 w-full min-h-[400px] bg-white/60  rounded-xl gap-2  shadow-lg flex flex-col justify-center items-start">
                         <Image src={testimonial.image} alt={testimonial.name} className="w-16 h-16 rounded-full mb-4" />
-                        <p className=" text-xl text-start flex-grow text-[#0E1C29]">{testimonial.review}</p>
-                        <h4 className="mt-4 text-xl text-start font-semibold text-white">{testimonial.name}</h4>
+                        <p className="text-md lg:text-xl text-start  text-[#0E1C29]">{testimonial.review}</p>
+                        <h4 className="text-xl text-start font-semibold text-white">{testimonial.name}</h4>
                         <p className="text-xl text-start opacity-75 text-[#0E1C29]">{testimonial.position}</p>
                     </div>
                   </SwiperSlide>

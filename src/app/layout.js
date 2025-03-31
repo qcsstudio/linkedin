@@ -8,6 +8,11 @@ import { UserContextProvider } from "@/Context/user.context";
 import Script from "next/script";
 import { PostContextProvider } from "@/Context/post.context";
 
+import { AnalyticsContextProvider } from "@/Context/analytics.context";
+
+import {ContactUsContextProvider} from '@/Context/ContactUs.context'
+
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -57,13 +62,19 @@ export default function RootLayout({ children }) {
           ></iframe>
         </noscript>
 
+
         <PrimeReactProvider>
+        <ContactUsContextProvider>
+          <AnalyticsContextProvider>
           <PostContextProvider>
             <UserContextProvider>
               <DashboardContextProvider>{children}</DashboardContextProvider>
             </UserContextProvider>
           </PostContextProvider>
+          </AnalyticsContextProvider>
+           </ContactUsContextProvider>
         </PrimeReactProvider>
+
       </body>
     </html>
   );

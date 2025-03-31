@@ -10,9 +10,9 @@ const AnimatedNumber = ({ value, duration = 0.8 }) => {
 
   useEffect(() => {
     let start = 0;
-    const stepTime = Math.max(10, Math.floor((duration * 1000) / value));  
+    const stepTime = Math.max(10, Math.floor((duration * 1000) / value));
     const timer = setInterval(() => {
-      start += Math.ceil(value / 20);  
+      start += Math.ceil(value / 20);
       if (start >= value) {
         start = value;
         clearInterval(timer);
@@ -34,21 +34,66 @@ const AnimatedNumber = ({ value, duration = 0.8 }) => {
   );
 };
 
-const TotalOverview = ({ data, followers }) => {
+
+
+
+const TotalOverview = ({ data, followers, growthData , views}) => {
+  console.log("views",views);
   const engagementData = [
-    { name: "Followers", value: followers || 0, color: "text-blue-500", icon: <FaUsers /> },
-    { name: "Likes", value: data?.likeCount || 0, color: "text-red-500", icon: <AiFillHeart /> },
-    { name: "Comments", value: data?.commentCount || 0, color: "text-purple-500", icon: <FaCommentDots /> },
-    { name: "Saved", value: 1450, color: "text-blue-500", icon: <FaBookmark /> },
-    { 
-      name: "Engagement", 
-      value: `${data?.engagement ? (data.engagement * 100).toFixed(2) : "0.00"}%`, 
-      color: "text-orange-500", 
-      icon: <MdOutlineAnalytics /> 
+    { name: "Followers",
+       value: followers || 0, 
+       color: "text-blue-500",
+        icon: <FaUsers />,
+        growth:growthData?.followerGain?.growth
+       },
+    { name: "Likes",
+       value: data?.likeCount || 0,
+        color: "text-red-500",
+         icon: <AiFillHeart /> ,
+         growth:growthData?.likeCount?.growth
+        },
+    { name: "Comments", 
+      value: data?.commentCount || 0, 
+      color: "text-purple-500",
+       icon: <FaCommentDots /> ,
+       growth:growthData?.commentCount?.growth
+
+      },
+    { name: "Views", 
+      value: views,
+       color: "text-blue-500", 
+       icon: <FaBookmark /> ,
+       growth:growthData?.commentCount?.growth
+
+      },
+    {
+      name: "Engagement",
+      value: `${data?.engagement ? (data.engagement * 100).toFixed(2) : "0.00"}%`,
+      color: "text-orange-500",
+      icon: <MdOutlineAnalytics />,
+      growth:growthData?.engagement?.growth
+
     },
-    { name: "Views", value: data?.uniqueImpressionsCount || 0, color: "text-black", icon: <AiFillEye /> },
-    { name: "Clicks", value: data?.clickCount || 0, color: "text-gray-500", icon: <FaMousePointer /> },
-    { name: "Impression", value: data?.impressionCount || 0, color: "text-green-500", icon: <AiOutlineShareAlt /> },
+    { name: "Unique Impressions",
+       value: data?.uniqueImpressionsCount || 0,
+        color: "text-black",
+         icon: <AiFillEye /> ,
+         growth:growthData?.uniqueImpressionsCount?.growth
+
+        },
+    { name: "Clicks", 
+      value: data?.clickCount || 0,
+       color: "text-gray-500", 
+       icon: <FaMousePointer /> ,
+       growth:growthData?.clickCount?.growth
+
+      },
+    { name: "Impression", 
+      value: data?.impressionCount || 0,
+       color: "text-green-500", 
+       icon: <AiOutlineShareAlt /> ,
+       growth:growthData?.impressionCount?.growth
+      },
   ];
 
   return (
@@ -73,16 +118,16 @@ const TotalOverview = ({ data, followers }) => {
             </div>
 
             <div className="flex items-center justify-around">
-              <p className="text-xl text-blue-500">
+              <div className="text-xl text-blue-500">
                 {item.name === "Engagement" ? (
-                  item.value  // Display percentage as a string
+                  item.value
                 ) : (
                   <AnimatedNumber value={parseInt(item.value)} duration={0.8} />
                 )}
-              </p>
+              </div>
               <div className="flex items-center gap-1 justify-center">
                 <BsGraphUpArrow className={`${item.color} text-sm`} />
-                <p className="text-gray-500 text-sm">2.1%</p>
+                <p className="text-gray-500 text-sm">{item.growth}</p>
               </div>
             </div>
           </motion.div>

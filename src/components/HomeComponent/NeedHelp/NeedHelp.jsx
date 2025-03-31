@@ -28,7 +28,7 @@ const NeedHelp = () => {
                         <div className="flex items-center gap-5">
                             <span className="text-4xl text-gray-700"><FiPhoneIncoming /></span>
                             <div className="leading-3">
-                                <h3 className="font-semibold text-2xl leading-4">Request a callback</h3>
+                                <h3 className="font-semibold text-2xl ">Request a callback</h3>
                                 <p className="text-lg">Our team will contact you soon</p>
                             </div>
                         </div>

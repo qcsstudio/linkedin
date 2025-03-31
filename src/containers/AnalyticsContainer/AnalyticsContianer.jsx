@@ -13,6 +13,8 @@ import { GoPlus } from "react-icons/go";
 import { CiCircleRemove } from "react-icons/ci";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { Dropdown } from "primereact/dropdown";
+import analyticsContext from "@/Context/analytics.context";
+import Loader from "../Loader/Loader";
 
 const AnalyticsContianer = () => {
   const [selectedaccount, setSelectedaccount] = useState(null);
@@ -26,8 +28,12 @@ const AnalyticsContianer = () => {
     organizationFollowerCount,
     linkedinProfileData,
     linkedinOrganizationData,
-    getAllOrganizationsData
+    getAllOrganizationsData,
+    views
   } = useContext(userContext);
+  console.log("views",views)
+
+  const {GetGrowthDataAPI , growthData} = useContext(analyticsContext);
 
   useEffect(() => {
     if (linkedinAccounts) {
@@ -42,19 +48,23 @@ const AnalyticsContianer = () => {
   }, [linkedinOrganizationId]);
 
   useEffect(() => {
-    if(selectedaccount){
+    if (selectedaccount) {
       getOrganizationAnalyticsData({
         id: selectedaccount.id,
         token: selectedaccount.token,
       });
+      GetGrowthDataAPI({
+        id: selectedaccount.id,
+        token: selectedaccount.token,
+      })
     }
   }, [selectedaccount]);
 
-  useEffect(()=>{
-     if(linkedinOrganizationData){
+  useEffect(() => {
+    if (linkedinOrganizationData) {
       getAllOrganizationsData(linkedinOrganizationData);
-     }
-  },[linkedinOrganizationData])
+    }
+  }, [linkedinOrganizationData]);
 
   const accountOptionTemplate = (option) => (
     <div className="flex items-center justify-between w-full px-2 py-1">
@@ -83,7 +93,7 @@ const AnalyticsContianer = () => {
           className="text-gray-500 hover:text-red-500"
           onClick={(e) => {
             e.stopPropagation();
-            setSelectedaccount(null);  
+            setSelectedaccount(null);
             getAllOrganizationsData(linkedinOrganizationData);
           }}
         >
@@ -93,6 +103,9 @@ const AnalyticsContianer = () => {
     );
   };
 
+ 
+
+  console.log("selectedaccount", selectedaccount);
   return (
     <div className="p-8 flex flex-col gap-2">
       <div className="flex py-5 items-center justify-between">
@@ -121,24 +134,46 @@ const AnalyticsContianer = () => {
           )}
         </div>
       </div>
-      <div className="p-6 flex flex-col gap-3 z-10 rounded-lg bg-white/40">
-        <h1 className="font-bold text-lg">Social Media Engagement</h1>
-        {oneOrganizationAnalticsData && (
-          <TotalOverview
-            data={oneOrganizationAnalticsData[0]?.totalShareStatistics}
-            followers={organizationFollowerCount}
-          />
-        )}
+      {
+        !oneOrganizationAnalticsData ?
+         <div className=" flex   min-h-[600px] z-10 rounded-lg bg-white/40">
+           <Loader/>
+         </div>   :   <div className="p-6 flex flex-col gap-3 z-10 rounded-lg bg-white/40">
+           <h1 className="font-bold text-lg">Social Media Engagement</h1>
+           {oneOrganizationAnalticsData && (
+             <TotalOverview
+               data={oneOrganizationAnalticsData[0]?.totalShareStatistics}
+               followers={organizationFollowerCount}
+               growthData={growthData}
+               views={views}
+             />
+           )}
+           
+           {selectedaccount && (
+             <FollowersOverview
+               id={selectedaccount.id}
+               token={selectedaccount.token}
+             />
+           )}
+   
+           {selectedaccount && (
+             <ImpressionOverviewAnalytics
+               id={selectedaccount.id}
+               token={selectedaccount.token}
+             />
+           )}
+   
+           <div className="bg-white/50 flex flex-col gap-5 rounded-lg p-5">
+             <BestTimeToPostAnalytics />
+             <HeatMapAnalytics />
+             <BestToPost2Analytics />
+             <ReadyToScdeduleAnalytics />
+           </div>
+         </div>
+      
+      }
 
-        <FollowersOverview />
-        <ImpressionOverviewAnalytics />
-        <div className="bg-white/50 flex flex-col gap-5 rounded-lg p-5">
-          <BestTimeToPostAnalytics />
-          <HeatMapAnalytics />
-          <BestToPost2Analytics />
-          <ReadyToScdeduleAnalytics />
-        </div>
-      </div>
+    
     </div>
   );
 };

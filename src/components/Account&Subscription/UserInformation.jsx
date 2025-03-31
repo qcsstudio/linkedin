@@ -32,7 +32,7 @@ const UserInformation = () => {
             <h2 className="text-xl font-semibold">User Information</h2>
             <form onSubmit={submitHandler} className="mt-5 space-y-4">
               {/* Email Input */}
-              <div className="relative">
+              <div className="relative z-10">
                 <label className="absolute -top-2 left-2 bg-white px-1 text-gray-700 ">Email</label>
                 <input
                 name="email"
@@ -43,7 +43,7 @@ const UserInformation = () => {
               </div>
               
               {/* Phone Number Input */}
-              <div className="relative">
+              <div className="relative z-10">
                 <label className="absolute -top-2 left-2 bg-white px-1 text-gray-700">Phone Number</label>
                 <input 
                 name='phoneNumber'
@@ -56,7 +56,7 @@ const UserInformation = () => {
               {/* Change Password Button */}
               <button 
               type='submit'
-              className=" w-36 text-xs h-8 border border-gray-500 bg-white p-2 rounded flex items-center justify-center space-x-2 mt-4 hover:bg-[#3a69d8] transition duration-300">
+              className=" w-36 text-xs h-8 border border-gray-500 bg-white p-2 z-20 relative rounded flex items-center justify-center space-x-2 mt-4 hover:bg-blue-400 hover:border-none transition duration-300">
                 <FaLock className="text-sm" />
                 <span>Change Password</span>
               </button>
