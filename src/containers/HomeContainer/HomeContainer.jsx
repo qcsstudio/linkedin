@@ -23,17 +23,26 @@ const HomeContainer = () => {
         <div className="bg-[#5E788F]/85 flex flex-col gap-3 md:gap-6 lg:gap-10">
           <Navbar />
           <HeroSection />
-          <div className="relative flex flex-col gap-3 md:gap-6 lg:gap-10">
-            <About />
-            <ChooseUs />
+          <div className="relative flex flex-col gap-3 md:gap-6 lg:gap-10 overflow-hidden ">
+  <About />
+  <ChooseUs />
+  <CloudSection bottom={85} left={0} width="90vw" className="animate-cloudMove" style={{ "--cloud-speed": "120s", "--cloud-opacity": "0.9", animationDelay: "0s" }} />
+  <CloudSection bottom={70} left={60} width="80vw" className="animate-cloudMove" style={{ "--cloud-speed": "110s", "--cloud-opacity": "0.85", animationDelay: "15s" }} />
 
-            <CloudSection bottom={70} left={-15} width="60vw" />
-            <CloudSection bottom={70} left={50} width="60vw" />
-            <CloudSection bottom={50} left={-10} width="60vw" />
-            <CloudSection bottom={50} left={40} width="60vw" />
-            <CloudSection bottom={30} left={-5} width="60vw" />
-            <CloudSection bottom={30} left={35} width="60vw" />
-          </div>
+  {/* Second Layer - Medium Clouds, Faster */}
+  <CloudSection bottom={60} left={-30} width="70vw" className="animate-cloudMove" style={{ "--cloud-speed": "90s", "--cloud-opacity": "0.75", animationDelay: "5s" }} />
+  <CloudSection bottom={50} left={60} width="65vw" className="animate-cloudMove" style={{ "--cloud-speed": "85s", "--cloud-opacity": "0.7", animationDelay: "10s" }} />
+
+  {/* Third Layer - Small, Fast Clouds for Depth */}
+  <CloudSection bottom={40} left={10} width="55vw" className="animate-cloudMove" style={{ "--cloud-speed": "70s", "--cloud-opacity": "0.6", animationDelay: "8s" }} />
+  <CloudSection bottom={30} left={70} width="50vw" className="animate-cloudMove" style={{ "--cloud-speed": "65s", "--cloud-opacity": "0.55", animationDelay: "12s" }} />
+
+  {/* Extra Clouds to Ensure Continuous Flow */}
+  <CloudSection bottom={55} left={30} width="60vw" className="animate-cloudMove" style={{ "--cloud-speed": "75s", "--cloud-opacity": "0.55", animationDelay: "18s" }} />
+  <CloudSection bottom={40} left={-20} width="45vw" className="animate-cloudMove" style={{ "--cloud-speed": "60s", "--cloud-opacity": "0.5", animationDelay: "20s" }} />
+
+</div>
+
           <Integration />
           <KeyFeatureSection />
           <Elevate />
@@ -57,10 +66,7 @@ const HomeContainer = () => {
           />
         </div>
 
-        <CloudSection bottom={20} left={0} />
-        <CloudSection bottom={57} left={0} opacity={0.7} />
-        <CloudSection bottom={65} left={0} opacity={0.7} />
-        <CloudSection bottom={8} left={0} opacity={0.5} />
+      
       </div>
     </>
   );
