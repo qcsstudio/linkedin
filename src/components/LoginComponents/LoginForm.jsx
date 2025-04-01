@@ -13,6 +13,7 @@ import { useContext } from "react";
 import { userContext } from "@/Context/user.context";
 import { Navigation, Pagination, Scrollbar, A11y,Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import logo from '../../../public/images/loginImages/logo.png'
 
 // Import Swiper styles
 
@@ -73,7 +74,7 @@ const LoginForm = () => {
         {/* <div className="innerDiv w-[100%] h-[100%] px-[5rem] flex gap-[10rem]"> */}
 
         {/* Left Container */}
-        <div className="leftContainer  flex items-center justify-center bg-gradient-to-r  from-purple-200  to-blue-100 w-1/2 h-full">
+        <div className=" leftContainer  hidden xl:flex  items-center justify-center bg-gradient-to-r  from-purple-200  to-blue-100 w-1/2 h-full">
           <Swiper
             modules={[Navigation, Pagination, Scrollbar, A11y]}
             spaceBetween={50}
@@ -88,8 +89,12 @@ const LoginForm = () => {
                     <div className="absolute top-0 left-10">
                       <Image src={mainLogo} height={200} width={200} alt="" />
                     </div>
-                    <div className="rounded-full w-[200px] h-[200px] sm:w-[250px] sm:h-[250px] md:w-[300px] md:h-[300px] lg:w-[45%] lg:h-[45%] 2xl:w-[400px] 2xl:h-[400px] z-10 bg-white flex relative"></div>
-                    <Image
+                    <div className="flex justify-center items-center z-10 bg-white rounded-full relative 
+  lg:w-[400px] lg:h-[400px]  ">
+
+  <Image src={logo} className="w-[70%] h-[70%] drop-shadow-6xl" alt='' />
+  
+</div>          <Image
                       className="absolute top-[30%] left-[15%] "
                       src={insta}
                       alt=""
@@ -97,7 +102,7 @@ const LoginForm = () => {
                       height={70}
                     />
                     <Image
-                      className="absolute bottom-[30%] left-[30%] h-[15%] w-[15%]"
+                      className="absolute bottom-[25%] left-[30%] h-[15%] w-[15%]"
                       src={facebook}
                       alt=""
                       width={70}
@@ -116,7 +121,8 @@ const LoginForm = () => {
                       alt=""
                       width={70}
                       height={70}
-                    />
+                    /> 
+
 
                     <p className="w-[80%] text-center text-lg font-semibold  text-purple-500 ">
                       {p.para}
@@ -129,8 +135,11 @@ const LoginForm = () => {
         </div>
 
         {/* Right Container */}
-        <div className="rightContainer  w-1/2 h-[100%] bg-gradient-to-r p-10 from-purple-300 flex flex-col justify-center items-center  to-blue-200  ">
+        <div className="rightContainer w-[100%] xl:w-1/2 h-[100%] bg-gradient-to-r p-2 md:p-6 lg:p-10 from-purple-300 flex flex-col justify-center items-center  to-blue-200  ">
           {/* Form Container */}{" "}
+          <div className="block xl:hidden absolute top-0 left-10">
+                      <Image src={mainLogo} height={200} width={200} alt="" />
+                    </div>
           <div className="inputContainer w-[100%] gap-2  justify-end  flex items-center ">
             <p className="forgetPassword">Don't have account ?</p>
 
@@ -143,7 +152,7 @@ const LoginForm = () => {
           <form
             method="POST"
             onSubmit={handelSubmit}
-            className="formContainer w-[70%]   p-[2rem] justify-center items-start  flex flex-col gap-[1rem]"
+            className="formContainer w-[70%] p-0 md:p-[1rem] lg:p-[2rem] justify-center items-start  flex flex-col gap-[1rem]"
           >
             <p className="heading text-[1.8rem] font-bold text-center">
               Log in

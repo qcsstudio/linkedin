@@ -63,7 +63,7 @@ const TotalOverview = ({ data, followers, growthData , views}) => {
       value: views,
        color: "text-blue-500", 
        icon: <FaBookmark /> ,
-       growth:growthData?.commentCount?.growth
+       growth:growthData?.pageViews?.growth
 
       },
     {
