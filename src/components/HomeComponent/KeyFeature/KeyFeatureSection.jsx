@@ -202,7 +202,7 @@ const featureData = [
             </div>
 
                     {/* Lower Container */}
-                    <div className='lowerContainer gap-2 w-[100%]  flex flex-col-reverse md:flex-col-reverse lg:flex-row justify-between items-center z-20'>
+                    <div className='lowerContainer gap-2 w-[100%]  flex flex-col-reverse md:flex-col-reverse lg:flex-row justify-around items-center z-20'>
 
                         <div className='leftSide' >
                             <div className='flex flex-col gap-2 md:gap-6 lg:gap-6'>
