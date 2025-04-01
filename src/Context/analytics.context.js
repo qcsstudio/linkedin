@@ -8,7 +8,10 @@ const initialData = {
     setGrowthData: () => { },
     GetTopPostsAPI:()=>{ },
     topPostsData:null,
-    setTopPostsData:()=>{}
+    setTopPostsData:()=>{},
+    posts:null,
+    setPosts:()=>{},
+    GetLinkedinPostsAPI:()=>{ }
 }
 
 const analyticsContext = createContext(initialData);
@@ -17,6 +20,7 @@ export const AnalyticsContextProvider = ({ children }) => {
 
     const [growthData, setGrowthData] = useState(initialData.growthData);
     const [topPostsData , setTopPostsData]  = useState(initialData.topPostsData);
+    const [posts, setPosts] = useState(initialData.posts);
 
     const GetGrowthDataAPI = async ({ id, token }) => {
         try {
@@ -61,6 +65,23 @@ export const AnalyticsContextProvider = ({ children }) => {
         }
       };
       
+      const GetLinkedinPostsAPI = async ({ id, token }) => {
+        if (!id || !token) return;
+        try {
+          const response = await fetch('/api/linkedin/posts', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id, token }),
+          });
+    
+          const data = await response.json();
+          setPosts(data);
+        } catch (err) {
+          console.error('Failed to fetch LinkedIn posts:', err);
+        } 
+      };
 
     return (
         <analyticsContext.Provider value={{
@@ -68,7 +89,10 @@ export const AnalyticsContextProvider = ({ children }) => {
             setGrowthData,
             growthData,
             GetTopPostsAPI,
-            topPostsData
+            topPostsData,
+            posts,
+            setPosts,
+            GetLinkedinPostsAPI
         }}>
             {children}
         </analyticsContext.Provider>
