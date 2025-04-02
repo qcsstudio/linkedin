@@ -14,6 +14,7 @@ import GraphComponent from "@/components/EngagementComponents/GraphComponent";
 import { userContext } from "@/Context/user.context";
 import analyticsContext from "@/Context/analytics.context";
 import PostPerformanceChart from "@/components/EngagementComponents/PostPerformanceChart";
+import TopPostInsights from "@/components/EngagementComponents/TopPostInsights";
 
 const EngagementContainer = () => {
   const {
@@ -41,7 +42,7 @@ const EngagementContainer = () => {
   console.log("topPostsData", topPostsData);
 
   return (
-    <div className="ml-[20px] w-[92.2%] pt-[12px] mt-[35px] bg-white/30 rounded-lg flex justify-center align-middle items-center">
+    <div className="ml-[20px] w-[92.2%] pt-[12px] mt-[35px] bg-white/30 rounded-lg flex justify-center ">
       <div className="flex flex-col gap-2">
         <h1 className="font-bold text-[22px]">Social Media Analytics</h1>
         {topPostsData && (
@@ -96,8 +97,11 @@ const EngagementContainer = () => {
             <GraphComponent />
           </div>
         </div> */}
+        <div>
+          <TopPostInsights/>
+        </div>
 <div>
-  <PostPerformanceChart/>
+  {/* <PostPerformanceChart/> */}
 </div>
       </div>
     </div>

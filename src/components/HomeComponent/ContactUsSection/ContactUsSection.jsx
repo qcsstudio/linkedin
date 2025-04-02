@@ -56,7 +56,7 @@ const ContactUsSection = () => {
     
 
     return (
-        <div id="contact" className="relative w-full px-4 lg:px-[3.37rem] md:px-[3.12rem] z-10 ">
+        <div id="contact" className="z-20 relative w-full px-4 lg:px-[3.37rem] md:px-[3.12rem]  ">
             <Toaster
                 position="bottom-center"
                 toastOptions={{
@@ -66,7 +66,7 @@ const ContactUsSection = () => {
             />
 
             
-            <div className=" relative innerContainer flex flex-col md:flex-row gap-6 md:gap-10 w-full h-full bg-[#FFFFFF]/35 rounded-lg pl-4 md:pl-[3.12rem] lg:pl-[3.12rem]">
+            <div className=" relative z-10 innerContainer flex flex-col md:flex-row gap-6 md:gap-10 w-full h-full bg-[#FFFFFF]/35 rounded-lg pl-4 md:pl-[3.12rem] lg:pl-[3.12rem]">
                 {/* Form Section */}
                 <CloudSection bottom={-30} left={0} opacity={0.7} />
                 <div className="p-4 md:p-6 py-8 md:py-[3rem] w-full md:w-1/2 flex flex-col gap-4">
@@ -74,7 +74,7 @@ const ContactUsSection = () => {
                     <p className="text-[#3F4142] md:text-start text-center">
                         Feel free to reach out to us for any inquiries or assistance.
                     </p>
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={handleSubmit} className="z-10 space-y-4">
                         <input
                             onChange={handleChange}
                             name="name"
@@ -109,7 +109,7 @@ const ContactUsSection = () => {
                             placeholder="Your Message"
                             className="w-full placeholder-gray-600 bg-transparent p-3 border-b border-gray-500 focus:outline-none"
                         />
-                        <ReCAPTCHA sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} onChange={handleCaptchaChange} />
+                        <ReCAPTCHA className="z-10" sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} onChange={handleCaptchaChange} />
                         <button className="w-full bg-[rgb(14,28,41)] bg-gradient-to-r from-[rgba(14,28,41,1)] to-[rgba(50,61,104,1)] text-white py-3 rounded-lg hover:bg-blue-700 transition">
                             SUBMIT
                         </button>

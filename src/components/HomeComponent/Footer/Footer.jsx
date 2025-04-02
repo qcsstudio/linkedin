@@ -26,7 +26,7 @@ const scrollToSection = (id) => {
 
 const Footer = () => {
     return (
-        <footer className="w-full  bg-[url('/images/homeImages/bgfooter.png')] bg-contain py-3">
+        <footer className="w-full  lg:bg-[url('/images/homeImages/bgfooter.png')] bg-contain py-3">
             <div className="px-6 sm:px-10 lg:px-[4rem]  mb-6 flex flex-col">
 
                 <div className="flex flex-col-reverse sm:flex-row md:flex-row lg:flex-row lg:w-[100%] flex-wrap lg:flex-nowrap justify-between items-center w-full">

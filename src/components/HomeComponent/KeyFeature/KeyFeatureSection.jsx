@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import React, { useState } from 'react'
 // Images Import ---------------------------------------------
-import logo from "../../../../public/images/integrationImages/logo.svg"
+
 import instagram from "../../../../public/images/integrationImages/instagram.svg"
 import linkedin from "../../../../public/images/integrationImages/linkedin.svg"
 import facebook from "../../../../public/images/integrationImages/facebook.svg"
