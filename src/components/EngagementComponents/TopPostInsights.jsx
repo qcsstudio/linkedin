@@ -1,8 +1,11 @@
+
 "use client"
+
 import React from "react";
 import CountUp from 'react-countup';
 import { FaLinkedin } from "react-icons/fa";
 import Image from "next/image";
+
 
 function formatToK(value) {
     if (value >= 1000) {
@@ -73,3 +76,4 @@ function formatToK(value) {
   
   
   export default TopPostInsights;
+

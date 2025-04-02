@@ -99,9 +99,9 @@ const FaqSection = () => {
                         <div key={index} className="mb-3">
 
                             <button
-                                className={`w-[100%] flex text-[.8rem] md:text-[1rem] lg:text-[1rem] justify-between items-center text-left p-4 rounded-lg transition-all duration-300
+                                className={`w-[100%] z-20 flex text-[.8rem] md:text-[1rem] lg:text-[1rem] justify-between items-center text-left p-4 rounded-lg transition-all duration-300
                                     ${openAnswer === index
-                                        ? "bg-slate-500 text-white border-none rounded-b-none"
+                                        ? "bg-gradient-to-r from-[#5E788F]   to-white/10  text-white border-none rounded-b-none"
                                         : "bg-white/50 text-[#3F4142]"
                                     }`}
                                 onClick={() => setOpenAnswer(openAnswer === index ? null : index)}
@@ -118,7 +118,7 @@ const FaqSection = () => {
                                 className="overflow-hidden"
                             >
                                 {openAnswer === index && (
-                                    <div className="pb-4 px-4 text-[.8rem] md:text-[1rem] lg:text-[1rem] bg-slate-500 text-white/80 rounded-b-lg ">
+                                    <div className="pb-4 z-20 px-4 text-[.8rem] md:text-[1rem] lg:text-[1rem] bg-gradient-to-r from-[#5E788F]   to-white/10 text-white/80 rounded-b-lg ">
                                         {faq.answer}
                                     </div>
                                 )}

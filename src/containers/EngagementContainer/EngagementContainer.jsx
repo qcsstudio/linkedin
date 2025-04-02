@@ -14,11 +14,13 @@ import GraphComponent from "@/components/EngagementComponents/GraphComponent";
 import { userContext } from "@/Context/user.context";
 import analyticsContext from "@/Context/analytics.context";
 import PostPerformanceChart from "@/components/EngagementComponents/PostPerformanceChart";
+
 import { CiCircleRemove } from "react-icons/ci";
 import { Dropdown } from "primereact/dropdown";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import TopPostInsights from "@/components/EngagementComponents/TopPostInsights";
 import Loader from "../Loader/Loader";
+
 
 const EngagementContainer = () => {
   const [selectedaccount, setSelectedaccount] = useState(null);
@@ -110,8 +112,10 @@ const EngagementContainer = () => {
   }
   console.log("selectedaccount", selectedaccount);
   return (
+
     <div className="ml-[20px] pt-[12px] mt-[35px] bg-white/30 rounded-lg flex justify-center items-center">
       <div className="flex flex-col gap-6 w-full px-4">
+
         <h1 className="font-bold text-[22px]">Social Media Analytics</h1>
 
         {topPostsData && (
@@ -164,6 +168,7 @@ const EngagementContainer = () => {
               onRowClick={(post) => setSelectedPostForChart(post)}
             />
           </div>
+
         )}
         <div className="w-[30%]">
           {linkedinOrganizationData && (
@@ -185,6 +190,7 @@ const EngagementContainer = () => {
             />
           )}
         </div>
+
       </div>
     </div>
   );
