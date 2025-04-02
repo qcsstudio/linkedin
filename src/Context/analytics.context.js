@@ -68,7 +68,7 @@ export const AnalyticsContextProvider = ({ children }) => {
       const GetLinkedinPostsAPI = async ({ id, token }) => {
         if (!id || !token) return;
         try {
-          const response = await fetch('/api/linkedin/posts', {
+          const response = await fetch('/api/linkedin/all-posts', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
