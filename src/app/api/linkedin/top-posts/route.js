@@ -63,6 +63,12 @@ export async function POST(req) {
             postId: post.id,
             text: post.text?.text || '',
             createdAt: post.created?.time || null,
+            content: post.content || null, // Includes media/image URL info
+            distribution: post.distribution || null,
+            lifecycleState: post.lifecycleState || '',
+            visibility: post.visibility || '',
+            lastModified: post.lastModified?.time || null,
+          
             impressions,
             clicks: s.clickCount,
             likes: s.likeCount,
@@ -70,7 +76,9 @@ export async function POST(req) {
             shares: s.shareCount,
             engagementRate,
             performanceScore: score,
+            engagement: s.engagement
           });
+          
         }
         
         const total = shareRes.data.paging.total;

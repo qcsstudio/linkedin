@@ -64,7 +64,6 @@ const ContactUsSection = () => {
                     style: { marginBottom: "50px", background: "rgb(255, 255, 255,0.8)", color: "#3F4142" },
                 }}
             />
-
             
             <div className=" relative z-10 innerContainer flex flex-col md:flex-row gap-6 md:gap-10 w-full h-full bg-[#FFFFFF]/35 rounded-lg pl-4 md:pl-[3.12rem] lg:pl-[3.12rem]">
                 {/* Form Section */}
