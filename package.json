@@ -29,6 +29,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.10.1",
     "next": "15.1.7",
+    "node-cron": "^3.0.3",
     "nodemailer": "^6.10.0",
     "openai": "^4.89.0",
     "primereact": "^10.9.3",

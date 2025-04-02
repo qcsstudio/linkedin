@@ -422,3 +422,19 @@ html {
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
+
+/* schedule post */
+input[type="date"]::-webkit-calendar-picker-indicator{
+  display: none;
+}
+input[type="date"]{
+  appearance: none;
+}
+/* schedule post */
+input[type="time"]::-webkit-calendar-picker-indicator{
+  display: none;
+}
+input[type="time"]{
+  appearance: none;
+}
