@@ -12,7 +12,7 @@ import { PostContextProvider } from "@/Context/post.context";
 import { AnalyticsContextProvider } from "@/Context/analytics.context";
 
 import {ContactUsContextProvider} from '@/Context/ContactUs.context'
-
+import "@/utils/cron";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

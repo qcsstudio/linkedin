@@ -49,8 +49,6 @@ export const PostContextProvider = ({ children })=>{
     // generate caption function -------------------------------------------------
     const generatePostCaption = async(data)=>{
         try {
-            setLoading(true);
-
             const response = await fetch("/api/chatgpt/",{
                 method:"POST",
                 headers:{
@@ -66,16 +64,40 @@ export const PostContextProvider = ({ children })=>{
             }
             // console.log(response.data);
             // setGeneratedCaption()
-            setLoading(false);
         } catch (error) {
             console.log("Unable to post on Linkedin /context/post.context : ",error);
+        }
+    }
+
+    // Linkedin Post function -------------------------------------------------
+    const postSchedule = async(data)=>{
+        try {
+            setLoading(true);
+            console.log("data", data);
+
+            const res = await fetch("/api/schedulepost", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            if(res.status == 200){
+                const resData = await res.json();
+                console.log("Scheduling Data : ",resData);
+            }
+
+            setLoading(false);
+        } catch (error) {
+            console.error("Unable to Schedule Post /context/post.context : ",error);
             setError(true);
             setLoading(false);
         }
     }
 
     return (
-        <postContext.Provider value={{loading,setLoading,error,setError,postLinkedin,generatePostCaption,generatedCaption,setGeneratedCaption}}>
+        <postContext.Provider value={{loading,setLoading,error,setError,postLinkedin,generatePostCaption,generatedCaption,setGeneratedCaption,postSchedule}}>
             {children}
         </postContext.Provider>
     )

@@ -55,14 +55,14 @@ const Integration = () => {
                             </div>
 
                             {/* Left line Images */}
-                            <div className=" hidden md:block lg:block leftLines w-[23.75rem] h-[24.25rem] absolute top-1/2 transform -translate-y-1/2 left-[10%] z-20">
+                            <div className=" hidden md:block lg:block leftLines w-[23.75rem] h-[24.25rem] absolute top-1/2 transform  -translate-y-1/2 left-[10%] z-10">
 
                                 <Image src={leftLine} width={1024} height={1024} alt="logo"  className=" w-[100%] h-[100%] z-20" />
 
                             </div>
 
                             {/* Right line Images */}
-                            <div className="hidden md:block lg:block rightLines w-[23.75rem] h-[24.25rem] absolute top-1/2 transform -translate-y-1/2 right-[10%] z-20">
+                            <div className="hidden md:block lg:block rightLines w-[23.75rem] h-[24.25rem] absolute top-1/2 transform -translate-y-1/2 right-[10%] z-10">
 
                                 <Image src={rightLine} width={1024} height={1024} alt="logo"  className=" w-[100%] h-[100%] z-20" />
 
