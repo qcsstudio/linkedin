@@ -3,6 +3,7 @@ import React from 'react'
 import Heading from '../Heading/Heading'
 import Link from 'next/link'
 
+
 const Elevate = () => {
     
     const scrollToSection = (id) => {
@@ -16,7 +17,7 @@ const Elevate = () => {
             <div id='getStarted' className="aboutSection w-[100%] px-4 lg:px-[3.37rem] md:px-[3.12rem] text-[#D8DFE5] z-[10]">
 
                 {/* Inner Container */}
-                <div className="innerAboutContainer w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem]  px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[1.5rem] z-[10]">
+                <div className="innerAboutContainer w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem]  px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[2.5rem] z-[10]">
 
                     {/* Lower Container */}
                     <div className="lowerContainer w-[100%] z-[10] flex flex-col-reverse lg:flex-row  gap-7 justify-between align-middle items-center">
@@ -47,12 +48,11 @@ const Elevate = () => {
                         </div>
 
                         {/* Right Container */}
-                        <div className=" flex gap-2 w-[100%]  lg:w-[50%] rounded-lg bg-[#FF7171]">
-                            <div className=' w-[70%] rounded-[10px] bg-[#9B9B9BCC]'></div>
-                            <div className='flex w-[40%] flex-col gap-3'>
-                                <div className='w-[100%] h-[4rem] lg:h-[7rem] rounded-lg bg-[#9B9B9BCC]'></div>
-                                <div className='w-[100%] h-[6rem] lg:h-[12rem] rounded-lg bg-[#9B9B9BCC]'></div>
-                            </div>
+                        <div className=" flex gap-2 w-[100%] md:h-[250px] lg:h-[300px]  lg:w-[50%] rounded-lg">
+                           
+                            <iframe className=' w-[100%] h-[100%] rounded-[10px] bg-[#9B9B9BCC]' src="https://www.youtube.com/embed/3KXWzeyrLq8?si=QDaGL-jxDhmb_tQz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            
+                           
                         </div>
 
                     </div>

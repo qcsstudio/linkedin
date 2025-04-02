@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
+
 import "./globals.css";
 import DashboardContextProvider from "@/Context/Dashboard.context";
 
@@ -49,6 +50,18 @@ export default function RootLayout({ children }) {
             `,
         }}
       />
+       <Script
+        strategy="afterInteractive"
+        src="https://www.googletagmanager.com/gtag/js?id=G-KLP5Q5MWRF"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-KLP5Q5MWRF');
+        `}
+      </Script>
 
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased `}

@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import Heading from '../Heading/Heading';
 import Subheading from '../Subheading/Subheading'
 import Description from '../Description/Description'
+import CloudSection from '../CloudSection/CloudSection';
 
 
 
@@ -55,9 +56,9 @@ const FaqSection = () => {
     };
     
     return (
-        <div id='faq' className=" w-[100%]  px-4 lg:px-[3.37rem] md:px-[3.12rem]  relative   z-10">
-
-            <div className="innerContainer flex flex-col   gap-4 w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10] px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[1.5rem]">
+        <div id='faq' className="relative w-[100%]  px-4 lg:px-[3.37rem] md:px-[3.12rem]     z-10">
+<CloudSection bottom={-20} left={0} opacity={0.7} />
+            <div className="innerContainer flex flex-col    gap-4 w-[100%] h-[100%] bg-[#FFFFFF]/35 rounded-[.5rem] z-[10] px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[1.5rem]">
 
 
                 <div className='flex flex-col justify-center items-center'>
@@ -77,7 +78,7 @@ const FaqSection = () => {
     {Object.keys(faqData).map((category) => (
         <button 
             key={category} 
-            className={`text-xs lg:text-sm min-w-[10rem] sm:w-auto md:w-auto lg:w-auto 
+            className={`text-xs z-10 lg:text-sm min-w-[10rem] sm:w-auto md:w-auto lg:w-auto 
                         p-2 rounded-lg transition-all duration-300
                         ${activeCategory === category 
                             ? "bg-[#5E788F] text-white border-2 border-gray-200" 
@@ -93,14 +94,14 @@ const FaqSection = () => {
 </div>
 
 
-                <div className="">
+                <div className="z-10">
                     {faqData[activeCategory].map((faq, index) => (
                         <div key={index} className="mb-3">
 
                             <button
-                                className={`w-[100%] flex text-[.8rem] md:text-[1rem] lg:text-[1rem] justify-between items-center text-left p-4 rounded-lg transition-all duration-300
+                                className={`w-[100%] z-20 flex text-[.8rem] md:text-[1rem] lg:text-[1rem] justify-between items-center text-left p-4 rounded-lg transition-all duration-300
                                     ${openAnswer === index
-                                        ? "bg-slate-500 text-white border-none rounded-b-none"
+                                        ? "bg-gradient-to-r from-[#5E788F]   to-white/10  text-white border-none rounded-b-none"
                                         : "bg-white/50 text-[#3F4142]"
                                     }`}
                                 onClick={() => setOpenAnswer(openAnswer === index ? null : index)}
@@ -117,7 +118,7 @@ const FaqSection = () => {
                                 className="overflow-hidden"
                             >
                                 {openAnswer === index && (
-                                    <div className="pb-4 px-4 text-[.8rem] md:text-[1rem] lg:text-[1rem] bg-slate-500 text-white/80 rounded-b-lg ">
+                                    <div className="pb-4 z-20 px-4 text-[.8rem] md:text-[1rem] lg:text-[1rem] bg-gradient-to-r from-[#5E788F]   to-white/10 text-white/80 rounded-b-lg ">
                                         {faq.answer}
                                     </div>
                                 )}

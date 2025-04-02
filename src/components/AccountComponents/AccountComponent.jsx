@@ -36,7 +36,7 @@ export default function AccountComponent() {
       {!addAccount && (
         <div className="innerContainer w-[100%] z-[100]">
           <div className="upperContainer w-[100%] my-[1.2rem] py-[.5rem] flex justify-between items-center z-[100]">
-            <p className="heading text-[1.4rem] font-normal ">
+            <p className="heading text-[1.4rem] font-normal sticky">
               Hi, QCS <span className="text-[.9rem]">Keep Moving Forward</span>
             </p>
             <button

@@ -14,7 +14,7 @@ import CloudSection from "../CloudSection/CloudSection";
 
 
 const Plans = () => {
-    const [buttonPlans,setButtonPlans]=useState('Monthly');
+    const [buttonPlans, setButtonPlans] = useState('Monthly');
     const pricingPlans = [
         {
             title: "Starter",
@@ -69,18 +69,18 @@ const Plans = () => {
 
 
                 <div>
-                    <Heading heading={"Flexible Plans"}/>
+                    <Heading heading={"Flexible Plans"} />
                     <div className="upperContainer w-[100%] gap-3  flex flex-col justify-center items-center z-20">
-                        
-                        <Subheading subHeading={" Flexible Pricing for Every Social Media Superhero"}/>
-                        
-                        <Description description={"At ElevatrX, we make social media marketing simple and affordable. Our flexible plans grow with your business—choose yours and streamline your success."}/>
-                        <div className="flex bg-white p-2 rounded-lg  z-20">
-                            <button onClick={()=>setButtonPlans('Monthly')}  className={`${buttonPlans==='Monthly'?"bg-[#5E788F]/50 ":""} px-2 md:px-4 lg:px-4 py-2    text-md md:text-xl lg:text-xl rounded-md text-gray-700 `}>
+
+                        <Subheading subHeading={" Flexible Pricing for Every Social Media Superhero"} />
+
+                        <Description description={"At ElevatrX, we make social media marketing simple and affordable. Our flexible plans grow with your business—choose yours and streamline your success."} />
+                        <div className="flex bg-white p-1 rounded-lg  z-20">
+                            <button onClick={() => setButtonPlans('Monthly')} className={`${buttonPlans === 'Monthly' ? "bg-[#5E788F]/40 " : ""} px-2 md:px-4 lg:px-8   text-md md:text-lg lg:text-lg rounded-md text-gray-700 `}>
                                 Monthly
                             </button>
-                            <button onClick={()=>setButtonPlans('yearly')} className={`${buttonPlans==="yearly"?"bg-[#5E788F]/50 ":""} px-1 md:px-4 lg:px-4 text-md md:text-xl lg:text-xl rounded-md text-gray-700 py-2 z-20`}>
-                                Yearly <span className='text-black z-20'>Save 20%</span>
+                            <button onClick={() => setButtonPlans('yearly')} className={`${buttonPlans === "yearly" ? "bg-[#5E788F]/50 " : ""} px-1 md:px-4 text-lg lg:px-5 text-md md:text-lg flex gap-3 justify-center items-center lg:text-lg rounded-md text-gray-700 py-1 z-20`}>
+                                Yearly <span className='text-black text-md p-1 bg-gray-200/40 z-20  rounded-md '>Save 20%</span>
                             </button>
 
                         </div>
@@ -97,25 +97,24 @@ const Plans = () => {
                     {pricingPlans.map((plan, index) => (
                         <div
                             key={index}
-                            className={`cardContainer relative z-10 flex flex-col gap-5 py-[2.5rem]  bg-white/40 rounded-[1rem]  ${plan.popular ? "border-2 " : ""
-                                }`}
+                            className={`cardContainer relative z-10 flex flex-col gap-5 py-[2.5rem]  bg-white/40 rounded-[1rem]`}
                         >
                             {plan.popular && (
-                                <span className="absolute flex items-center justify-center gap-1 top-10 left-32 bg-[#5E788F] text-white px-3 py-1 text-lg rounded-full z-20">
-                                  <AiOutlineFire />
-                                  Popular
+                                <span className="absolute flex items-center justify-center gap-1 top-[9%] left-[20%] bg-[#5E788F] text-white px-3 py-1 text-lg rounded-full z-20">
+                                    <AiOutlineFire />
+                                    Popular
                                 </span>
                             )}
-                            <div className="border-b-[3px] px-[1rem] pb-5 flex flex-col gap-5 border-gray-500 border-dashed z-20">
-                                <h3 className="text-md font-thin text-gray-800 z-20">
+                            <div className="border-b-[3px] px-[1rem]  pb-5 flex flex-col gap-10 border-gray-500 border-dashed z-20">
+                                <h3 className="text-md  z-20">
                                     {plan.title}
                                 </h3>
                                 <div className="flex items-center justify-start gap-2">
                                     <p className="text-5xl font-bold text-gray-900">
-                                    {buttonPlans === "yearly"
-        ? `$${(parseFloat(plan.price.replace("$", "")) * 12 * 0.8).toFixed(0)}`
-        : plan.price}
-                                        </p>
+                                        {buttonPlans === "yearly"
+                                            ? `$${(parseFloat(plan.price.replace("$", "")) * 12 * 0.8).toFixed(0)}`
+                                            : plan.price}
+                                    </p>
                                     <p className="text-md font-thin text-gray-500"> {buttonPlans === "yearly" ? "user/year" : plan.duration}</p>
                                 </div>
 
@@ -134,9 +133,9 @@ const Plans = () => {
                                 </ul>
 
 
-                              <Link href='/register'> <button className={`w-full mt-auto ${plan.popular?"bg-gradient-to-r from-[#5E788F]   to-[#5E788F]/40   ":"bg-gradient-to-r from-[#5E788F]   to-white/50"}  border-2 border-gray-200 text-white py-2 rounded-lg hover:bg-[#B0BAC4]`}>
+                                <Link href='/register'> <button className={`w-full mt-auto ${plan.popular ? "bg-gradient-to-r from-[#5E788F]   to-[#5E788F]/40   " : "bg-gradient-to-r from-[#5E788F]   to-white/50"}  border-1 border-gray-200 text-white py-2 rounded-lg hover:bg-[#B0BAC4]`}>
                                     Start 14 Day Free Trial
-                                </button></Link> 
+                                </button></Link>
                             </div>
                         </div>
                     ))}

@@ -4,10 +4,11 @@
   import { motion, useScroll, useTransform } from "framer-motion";
   import Image from "next/image";
   import logo from "../../../../public/images/homeImages/logofooter.png";
-  import Logo from '../../../../public/images/homeImages/elevatrxlogo.png'
+  import Logo from '../../../../public/images/homeImages/elevatrxlogo.svg'
   import Link from "next/link";
   import { FiMenu, FiX } from "react-icons/fi";
   import mainLogo from "../../../../public/images/mainLogo.png";
+ 
 
   const Navbar = () => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -28,7 +29,7 @@
     );
     const buttonTextColor = useTransform(scrollY, [0, 100], ["#fff", "#fff"]);
     const borderRadius = useTransform(scrollY, [0, 100], ["1.5rem", ".5rem"]);
-    const width = useTransform(scrollY, [0, 100], ["90%", "85%"]);
+    const width = useTransform(scrollY, [0, 100], ["90%", "90%"]);
     const top = useTransform(scrollY, [0, 100], ["1rem", "1rem"]);
 
     const scrollToSection = (id) => {
@@ -42,21 +43,34 @@
     return (
       <motion.div
         style={{ background, borderRadius, width,top,}}
-        className="fixed left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-in-out"
+        className="fixed  left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-in-out"
       >
-        <div className="flex justify-between items-center px-4 md:px-8 lg:px-8 w-full">
-          <Link href="/">
-          <div className="flex items-center">
-            <Image
-              src={Logo}
-              alt="ElevatrX Logo"
-              className="h-20 w-auto md:h-16"
-            />
+        <div className="flex py-1 md:py-2 lg:py-3   justify-between items-center px-4 md:px-8 lg:px-8 w-full">
+       
+
+<Link href='/'>
+<div className="flex items-center relative">
+          <div className="leading-3 flex flex-col">
+            <h1 className="text-3xl lg:text-5xl font-bold tracking-wide bg-gradient-to-r from-[#0E1C29] to-[#323D68] bg-clip-text text-transparent">
+              Elevatr
+            </h1>
+            <p className=" max-w-[100px] md:max-w-[120px] lg:max-w-[200px] leading-tight text-[6px] lg:text-[8px]">
+              AI-Powered Social Growth & Revenue Acceleration
+            </p>
           </div>
-          </Link>
+
+
+          <Image
+            src={logo}
+            alt="ElevatrX Logo"
+            className="absolute lg:-top-10 md:left-[70%] left-[80%] w-[70%] "
+          />
+        </div>
+</Link>
+          
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8 text-[#0E1C29] text-sm lg:text-lg  font-medium">
+          <nav className="hidden md:flex md:space-x-8 lg:space-x-16 text-[#0E1C29] text-sm lg:text-lg  font-medium">
             <Link href="/" className="hover:text-gray-600 transition">
               Home
             </Link>

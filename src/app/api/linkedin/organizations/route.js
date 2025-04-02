@@ -2,7 +2,7 @@ export async function POST(req) {
     try {
         const body = await req.json();
         const { organizations } = body;
-        // console.log("Organizations:", organizations);
+
 
         if (!Array.isArray(organizations) || organizations.length === 0) {
             return Response.json({ error: "Invalid organization data" }, { status: 400 });

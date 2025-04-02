@@ -12,12 +12,12 @@ const timeRanges = {
   "30d": 30 * 24 * 60 * 60 * 1000,
 };
 
-const chartTypes = ["line", "bar", "area"];
+
 
 export default function ImpressionsOverview({ id, token }) {
   const [selectedRange, setSelectedRange] = useState("7d");
   const [chartData, setChartData] = useState([]);
-  const [chartType, setChartType] = useState("area");
+  
   const [isStacked, setIsStacked] = useState(false);
 
   const fetchData = async () => {
@@ -85,7 +85,7 @@ export default function ImpressionsOverview({ id, token }) {
       },
     },
     fill: {
-      type: chartType === "area" ? "gradient" : "solid",
+      
       gradient: {
         shadeIntensity: 1,
         opacityFrom: 0.3,
@@ -130,7 +130,7 @@ export default function ImpressionsOverview({ id, token }) {
     dataLabels: { enabled: false },
     stroke: {
       curve: "smooth",
-      width: chartType === "bar" ? 0 : 2,
+      width: 2,
     },
   };
 
@@ -146,9 +146,9 @@ export default function ImpressionsOverview({ id, token }) {
   ];
 
   return (
-    <div className="p-6 bg-white/30 backdrop-blur-xl shadow-2xl rounded-2xl border border-white/40">
+    <div className="p-6 bg-white/50 backdrop-blur-xl shadow-2xl rounded-2xl border border-white/40">
       <h2 className="text-2xl font-bold mb-4 text-gray-800">
-        📊 LinkedIn Page Views
+        Impression Overview
       </h2>
 
       {/* Summary */}
@@ -185,27 +185,14 @@ export default function ImpressionsOverview({ id, token }) {
       </div>
 
       
-      <div className="flex gap-3 mb-6">
-        {chartTypes.map((type) => (
-          <button
-            key={type}
-            onClick={() => setChartType(type)}
-            className={`px-4 py-1.5 text-sm font-medium capitalize rounded-full border transition-all ${
-              chartType === type
-                ? "bg-indigo-600 text-white border-indigo-700"
-                : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
-            }`}
-          >
-            {type} Chart
-          </button>
-        ))}
-      </div>
+      
 
       {/* Chart */}
       <Chart
+      className='bg-white/60'
         options={chartOptions}
         series={series}
-        type={chartType}
+        type="area"
         height={400}
       />
     </div>

@@ -14,6 +14,8 @@
   }
 } */
 
+
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
@@ -88,6 +90,7 @@
   background-color: #F1F5F9 !important;
   border: none !important;
 }
+.fc-button-active 
 .fc-today-button{
   /* position: relative; */
   z-index: 1000000000000;
@@ -101,7 +104,6 @@
 
 
 .fc-timeGridWeek-view{
-  background: #ffffff;
   border-radius: 15px !important;
 }
 
@@ -129,7 +131,7 @@
   padding-inline: 6px;
 }
 .fc-view-harness{
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.33); /* White with 33% opacity */
   border-radius: 25px !important;
   border: 0px solid;
 
@@ -146,9 +148,23 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.fc-scrollgrid{
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 0 !important;
+  margin: 3px 0 0 3px!important;
+  /* border: 0 solid white; */
+  border:none !important;
+  height: 100% !important;
+  /* background-color: rgba(255, 255, 255, 0.33) !important; */
+
+}
+
 .fc-scrollgrid-sync-inner{
   margin: 10px !important;
-  border: 1px solid gray !important;
+  /* border: 1px solid gray !important; */
   box-shadow: gray 0 0 5px 0px ;
   border-radius: 12px !important;
   background-color: #e6eaf2;
@@ -160,7 +176,7 @@ body {
   
 }
 .fc-dayGridMonth-view{
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
   backdrop-filter: blur(31px);
   border-radius: 17px !important;
 }
@@ -173,6 +189,9 @@ main{
   background: rgb(176,248,255);
   background: linear-gradient(228deg, rgba(176,248,255,1) 0%, rgba(216,197,228,1) 100%);
 }
+  /* .fc-media-screen{
+    display: none;
+  } */
 .PlansContainer{
   background: rgb(188,105,241);
 background: linear-gradient(133deg, rgb(205, 145, 243) 5%, rgb(197, 236, 252) 41%);
@@ -376,7 +395,6 @@ html {
     transform: rotate(45deg) rotateX(-360deg) rotateY(360deg);
   }
 }
-
 @keyframes cloudMove {
   0% {
     transform: translateX(-10px) translateY(0px);
@@ -393,7 +411,7 @@ html {
 }
 
 .animate-cloudMove {
-  animation: cloudMove 4s infinite alternate ease-in-out;
+  animation: cloudMove 15s infinite alternate ease-in-out;
 }
 
 /* Hide scrollbar but keep scrolling */

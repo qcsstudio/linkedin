@@ -13,19 +13,22 @@ import leftLine from "../../../../public/images/integrationImages/left.png"
 import rightLine from "../../../../public/images/integrationImages/right.png"
 import Heading from "../Heading/Heading"
 import Subheading from "../Subheading/Subheading"
+import CloudSection from "../CloudSection/CloudSection"
 
 const Integration = () => {
     return (
         <>
             {/* Main Container */}
 
-            <div id="integration" className="mainContainer w-[100%]  px-4 lg:px-[3.37rem] md:px-[3.12rem] ">
+            <div id="integration" className="relative mainContainer w-[100%]  px-4 lg:px-[3.37rem] md:px-[3.12rem] ">
 
-
+            <CloudSection bottom={-20} left={0} opacity={0.7} />
                 {/* Inner Container */}
-                <div className="innerContainer bg-[#FFFFFF]/35 w-[100%] rounded-[.5rem] px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[1.5rem] z-20">
+                <div className=" innerContainer bg-[#FFFFFF]/35 w-[100%] rounded-[.5rem] px-4 md:px-[3.12rem] lg:px-[3.12rem] py-[1.5rem] z-20">
 
                     {/* Upper Container */}
+
+                    
                   
                     <Heading heading={"Integrations"}/>
 
@@ -52,14 +55,14 @@ const Integration = () => {
                             </div>
 
                             {/* Left line Images */}
-                            <div className=" hidden md:block lg:block leftLines w-[23.75rem] h-[24.25rem] absolute top-1/2 transform -translate-y-1/2 left-[10%] z-20">
+                            <div className=" hidden md:block lg:block leftLines w-[23.75rem] h-[24.25rem] absolute top-1/2 transform  -translate-y-1/2 left-[10%] z-10">
 
                                 <Image src={leftLine} width={1024} height={1024} alt="logo"  className=" w-[100%] h-[100%] z-20" />
 
                             </div>
 
                             {/* Right line Images */}
-                            <div className="hidden md:block lg:block rightLines w-[23.75rem] h-[24.25rem] absolute top-1/2 transform -translate-y-1/2 right-[10%] z-20">
+                            <div className="hidden md:block lg:block rightLines w-[23.75rem] h-[24.25rem] absolute top-1/2 transform -translate-y-1/2 right-[10%] z-10">
 
                                 <Image src={rightLine} width={1024} height={1024} alt="logo"  className=" w-[100%] h-[100%] z-20" />
 
