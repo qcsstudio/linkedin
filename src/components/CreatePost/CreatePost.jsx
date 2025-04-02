@@ -20,19 +20,21 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 const CreatePost = () => {
+    
 
     // Use Context 
     const { userData, getUserLinkedinProfiles, linkedinProfileData, linkedinAccounts, getLinkedinOrganizationsProfiles, linkedinOrganizationId, linkedinOrganizationData  } =
         useContext(userContext);
 
 
-    const { loading, setLoading, error, setError, postLinkedin,generatePostCaption,generatedCaption,setGeneratedCaption } = useContext(postContext);
+    const { loading, setLoading, error, setError, postLinkedin,generatePostCaption,generatedCaption,setGeneratedCaption,postSchedule } = useContext(postContext);
 
 
 
     // use State
     const [selectedButton, setSelectedButton] = useState("");
     const [selectedaccount, setSelectedaccount] = useState([]);
+    const [schedulePost, setSchedulePost] = useState(false);
 
     const [suggestionButton, setSuggestionButton] = useState([
         {
@@ -52,6 +54,8 @@ const CreatePost = () => {
     const [privacy, setPrivacy] = useState("Public");
     const [formImage, setFormImage] = useState([]);
     const [formVideo,setFormVideo] = useState([]);
+    const [scheduleDate,setScheduleDate] = useState(new Date());
+    const [scheduleTime,setScheduleTime] = useState(new Date());
 
     // Post States (Right Section) --------------------------
     const [showText, setShowText] = useState(false);
@@ -59,6 +63,10 @@ const CreatePost = () => {
     const [postImages, setPostImages] = useState([]);
     const [postVideos, setPostVideos] = useState([]);
     const [prompt, setPrompt] = useState("");
+
+    // Schedule Post States ----------------------------------
+    const [formattedDate, setFormattedDate] = useState(formatDate(new Date()));
+    const [formattedTime, setFormattedTime] = useState(formatTime(new Date()));
 
     console.log("Caption data:",postImages);
 
@@ -161,7 +169,25 @@ const CreatePost = () => {
     // Post Submit 
     const HandleSubmit = () => {
         // console.log({ postCaption, privacy, formImage, selectedaccount, fileType, formVideo });
-        postLinkedin({ postCaption, privacy, formImage, selectedaccount, fileType, formVideo  });
+        if(!schedulePost){
+            postLinkedin({ postCaption, privacy, formImage, selectedaccount, fileType, formVideo  });
+        }else if(schedulePost){
+            console.log("schedule date",scheduleDate);
+            console.log("schedule time",scheduleTime);
+            const [hours, minutes] = scheduleTime.split(":").map(Number); // Convert to numbers
+        const selectedDate = new Date(scheduleDate); // Convert string to Date
+
+        // Set hours and minutes
+        selectedDate.setHours(hours);
+        selectedDate.setMinutes(minutes);
+        selectedDate.setSeconds(0);
+        
+        const timeStamp = selectedDate.getTime();
+        
+        // alert(timeStamp);
+        console.log("Time Stamp",timeStamp);
+        postSchedule({ postCaption, privacy, formImage, selectedaccount, fileType, formVideo,timeStamp  });
+        }
     }
 
     // Image Upload handle
@@ -240,12 +266,52 @@ const CreatePost = () => {
         generatePostCaption({prompt});
     }
 
+    // Schedule Post
+    // Date Change
+    const handleDateChange = (e)=>{
+        setScheduleDate(e.target.value);
+        const selectedDate = new Date(e.target.value);
+        alert(selectedDate);
+        alert(e.target.value);
+        console.log("Date Schedule : ",e.target.value);
+        if (!isNaN(selectedDate)) {
+            setFormattedDate(formatDate(selectedDate));
+        }
+    }
+
+    function formatDate(date) {
+        return date.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+        });
+    }
+
+
+
+    // Time change
+    const handleTimeChange = (e) => {
+        setScheduleTime(e.target.value);
+        setFormattedTime(e.target.value); 
+    };
+
+    function formatTime(date) {
+        return date.toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+            
+            hour12: true,
+        });
+    }
+
+    
+
     return (
         <div className="w-[95%] mx-auto mt-8 flex gap-1 ">
             <div className="bg-white/50 w-[60%] z-10 flex flex-col gap-5 rounded-lg p-4 h-[80vh] scrollbar-hide overflow-y-scroll">
 
                 {/* Social Buttons (Instagram, Facebook, Linkedin, pintrest) */}
-                <div className=" flex justify-start gap-2 items-center ">
+                {/* <div className=" flex justify-start gap-2 items-center ">
                     <button
                         className={`${selectedButton == "Instagram"
                             ? "bg-white text-[#4379EE]"
@@ -282,17 +348,17 @@ const CreatePost = () => {
                     >
                         Pinterest
                     </button>
-                </div>
+                </div> */}
 
                 {/* Select Post ID */}
 
                 <div className="p-5 flex flex-col gap-2 bg-white/50 rounded-lg">
                     <h2 className=" font-bold text-lg">Posting on</h2>
-                    {linkedinProfileData &&
+                    {(linkedinProfileData && linkedinOrganizationData) &&
                         <MultiSelect
                             value={selectedaccount}
                             onChange={(e) => setSelectedaccount(e.value)}
-                            options={linkedinProfileData ? linkedinProfileData : ""}
+                            options={linkedinProfileData ? linkedinProfileData  : ""}
                             optionLabel="name"
                             placeholder="Select Platforms"
                             filter
@@ -382,20 +448,58 @@ const CreatePost = () => {
 
 
                 {/* Schedule Post  */}
-                <div className="p-5 flex justify-between bg-white/50 rounded-lg">
-                    <div className="flex flex-col gap-1">
-                        <h2 className="font-bold text-lg">Scheduling Options</h2>
-                        <p className="text-sm text-[#565656]">
-                            Set your optimal posting times
-                        </p>
+                <div className="p-5 flex flex-col w-[100%] justify-between bg-white/50 rounded-lg transition-all ease-in-out duration-500">
+
+                    <div className="schedulePostActions w-[100%] flex justify-between">
+                        
+                        <div className="flex flex-col gap-1">
+                            <h2 className="font-bold text-lg">Scheduling Options</h2>
+                            <p className="text-sm text-[#565656]">
+                                {schedulePost ? "Schedule your post for the times when your audience is most active, or manually select a date and time in the future to publish your post":"Set your optimal posting times"}
+                                
+                            </p>
+                        </div>
+
+                        <div className="flex justify-between items-center">
+                            <label className="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" className="sr-only peer" value={schedulePost} onChange={()=>setSchedulePost(!schedulePost)} />
+                                <div className="w-11 h-6 bg-gray-300 peer-focus:ring-2  rounded-full peer dark:bg-gray-400 peer-checked:after:translate-x-5 peer-checked:bg-[#4379EE] after:absolute after:top-1 after:start-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
+                            </label>
+                        </div>
+
+
                     </div>
 
-                    <div className="flex justify-between items-center">
-                        <label className="relative inline-flex items-center cursor-pointer">
-                            <input type="checkbox" className="sr-only peer" />
-                            <div className="w-11 h-6 bg-gray-300 peer-focus:ring-2  rounded-full peer dark:bg-gray-400 peer-checked:after:translate-x-5 peer-checked:bg-[#4379EE] after:absolute after:top-1 after:start-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
-                        </label>
-                    </div>
+                    {schedulePost && 
+                        <div className="scheduleFormInput w-[100%] flex justify-between mt-[1.43rem]">
+
+                            {/* calendar */}
+                            <label htmlFor="date" className="w-[47%]">
+
+                                <div className="dateInput w-[100%] px-[0.625rem] flex items-center  py-[0.31rem] bg-[#D9D9D9]/35 rounded-[.3rem] " >
+                                    <Image src={"/images/createPostImages/calendar.svg"} width={20} height={20} alt="calendar_Image" className="w-[1.25rem] h-[1.25rem] cursor-pointer select-none imageDrag"  onClick={()=>document.getElementById("date")?.showPicker()}/>
+                                    <p className="text-[.75rem] font-extralight text-[#232323] ml-[.65rem] cursor-pointer select-none" onClick={()=>document.getElementById("date")?.showPicker()}>{formattedDate}</p>
+                                    <input type="date" name="date" id="date" className="bg-transparent outline-none opacity-0" defaultValue={new Date().toISOString().split("T")[0]} onChange={handleDateChange} />
+                                </div>
+                                
+                            </label>
+
+                            {/* Time */}
+                            <label htmlFor="time" className="w-[47%]">
+
+                                <div className="dateInput w-[100%] px-[0.625rem] flex items-center  py-[0.5rem] bg-[#D9D9D9]/35 rounded-[.3rem] " >
+                                    <Image src={"/images/createPostImages/clock.svg"} width={20} height={20} alt="calendar_Image" className="w-[1.25rem] h-[1.25rem] select-none imageDrag cursor-pointer" onClick={()=>document.getElementById("time")?.showPicker()}/>
+
+                                    <p className="text-[.75rem] font-extralight text-[#232323] ml-[.65rem] cursor-pointer select-none " onClick={()=>document.getElementById("time")?.showPicker()}>{formattedTime}</p>
+
+                                    <input type="time" name="time" id="time" className="bg-transparent outline-none  text-[.75rem] font-extralight text-[#232323] ml-[.65rem] opacity-0" defaultValue={formattedTime}  onChange={handleTimeChange}/>
+                                </div>
+                                
+                            </label>
+
+                        </div>
+                    }
+
                 </div>
 
 
@@ -457,7 +561,6 @@ const CreatePost = () => {
                             Save as Draft
                         </button>
                         <button className="bg-[#4379EE] text-white px-4 py-2 rounded-md text-sm" onClick={HandleSubmit}>{loading ? "•••" : "Publish"}
-
                         </button>
                     </div>
                 </div>
@@ -472,7 +575,7 @@ const CreatePost = () => {
                         {/* Input */}
                         <div className="textFieldBox w-[100%] h-[3.5rem] rounded-[.5rem] bg-[#ffffff] pl-[1.25rem] pr-[1.375rem] py-[0.56rem] flex gap-[3rem]">
                             <input type="text" name="aiPrompt" id="aiPrompt" placeholder="Tell me what should i generate for you!" className="w-[70%] focus:border-none focus:outline-none text-[.80rem]" onChange={(e)=>setPrompt(e.target.value)} />
-                            <button onClick={generateCaption} type="button" className="bg-[#4379EE] text-[#ffffff] px-[2rem] rounded-[.5rem]">Generate</button>
+                            <button onClick={generateCaption} type="button" className="bg-[#4379EE] text-[#ffffff] px-[2rem] rounded-[.5rem]" disabled>Generate</button>
                         </div>
 
                         {/* Suggestions */}

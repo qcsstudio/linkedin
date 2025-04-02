@@ -5,10 +5,9 @@ export const POST = async(req)=>{
 
         // Getting Body Data into js object
         const data = await req.json();
-
-        // Getting File Data (image,video)
+        const {fileType,formImage,postCaption,selectedAccount,scheduleTime,formVideo} = data;
         const postImages = data.formImage;
-        const postVideos = data.formVideo;
+        const postVideos = data?.formVideo;
 
         // Caption Data
         const caption = convertToLinkedInFormat(data.postCaption.replace(/<\/?p>/g, ""));
@@ -22,22 +21,18 @@ export const POST = async(req)=>{
 
         if(fileDataType === "image"){
             imageData = postImages?.map((item)=>{
-                return item.imageFile;
+                return item;
             })
         }else if(fileDataType === "video"){
             videoData = postVideos?.map((item)=>{
 
-                return item.videoFile;
+                return item;
             })
         }
 
-        // User Linkedin Data payload ---------------------------------------------
-        const linkedInUser = await data?.selectedaccount;
-        const linkedInUserAuthToken = await data?.selectedaccount;
-
-        for(let i = 0;i < data?.selectedaccount.length;i++){
-            const linkedinUserID = linkedInUser[i]?.user?.sub;
-            const linkedinUserAuthToken = linkedInUserAuthToken[i]?.token;
+        for(let i = 0;i < data?.selectedAccount.length;i++){
+            const linkedinUserID = selectedAccount[i]?.linkedinId;
+            const linkedinUserAuthToken = selectedAccount[i]?.linkedinToken;
             
             // All files uploaded urns
             const filesData = [];
@@ -69,7 +64,6 @@ export const POST = async(req)=>{
 
                     // function for get file registry
                     const result = await getRegistryURL(file,linkedinUserAuthToken,uploadPayload);
-                    console.log("registry of video upload. ",result);
                     // function for get file urn 
                     const urn = await getUrnId(result,linkedinUserAuthToken);
                     filesData.push(urn);
@@ -84,8 +78,6 @@ export const POST = async(req)=>{
                 const videoSuccess = await Promise.allSettled(videoUploaded || []);
                 dataTypeOfFile = "VIDEO"
             }
-
-            console.log("File Urn List",filesData);
 
             const mediaObject = filesData.map((urn)=>{
                 const objectData =  {
@@ -118,7 +110,6 @@ export const POST = async(req)=>{
                     }
                 }
             
-                console.log("Post payload",payloadForPost.specificContent['com.linkedin.ugc.ShareContent'].media);
 
             // const postResponse = await 
 
@@ -135,12 +126,13 @@ export const POST = async(req)=>{
             if(postResponse.status == 201){
                 const result = await postResponse.json();
                 console.log("Post Created Successfully",result);
+                return Response.json({message:"Linkedin Post Uploaded SuccessFully.",data:result,success:true},{status:200});
             }
 
         }
 
 
-        return Response.json({message:"Linkedin Post Uploaded SuccessFully.",success:true},{status:200});
+        
     } catch (error) {
         console.log("Unable to create Linkedin POST ");
         return Response.json({message:"Unable Upload Linkedin Post!!!",error:error},{status:500});
