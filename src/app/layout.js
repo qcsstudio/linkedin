@@ -1,4 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { Syne } from "next/font/google";
+import { Montserrat } from "next/font/google";
 
 import "./globals.css";
 import DashboardContextProvider from "@/Context/Dashboard.context";
@@ -13,6 +15,7 @@ import { AnalyticsContextProvider } from "@/Context/analytics.context";
 
 import {ContactUsContextProvider} from '@/Context/ContactUs.context'
 import "@/utils/cron";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,6 +25,18 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const syne = Syne({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-syne", 
+});
+
+const montserrat = Montserrat({
+  weight: ["400", "700"],
+  subsets: ["latin"],
+  variable: "--font-montserrat", 
 });
 
 export const metadata = {
@@ -37,6 +52,10 @@ export default function RootLayout({ children }) {
         name="google-site-verification"
         content="FE1jcS7Gi8yAWxnnLZ-lweGrna3FI5zh61v14-5q1Og"
       />
+       <Link
+          href="https://fonts.googleapis.com/css2?family=NATS&display=swap"
+          rel="stylesheet"
+        />
       <Script
         id="google-tag-manager"
         strategy="afterInteractive"
@@ -63,9 +82,9 @@ export default function RootLayout({ children }) {
         `}
       </Script>
 
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
-      >
+      
+
+      <body className={`${syne.variable} font-syne antialiased`}>
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-KLNTT48L"

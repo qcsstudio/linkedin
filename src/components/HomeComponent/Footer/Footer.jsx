@@ -75,7 +75,7 @@ const Footer = () => {
                             QuantumCrafters Studio Private Limited
                         </p>
                         <p className="text-sm sm:text-base tracking-wide">
-                            Prosperity Arcade, D-229, Industrial Area, Sector 74,<br />
+                            Prosperity Arcade, D-<span className='font-montserrat'>229</span>, Industrial Area, Sector <span className='font-montserrat'>74</span>,<br />
                             Sahibzada Ajit Singh Nagar, Punjab 160071
                         </p>
                     </div>
@@ -89,7 +89,7 @@ const Footer = () => {
                         </p>
                         <p className="text-sm sm:text-base tracking-wide">
                             <Link href="tel:+91 771-960-7776">
-                                Phone: +91 771-960-7776
+                                Phone:<span className='font-montserrat'>+91 771-960-7776</span> 
                             </Link>
                         </p>
                     </div>

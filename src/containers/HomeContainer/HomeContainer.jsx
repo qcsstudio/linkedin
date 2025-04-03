@@ -27,19 +27,19 @@ const HomeContainer = () => {
   <About />
   <ChooseUs />
   <CloudSection bottom={85} left={0} width="90vw" className="animate-cloudMove" style={{ "--cloud-speed": "120s", "--cloud-opacity": "0.9", animationDelay: "0s" }} />
-  <CloudSection bottom={70} left={60} width="80vw" className="animate-cloudMove" style={{ "--cloud-speed": "110s", "--cloud-opacity": "0.85", animationDelay: "15s" }} />
+  <CloudSection bottom={60} left={60} width="80vw" className="animate-cloudMove" style={{ "--cloud-speed": "110s", "--cloud-opacity": "0.85", animationDelay: "15s" }} />
 
   {/* Second Layer - Medium Clouds, Faster */}
-  <CloudSection bottom={60} left={-30} width="70vw" className="animate-cloudMove" style={{ "--cloud-speed": "90s", "--cloud-opacity": "0.75", animationDelay: "5s" }} />
-  <CloudSection bottom={50} left={60} width="65vw" className="animate-cloudMove" style={{ "--cloud-speed": "85s", "--cloud-opacity": "0.7", animationDelay: "10s" }} />
+  <CloudSection bottom={65} left={-30} width="70vw" className="animate-cloudMove" style={{ "--cloud-speed": "90s", "--cloud-opacity": "0.75", animationDelay: "5s" }} />
+  <CloudSection bottom={40} left={60} width="65vw" className="animate-cloudMove" style={{ "--cloud-speed": "85s", "--cloud-opacity": "0.7", animationDelay: "10s" }} />
 
   {/* Third Layer - Small, Fast Clouds for Depth */}
-  <CloudSection bottom={40} left={10} width="55vw" className="animate-cloudMove" style={{ "--cloud-speed": "70s", "--cloud-opacity": "0.6", animationDelay: "8s" }} />
-  <CloudSection bottom={30} left={70} width="50vw" className="animate-cloudMove" style={{ "--cloud-speed": "65s", "--cloud-opacity": "0.55", animationDelay: "12s" }} />
+  <CloudSection bottom={40} left={0} width="55vw" className="animate-cloudMove" style={{ "--cloud-speed": "70s", "--cloud-opacity": "0.6", animationDelay: "8s" }} />
+  <CloudSection bottom={25} left={60} width="50vw" className="animate-cloudMove" style={{ "--cloud-speed": "65s", "--cloud-opacity": "0.55", animationDelay: "12s" }} />
 
   {/* Extra Clouds to Ensure Continuous Flow */}
-  <CloudSection bottom={55} left={30} width="60vw" className="animate-cloudMove" style={{ "--cloud-speed": "75s", "--cloud-opacity": "0.55", animationDelay: "18s" }} />
-  <CloudSection bottom={40} left={-20} width="45vw" className="animate-cloudMove" style={{ "--cloud-speed": "60s", "--cloud-opacity": "0.5", animationDelay: "20s" }} />
+  <CloudSection bottom={55} left={20} width="60vw" className="animate-cloudMove" style={{ "--cloud-speed": "75s", "--cloud-opacity": "0.55", animationDelay: "18s" }} />
+  <CloudSection bottom={30} left={-20} width="45vw" className="animate-cloudMove" style={{ "--cloud-speed": "60s", "--cloud-opacity": "0.5", animationDelay: "20s" }} />
 
 </div>
 

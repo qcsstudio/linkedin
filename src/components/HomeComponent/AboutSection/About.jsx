@@ -1,7 +1,7 @@
 'use client'
 import Heading from "../Heading/Heading"
 import Link from "next/link"
-import about from '../../../../public/images/homeImages/about.png'
+import about from '../../../../public/images/homeImages/about.svg'
 import Image from "next/image"
 
 const About = () => {
@@ -26,7 +26,7 @@ const About = () => {
                     <div className="lowerContainer w-[100%] z-[10] flex flex-col-reverse gap-4 lg:gap-0 md:gap-0 lg:flex-row justify-between items-center lg:items-start">
 
                         {/* Left Container */}
-                        <div className="leftAboutContainer w-[100%] lg:w-[65%] z-[10] text-center lg:text-left">
+                        <div className="leftAboutContainer w-[100%] lg:w-[60%] z-[10] text-center lg:text-left">
 
                             <div className="headingContainer">
                                 <p className="heading text-[1rem] md:text-[2rem] lg:text-[2.25rem] leading-tight text-[#0E1C29] font-semibold">
@@ -53,8 +53,8 @@ const About = () => {
                         </div>
 
                         {/* Right Container */}
-                        <div className="rightAboutContainer w-[100%] lg:w-[30%] mt-[2rem] lg:mt-0 flex justify-center lg:justify-start">
-                            <Image src={about} alt='about image' className="imageContainer w-[100%] h-[10rem] lg:h-[20rem]  rounded"></Image>
+                        <div className="rightAboutContainer w-[100%] lg:w-[40%] mt-[2rem] lg:mt-0 flex justify-center lg:justify-start">
+                            <Image src={about} alt='about image' className="imageContainer object-contain w-[100%] h-[10rem] lg:h-[20rem]  rounded"></Image>
                         </div>
                     </div>
                 </div>
