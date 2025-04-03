@@ -3,7 +3,6 @@ import SchedulePost from "@/models/schedule.schema";
 export const POST = async(req)=>{
     
     try {
-        
         const data = await req.json();
         const postSize = data?.length;
         for(let i=0;i<postSize;i++){
