@@ -450,7 +450,7 @@ const CreatePost = () => {
                 {/* Schedule Post  */}
                 <div className="p-5 flex flex-col w-[100%] justify-between bg-white/50 rounded-lg transition-all ease-in-out duration-500">
 
-                    <div className="schedulePostActions w-[100%] flex justify-between">
+                    <div className="schedulePostActions w-[100%] flex justify-between items-start">
                         
                         <div className="flex flex-col gap-1">
                             <h2 className="font-bold text-lg">Scheduling Options</h2>
@@ -476,7 +476,7 @@ const CreatePost = () => {
                             {/* calendar */}
                             <label htmlFor="date" className="w-[47%]">
 
-                                <div className="dateInput w-[100%] px-[0.625rem] flex items-center  py-[0.31rem] bg-[#D9D9D9]/35 rounded-[.3rem] " >
+                                <div className="dateInput w-[100%] px-[0.625rem] flex items-center  py-[0.31rem] bg-[#ffffff] rounded-[.3rem] " >
                                     <Image src={"/images/createPostImages/calendar.svg"} width={20} height={20} alt="calendar_Image" className="w-[1.25rem] h-[1.25rem] cursor-pointer select-none imageDrag"  onClick={()=>document.getElementById("date")?.showPicker()}/>
                                     <p className="text-[.75rem] font-extralight text-[#232323] ml-[.65rem] cursor-pointer select-none" onClick={()=>document.getElementById("date")?.showPicker()}>{formattedDate}</p>
                                     <input type="date" name="date" id="date" className="bg-transparent outline-none opacity-0" defaultValue={new Date().toISOString().split("T")[0]} onChange={handleDateChange} />
@@ -487,7 +487,7 @@ const CreatePost = () => {
                             {/* Time */}
                             <label htmlFor="time" className="w-[47%]">
 
-                                <div className="dateInput w-[100%] px-[0.625rem] flex items-center  py-[0.5rem] bg-[#D9D9D9]/35 rounded-[.3rem] " >
+                                <div className="dateInput w-[100%] px-[0.625rem] flex items-center  py-[0.5rem] bg-[#ffffff] rounded-[.3rem] " >
                                     <Image src={"/images/createPostImages/clock.svg"} width={20} height={20} alt="calendar_Image" className="w-[1.25rem] h-[1.25rem] select-none imageDrag cursor-pointer" onClick={()=>document.getElementById("time")?.showPicker()}/>
 
                                     <p className="text-[.75rem] font-extralight text-[#232323] ml-[.65rem] cursor-pointer select-none " onClick={()=>document.getElementById("time")?.showPicker()}>{formattedTime}</p>
