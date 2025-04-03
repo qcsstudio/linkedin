@@ -1,7 +1,7 @@
 'use client'
 import Heading from "../Heading/Heading"
 import Link from "next/link"
-import about from '../../../../public/images/homeImages/about.svg'
+import about from '../../../../public/images/homeImages/aboutElevatrX.png'
 import Image from "next/image"
 
 const About = () => {

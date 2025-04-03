@@ -14,6 +14,7 @@ import Description from '../Description/Description'
 import CloudSection from "../CloudSection/CloudSection"
 
 const Blogs = () => {
+  
   return (
     <>
       <div id='blog' className="relaive blogsContainer flex justify-center mx-auto relative w-[100%]   px-4 lg:px-[3.37rem] md:px-[3.12rem]   overflow-hidden ">
@@ -60,8 +61,8 @@ const Blogs = () => {
                         </p>
                       </div>
                       <div className="middleContainer ">
-                        <p className="description text-[.6rem] md:text-[.8rem] text-[#0E1C29] lg:text-[1rem]  leading-tight">
-                          {item.description}
+                        <p className="description line-clamp-3 text-[1rem] md:text-[1rem] text-[#0E1C29] lg:text-[1rem]  leading-tight">
+                        {item.description.split(" ").slice(0, 16).join(" ") + "..."}
                         </p>
                       </div>
                       <div className="lowerContainer">
@@ -110,8 +111,8 @@ const Blogs = () => {
                       </p>
                     </div>
                     <div className="middleContainer ">
-                      <p className="description text-[.5rem] md:text-[1rem] text-[#0E1C29] lg:text-[1rem]  leading-tight">
-                        {item.description}
+                      <p className="description text-[1rem] md:text-[1rem] lg:text-[1.2rem] text-[#0E1C29]  leading-tight ">
+                        {item.description.split(" ").slice(0,18).join(" ")+"...."}
                       </p>
                     </div>
                     <div className="lowerContainer">
