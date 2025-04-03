@@ -54,7 +54,7 @@
             <h1 className="text-3xl lg:text-5xl font-bold tracking-wide bg-gradient-to-r from-[#0E1C29] to-[#323D68] bg-clip-text text-transparent">
               Elevatr
             </h1>
-            <p className=" max-w-[100px] md:max-w-[120px] lg:max-w-[200px] leading-tight text-[6px] lg:text-[8px]">
+            <p className=" max-w-[100px] md:max-w-[120px] lg:max-w-[200px] leading-tight text-[6px] lg:text-[7px]">
               AI-Powered Social Growth & Revenue Acceleration
             </p>
           </div>
@@ -63,7 +63,7 @@
           <Image
             src={logo}
             alt="ElevatrX Logo"
-            className="absolute lg:-top-10 md:left-[70%] left-[80%] w-[70%] "
+            className="absolute lg:-top-10 left-[80%] md:left-[70%] lg:left-[80%] w-[70%] "
           />
         </div>
 </Link>

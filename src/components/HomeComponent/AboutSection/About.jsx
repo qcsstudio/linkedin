@@ -1,6 +1,8 @@
 'use client'
 import Heading from "../Heading/Heading"
 import Link from "next/link"
+import about from '../../../../public/images/homeImages/about.png'
+import Image from "next/image"
 
 const About = () => {
     const scrollToSection = (id) => {
@@ -52,13 +54,10 @@ const About = () => {
 
                         {/* Right Container */}
                         <div className="rightAboutContainer w-[100%] lg:w-[30%] mt-[2rem] lg:mt-0 flex justify-center lg:justify-start">
-                            <div className="imageContainer w-[100%] h-[10rem] lg:h-[20rem] bg-[#ffffff]/70 rounded"></div>
+                            <Image src={about} alt='about image' className="imageContainer w-[100%] h-[10rem] lg:h-[20rem]  rounded"></Image>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
         </>
     )

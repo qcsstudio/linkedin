@@ -44,8 +44,8 @@ const HomeContainer = () => {
 </div>
 
           <Integration />
-          <KeyFeatureSection />
           <Elevate />
+          <KeyFeatureSection />
           <Plans />
           <SuccessStories />
           <Blogs />

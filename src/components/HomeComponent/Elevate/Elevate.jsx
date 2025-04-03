@@ -50,8 +50,16 @@ const Elevate = () => {
                         {/* Right Container */}
                         <div className=" flex gap-2 w-[100%] md:h-[250px] lg:h-[300px]  lg:w-[50%] rounded-lg">
                            
-                            <iframe className=' w-[100%] h-[100%] rounded-[10px] bg-[#9B9B9BCC]' src="https://www.youtube.com/embed/3KXWzeyrLq8?si=QDaGL-jxDhmb_tQz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                            
+                        <iframe
+        src="https://www.youtube.com/embed/RWJtF4xHkYU?si=BTlgJSZnI90aSf1z"
+        title="YouTube video player"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerPolicy="strict-origin-when-cross-origin"
+        allowFullScreen
+        className="w-full object-contain rounded-lg"
+      ></iframe>
+                                
                            
                         </div>
 
