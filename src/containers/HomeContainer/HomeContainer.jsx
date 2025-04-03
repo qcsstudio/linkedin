@@ -19,7 +19,7 @@ import CloudSection from "@/components/HomeComponent/CloudSection/CloudSection";
 const HomeContainer = () => {
   return (
     <>
-      <div className="mainContainer relative bg-[url(/images/homeImages/grain.png)]  w-[100%] min-h-[100vh] overflow-hidden">
+      <div className="mainContainer relative bg-[url(/images/homeImages/grain.png)] bg-cover  bg-no-repeat  w-[100%] min-h-[100vh] overflow-hidden">
         <div className="bg-[#5E788F]/85 flex flex-col gap-3 md:gap-6 lg:gap-10">
           <Navbar />
           <HeroSection />

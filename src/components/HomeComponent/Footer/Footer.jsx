@@ -44,11 +44,11 @@ const Footer = () => {
                             Get Weekly Social Media Insights  Delivered
                         </h3>
 
-                        <div className="relative w-full sm:w-[80%] lg:w-full">
+                        <div className="relative w-full z-20 sm:w-[80%] lg:w-full">
                             <input
                                 type="email"
                                 placeholder="E-mail"
-                                className="w-full px-4 py-2 bg-transparent border border-gray-400 rounded-md focus:outline-none focus:border-white"
+                                className="w-full px-4 py-2 text-white bg-transparent border border-gray-400 rounded-md focus:outline-none focus:border-white"
                             />
                             <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white hover:text-gray-300">
                                 <FaChevronCircleRight />

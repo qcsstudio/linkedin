@@ -9,6 +9,7 @@ import Link from "next/link";
 import { AiOutlineFire } from "react-icons/ai";
 import { useState } from "react";
 import CloudSection from "../CloudSection/CloudSection";
+import CountUp from "react-countup";
 
 
 
@@ -22,7 +23,7 @@ const Plans = () => {
             duration: "user/month",
             cardsHeading: 'Everything in starter plan',
             features: [
-                <>Up to <span className="font-montserrat"> &nbsp;5&nbsp;</span> Social Media Accounts</>,  
+                <>Up to <span className="font-montserrat"> &nbsp;5&nbsp;</span> Social Media Accounts</>,
                 "AI Content Generation",
                 "Automated Scheduling",
                 "Basic Analytics",
@@ -110,10 +111,17 @@ const Plans = () => {
                                     {plan.title}
                                 </h3>
                                 <div className="flex items-center justify-start gap-2">
-                                    <p className=" font-montserrat text-4xl font-thin text-gray-900">
-                                        {buttonPlans === "yearly"
-                                            ? `$${(parseFloat(plan.price.replace("$", "")) * 12 * 0.8).toFixed(0)}`
-                                            : plan.price}
+                                    <p className=" font-montserrat text-4xl  text-gray-900">
+                                        {buttonPlans === "yearly" ? (
+                                            <CountUp
+                                                start={0}
+                                                end={parseFloat(plan.price.replace("$", "")) * 12 * 0.8}
+                                                duration={1.5}
+                                                prefix="$"
+                                            />
+                                        ) : (
+                                            plan.price
+                                        )}
                                     </p>
                                     <p className="text-md font-thin text-gray-500"> {buttonPlans === "yearly" ? "user/year" : plan.duration}</p>
                                 </div>

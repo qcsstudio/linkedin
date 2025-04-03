@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+
 import { Syne } from "next/font/google";
 import { Montserrat } from "next/font/google";
 
@@ -17,15 +17,9 @@ import {ContactUsContextProvider} from '@/Context/ContactUs.context'
 import "@/utils/cron";
 import Link from "next/link";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+
+
 
 const syne = Syne({
   weight: ["400", "700"],

@@ -12,7 +12,16 @@ const ContactUsSection = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+      
+    if (name === "phone") {
+       
+        if (/^\d*$/.test(value)) {
+            setFormData((prev) => ({ ...prev, [name]: value }));
+        }
+    } else {
+        
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    }
     };
 
     const handleCaptchaChange = (token) => {
@@ -96,7 +105,7 @@ const ContactUsSection = () => {
                             value={formData.phone}
                             type="phone"
                             placeholder="Phone"
-                            className="w-full placeholder-gray-600 bg-transparent p-3 border-b border-gray-500 focus:outline-none"
+                            className="w-full font-montserrat placeholder-gray-600 bg-transparent p-3 border-b text-gray-600 border-gray-500 focus:outline-none"
                         />
                         <textarea
                             onChange={handleChange}
@@ -106,7 +115,7 @@ const ContactUsSection = () => {
                             rows="2"
                             col="2"
                             placeholder="Your Message"
-                            className="w-full placeholder-gray-600 bg-transparent p-3 border-b border-gray-500 focus:outline-none"
+                            className="w-full placeholder-gray-600 bg-transparent p-3 border-b text-gray-600 border-gray-500 focus:outline-none"
                         />
                         <ReCAPTCHA className="z-10" sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} onChange={handleCaptchaChange} />
                         <button className="w-full bg-[rgb(14,28,41)] bg-gradient-to-r from-[rgba(14,28,41,1)] to-[rgba(50,61,104,1)] text-white py-3 rounded-lg hover:bg-blue-700 transition">
