@@ -35,7 +35,6 @@ export const POST = async(req)=>{
         const schedulePostInstance = new SchedulePost({userId:userId.userId,fileType,formImage:imagesData,formVideo:videoData,postCaption,privacy,selectedAccount:selectedAccountData,scheduled:"schedule",scheduleTime:timeStamp});
 
         const savedScheduleObject = await schedulePostInstance.save();
-        // const cronJobCall = await fetch(`${process.env.URL}/api/cron`);
         return Response.json({message:"Post Scheduled Successfully",data:savedScheduleObject,status:200,success:true},{status:200});
 
     } catch (error) {
