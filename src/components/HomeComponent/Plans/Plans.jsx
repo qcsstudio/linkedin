@@ -22,7 +22,7 @@ const Plans = () => {
             duration: "user/month",
             cardsHeading: 'Everything in starter plan',
             features: [
-                "Up to 5 Social Media Accounts",
+                <>Up to <span className="font-montserrat"> &nbsp;5&nbsp;</span> Social Media Accounts</>,  
                 "AI Content Generation",
                 "Automated Scheduling",
                 "Basic Analytics",
@@ -36,7 +36,7 @@ const Plans = () => {
             popular: true,
             cardsHeading: 'Everything in Pro plan',
             features: [
-                "Up to 20 Social Media Accounts",
+                <>Up to<span className="font-montserrat">&nbsp;20&nbsp;</span> Social Media Accounts</>,
                 "Advanced Engagement Analytics",
                 "Competitor Tracking & Insights",
                 "Unlimited Scheduling & Auto-Posting",
@@ -80,7 +80,7 @@ const Plans = () => {
                                 Monthly
                             </button>
                             <button onClick={() => setButtonPlans('yearly')} className={`${buttonPlans === "yearly" ? "bg-[#5E788F]/50 " : ""} px-1 md:px-4 text-lg lg:px-5 text-md md:text-lg flex gap-3 justify-center items-center lg:text-lg rounded-md text-gray-700 py-1 z-20`}>
-                                Yearly <span className='text-black text-md p-1 bg-gray-200/40 z-20  rounded-md '>Save 20%</span>
+                                Yearly <span className='text-black text-md p-1 bg-gray-200/40 z-20  rounded-md  '>Save 20%</span>
                             </button>
 
                         </div>
@@ -110,7 +110,7 @@ const Plans = () => {
                                     {plan.title}
                                 </h3>
                                 <div className="flex items-center justify-start gap-2">
-                                    <p className="text-5xl font-bold text-gray-900">
+                                    <p className=" font-montserrat text-4xl font-thin text-gray-900">
                                         {buttonPlans === "yearly"
                                             ? `$${(parseFloat(plan.price.replace("$", "")) * 12 * 0.8).toFixed(0)}`
                                             : plan.price}

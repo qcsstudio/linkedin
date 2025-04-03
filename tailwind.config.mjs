@@ -13,7 +13,9 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        syne: ["Syne", "sans-serif"],
+        syne: ["Syne", "sans-serif"], 
+        nats: ["NATS", "sans-serif"], 
+        montserrat: ["var(--font-montserrat)", "sans-serif"],
       },
     },
   },

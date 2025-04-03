@@ -8,6 +8,7 @@
   import Link from "next/link";
   import { FiMenu, FiX } from "react-icons/fi";
   import mainLogo from "../../../../public/images/mainLogo.png";
+
  
 
   const Navbar = () => {
@@ -51,10 +52,10 @@
 <Link href='/'>
 <div className="flex items-center relative">
           <div className="leading-3 flex flex-col">
-            <h1 className="text-3xl lg:text-5xl font-bold tracking-wide bg-gradient-to-r from-[#0E1C29] to-[#323D68] bg-clip-text text-transparent">
+            <h1 className=" font-nats text-3xl lg:text-5xl font-bold tracking-wide bg-gradient-to-r from-[#0E1C29] to-[#323D68] bg-clip-text text-transparent">
               Elevatr
             </h1>
-            <p className=" max-w-[100px] md:max-w-[120px] lg:max-w-[200px] leading-tight text-[6px] lg:text-[7px]">
+            <p className=" font-nats max-w-[100px] md:max-w-[120px] lg:max-w-[200px] leading-tight text-[6px] lg:text-[8px]">
               AI-Powered Social Growth & Revenue Acceleration
             </p>
           </div>
