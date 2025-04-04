@@ -7,7 +7,9 @@ let inactivityTimer;
 
 const clearSession = async() => {
     await logOut();
-    window.location.reload();
+    if (typeof window === 'undefined') {
+        window.location.reload();
+    }
 };
 
 const resetTimer = () => {
