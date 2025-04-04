@@ -39,6 +39,8 @@ export const metadata = {
     "Automate your social media content creation, scheduling, and analytics with ElevatrX. Enhance your brand visibility effortlessly—Try it free today!",
 };
 
+
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
