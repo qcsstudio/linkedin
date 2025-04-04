@@ -8,7 +8,7 @@ const initialData = {
     setError:()=>{},
     loading:false,
     setLoading:()=>{},
-    generatedCaption:false,
+    generatedCaption:[],
     setGeneratedCaption:()=>{}
 }
 
@@ -59,7 +59,7 @@ export const PostContextProvider = ({ children })=>{
             // console.log(response);
             if(response.status === 200){
                 const result = await response.json();
-                setGeneratedCaption(result?.data?.choices[0].message.content);
+                setGeneratedCaption(prev=>[...prev,result?.data?.choices[0].message.content]);
 
             }
             // console.log(response.data);
