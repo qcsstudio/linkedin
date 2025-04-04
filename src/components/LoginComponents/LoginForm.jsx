@@ -11,7 +11,7 @@ import pinterest from "../../../public/images/loginImages/pinterest.png";
 import mainLogo from "../../../public/images/mainLogo.png";
 import { useContext } from "react";
 import { userContext } from "@/Context/user.context";
-import { Navigation, Pagination, Scrollbar, A11y,Autoplay } from "swiper/modules";
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import logo from '../../../public/images/loginImages/logo.png'
 
@@ -43,28 +43,13 @@ const LoginForm = () => {
   };
 
   const sliderParagraph = [
-    {
-      para: "Switching between social platforms is easier with ElevatrX than switching streaming shows on Netflix!",
-    },
-    {
-      para: "Our analytics are so clear, even your grandparents would finally understand what you do for a living!",
-    },
-    {
-      para: "ElevatrX was built after we spent one too many nights manually scheduling posts—because even marketers deserve weekends!",
-    },
-    {
-      para: "Our security protocols are tighter than your favorite jeans after the holidays—keeping your data snug and safe!",
-    },
-    {
-      para: "Early adopters don't just get special perks—they also earn eternal bragging rights at networking events!",
-    },
-    {
-      para: "Our AI is smart because our engineers never settle for ‘good enough’—except maybe when choosing pizza toppings.",
-    },
-    {
-      para: "Media buzz for ElevatrX is louder than your notifications during a viral post—stay tuned!",
-    },
-
+    { para: "Switching between social platforms is easier with ElevatrX than switching streaming shows on Netflix!", image: "/images/signUp1.svg" },
+    { para: "Our analytics are so clear, even your grandparents would finally understand what you do for a living!", image: "/images/signUp2.svg" },
+    { para: "ElevatrX was built after we spent one too many nights manually scheduling posts—because even marketers deserve weekends!", image: "/images/signUp3.svg" },
+    { para: "Our security protocols are tighter than your favorite jeans after the holidays—keeping your data snug and safe!", image: "/images/signUp4.svg" },
+    { para: "Early adopters don't just get special perks—they also earn eternal bragging rights at networking events!", image: "/images/signUp5.svg" },
+    { para: "Our AI is smart because our engineers never settle for ‘good enough’—except maybe when choosing pizza toppings.", image: "/images/signUp6.svg" },
+    { para: "Media buzz for ElevatrX is louder than your notifications during a viral post—stay tuned!", image: "/images/signUp7.svg" },
   ];
 
   return (
@@ -76,11 +61,16 @@ const LoginForm = () => {
         {/* Left Container */}
         <div className=" leftContainer  hidden xl:flex  items-center justify-center bg-gradient-to-r  from-purple-200  to-blue-100 w-1/2 h-full">
           <Swiper
-            modules={[Navigation, Pagination, Scrollbar, A11y]}
+            modules={[Navigation, Pagination, Scrollbar, A11y,Autoplay]}
             spaceBetween={50}
             slidesPerView={1}
             pagination={{ clickable: true }}
             className="custom-swiper w-full h-full flex items-center justify-center"
+            autoplay={{
+              delay: 3500,
+              disableOnInteraction: false,
+            }}
+            speed={1200}
           >
             {sliderParagraph.map((p, i) => {
               return (
@@ -89,39 +79,40 @@ const LoginForm = () => {
                     <div className="absolute top-0 left-10">
                       <Image src={mainLogo} height={200} width={200} alt="" />
                     </div>
-                    <div className="flex justify-center items-center z-10 bg-white rounded-full relative 
+                    <div className="flex justify-center items-center z-10  rounded-full relative 
   lg:w-[400px] lg:h-[400px]  ">
 
-  <Image src={logo} className="w-[70%] h-[70%] drop-shadow-6xl" alt='' />
-  
-</div>          <Image
+                      <Image src={p.image} width={70} height={70} className="w-[100%] h-[100%] drop-shadow-6xl" alt='' />
+
+                    </div>
+                    {/* <Image
                       className="absolute top-[30%] left-[15%] "
                       src={insta}
                       alt=""
                       width={70}
                       height={70}
-                    />
-                    <Image
+                    /> */}
+                    {/* <Image
                       className="absolute bottom-[25%] left-[30%] h-[15%] w-[15%]"
                       src={facebook}
                       alt=""
                       width={70}
                       height={70}
-                    />
-                    <Image
+                    /> */}
+                    {/* <Image
                       className="absolute right-[27%] top-[8%] h-[17%] w-[17%]"
                       src={linkdin}
                       alt=""
                       width={70}
                       height={70}
-                    />
-                    <Image
+                    /> */}
+                    {/* <Image
                       className="absolute right-[15%] bottom-[32%] h-[15%] w-[15%]"
                       src={pinterest}
                       alt=""
                       width={70}
                       height={70}
-                    /> 
+                    />  */}
 
 
                     <p className="w-[80%] text-center text-lg font-semibold  text-purple-500 ">
@@ -138,8 +129,8 @@ const LoginForm = () => {
         <div className="rightContainer w-[100%] xl:w-1/2 h-[100%] bg-gradient-to-r p-2 md:p-6 lg:p-10 from-purple-300 flex flex-col justify-center items-center  to-blue-200  ">
           {/* Form Container */}{" "}
           <div className="block xl:hidden absolute top-0 left-10">
-                      <Image src={mainLogo} height={200} width={200} alt="" />
-                    </div>
+            <Image src={mainLogo} height={200} width={200} alt="" />
+          </div>
           <div className="inputContainer w-[100%] gap-2  justify-end  flex items-center ">
             <p className="forgetPassword">Don't have account ?</p>
 
@@ -205,7 +196,7 @@ const LoginForm = () => {
             </div>
 
             {/* Remind me field */}
-            <div className="inputContainer w-[100%] py-[1rem]  flex items-center justify-between">
+            {/* <div className="inputContainer w-[100%] py-[1rem]  flex items-center justify-between">
               <div className="labelContainer flex items-center gap-[1rem]">
                 <input
                   type="checkbox"
@@ -214,11 +205,11 @@ const LoginForm = () => {
                 />
                 <label htmlFor="checkbox">Remember Me</label>
               </div>
-              {/* <p className="forgetPassword text-[red] cursor-pointer">Forgot Password?</p> */}
-            </div>
+            </div> */}
+            {/* <p className="forgetPassword text-[red] cursor-pointer">Forgot Password?</p> */}
 
             {/* Form submit button */}
-            <button className="inputContainer w-[100%] py-[1.3rem] px-[1.3rem]  rounded-[.5rem] bg-white  text-[#7967D6] flex justify-center items-center gap-[3rem]">
+            <button className="inputContainer w-[100%] py-[1.3rem] px-[1.3rem]  rounded-[.5rem] bg-white  text-[#7967D6] flex justify-center items-center gap-[3rem] mt-[1rem]">
               Login
             </button>
 
