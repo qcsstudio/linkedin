@@ -304,6 +304,34 @@ const CreatePost = () => {
         });
     }
 
+    const bestTime = [
+        {
+            time:"Tuesday, 7:40 PM"
+        },
+        {
+            time:"Sunday, 7:40 PM"
+        },
+        {
+            time:"Thursday, 7:40 PM"
+        },
+    ]
+
+    const hashTags = [
+        {
+            hashTag:"#Leadership"
+        },
+        {
+            hashTag:"#Innovation"
+        },
+        {
+            hashTag:"#CareerDevelopment"
+        },
+        {
+            hashTag:"#Networking"
+        },
+        
+    ]
+
     
 
     return (
@@ -575,7 +603,7 @@ const CreatePost = () => {
                         {/* Input */}
                         <div className="textFieldBox w-[100%] h-[3.5rem] rounded-[.5rem] bg-[#ffffff] pl-[1.25rem] pr-[1.375rem] py-[0.56rem] flex gap-[3rem]">
                             <input type="text" name="aiPrompt" id="aiPrompt" placeholder="Tell me what should i generate for you!" className="w-[70%] focus:border-none focus:outline-none text-[.80rem]" onChange={(e)=>setPrompt(e.target.value)} />
-                            <button onClick={generateCaption} type="button" className="bg-[#4379EE] text-[#ffffff] px-[2rem] rounded-[.5rem]" disabled>Generate</button>
+                            <button onClick={generateCaption} type="button" className="bg-[#4379EE] text-[#ffffff] px-[2rem] rounded-[.5rem]" >Generate</button>
                         </div>
 
                         {/* Suggestions */}
@@ -596,9 +624,18 @@ const CreatePost = () => {
 
                     {/* Lower Container */}
                     <div className="lowerAiContainer flex flex-col gap-[1rem]">
-                        <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">{generatedCaption && generatedCaption}</p></div>
-                        <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/60 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions!</p></div>
-                        <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/70 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions!</p></div>
+                        {activeButton == 3 && bestTime.map((item,index)=>{
+                            return <div key={index} className="suggestions w-[100%] min-h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">{item.time}</p></div>
+                        })}
+                        {activeButton == 2 && hashTags.map((item,index)=>{
+                            return <div key={index} className="suggestions w-[100%] min-h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">{item.hashTag}</p></div>
+                        })}
+                        {( activeButton == 1 && generatedCaption.length > 0 ) ? (generatedCaption.map((item,index)=>{
+                            return <div key={index} className="suggestions w-[100%] min-h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">{item}</p></div>
+                        })):(<p className="text-[#000000] ml-[.5rem]">Generate Captions</p>)}
+                        
+                        {/* <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/60 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions!</p></div>
+                        <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/70 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions!</p></div> */}
                     </div>
 
                     {/* Text Editor */}
