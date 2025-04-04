@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { createContext, useState, useEffect } from "react";
 import { getCookie } from "@/utils/getCookie";
+import { setupInactivityTimer } from "@/utils/inactivityHandler";
 
 const initialData = {
   planType: "single",
@@ -292,9 +293,10 @@ export const UserContextProvider = ({ children }) => {
         }
 
         const result = await response.json();
+        console.log("result" , result);
         setOneOrganizationAnalticsData(result?.data?.analyticsData?.elements);
         setOrganizationFollowerCount(result?.data?.followers)
-        setViews(result?.data?.totalPageViews)
+        setViews(result?.data?.views)
     } catch (error) {
         console.error("Failed to fetch organization data:", error);
         return { error: "An error occurred while fetching data." };
@@ -336,6 +338,12 @@ export const UserContextProvider = ({ children }) => {
 
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const cleanup = setupInactivityTimer()
+    return () => cleanup() 
+  }, [])
+
 
   return (
     <userContext.Provider

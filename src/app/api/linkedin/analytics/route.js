@@ -31,13 +31,14 @@ export async function POST(req) {
                             impressionCount: 0,
                             commentMentionsCount: 0,
                             commentCount: 0,
-                            views: 0 // ✅ New field added
+                            views: 0 // For aggregated views within analytics
                         },
                         organizationalEntity: "urn:li:organization:all"
                     }
                 ]
             },
             followers: 0,
+            views: 0, // <-- Add a top-level views property here
             message: "Aggregated organization analytics and followers fetched successfully"
         };
 
@@ -46,7 +47,9 @@ export async function POST(req) {
 
             const analyticsURL = `https://api.linkedin.com/v2/organizationalEntityShareStatistics?q=organizationalEntity&organizationalEntity=urn:li:organization:${id}`;
             const followersURL = `https://api.linkedin.com/v2/networkSizes/urn:li:organization:${id}?edgeType=CompanyFollowedByMember`;
-            const pageViewsURL = `https://api.linkedin.com/rest/organizationPageStatistics?q=organization&organization=urn:li:organization:${id}`;
+            const pageViewsURL = `https://api.linkedin.com/v2/organizationPageStatistics?q=organization&organization=urn:li:organization:${id}`;
+
+            console.log("pageViewsURL:", pageViewsURL);
 
             try {
                 const [analyticsResponse, followersResponse, pageViewsResponse] = await Promise.all([
@@ -68,7 +71,6 @@ export async function POST(req) {
                         method: "GET",
                         headers: {
                             "Authorization": `Bearer ${token}`,
-                            "LinkedIn-Version": "202306",
                             "Content-Type": "application/json",
                         }
                     })
@@ -85,19 +87,30 @@ export async function POST(req) {
                     pageViewsResponse.json()
                 ]);
 
+                console.log("pageViewsData:", pageViewsData);
+
+                // Extract share stats
                 const stats = analyticData?.elements?.[0]?.totalShareStatistics || {};
+
+                // Extract followers
                 const followers = followersData?.firstDegreeSize || 0;
 
-                // ✅ Parse views from rest API structure
+                // Extract total views from the allPageViews field
                 let views = 0;
-                if (pageViewsData?.elements && typeof pageViewsData.elements === "object") {
-                    for (const key in pageViewsData.elements) {
-                        const viewCount = pageViewsData.elements[key]?.pageStatistics?.views?.pageViews || 0;
-                        views += viewCount;
+                if (
+                    Array.isArray(pageViewsData?.elements) &&
+                    pageViewsData.elements.length > 0
+                ) {
+                    const firstElement = pageViewsData.elements[0];
+                    if (
+                        firstElement?.totalPageStatistics?.views &&
+                        typeof firstElement.totalPageStatistics.views === "object"
+                    ) {
+                        views = firstElement.totalPageStatistics.views.allPageViews?.pageViews || 0;
                     }
                 }
 
-                // ✅ Aggregate values
+                // Aggregate analytics values
                 const aggStats = aggregatedData.analyticsData.elements[0].totalShareStatistics;
                 aggStats.uniqueImpressionsCount += stats.uniqueImpressionsCount || 0;
                 aggStats.shareCount += stats.shareCount || 0;
@@ -108,9 +121,11 @@ export async function POST(req) {
                 aggStats.impressionCount += stats.impressionCount || 0;
                 aggStats.commentMentionsCount += stats.commentMentionsCount || 0;
                 aggStats.commentCount += stats.commentCount || 0;
-                aggStats.views += views || 0;
+                aggStats.views += views;
 
+                // Add followers and views at the top level
                 aggregatedData.followers += followers;
+                aggregatedData.views += views;
 
             } catch (error) {
                 console.error(`Error processing organization ${org.id}:`, error.message);
@@ -125,6 +140,7 @@ export async function POST(req) {
             aggregatedData.analyticsData.elements[0].totalShareStatistics.engagement /= orgCount;
         }
 
+        // Return aggregated result
         return Response.json(
             {
                 message: "Aggregated organization analytics and followers fetched successfully",
