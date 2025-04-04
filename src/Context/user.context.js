@@ -63,6 +63,7 @@ export const UserContextProvider = ({ children }) => {
         const result = await response.json();
         setUserData(result);
         router.push("/dashboard");
+        window.location.href = "/welcome";
       }
     } catch (error) {
       console.log("Unable to Update Plan /user.context");
@@ -95,7 +96,7 @@ export const UserContextProvider = ({ children }) => {
       setUserData(result.data);
       console.log(result.data);
 
-      window.location.href = "/dashboard";
+      window.location.href = "/welcome";
     } catch (error) {
       console.error("Error:", error);
     }
