@@ -12,9 +12,9 @@ const WelcomeContainer = () => {
   return (
     <div className="relative w-full h-screen flex items-center justify-center bg-gradient-to-r from-blue-300 via-purple-300 to-cyan-300">
 
-    <div className="absolute top-10 left-10 ">
-          <Image className=" " src={mainLogo} height={250} width={250} alt="" />
-          </div>
+    <div className="absolute top-[-2rem] w-[100%] flex justify-center">
+          <Image className=" w-[25rem]" src={mainLogo} height={250} width={250} alt=""  />
+    </div>
     
    
     <h1 className="text-9xl font-bold text-white/20  " style={{ WebkitTextStroke: '1px white' }}>WELCOME</h1>
