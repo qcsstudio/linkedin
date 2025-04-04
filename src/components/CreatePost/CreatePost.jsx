@@ -24,7 +24,7 @@ const CreatePost = () => {
 
     // Use Context 
     const { userData, getUserLinkedinProfiles, linkedinProfileData, linkedinAccounts, getLinkedinOrganizationsProfiles, linkedinOrganizationId, linkedinOrganizationData  } =
-        useContext(userContext);
+    useContext(userContext);
 
 
     const { loading, setLoading, error, setError, postLinkedin,generatePostCaption,generatedCaption,setGeneratedCaption,postSchedule } = useContext(postContext);
