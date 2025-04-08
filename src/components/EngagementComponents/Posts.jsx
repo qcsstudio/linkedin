@@ -22,7 +22,7 @@ const Posts = ({ data , selectedOrganization }) => {
   // Use Context
   const { userData, getUserLinkedinProfiles, linkedinProfileData, linkedinAccounts, getLinkedinOrganizationsProfiles, linkedinOrganizationId, linkedinOrganizationData,linkedinCombinedData } = useContext(userContext);
 
-  const { nestedComment,postComment } = useContext(postContext);
+  const { nestedComment,postComment,loading,commentSuccess,setCommentSuccess } = useContext(postContext);
 
 
 
@@ -35,6 +35,18 @@ const Posts = ({ data , selectedOrganization }) => {
     }
 
   }, [linkedinAccounts]);
+
+
+  useEffect(() => {
+      if(commentSuccess == true){
+        setComment("");
+        setSelectedAccount(null);
+        setCommentSuccess(false);
+      }
+
+  }, [commentSuccess]);
+
+
 
   // Use Effect
   useEffect(() => {
@@ -161,10 +173,11 @@ const Posts = ({ data , selectedOrganization }) => {
 
 
     // Code for comment
-    const submitComment = (e,index)=>{
+    const submitComment = async(e,index)=>{
       e.preventDefault();
       const postId = data[index].activity;
-      postComment({selectedAccount,comment,postId});
+      await postComment({selectedAccount,comment,postId});
+
     }
 
 
