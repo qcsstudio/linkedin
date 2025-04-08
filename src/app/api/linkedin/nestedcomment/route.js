@@ -4,14 +4,15 @@ export const POST = async(req)=>{
         const data = await req.json();
         
         console.log("Nested Comment Data : ",data);
-        const {selectedAccount,replyComment,selectedCommentURN,selectedCommentObject} = data;
-        const userId = selectedAccount.user.sub;
-        const userToken = selectedAccount.token;
+        const {replySelectedAccount,replyComment,selectedCommentURN,selectedCommentObject} = data;
+        const userId = replySelectedAccount.uniqueId;
+        const userToken = replySelectedAccount.token;
+        const accountType = replySelectedAccount.type;
 
         const nestedCommentURL = `https://api.linkedin.com/v2/socialActions/${selectedCommentURN}/comments`;
 
         const payload = {
-            "actor": `urn:li:person:${userId}`,
+            "actor": `urn:li:${accountType}:${userId}`,
             "message": {
                 "text": `${replyComment}`
             },
@@ -22,7 +23,7 @@ export const POST = async(req)=>{
         const res = await fetch(nestedCommentURL,{
             method:"POST",
             headers:{
-                'Authorization':`Bearer ${userToken}`
+                'Authorization':`Bearer ${userToken}` 
             },
             body:JSON.stringify(payload)
         });
