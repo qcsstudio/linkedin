@@ -190,7 +190,7 @@ const EngagementContainer = () => {
 
         {selectedAccount && (
           <>
-            <Posts data={posts} />
+            <Posts data={posts} selectedOrganization={selectedAccount} />
           </>
         )}
       </div>

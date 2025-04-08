@@ -30,7 +30,9 @@ const initialData = {
   setOrganizationFollowerCount: () => {},
   getAllOrganizationsData:()=>{},
   views:null,
-  setViews:()=>{}
+  setViews:()=>{},
+  linkedinCombinedData:[],
+  setLinkedinCombinedData:()=>{}
 };
 
 export const userContext = createContext(initialData);
@@ -47,6 +49,8 @@ export const UserContextProvider = ({ children }) => {
   const [oneOrganizationAnalticsData, setOneOrganizationAnalticsData] = useState(initialData.oneOrganizationAnalticsData);
   const [organizationFollowerCount, setOrganizationFollowerCount] = useState(initialData.organizationFollowerCount);
   const [views , setViews] = useState(initialData.views);
+
+  const [linkedinCombinedData,setLinkedinCombinedData] = useState(initialData.linkedinCombinedData);
   const router = useRouter();
 
   const updatePlan = async (plan) => {
@@ -172,7 +176,28 @@ export const UserContextProvider = ({ children }) => {
 
       if (res.ok) {
         const { successful, failed } = await res.json();
-        console.log("Successful data from linkedin ?????//",successful);
+
+        console.log('Linkedin User Data : ',successful);
+
+        const userLinkedinData = successful.map((item)=>{
+          return {
+            token:item.token,
+            type:'person',
+            uniqueId:item.user.sub,
+            name:item.user.name
+          }
+        });
+
+        setLinkedinCombinedData(prev=>{
+          const map = new Map();
+          [...prev,...userLinkedinData].forEach(item=>{
+            map.set(`${item.uniqueId}-${item.type}`,item);
+          });
+
+          return Array.from(map.values());
+
+        });
+
 
         setLinkedinProfileData(successful);
         const allOrganizations = successful
@@ -220,6 +245,25 @@ export const UserContextProvider = ({ children }) => {
         "Organization Data ================--------------->",
         data.organizations
       );
+
+      const organizationLinkedinData = data?.organizations?.map((item)=>{
+        return {
+          token:item.token,
+          type:'organization',
+          uniqueId:item.id,
+          name:item.vanityName
+        }
+      });
+
+      setLinkedinCombinedData(prev=>{
+        const map = new Map();
+        [...prev,...organizationLinkedinData].forEach(item=>{
+          map.set(`${item.uniqueId}-${item.type}`,item);
+        });
+
+        return Array.from(map.values());
+
+      });
 
       setLinkedinOrganizationData(data.organizations);
     }
@@ -363,7 +407,8 @@ export const UserContextProvider = ({ children }) => {
         organizationFollowerCount, 
         setOrganizationFollowerCount,
         getAllOrganizationsData,
-        views
+        views,
+        linkedinCombinedData
       }}
     >
       {children}

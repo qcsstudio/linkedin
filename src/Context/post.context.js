@@ -27,9 +27,6 @@ export const PostContextProvider = ({ children })=>{
         try {
             setLoading(true);
 
-            console.log("User Data:-----",data);
-            
-            console.log("User Data :->",data);
             const response = await fetch("/api/linkedin/post/",{
                 method:"POST",
                 headers:{
@@ -37,7 +34,7 @@ export const PostContextProvider = ({ children })=>{
                 },
                 body:JSON.stringify(data)
             })
-            // console.log(response);
+
             setLoading(false);
         } catch (error) {
             console.log("Unable to post on Linkedin /context/post.context : ",error);
@@ -56,24 +53,23 @@ export const PostContextProvider = ({ children })=>{
                 },
                 body:JSON.stringify(data)
             })
-            // console.log(response);
+
             if(response.status === 200){
                 const result = await response.json();
                 setGeneratedCaption(prev=>[...prev,result?.data?.choices[0].message.content]);
 
             }
-            // console.log(response.data);
-            // setGeneratedCaption()
+
         } catch (error) {
             console.log("Unable to post on Linkedin /context/post.context : ",error);
         }
     }
 
-    // Linkedin Post function -------------------------------------------------
+    // Linkedin Post Schedule function -------------------------------------------------
     const postSchedule = async(data)=>{
         try {
             setLoading(true);
-            console.log("data", data);
+
 
             const res = await fetch("/api/schedulepost", {
                 method: "POST",
@@ -96,11 +92,11 @@ export const PostContextProvider = ({ children })=>{
         }
     }
 
-    // Linkedin Post function -------------------------------------------------
+    // Linkedin Nested Comment function -------------------------------------------------
     const nestedComment = async(data)=>{
         try {
             setLoading(true);
-            console.log("data", data);
+
 
             const res = await fetch("/api/linkedin/nestedcomment", {
                 method: "POST",
@@ -123,8 +119,29 @@ export const PostContextProvider = ({ children })=>{
         }
     }
 
+    // Linkedin Comment function -------------------------------------------------
+    const postComment = async(data)=>{
+        try {
+            setLoading(true);
+
+            const response = await fetch("/api/linkedin/comment/",{
+                method:"POST",
+                headers:{
+                    "Content-type":"application/json"
+                },
+                body:JSON.stringify(data)
+            });
+            
+            setLoading(false);
+        } catch (error) {
+            console.log("Unable to post on Linkedin /context/post.context : ",error);
+            setError(true);
+            setLoading(false);
+        }
+    }
+
     return (
-        <postContext.Provider value={{loading,setLoading,error,setError,postLinkedin,generatePostCaption,generatedCaption,setGeneratedCaption,postSchedule,nestedComment}}>
+        <postContext.Provider value={{loading,setLoading,error,setError,postLinkedin,generatePostCaption,generatedCaption,setGeneratedCaption,postSchedule,nestedComment,postComment}}>
             {children}
         </postContext.Provider>
     )

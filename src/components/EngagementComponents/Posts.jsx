@@ -5,28 +5,81 @@ import { userContext } from "@/Context/user.context";
 import { Dropdown } from "primereact/dropdown";
 import { CiCircleRemove } from "react-icons/ci";
 import postContext from "@/Context/post.context";
+import { getLinkedinAccounts } from "@/utils/getLinkedinAccounts";
 
-const Posts = ({ data }) => {
+const Posts = ({ data , selectedOrganization }) => {
   // Use States
   const [replyBoxOpen, setReplyBoxOpen] = useState({});
   const [replyText, setReplyText] = useState({});
   const [replies, setReplies] = useState({}); // Temporary local state to simulate replies
   const [selectedAccount, setSelectedAccount] = useState(null);
-  const [selectedCommentURN,setSelectedCommentURN] = useState("");
-  const [selectedCommentObject,setSelectedCommentObject] = useState("");
+  const [selectedCommentURN, setSelectedCommentURN] = useState("");
+  const [selectedCommentObject, setSelectedCommentObject] = useState("");
+  const [replyAccountOption,setReplyAccountOption] = useState([]);
+  const [replySelectedAccount,setReplySelectedAccount] = useState(null);
+  const [comment,setComment] = useState("");
 
   // Use Context
-  const { userData, getUserLinkedinProfiles, linkedinProfileData, linkedinAccounts,                getLinkedinOrganizationsProfiles, linkedinOrganizationId, linkedinOrganizationData  } = useContext(userContext);
+  const { userData, getUserLinkedinProfiles, linkedinProfileData, linkedinAccounts, getLinkedinOrganizationsProfiles, linkedinOrganizationId, linkedinOrganizationData,linkedinCombinedData } = useContext(userContext);
 
-  const {nestedComment} = useContext(postContext);
+  const { nestedComment,postComment } = useContext(postContext);
+
+
+
 
 
   // Use Effect
   useEffect(() => {
-          if (linkedinAccounts) {
-              getUserLinkedinProfiles();
-          }
+    if (linkedinAccounts) {
+      getUserLinkedinProfiles();
+    }
+
   }, [linkedinAccounts]);
+
+  // Use Effect
+  useEffect(() => {
+    const URN = selectedOrganization[`$URN`];
+    console.log("Selected organization :",  selectedOrganization.id,selectedOrganization.vanityName);
+    if (linkedinProfileData) {
+      console.log("Linkedin Profile Data Receives : +++++++++ ",linkedinProfileData);
+      const values = linkedinProfileData.filter((item,index)=>{
+          console.log("needed ORganization : ",URN);
+          if(item.organizations.length > 0){
+
+            return item.organizations.some((val)=>val.organizationalTarget === URN)
+          }
+
+      });
+
+      const ownerOfOrganization = {
+        token:values[0]?.token,
+        type:'person',
+        uniqueId:values[0]?.user?.sub,
+        name:values[0]?.user?.name
+      }
+      const selectedOrganizationData = {
+        token:selectedOrganization?.token,
+        type:'organization',
+        uniqueId:selectedOrganization?.id,
+        name:selectedOrganization?.vanityName
+      }
+      setReplyAccountOption(prev=>{
+        const map = new Map();
+        [...prev,ownerOfOrganization].forEach((val)=>{
+            map.set(`${val.uniqueId}-${val.type}`,val);
+        })
+        return Array.from(map.values());
+      });
+      setReplyAccountOption(prev=>{
+        const map = new Map();
+        [...prev,selectedOrganizationData].forEach((val)=>{
+            map.set(`${val.uniqueId}-${val.type}`,val);
+        })
+        return Array.from(map.values());
+      });
+    }
+
+  }, [linkedinProfileData]);
 
   // Togel Reply Button
   const toggleReplyBox = (postIndex, commentIndex) => {
@@ -47,13 +100,13 @@ const Posts = ({ data }) => {
     }));
   };
 
-    // Handle Reply Submit input
+  // Handle Reply Submit input
   const handleReplySubmit = (postIndex, commentIndex) => {
     const key = `${postIndex}-${commentIndex}`;
     const newReply = replyText[key]?.trim();
     if (!newReply) return;
     const replyComment = replyText[key];
-    nestedComment({selectedAccount,replyComment,selectedCommentURN,selectedCommentObject});
+    nestedComment({ replySelectedAccount, replyComment, selectedCommentURN, selectedCommentObject });
 
     setReplies((prev) => ({
       ...prev,
@@ -71,7 +124,7 @@ const Posts = ({ data }) => {
 
   // Code for Drop Down 
 
-  
+
   const handleAccountRemove = (e) => {
     e.stopPropagation();
     setSelectedAccount(null);
@@ -80,32 +133,40 @@ const Posts = ({ data }) => {
 
   const accountOptionTemplate = (option) => (
     <div className="flex items-center justify-between w-full px-2 py-1">
-      <span className="font-medium">{option.user.name}</span>
+      <span className="font-medium">{option.name}</span>
     </div>
   );
 
   const selectedAccountTemplate = (option) =>
-      !option ? (
-        <span>Select an account</span>
-      ) : (
-        <div className="flex items-center gap-2 flex-nowrap overflow-x-auto">
-          <Image
-            src={"/images/createPostImages/linkdin.png"}
-            alt="linkedin"
-            width={50}
-            height={50}
-            className="w-5 h-5 rounded-full"
-          />
-          <span className="font-medium">{option.user.name}</span>
-          <button
-            className="text-gray-500 hover:text-red-500"
-            onClick={handleAccountRemove}
-          >
-            <CiCircleRemove />
-          </button>
-        </div>
-      );
-  
+    !option ? (
+      <span>Select an account</span>
+    ) : (
+      <div className="flex items-center gap-2 flex-nowrap overflow-x-auto">
+        <Image
+          src={"/images/createPostImages/linkdin.png"}
+          alt="linkedin"
+          width={50}
+          height={50}
+          className="w-5 h-5 rounded-full"
+        />
+        <span className="font-medium">{option.name}</span>
+        <button
+          className="text-gray-500 hover:text-red-500"
+          onClick={handleAccountRemove}
+        >
+          <CiCircleRemove />
+        </button>
+      </div>
+    );
+
+
+    // Code for comment
+    const submitComment = (e,index)=>{
+      e.preventDefault();
+      const postId = data[index].activity;
+      postComment({selectedAccount,comment,postId});
+    }
+
 
   return (
     <div className="space-y-6">
@@ -147,9 +208,35 @@ const Posts = ({ data }) => {
             {/* Comments Section */}
             <div className="bg-gray-50 px-4 py-3">
               <h4 className="text-blue-600 font-semibold text-sm mb-2 z-20">Comments</h4>
-              <div className="commentBox w-[100%] bg-white px-[.5rem] py-[1rem]">
+
+              {/* Comment Box */}
+              <div className="commentBox w-[100%] bg-white px-[.5rem] py-[.5rem] border border-[#e1e1e1] rounded-[.4rem] mb-[1rem]">
+                <form onSubmit={(e)=>submitComment(e,index)} className="commentBox w-[100%] bg-white px-[.5rem] py-[.5rem] border border-[#e1e1e1] rounded-[.4rem] mb-[1rem]"> 
+
+                
+                <textarea name="comment" id="" cols="50" className="w-[100%] focus:outline-none" placeholder="Add a comment..." value={comment} onChange={(e)=>setComment(e.target.value)}></textarea>
+                <div className="postButtonContainer w-[100%] flex justify-between mt-[1rem]">
+                  {linkedinCombinedData && (
+                    <div className="w-[30%]">
+                      <Dropdown
+                        value={selectedAccount}
+                        onChange={(e) => setSelectedAccount(e.value)}
+                        options={linkedinCombinedData}
+                        optionLabel="vanityName"
+                        placeholder="Select Platform"
+                        className="w-full md:w-14rem border border-[#9b9b9b] outline-none focus:outline-none z-20"
+                        itemTemplate={accountOptionTemplate}
+                        valueTemplate={selectedAccountTemplate}
+                      />
+                    </div>
+                  )}
+                  <button className="px-[2rem] py-[.4rem] bg-[#3B82F6] hover:bg-[#165ca2] rounded-[.3rem]  text-[#ffffff]" >Post</button>
                   
+                </div>
+                </form>
               </div>
+
+
               {comments.length === 0 ? (
                 <p className="text-sm text-gray-400 italic z-20">No comments available.</p>
               ) : (
@@ -192,12 +279,12 @@ const Posts = ({ data }) => {
                             />
                             <div className="flex gap-2 justify-between">
                               <div className="accountSelect w-[30%]">
-                                {linkedinProfileData && (
+                                {replyAccountOption && (
                                   <div className="w-[100%]">
                                     <Dropdown
-                                      value={selectedAccount}
-                                      onChange={(e) => setSelectedAccount(e.value)}
-                                      options={linkedinProfileData}
+                                      value={replySelectedAccount}
+                                      onChange={(e) => setReplySelectedAccount(e.value)}
+                                      options={replyAccountOption}
                                       optionLabel="vanityName"
                                       placeholder="Select Platform"
                                       className="w-full md:w-14rem border border-[#9b9b9b] outline-none focus:outline-none z-20"
