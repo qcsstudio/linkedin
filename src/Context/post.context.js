@@ -9,7 +9,9 @@ const initialData = {
     loading:false,
     setLoading:()=>{},
     generatedCaption:[],
-    setGeneratedCaption:()=>{}
+    setGeneratedCaption:()=>{},
+    commentSuccess:false,
+    setCommentSuccess:()=>{}
 }
 
 const postContext = createContext(initialData);
@@ -20,6 +22,7 @@ export const PostContextProvider = ({ children })=>{
     const [error,setError] = useState(initialData.error);
     const [loading,setLoading] = useState(initialData.loading);
     const [generatedCaption,setGeneratedCaption] = useState(initialData.generatedCaption);
+    const [commentSuccess,setCommentSuccess] = useState(initialData.commentSuccess);
     
 
     // Linkedin Post function -------------------------------------------------
@@ -123,6 +126,7 @@ export const PostContextProvider = ({ children })=>{
     const postComment = async(data)=>{
         try {
             setLoading(true);
+            
 
             const response = await fetch("/api/linkedin/comment/",{
                 method:"POST",
@@ -133,6 +137,7 @@ export const PostContextProvider = ({ children })=>{
             });
             
             setLoading(false);
+            setCommentSuccess(true);
         } catch (error) {
             console.log("Unable to post on Linkedin /context/post.context : ",error);
             setError(true);
@@ -141,7 +146,7 @@ export const PostContextProvider = ({ children })=>{
     }
 
     return (
-        <postContext.Provider value={{loading,setLoading,error,setError,postLinkedin,generatePostCaption,generatedCaption,setGeneratedCaption,postSchedule,nestedComment,postComment}}>
+        <postContext.Provider value={{loading,setLoading,error,setError,postLinkedin,generatePostCaption,generatedCaption,setGeneratedCaption,postSchedule,nestedComment,postComment,commentSuccess,setCommentSuccess}}>
             {children}
         </postContext.Provider>
     )
