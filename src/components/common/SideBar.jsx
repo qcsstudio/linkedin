@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation"
 import { sideBarData } from "@/data/sideBar.data"
 import { useState } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
+import { IoLogOut } from "react-icons/io5";
+import { logOut } from "@/utils/logout"
 
 
 const SideBar = () => {
@@ -52,6 +54,14 @@ const SideBar = () => {
     
     
   ];
+
+  const handleLogout = async()=>{
+    // alert("click")
+    await logOut();
+    if(typeof window !== undefined){
+      window.location.reload();
+    }
+  }
 
   
   const handleSettingsClick = () => {
@@ -171,6 +181,8 @@ const SideBar = () => {
                   <hr className="border border-[#dadada]/70 my-1" />
                 </Link>
               ))}
+              <button className="flex items-center justify-start gap-[.5rem] space-x-3 py-3 px-4 hover:bg-[#B4F2FC]/70 
+                  hover:rounded-xl transition cursor-pointer text-md w-[100%] font-semibold  text-[#9E9E9E]" onClick={handleLogout}><IoLogOut className="text-[2rem] text-[#9E9E9E] "/> Logout</button>
             </div>
           )}
         </div>

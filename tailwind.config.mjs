@@ -17,8 +17,8 @@ export default {
         syne: ["Syne", "sans-serif"], 
         nats: ["NATS", "sans-serif"], 
         montserrat: ["var(--font-montserrat)", "sans-serif"],
+
       },
     },
-  },
-  plugins: [],
-};
+    plugins: [],
+  }};

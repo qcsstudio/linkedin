@@ -116,7 +116,7 @@
 .fc-day-today .fc-daygrid-day-frame{
   background-color: black !important;
   color: white;
-  border-radius: 9px !important;
+  border-radius: 9px;
 }
 
 
@@ -170,7 +170,8 @@ body {
   box-shadow: gray 0 0 5px 0px ;
   border-radius: 12px !important;
   background-color: #e6eaf2;
-  height: 85px !important;
+  max-height: 105px !important;
+  min-height: 105px !important;
   width: 119px !important;
 }
 .fc-theme-standard td, .fc-theme-standard th{
@@ -180,8 +181,18 @@ body {
 .fc-dayGridMonth-view{
   /* background-color: #ffffff; */
   backdrop-filter: blur(31px);
-  border-radius: 17px !important;
+  border-radius: 17px ;
 }
+
+.truncate-event-text{
+  white-space: nowrap !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
 main{
   backdrop-filter: blur(31px);
   border-radius: 12px;

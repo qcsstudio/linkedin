@@ -6,6 +6,7 @@ import CreateAccount from "./CreateAccount";
 import { userContext } from "@/Context/user.context";
 import OrganizationCard from "./OrganizationCard";
 import Loader from "@/containers/Loader/Loader";
+import { getLinkedinAccounts } from "@/utils/getLinkedinAccounts";
 
 export default function AccountComponent() {
   const {

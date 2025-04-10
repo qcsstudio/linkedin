@@ -44,3 +44,23 @@ export const POST = async(req)=>{
     }
 
 }
+
+export const GET = async(req)=>{
+    try {   
+        
+        connectDB();
+        const jwtToken = await getCookie("access_token");
+        const userId = await verifyToken(jwtToken?.value);
+
+        // console.log();
+
+        const scheduleData = await SchedulePost.find({scheduled:"schedule",userId:userId.userId});
+
+        console.log("Schedule Data : ",scheduleData);
+
+        return Response.json({message:"Schedule Post's fetched Successfully",data:scheduleData,success:true,status:200},{status:200});
+    } catch (error) {
+        console.log("Unable to get Posts",error);
+        return Response.json({message:"Server error unable to get post's",status:500,success:false},{status:500});
+    }
+}
