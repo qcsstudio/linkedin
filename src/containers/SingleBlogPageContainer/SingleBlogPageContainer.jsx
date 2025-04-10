@@ -22,7 +22,7 @@ const SingleBlogPageContainer = () => {
   }, [slug]);
 
   return (
-    <div className="mainContainer font-nats relative z-10 bg-[url(/images/homeImages/grain.png)] bg-cover bg-no-repeat w-full min-h-screen overflow-hidden">
+    <div className="mainContainer font-syne relative z-10 bg-[url(/images/homeImages/grain.png)] bg-cover bg-no-repeat w-full min-h-screen overflow-hidden">
       <div className="bg-[#5E788F]/85 flex flex-col gap-3 md:gap-6 lg:gap-10">
         <Navbar />
 
