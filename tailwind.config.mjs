@@ -13,6 +13,7 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
+        outfit: ["Outfit", "sans-serif"],
         syne: ["Syne", "sans-serif"], 
         nats: ["NATS", "sans-serif"], 
         montserrat: ["var(--font-montserrat)", "sans-serif"],

@@ -1,7 +1,7 @@
 
 import { Syne } from "next/font/google";
 import { Montserrat } from "next/font/google";
-
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import DashboardContextProvider from "@/Context/Dashboard.context";
 
@@ -16,6 +16,8 @@ import { AnalyticsContextProvider } from "@/Context/analytics.context";
 import {ContactUsContextProvider} from '@/Context/ContactUs.context'
 import "@/utils/cron";
 import Link from "next/link";
+import { BlogDataContextProvider } from "@/Context/Blogs.context";
+
 
 
 
@@ -32,6 +34,7 @@ const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-montserrat", 
 });
+const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"] });
 
 export const metadata = {
   title: "ElevatrX | AI-Powered Social Media Automation Platform",
@@ -78,7 +81,7 @@ export default function RootLayout({ children }) {
 
       
 
-      <body className={`${syne.variable} font-syne antialiased`}>
+      <body  className={outfit.className}>
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-KLNTT48L"
@@ -88,7 +91,7 @@ export default function RootLayout({ children }) {
           ></iframe>
         </noscript>
 
-
+        <BlogDataContextProvider>
         <PrimeReactProvider>
         <ContactUsContextProvider>
           <AnalyticsContextProvider>
@@ -100,6 +103,7 @@ export default function RootLayout({ children }) {
           </AnalyticsContextProvider>
            </ContactUsContextProvider>
         </PrimeReactProvider>
+        </BlogDataContextProvider>
 
       </body>
     </html>
