@@ -11,7 +11,9 @@ const initialData = {
     generatedCaption:[],
     setGeneratedCaption:()=>{},
     commentSuccess:false,
-    setCommentSuccess:()=>{}
+    setCommentSuccess:()=>{},
+    scheduledPostData:[],
+    setScheduledPostData:()=>{}
 }
 
 const postContext = createContext(initialData);
@@ -23,6 +25,7 @@ export const PostContextProvider = ({ children })=>{
     const [loading,setLoading] = useState(initialData.loading);
     const [generatedCaption,setGeneratedCaption] = useState(initialData.generatedCaption);
     const [commentSuccess,setCommentSuccess] = useState(initialData.commentSuccess);
+    const [scheduledPostData,setScheduledPostData] = useState(initialData.scheduledPostData);
     
 
     // Linkedin Post function -------------------------------------------------
@@ -95,6 +98,33 @@ export const PostContextProvider = ({ children })=>{
         }
     }
 
+    // Linkedin Get Schedule function -------------------------------------------------
+    const getSchedulePost = async(data)=>{
+        try {
+            setLoading(true);
+
+
+            const res = await fetch("/api/schedulepost",{
+
+            });
+            console.log(res);
+
+
+            if(res.status == 200){
+                const resData = await res.json();
+                console.log("Response from get schedule post : ",resData.data)
+                setScheduledPostData(resData.data);
+                console.log("Scheduling Data : ",resData);
+            }
+
+            setLoading(false);
+        } catch (error) {
+            console.error("Unable to Schedule Post /context/post.context : ",error);
+            setError(true);
+            setLoading(false);
+        }
+    }
+
     // Linkedin Nested Comment function -------------------------------------------------
     const nestedComment = async(data)=>{
         try {
@@ -146,7 +176,7 @@ export const PostContextProvider = ({ children })=>{
     }
 
     return (
-        <postContext.Provider value={{loading,setLoading,error,setError,postLinkedin,generatePostCaption,generatedCaption,setGeneratedCaption,postSchedule,nestedComment,postComment,commentSuccess,setCommentSuccess}}>
+        <postContext.Provider value={{loading,setLoading,error,setError,postLinkedin,generatePostCaption,generatedCaption,setGeneratedCaption,postSchedule,nestedComment,postComment,commentSuccess,setCommentSuccess,getSchedulePost,scheduledPostData,setScheduledPostData}}>
             {children}
         </postContext.Provider>
     )

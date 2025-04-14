@@ -103,8 +103,6 @@ const AnalyticsContianer = () => {
     );
   };
 
- 
-
   console.log("selectedaccount", selectedaccount);
   return (
     <div className="p-8 flex flex-col gap-2">
@@ -170,10 +168,7 @@ const AnalyticsContianer = () => {
              <ReadyToScdeduleAnalytics />
            </div>
          </div>
-      
       }
-
-    
     </div>
   );
 };

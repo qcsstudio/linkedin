@@ -222,6 +222,7 @@ const Posts = ({ data , selectedOrganization }) => {
             <div className="border-t border-gray-200 z-20" />
 
             {/* Comments Section */}
+            
             <div className="bg-gray-50 px-4 py-3">
               <h4 className="text-blue-600 font-semibold text-sm mb-2 z-20">Comments</h4>
 

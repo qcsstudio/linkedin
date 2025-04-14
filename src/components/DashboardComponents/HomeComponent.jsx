@@ -1,11 +1,13 @@
 "use client"
 import Image from "next/image"
-import { useState } from "react";
+import { useState ,useContext  , useEffect } from "react";
 import dynamic from 'next/dynamic';
+import { userContext } from "@/Context/user.context";
+import AnalyticsChart from "./AnalyticsChart";
 const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 const ReactApexChart2 = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const HomeComponent = () => {
+const   HomeComponent = () => {
 
 
   // React Charts:
@@ -150,9 +152,41 @@ const HomeComponent = () => {
     labels: ["Percent"],
   });
 
+
+  const {
+    getUserLinkedinProfiles,
+    linkedinAccounts,
+    getLinkedinOrganizationsProfiles,
+    linkedinOrganizationId,
+    oneOrganizationAnalticsData,
+    organizationFollowerCount,
+    linkedinOrganizationData,
+    getAllOrganizationsData,
+  } = useContext(userContext);
+
+  useEffect(() => {
+    if (linkedinAccounts) {
+      getUserLinkedinProfiles();
+    }
+  }, [linkedinAccounts]);
+
+  useEffect(() => {
+    if (linkedinOrganizationId) {
+      getLinkedinOrganizationsProfiles();
+    }
+  }, [linkedinOrganizationId]);
+
+  useEffect(() => {
+    if (linkedinOrganizationData) {
+      getAllOrganizationsData(linkedinOrganizationData);
+    }
+  }, [linkedinOrganizationData]);
+
+  console.log("oneOrganizationAnalticsData" , oneOrganizationAnalticsData);
+  console.log("organizationFollowerCount" , organizationFollowerCount);
+
   return (
     <>
-
       <div className='flex flex-col gap-[1.8rem] z-[100]'>
         <div className='flex items-center gap-1 py-6'>
           <h1 className='font-bold text-[30px]'>Welcome QCS,</h1>
@@ -166,12 +200,11 @@ const HomeComponent = () => {
               <p className='text-[#9E9E9E] text-[13px]'>Search Across Your Dashboard</p>
             </div>
             <div className='flex items-center gap-2'>
-              <p className='text-[13px] font-semi-bold'>Weekly Insights</p>
-              <Image src={'/images/dashboardImages/dropdownicon.png'} width={1024} height={1024} className='w-2 h-2  object-cover' alt='adw' />
             </div>
             <div className='bg-white z-40 object-contain rounded-lg'>
               <div id="chart">
-                <ReactApexChart options={state.options} series={state.series} type="area" height={200} />
+                {/* <ReactApexChart options={state.options} series={state.series} type="area" height={200} /> */}
+                <AnalyticsChart oneOrganizationAnalticsData={oneOrganizationAnalticsData}  organizationFollowerCount={organizationFollowerCount} />
               </div>
               <div id="html-dist"></div>
             </div>
