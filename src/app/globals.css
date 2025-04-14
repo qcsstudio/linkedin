@@ -138,9 +138,25 @@
   border: 0px solid;
 
 }
-thead{
+
+.fc.fc-media-screen {
+  max-height: none !important;
+  overflow: visible !important;
+}
+.fc-view-harness {
+  height: auto !important;
+  max-height: 100% !important;
+} 
+
+ thead{
   display: none;
 }
+
+/* table:not(.fc-scrollgrid):not(.fc-col-header) > thead {
+  display: none;
+} */
+
+
 .fc-createPost-button{
   position: relative;
   z-index: 100;
@@ -202,9 +218,11 @@ main{
   background: rgb(176,248,255);
   background: linear-gradient(228deg, rgba(176,248,255,1) 0%, rgba(216,197,228,1) 100%);
 }
-  /* .fc-media-screen{
-    display: none;
-  } */
+
+/* .fc-media-screen{
+  display: none;
+} */
+
 .PlansContainer{
   background: rgb(188,105,241);
 background: linear-gradient(133deg, rgb(205, 145, 243) 5%, rgb(197, 236, 252) 41%);
@@ -434,4 +452,11 @@ html {
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
+}
+
+/* POP UP */
+.popupShadow{
+  -webkit-box-shadow: 0px 8px 45px -26px rgba(66, 68, 90, 1);
+-moz-box-shadow: 0px 8px 45px -26px rgba(66, 68, 90, 1);
+box-shadow: 0px 8px 45px -26px rgba(66, 68, 90, 1);
 }

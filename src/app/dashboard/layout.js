@@ -28,6 +28,8 @@ const layout = ({ children }) => {
         <Image className='bgImageFloating absolute z-0  top-[21rem] right-36 select-none' src={`/images/dashboardImages/linkedin.png`} height={300} width={300} alt='dwa' />
         <Image className='bgImageFloating absolute z-0  bottom-0 left-96 select-none' src={`/images/dashboardImages/pinterest.png`} height={250} width={250} alt='dwa' />
         <Image className='bgImageFloating absolute z-0 right-32 bottom-0 select-none' src={`/images/dashboardImages/facebook.png`} height={200} width={200} alt='wda' />
+
+        {/* POP-UP */}
       </div>
     </>
   );

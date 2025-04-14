@@ -24,6 +24,7 @@ const RegisterForm = () => {
     firstName: "",
     lastName: "",
     email: "",
+    phone:"",
     password: "",
     confirm: ""
   });
@@ -31,6 +32,7 @@ const RegisterForm = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (form.password === form.confirm) {
+      console.log("Form Data",form);
       registerAPI(form);
     } else {
       alert("Password and Confirm Password are not same");
@@ -92,10 +94,10 @@ const RegisterForm = () => {
             <p className="signUpLink text-purple-500 cursor-pointer">Log in</p>
           </Link>
         </div>
-        <form onSubmit={submitHandler} className="formContainer w-[70%] p-0 md:p-[1rem] lg:p-[2rem] justify-center items-start flex flex-col gap-[1rem]">
+        <form onSubmit={submitHandler} className="formContainer w-[70%] p-0 md:p-[1rem] lg:p-[2rem] flex justify-center items-start  flex-col gap-[.5rem]">
           <p className="heading text-[1.8rem] font-bold text-center">Sign Up</p>
           <p className="text-purple-500">Enter details to create your account</p>
-          <div className="space-y-6">
+          <div className="space-y-2">
             {/* Name Fields */}
             <label htmlFor="password">Your Name</label>
             <div className="flex flex-col lg:flex-row gap-4">
@@ -106,6 +108,7 @@ const RegisterForm = () => {
                 value={form.firstName}
                 onChange={formHandler}
                 placeholder="First name"
+                required
                 />
               <input
                 className="w-full h-14 px-4 border rounded-lg bg-white/40 placeholder-gray-500"
@@ -114,12 +117,20 @@ const RegisterForm = () => {
                 value={form.lastName}
                 onChange={formHandler}
                 placeholder="Last name"
+                required
               />
             </div>
           </div>
 
+          {/* Email Field */}
           <label htmlFor="email">Email</label>
           <input id="email" placeholder="Enter Your Email" value={form.email} onChange={formHandler} type="email" name="email" className="w-full h-14 px-4 border rounded-lg bg-white/40 placeholder-gray-500 focus:outline-none" required />
+          
+          {/* Phone Field */}
+          <label htmlFor="phone">Phone</label>
+          <input id="phone" placeholder="Enter Your Phone Number" value={form.phone} onChange={formHandler} type="text" name="phone" className="w-full h-14 px-4 border rounded-lg bg-white/40 placeholder-gray-500 focus:outline-none" required />
+          
+          {/* Password Field */}
           <label htmlFor="password">Password</label>
           <div className="w-full h-14 px-4 border rounded-lg bg-white/40 placeholder-gray-500 flex items-center gap-4">
             <input id="password" placeholder="Enter Your Password" value={form.password} onChange={formHandler} type={showPassword ? "text" : "password"} name="password" className="w-full h-full border-none bg-transparent focus:outline-none" required />
@@ -129,6 +140,8 @@ const RegisterForm = () => {
               <IoEyeSharp className="text-2xl text-white cursor-pointer" onClick={() => setShowPassword(true)} />
             )}
           </div>
+
+          {/* Confirm Password Field */}
           <label htmlFor="password">Confirm Password</label>
           <div className="w-full h-14 px-4 border rounded-lg bg-white/40 placeholder-gray-500 flex items-center gap-4">
             <input id="password" placeholder="Enter Your Password" value={form.confirm} onChange={formHandler} type={showPassword ? "text" : "password"} name="confirm" className="w-full h-full border-none bg-transparent focus:outline-none" required />
@@ -138,7 +151,9 @@ const RegisterForm = () => {
               <IoEyeSharp className="text-2xl text-white cursor-pointer" onClick={() => setShowPassword(true)} />
             )}
           </div>
-          <button className="w-full py-4 px-4 rounded bg-white text-[#7967D6] flex justify-center items-center">Register</button>
+
+          {/* Submit button */}
+          <button className="w-full py-4 px-4 rounded bg-white text-[#7967D6] flex justify-center items-center mt-[.5rem]">Register</button>
         </form>
       </div>
     </div>
