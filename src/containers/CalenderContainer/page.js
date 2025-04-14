@@ -9,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MdEdit } from "react-icons/md";
 import postContext from "@/Context/post.context";
+// import { formatISO } from "date-fns";
 
 export default function CalendarContainer() {
   const [allEvents, setAllEvents] = useState([]);
@@ -18,76 +19,52 @@ export default function CalendarContainer() {
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "", id: 0 });
   const [colorIndex, setColorIndex] = useState(0);
   const [currentView, setCurrentView] = useState("dayGridMonth");
+  const [activeView, setActiveView] = useState("dayGridMonth");
 
   const [scheduleData,setScheduleData] = useState([]);
   const calendarRef = useRef(null);
 
   const {getSchedulePost,scheduledPostData,setScheduledPostData} = useContext(postContext);
 
+  const handleDatesSet = (arg) => {
+    setActiveView(arg.view.type);
+  };
+
   // getting Scheduled Post Data
   useEffect(()=>{
     getSchedulePost();
-
-
-
   },[])
 
   useEffect(()=>{
-    if(scheduledPostData.length > 0){
-      const formatted = scheduledPostData.map((post) => ({
-        id: post._id,
-        title: post.postCaption.replace(/<[^>]+>/g, ""), 
-        start: new Date(Number(post.scheduleTime)).toISOString(),
-        backgroundColor: "#3b82f6",
-        extendedProps: {
-          postCaption: post.postCaption, 
-        }
-      }));
-      setAllEvents(formatted);
-
-
-      const formatted2 = scheduledPostData.map((post) => {
-        const startDate = new Date(Number(post.scheduleTime));
-        const endDate = new Date(startDate.getTime() + 60 * 60 * 1000);
-      
+    if (scheduledPostData.length > 0) {
+      const formatted = scheduledPostData.map((post) => {
+        const startDate = new Date(post.scheduleTime);
+        const endDate = null; // 5 minutes later
+  
         return {
           id: post._id,
-          title: post.postCaption.replace(/<[^>]+>/g, ""), 
+          title: post.postCaption.replace(/<[^>]+>/g, ""),
           start: startDate.toISOString(),
-          end: endDate.toISOString(),
+          end: endDate ? endDate.toISOString() : startDate.toISOString(),
           backgroundColor: "#3b82f6",
           extendedProps: {
             postCaption: post.postCaption,
           },
         };
       });
-
-      console.log("formated data from calendar : ",formatted2);
-
+      
+      setAllEvents(formatted);
+      // setShowModal(true);
     }
   },[scheduledPostData]);
 
-  useEffect(() => {
-    let draggableEl = document.getElementById("draggable-el");
-    if (draggableEl) {
-      new Draggable(draggableEl, {
-        itemSelector: ".fc-event",
-        eventData: function (eventEl) {
-          return {
-            title: eventEl.getAttribute("title"),
-            id: eventEl.getAttribute("data-id"),
-          };
-        },
-      });
-    }
-  }, []);
 
-  useEffect(() => {
-    const calendarEl = document.querySelector('.fc');
-    if (calendarEl) {
-      calendarEl.classList.remove('fc-media-screen');
-    }
-  }, [currentView]); // Re-run when view changes
+  // useEffect(() => {
+  //   const calendarEl = document.querySelector('.fc');
+  //   if (calendarEl ) {
+  //     calendarEl.classList.remove('fc-media-screen');
+  //   }
+  // }, [currentView]); 
 
   const changeView = (view) => {
     if (calendarRef.current) {
@@ -119,6 +96,7 @@ export default function CalendarContainer() {
   };
 
   function handleDateClick(arg) {
+    
     const clickedDate = new Date(arg.date);
     clickedDate.setHours(0, 0, 0, 0); // Start of the day
   
@@ -131,6 +109,21 @@ export default function CalendarContainer() {
     setScheduleData(filteredPosts); // Store only the posts of the selected day
     setShowModal(true);
   }
+
+  // function addEvent() {
+  //   if (!newEvent.title || !newEvent.start) return;
+
+  //   const formattedEvent = {
+  //     ...newEvent,
+
+  //     backgroundColor: colorIndex % 2 === 0 ? "#B0F8FF" : "#B1B9F8",
+  //   };
+
+  //   setAllEvents((prevEvents) => [...prevEvents, formattedEvent]);
+  //   setColorIndex((prevIndex) => prevIndex + 1);
+  //   setShowModal(false);
+  //   setNewEvent({ title: "", start: "", end: "", id: 0 });
+  // }
 
   function handleDeleteModal(data) {
     setShowDeleteModal(true);
@@ -225,7 +218,7 @@ export default function CalendarContainer() {
 
 
 
-        <main className="w-full grid gap-5 h-[120vh] bg-none ">
+        <div className="w-full grid gap-5 h-[120vh] bg-none ">
           <FullCalendar
             ref={calendarRef}
             plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
@@ -234,20 +227,43 @@ export default function CalendarContainer() {
             events={allEvents}
             nowIndicator={true}
             editable={true}
-            slotMinTime="06:00:00"
+            slotMinTime="00:00:00"
+            slotMaxTime="24:00:00"
             droppable={false}
             selectable={true}
+            key={allEvents.length}
             selectMirror={true}
-            dateClick={handleDateClick}
-            eventClick={handleDeleteModal}
-            dayMaxEventRows={1}
-            contentHeight="auto"
-            slotLabelFormat={{ hour: 'numeric', minute: '2-digit', hour12: true }}
-            datesSet={(info) => {
-              const start = info.startStr;
-              const end = info.endStr;
-              getSchedulePost(start, end); // Fetch posts for the current view's date range
+            dateClick={(arg) => {
+              const calendarApi = calendarRef.current?.getApi();
+              const currentView = calendarApi?.view?.type;
+            
+              if (currentView === "dayGridMonth") {
+                handleDateClick(arg);
+              }
             }}
+            eventClick={handleDeleteModal}
+            dayMaxEventRows={2}
+
+            contentHeight="auto"
+            slotLabelFormat={{ hour: 'numeric', minute: '2-digit', hour12: false }}
+            datesSet={handleDatesSet}
+  dayCellDidMount={(arg) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const cellDate = new Date(arg.date);
+    cellDate.setHours(0, 0, 0, 0);
+
+    if (
+      activeView === "timeGridWeek" &&
+      cellDate.getTime() === today.getTime()
+    ) {
+      // Apply style to full column using class
+      const el = arg.el.closest(".fc-timegrid-col");
+      if (el) {
+        el.style.backgroundColor = "#d1fae5"; // light green
+      }
+    }
+  }}
             dayCellContent={(arg) => {
               const date = new Date(arg.date);
               const formattedDate = date.getDate().toString().padStart(2, "0");
@@ -265,10 +281,8 @@ export default function CalendarContainer() {
                 dayMaxEventRows: 2,
                 eventLimit: true,
               },
-              timeGridWeek: {
-                dayHeaderContent: () => null,
-              },
             }}
+            dayHeaderFormat={{ weekday: 'short' }}
             dayHeaderContent={(arg) => {
               return <div className="text-xs font-semibold">{arg.text}</div>;
             }}
@@ -277,14 +291,13 @@ export default function CalendarContainer() {
             
               return (
                 <div className="text-xs text-white p-1 rounded truncate-event-text" style={{ backgroundColor: event.backgroundColor || "#3b82f6" }} dangerouslySetInnerHTML={{__html:postCaption}}>
-                  {/* <p className="line-clamp-2 text-[0.7rem] font-medium">{postCaption}</p> */}
                 </div>
               );
             }}
             height="100vh"
             dayCellClassNames="p-1"
           />
-        </main>z
+        </div>
       </div>
 
       {/* Add Event Modal */}
@@ -322,7 +335,7 @@ export default function CalendarContainer() {
   
                   </div>
                 </div>
-                )) : <p className="text-[.9rem] text-[#515151]" >No Scheduled Post</p>
+                )) : <p className="text-[.9rem] text-[#515151]" >No Scheduled Post's</p>
               }
               
             

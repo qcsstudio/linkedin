@@ -108,12 +108,12 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const registerAPI = async (form) => {
-    const { firstName, lastName, email, password } = form;
+    const { firstName, lastName, email, password ,phone } = form;
     if (!firstName || !lastName || !email || !password) {
       return;
     }
 
-    const data = { firstName, lastName, email, password };
+    const data = { firstName, lastName, email, password ,phone };
 
     try {
       const res = await fetch("/api/auth/user", {
