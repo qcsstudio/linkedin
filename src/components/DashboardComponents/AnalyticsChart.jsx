@@ -28,15 +28,15 @@ function AnalyticsChart({ oneOrganizationAnalticsData, organizationFollowerCount
 
   const chartOptions = {
     chart: {
-      type: 'radar',
-      height: 450,
-      toolbar: { show: false },
+      type: 'line',
+      height: 400,
+      toolbar: { show: false }
     },
     xaxis: {
       categories: categories,
       labels: {
         style: {
-          fontSize: '14px',
+          fontSize: '12px',
         },
       },
     },
@@ -44,25 +44,29 @@ function AnalyticsChart({ oneOrganizationAnalticsData, organizationFollowerCount
       labels: {
         formatter: (val) => Number(val).toLocaleString(undefined, { maximumFractionDigits: 0 }),
       },
+      title: {
+        text: 'Counts',
+      },
     },
     stroke: {
-      width: 2,
-      colors: ['#3f51b5'],
-    },
-    fill: {
-      opacity: 0.3,
-      colors: ['#3f51b5'],
+      curve: 'smooth',
+      width: 3,
     },
     markers: {
-      size: 5,
+      size: 6,
       colors: ['#3f51b5'],
       strokeColor: '#fff',
       strokeWidth: 2,
     },
+    colors: ['#3f51b5'],
     tooltip: {
       y: {
         formatter: (val) => Number(val).toLocaleString(undefined, { maximumFractionDigits: 2 }),
       },
+    },
+    grid: {
+      borderColor: '#e0e0e0',
+      strokeDashArray: 4,
     },
   };
 
@@ -75,7 +79,7 @@ function AnalyticsChart({ oneOrganizationAnalticsData, organizationFollowerCount
 
   return (
     <div>
-      <Chart options={chartOptions} series={chartSeries} type="radar" height={400} />
+      <Chart options={chartOptions} series={chartSeries} type="line" height={400} />
     </div>
   );
 }
