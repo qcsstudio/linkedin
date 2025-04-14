@@ -6,6 +6,13 @@ import interactionPlugin, { Draggable } from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
+<<<<<<< Updated upstream
+=======
+import Image from "next/image";
+import { MdEdit } from "react-icons/md";
+import postContext from "@/Context/post.context";
+// import { formatISO } from "date-fns";
+>>>>>>> Stashed changes
 
 export default function CalendarContainer() {
   const [allEvents, setAllEvents] = useState([]);
@@ -15,6 +22,7 @@ export default function CalendarContainer() {
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "", id: 0 });
   const [colorIndex, setColorIndex] = useState(0);
   const [currentView, setCurrentView] = useState("dayGridMonth");
+<<<<<<< Updated upstream
   const calendarRef = useRef(null);
 
   useEffect(() => {
@@ -37,6 +45,54 @@ export default function CalendarContainer() {
       calendarEl.classList.remove('fc-media-screen');
     }
   }, [currentView]); // Re-run when view changes
+=======
+  const [activeView, setActiveView] = useState("dayGridMonth");
+
+  const [scheduleData,setScheduleData] = useState([]);
+  const calendarRef = useRef(null);
+
+  const {getSchedulePost,scheduledPostData,setScheduledPostData} = useContext(postContext);
+
+  const handleDatesSet = (arg) => {
+    setActiveView(arg.view.type);
+  };
+
+  // getting Scheduled Post Data
+  useEffect(()=>{
+    getSchedulePost();
+  },[])
+
+  useEffect(()=>{
+    if (scheduledPostData.length > 0) {
+      const formatted = scheduledPostData.map((post) => {
+        const startDate = new Date(post.scheduleTime);
+        const endDate = null; // 5 minutes later
+  
+        return {
+          id: post._id,
+          title: post.postCaption.replace(/<[^>]+>/g, ""),
+          start: startDate.toISOString(),
+          end: endDate ? endDate.toISOString() : startDate.toISOString(),
+          backgroundColor: "#3b82f6",
+          extendedProps: {
+            postCaption: post.postCaption,
+          },
+        };
+      });
+      
+      setAllEvents(formatted);
+      // setShowModal(true);
+    }
+  },[scheduledPostData]);
+
+
+  // useEffect(() => {
+  //   const calendarEl = document.querySelector('.fc');
+  //   if (calendarEl ) {
+  //     calendarEl.classList.remove('fc-media-screen');
+  //   }
+  // }, [currentView]); 
+>>>>>>> Stashed changes
 
   const changeView = (view) => {
     if (calendarRef.current) {
@@ -68,6 +124,7 @@ export default function CalendarContainer() {
   };
 
   function handleDateClick(arg) {
+<<<<<<< Updated upstream
     const startDate = new Date(arg.date);
     const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000);
 
@@ -76,10 +133,21 @@ export default function CalendarContainer() {
       start: startDate.toISOString().slice(0, 16),
       end: endDate.toISOString().slice(0, 16),
       id: new Date().getTime(),
+=======
+    
+    const clickedDate = new Date(arg.date);
+    clickedDate.setHours(0, 0, 0, 0); // Start of the day
+  
+    const filteredPosts = scheduledPostData.filter((post) => {
+      const postDate = new Date(Number(post.scheduleTime));
+      postDate.setHours(0, 0, 0, 0); // Normalize to start of the day
+      return postDate.getTime() === clickedDate.getTime();
+>>>>>>> Stashed changes
     });
     setShowModal(true);
   }
 
+<<<<<<< Updated upstream
   function addEvent() {
     if (!newEvent.title || !newEvent.start) return;
 
@@ -95,6 +163,22 @@ export default function CalendarContainer() {
     setShowModal(false);
     setNewEvent({ title: "", start: "", end: "", id: 0 });
   }
+=======
+  // function addEvent() {
+  //   if (!newEvent.title || !newEvent.start) return;
+
+  //   const formattedEvent = {
+  //     ...newEvent,
+
+  //     backgroundColor: colorIndex % 2 === 0 ? "#B0F8FF" : "#B1B9F8",
+  //   };
+
+  //   setAllEvents((prevEvents) => [...prevEvents, formattedEvent]);
+  //   setColorIndex((prevIndex) => prevIndex + 1);
+  //   setShowModal(false);
+  //   setNewEvent({ title: "", start: "", end: "", id: 0 });
+  // }
+>>>>>>> Stashed changes
 
   function handleDeleteModal(data) {
     setShowDeleteModal(true);
@@ -189,7 +273,11 @@ export default function CalendarContainer() {
 
 
 
+<<<<<<< Updated upstream
         <main className="w-full grid gap-5 h-[100vh] bg-none ">
+=======
+        <div className="w-full grid gap-5 h-[120vh] bg-none ">
+>>>>>>> Stashed changes
           <FullCalendar
             ref={calendarRef}
             plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
@@ -198,15 +286,51 @@ export default function CalendarContainer() {
             events={allEvents}
             nowIndicator={true}
             editable={true}
-            slotMinTime="06:00:00"
+            slotMinTime="00:00:00"
+            slotMaxTime="24:00:00"
             droppable={false}
             selectable={true}
+            key={allEvents.length}
             selectMirror={true}
+<<<<<<< Updated upstream
             dateClick={handleDateClick}
             eventClick={handleDeleteModal}
             dayMaxEventRows={2}
             contentHeight="auto"
             slotLabelFormat={{ hour: 'numeric', minute: '2-digit', hour12: true }}
+=======
+            dateClick={(arg) => {
+              const calendarApi = calendarRef.current?.getApi();
+              const currentView = calendarApi?.view?.type;
+            
+              if (currentView === "dayGridMonth") {
+                handleDateClick(arg);
+              }
+            }}
+            eventClick={handleDeleteModal}
+            dayMaxEventRows={2}
+
+            contentHeight="auto"
+            slotLabelFormat={{ hour: 'numeric', minute: '2-digit', hour12: false }}
+            datesSet={handleDatesSet}
+  dayCellDidMount={(arg) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const cellDate = new Date(arg.date);
+    cellDate.setHours(0, 0, 0, 0);
+
+    if (
+      activeView === "timeGridWeek" &&
+      cellDate.getTime() === today.getTime()
+    ) {
+      // Apply style to full column using class
+      const el = arg.el.closest(".fc-timegrid-col");
+      if (el) {
+        el.style.backgroundColor = "#d1fae5"; // light green
+      }
+    }
+  }}
+>>>>>>> Stashed changes
             dayCellContent={(arg) => {
               const date = new Date(arg.date);
               const formattedDate = date.getDate().toString().padStart(2, "0");
@@ -224,13 +348,12 @@ export default function CalendarContainer() {
                 dayMaxEventRows: 2,
                 eventLimit: true,
               },
-              timeGridWeek: {
-                dayHeaderContent: () => null,
-              },
             }}
+            dayHeaderFormat={{ weekday: 'short' }}
             dayHeaderContent={(arg) => {
               return <div className="text-xs font-semibold">{arg.text}</div>;
             }}
+<<<<<<< Updated upstream
             eventContent={({ event }) => (
               <div className="text-xs text-white p-1 rounded" style={{ backgroundColor: event.backgroundColor || "#3b82f6" }}>
                 {event.title}
@@ -240,12 +363,27 @@ export default function CalendarContainer() {
             dayCellClassNames="p-1"
           />
         </main>
+=======
+            eventContent={({ event }) => {
+              const { postCaption } = event.extendedProps;
+            
+              return (
+                <div className="text-xs text-white p-1 rounded truncate-event-text" style={{ backgroundColor: event.backgroundColor || "#3b82f6" }} dangerouslySetInnerHTML={{__html:postCaption}}>
+                </div>
+              );
+            }}
+            height="100vh"
+            dayCellClassNames="p-1"
+          />
+        </div>
+>>>>>>> Stashed changes
       </div>
 
       {/* Add Event Modal */}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-5 rounded-md shadow-md w-96">
+<<<<<<< Updated upstream
             <h2 className="font-bold text-lg text-center">Add Event</h2>
             <input
               type="text"
@@ -271,6 +409,49 @@ export default function CalendarContainer() {
             />
             <button onClick={addEvent} className="w-full bg-blue-500 text-white p-2 rounded-md">
               Add Event
+=======
+            <h2 className="font-bold text-lg text-center">Scheduled Post's</h2>
+
+            {/* Post Container */}
+            <div className="scheduledPost w-[100%] max-h-[15rem] flex flex-col gap-[.5rem]  my-[1rem] z-20 overflow-y-scroll no-scrollbar">
+              {scheduleData.length > 0 ? 
+                scheduleData.map((post,index)=>(
+                  <div key={index} className="post w-[100%] max-h-[6.5rem] min-h-[6.5rem] flex gap-[.5rem] justify-center hover:bg-[beige] overflow-hidden rounded-[.5rem] py-[.5rem]">
+
+                  {/* Post Image */}
+                  <Image src={post.formImage[0]} width={1024} height={1024} alt="Post_Image" className=" w-[45%] object-cover rounded-[.5rem]" />
+  
+                  {/* Post Deatil */}
+                  <div className="rightContainer w-[50%] flex flex-col justify-between">
+                    <div className="captionData text-[.75rem] postText" dangerouslySetInnerHTML={{__html:post.postCaption}}></div>
+                    {/* <p className="">{post.postCaption}</p> */}
+  
+                    {/* Post User Detail */}
+                    <div className="lowerConainer flex gap-[.5rem] items-center">
+                      <div className="avatar w-[1.7rem] h-[1.7rem] bg-[#fff] rounded-[50%] justify-center items-center">
+                        <Image src={"/images/postImages/avatar.png"} width={1024} height={1024} alt="Post_Image" className=" w-[100%] h-[100%] object-cover " />
+                      </div>
+                        <p className="name text-[.75rem] font-semibold">Omkar</p>
+                        <p className="name text-[.75rem] ">{new Date(Number(post.scheduleTime)).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}</p>
+                        <MdEdit className="hover:text-[#3fff3f] cursor-pointer"/>
+                    </div>
+  
+                  </div>
+                </div>
+                )) : <p className="text-[.9rem] text-[#515151]" >No Scheduled Post's</p>
+              }
+              
+            
+
+            </div>
+
+            <Link href="/dashboard/create-post">
+            <button className="w-full bg-blue-500 text-white p-2 rounded-md">
+              Add Post
+>>>>>>> Stashed changes
             </button>
             <button onClick={handleCloseModal} className="w-full mt-2 bg-gray-500 text-white p-2 rounded-md">
               Cancel

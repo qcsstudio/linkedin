@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:null
     },
+    phone:{
+        type:String,
+        default:null,
+    },
     clientName:{
         type:String,
         default:null
@@ -58,7 +62,7 @@ const userSchema = new mongoose.Schema({
             }
         }
     ]
-},{timestamps:true});
+},{timestamps:true},{strict: false});
 
 // For Temp using planType as String after Plan Schema Ready Replace it with this .
 // planType: { type: mongoose.Schema.Types.ObjectId, ref: 'Plan' }

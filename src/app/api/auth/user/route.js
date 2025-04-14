@@ -11,7 +11,8 @@ export const POST = async(req)=>{
         await ConnectDB();
         const data = await req.json();
 
-        let {firstName,lastName,email,planType,role} = data;
+        let {firstName,lastName,email,planType,role,phone} = data;
+        console.log("Data in backend",data);
         const Password = data.password;
         // Checking Role
         if(!role){
@@ -53,7 +54,7 @@ export const POST = async(req)=>{
         const hashedPassword = await bcrypt.hash(Password,10);
 
         // User Create
-        const newUser = new User({firstName,lastName,email,password:hashedPassword,role,planType});
+        const newUser = new User({firstName,lastName,email,password:hashedPassword,role,planType,phone});
         const SavedUser = await newUser.save();
        
         const userId = SavedUser?._id;
