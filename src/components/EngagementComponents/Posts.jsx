@@ -63,6 +63,9 @@ const Posts = ({ data , selectedOrganization }) => {
 
       });
 
+      setReplyAccountOption([]);
+      setReplyAccountOption([]);
+
       const ownerOfOrganization = {
         token:values[0]?.token,
         type:'person',
@@ -91,7 +94,7 @@ const Posts = ({ data , selectedOrganization }) => {
       });
     }
 
-  }, [linkedinProfileData]);
+  }, [linkedinProfileData,selectedOrganization]);
 
   // Togel Reply Button
   const toggleReplyBox = (postIndex, commentIndex) => {

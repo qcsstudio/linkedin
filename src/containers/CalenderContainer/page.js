@@ -10,7 +10,6 @@ import Image from "next/image";
 import { MdEdit } from "react-icons/md";
 import postContext from "@/Context/post.context";
 // import { formatISO } from "date-fns";
-
 export default function CalendarContainer() {
   const [allEvents, setAllEvents] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -19,6 +18,7 @@ export default function CalendarContainer() {
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "", id: 0 });
   const [colorIndex, setColorIndex] = useState(0);
   const [currentView, setCurrentView] = useState("dayGridMonth");
+
   const [activeView, setActiveView] = useState("dayGridMonth");
 
   const [scheduleData,setScheduleData] = useState([]);
@@ -56,6 +56,8 @@ export default function CalendarContainer() {
       setAllEvents(formatted);
       // setShowModal(true);
     }
+
+
   },[scheduledPostData]);
 
 
@@ -65,6 +67,7 @@ export default function CalendarContainer() {
   //     calendarEl.classList.remove('fc-media-screen');
   //   }
   // }, [currentView]); 
+
 
   const changeView = (view) => {
     if (calendarRef.current) {
@@ -96,6 +99,7 @@ export default function CalendarContainer() {
   };
 
   function handleDateClick(arg) {
+
     
     const clickedDate = new Date(arg.date);
     clickedDate.setHours(0, 0, 0, 0); // Start of the day
@@ -104,17 +108,21 @@ export default function CalendarContainer() {
       const postDate = new Date(Number(post.scheduleTime));
       postDate.setHours(0, 0, 0, 0); // Normalize to start of the day
       return postDate.getTime() === clickedDate.getTime();
+
     });
   
     setScheduleData(filteredPosts); // Store only the posts of the selected day
     setShowModal(true);
   }
 
+
   // function addEvent() {
   //   if (!newEvent.title || !newEvent.start) return;
 
+
   //   const formattedEvent = {
   //     ...newEvent,
+
 
   //     backgroundColor: colorIndex % 2 === 0 ? "#B0F8FF" : "#B1B9F8",
   //   };
@@ -124,6 +132,7 @@ export default function CalendarContainer() {
   //   setShowModal(false);
   //   setNewEvent({ title: "", start: "", end: "", id: 0 });
   // }
+
 
   function handleDeleteModal(data) {
     setShowDeleteModal(true);
@@ -218,7 +227,9 @@ export default function CalendarContainer() {
 
 
 
+
         <div className="w-full grid gap-5 h-[120vh] bg-none ">
+
           <FullCalendar
             ref={calendarRef}
             plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
@@ -233,6 +244,7 @@ export default function CalendarContainer() {
             selectable={true}
             key={allEvents.length}
             selectMirror={true}
+
             dateClick={(arg) => {
               const calendarApi = calendarRef.current?.getApi();
               const currentView = calendarApi?.view?.type;
@@ -241,10 +253,12 @@ export default function CalendarContainer() {
                 handleDateClick(arg);
               }
             }}
+
             eventClick={handleDeleteModal}
             dayMaxEventRows={2}
 
             contentHeight="auto"
+
             slotLabelFormat={{ hour: 'numeric', minute: '2-digit', hour12: false }}
             datesSet={handleDatesSet}
   dayCellDidMount={(arg) => {
@@ -264,6 +278,7 @@ export default function CalendarContainer() {
       }
     }
   }}
+
             dayCellContent={(arg) => {
               const date = new Date(arg.date);
               const formattedDate = date.getDate().toString().padStart(2, "0");
@@ -286,6 +301,7 @@ export default function CalendarContainer() {
             dayHeaderContent={(arg) => {
               return <div className="text-xs font-semibold">{arg.text}</div>;
             }}
+
             eventContent={({ event }) => {
               const { postCaption } = event.extendedProps;
             
@@ -298,12 +314,14 @@ export default function CalendarContainer() {
             dayCellClassNames="p-1"
           />
         </div>
+
       </div>
 
       {/* Add Event Modal */}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-5 rounded-md shadow-md w-96">
+
             <h2 className="font-bold text-lg text-center">Scheduled Post's</h2>
 
             {/* Post Container */}
@@ -345,6 +363,7 @@ export default function CalendarContainer() {
             <Link href="/dashboard/create-post">
             <button className="w-full bg-blue-500 text-white p-2 rounded-md">
               Add Post
+
             </button>
             </Link>
             <button onClick={handleCloseModal} className="w-full mt-2 bg-gray-500 text-white p-2 rounded-md">
