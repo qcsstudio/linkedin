@@ -9,7 +9,6 @@ import TeamMember from "@/components/Account&Subscription/TeamMember";
 
 const Account = () => {
 
-  const [showPopup,setShowPopup] = useState(false);
   
   return (
     <>
@@ -17,17 +16,17 @@ const Account = () => {
         <h1 className="text-2xl font-bold text-black  mb-6">
           Account & Subscription
         </h1>
-        <UserInformation setShowPopup={setShowPopup} showPopup={showPopup} />
+        <UserInformation/>
         <CurrentPlan />
         <CurrentUsage />
         <BillingInformation />
         <PaymentHistory />
         <TeamMember />
 
-        {showPopup && 
-        <div className="absolute top-[10%] left-[10%]  w-[40vw] h-[40vh] bg-[#fff] z-20 rounded-[1rem] popupShadow">
+        {/* {showPopup && 
+        <div className="absolute top-[-5rem] right-0 left-[-10%]  w-[100vw] h-[100vh] bg-[#111]/50  rounded-[1rem] popupShadow z-[120]" style={{zIndex:'120'}}>
 
-        </div>}
+        </div>} */}
       </div>
     </>
   );

@@ -17,7 +17,7 @@ const WelcomeContainer = () => {
       </div>
 
 
-      <h1 className="text-9xl font-bold text-white/20  " style={{ WebkitTextStroke: '1px white' }}>WELCOME</h1>
+      <h1 className="text-9xl font-bold text-white/20  welcomeText" style={{ WebkitTextStroke: '1px white' }}>WELCOME</h1>
     </div>
   )
 }

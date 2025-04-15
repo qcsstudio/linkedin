@@ -94,7 +94,7 @@ const SideBar = () => {
 
       {/* Sidebar */}
       {sidebarVisible && ( // Conditionally render the sidebar based on the state
-        <div className="w-[100%] min-w-[241px] min-h-[400px]  bg-white/50 rounded-xl px-5 py-2 z-[100]">
+        <div className="w-[100%] min-w-[241px] min-h-[400px]  bg-white/50 rounded-xl px-5 py-2 z-[10]">
           {/* Regular Sidebar Links */}
           {sideBarData.map((data, index) => {
             const isActive = pathname === data.path; // Check if the link is active
