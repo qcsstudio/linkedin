@@ -1,9 +1,15 @@
+"use client"
+import PasswordChangePopUp from "@/components/common/PasswordChangePopUp";
 import SideBar from "@/components/common/SideBar";
 import Navbar from "@/components/Navbar";
+import { uiContext } from "@/Context/ui.context";
 import Image from "next/image";
+import { useContext } from "react";
 
 
 const layout = ({ children }) => {
+
+  const { openPopUp, setOpenPopUp } = useContext(uiContext);
 
   return (
     <>
@@ -30,6 +36,8 @@ const layout = ({ children }) => {
         <Image className='bgImageFloating absolute z-0 right-32 bottom-0 select-none' src={`/images/dashboardImages/facebook.png`} height={200} width={200} alt='wda' />
 
         {/* POP-UP */}
+
+        {openPopUp == true && <PasswordChangePopUp/>}
       </div>
     </>
   );

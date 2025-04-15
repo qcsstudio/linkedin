@@ -29,29 +29,41 @@ const initialData = {
   getOrganizationAnalyticsData: () => {},
   setOneOrganizationAnalticsData: () => {},
   setOrganizationFollowerCount: () => {},
-  getAllOrganizationsData:()=>{},
-  views:null,
-  setViews:()=>{},
-  linkedinCombinedData:[],
-  setLinkedinCombinedData:()=>{}
+  getAllOrganizationsData: () => {},
+  views: null,
+  setViews: () => {},
+  linkedinCombinedData: [],
+  setLinkedinCombinedData: () => {},
 };
 
 export const userContext = createContext(initialData);
 
 export const UserContextProvider = ({ children }) => {
-  
   const [userData, setUserData] = useState(initialData.userData);
   const [planType, setPlanType] = useState(initialData.planType);
   const [loading, setLoading] = useState(initialData.loading);
-  const [linkedinAccounts, setLinkedinAccounts] = useState(initialData.linkedinAccounts);
-  const [linkedinProfileData, setLinkedinProfileData] = useState(initialData.linkedinProfileData);
-  const [linkedinOrganizationId, setLinkedinOrganizationId] = useState(initialData.linkedinOrganizationId);
-  const [linkedinOrganizationData, setLinkedinOrganizationData] = useState(initialData.linkedinOrganizationData);
-  const [oneOrganizationAnalticsData, setOneOrganizationAnalticsData] = useState(initialData.oneOrganizationAnalticsData);
-  const [organizationFollowerCount, setOrganizationFollowerCount] = useState(initialData.organizationFollowerCount);
-  const [views , setViews] = useState(initialData.views);
+  const [linkedinAccounts, setLinkedinAccounts] = useState(
+    initialData.linkedinAccounts
+  );
+  const [linkedinProfileData, setLinkedinProfileData] = useState(
+    initialData.linkedinProfileData
+  );
+  const [linkedinOrganizationId, setLinkedinOrganizationId] = useState(
+    initialData.linkedinOrganizationId
+  );
+  const [linkedinOrganizationData, setLinkedinOrganizationData] = useState(
+    initialData.linkedinOrganizationData
+  );
+  const [oneOrganizationAnalticsData, setOneOrganizationAnalticsData] =
+    useState(initialData.oneOrganizationAnalticsData);
+  const [organizationFollowerCount, setOrganizationFollowerCount] = useState(
+    initialData.organizationFollowerCount
+  );
+  const [views, setViews] = useState(initialData.views);
 
-  const [linkedinCombinedData,setLinkedinCombinedData] = useState(initialData.linkedinCombinedData);
+  const [linkedinCombinedData, setLinkedinCombinedData] = useState(
+    initialData.linkedinCombinedData
+  );
   const router = useRouter();
 
   const updatePlan = async (plan) => {
@@ -108,12 +120,12 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const registerAPI = async (form) => {
-    const { firstName, lastName, email, password ,phone } = form;
+    const { firstName, lastName, email, password, phone } = form;
     if (!firstName || !lastName || !email || !password) {
       return;
     }
 
-    const data = { firstName, lastName, email, password ,phone };
+    const data = { firstName, lastName, email, password, phone };
 
     try {
       const res = await fetch("/api/auth/user", {
@@ -178,27 +190,25 @@ export const UserContextProvider = ({ children }) => {
       if (res.ok) {
         const { successful, failed } = await res.json();
 
-        console.log('Linkedin User Data : ',successful);
+        console.log("Linkedin User Data : ", successful);
 
-        const userLinkedinData = successful.map((item)=>{
+        const userLinkedinData = successful.map((item) => {
           return {
-            token:item.token,
-            type:'person',
-            uniqueId:item.user.sub,
-            name:item.user.name
-          }
+            token: item.token,
+            type: "person",
+            uniqueId: item.user.sub,
+            name: item.user.name,
+          };
         });
 
-        setLinkedinCombinedData(prev=>{
+        setLinkedinCombinedData((prev) => {
           const map = new Map();
-          [...prev,...userLinkedinData].forEach(item=>{
-            map.set(`${item.uniqueId}-${item.type}`,item);
+          [...prev, ...userLinkedinData].forEach((item) => {
+            map.set(`${item.uniqueId}-${item.type}`, item);
           });
 
           return Array.from(map.values());
-
         });
-
 
         setLinkedinProfileData(successful);
         const allOrganizations = successful
@@ -217,7 +227,6 @@ export const UserContextProvider = ({ children }) => {
           }));
 
         setLinkedinOrganizationId(allOrganizations);
-
 
         if (failed.length > 0) {
           console.warn("Failed requests:", failed);
@@ -247,23 +256,22 @@ export const UserContextProvider = ({ children }) => {
         data.organizations
       );
 
-      const organizationLinkedinData = data?.organizations?.map((item)=>{
+      const organizationLinkedinData = data?.organizations?.map((item) => {
         return {
-          token:item.token,
-          type:'organization',
-          uniqueId:item.id,
-          name:item.vanityName
-        }
+          token: item.token,
+          type: "organization",
+          uniqueId: item.id,
+          name: item.vanityName,
+        };
       });
 
-      setLinkedinCombinedData(prev=>{
+      setLinkedinCombinedData((prev) => {
         const map = new Map();
-        [...prev,...organizationLinkedinData].forEach(item=>{
-          map.set(`${item.uniqueId}-${item.type}`,item);
+        [...prev, ...organizationLinkedinData].forEach((item) => {
+          map.set(`${item.uniqueId}-${item.type}`, item);
         });
 
         return Array.from(map.values());
-
       });
 
       setLinkedinOrganizationData(data.organizations);
@@ -314,40 +322,38 @@ export const UserContextProvider = ({ children }) => {
 
   const getAllOrganizationsData = async (data) => {
     try {
+      const organizations = data.map((org) => ({
+        id: org.id,
+        token: org.token,
+      }));
 
-        const organizations = data.map(org => ({
-            id: org.id,     
-            token: org.token  
-        }));
+      console.log("Formatted organizations:", organizations);
 
-        console.log("Formatted organizations:", organizations);
+      const url = "/api/linkedin/analytics";
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(organizations),
+      });
 
-        const url = "/api/linkedin/analytics";
-        const response = await fetch(url, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(organizations)
-        });
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error fetching analytics:", errorData);
+        return { error: errorData.message };
+      }
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error("Error fetching analytics:", errorData);
-            return { error: errorData.message };
-        }
-
-        const result = await response.json();
-        console.log("result" , result);
-        setOneOrganizationAnalticsData(result?.data?.analyticsData?.elements);
-        setOrganizationFollowerCount(result?.data?.followers)
-        setViews(result?.data?.views)
+      const result = await response.json();
+      console.log("result", result);
+      setOneOrganizationAnalticsData(result?.data?.analyticsData?.elements);
+      setOrganizationFollowerCount(result?.data?.followers);
+      setViews(result?.data?.views);
     } catch (error) {
-        console.error("Failed to fetch organization data:", error);
-        return { error: "An error occurred while fetching data." };
+      console.error("Failed to fetch organization data:", error);
+      return { error: "An error occurred while fetching data." };
     }
-};
-
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -385,10 +391,115 @@ export const UserContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    const cleanup = setupInactivityTimer()
-    return () => cleanup() 
-  }, [])
+    const cleanup = setupInactivityTimer();
+    return () => cleanup();
+  }, []);
 
+  // Change Password Method
+  const changePassword = async (data) => {
+    try {
+      const res = await fetch("/api/password/change", {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (res.status === 200) {
+        const result = await res.json();
+        const resultObj = {
+          message:result.message,
+          success:result.success
+        }
+        return resultObj;
+      } else {
+        const result = await res.json();
+        const resultObj = {
+          message:result.message,
+          success:result.success
+        }
+        return resultObj;
+      }
+    } catch (error) {
+      console.log("error change password :", error);
+    }
+  };
+
+  
+  // OTP Forget Password Method
+  const getOTP = async (data) => {
+    try {
+      const res = await fetch("/api/password/otp");
+    } catch (error) {
+      console.log("error change password :", error);
+    }
+  };
+
+  // Verify OTP Forget Password Method
+  const verifyOTP = async (data) => {
+    try {
+      const res = await fetch("/api/password/otp",{
+        method:"POST",
+        headers:{
+          "content-type":"application/json"
+        },
+        body:JSON.stringify(data)
+      });
+      if(res.status === 201){
+        const result = await res.json();
+        const resultObj = {
+          message:result.message,
+          success:result.success
+        }
+        return resultObj;
+      }else{
+        const result = await res.json();
+        const resultObj = {
+          message:result.message,
+          success:result.success
+        }
+        return resultObj;
+      }
+    } catch (error) {
+      console.log("error change password :", error);
+      return false;
+    }
+  };
+
+  
+  // forget Password Method
+  const forgetPasswordCall = async (data) => {
+    try {
+      const res = await fetch("/api/password/forget", {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (res.status === 200) {
+        const result = await res.json();
+        const resultObj = {
+          message:result.message,
+          success:result.success
+        }
+        return resultObj;
+      } else {
+        const result = await res.json();
+        const resultObj = {
+          message:result.message,
+          success:result.success
+        }
+        return resultObj;
+      }
+    } catch (error) {
+      console.log("error change password :", error);
+    }
+  };
+
+  
 
   return (
     <userContext.Provider
@@ -412,11 +523,15 @@ export const UserContextProvider = ({ children }) => {
         linkedinOrganizationData,
         oneOrganizationAnalticsData,
         getOrganizationAnalyticsData,
-        organizationFollowerCount, 
+        organizationFollowerCount,
         setOrganizationFollowerCount,
         getAllOrganizationsData,
         views,
-        linkedinCombinedData
+        linkedinCombinedData,
+        changePassword,
+        getOTP,
+        verifyOTP,
+        forgetPasswordCall
       }}
     >
       {children}

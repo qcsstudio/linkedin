@@ -1,4 +1,3 @@
-
 import { Syne } from "next/font/google";
 import { Montserrat } from "next/font/google";
 import { Outfit } from "next/font/google";
@@ -13,36 +12,33 @@ import { PostContextProvider } from "@/Context/post.context";
 
 import { AnalyticsContextProvider } from "@/Context/analytics.context";
 
-import {ContactUsContextProvider} from '@/Context/ContactUs.context'
+import { ContactUsContextProvider } from "@/Context/ContactUs.context";
 import "@/utils/cron";
 import Link from "next/link";
 import { BlogDataContextProvider } from "@/Context/Blogs.context";
-
-
-
-
-
+import { UiContextProvider } from "@/Context/ui.context";
 
 const syne = Syne({
   weight: ["400", "700"],
   subsets: ["latin"],
-  variable: "--font-syne", 
+  variable: "--font-syne",
 });
 
 const montserrat = Montserrat({
   weight: ["400", "700"],
   subsets: ["latin"],
-  variable: "--font-montserrat", 
+  variable: "--font-montserrat",
 });
-const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"] });
+const outfit = Outfit({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 export const metadata = {
   title: "ElevatrX | AI-Powered Social Media Automation Platform",
   description:
     "Automate your social media content creation, scheduling, and analytics with ElevatrX. Enhance your brand visibility effortlessly—Try it free today!",
 };
-
-
 
 export default function RootLayout({ children }) {
   return (
@@ -51,10 +47,10 @@ export default function RootLayout({ children }) {
         name="google-site-verification"
         content="FE1jcS7Gi8yAWxnnLZ-lweGrna3FI5zh61v14-5q1Og"
       />
-       <Link
-          href="https://fonts.googleapis.com/css2?family=NATS&display=swap"
-          rel="stylesheet"
-        />
+      <Link
+        href="https://fonts.googleapis.com/css2?family=NATS&display=swap"
+        rel="stylesheet"
+      />
       <Script
         id="google-tag-manager"
         strategy="afterInteractive"
@@ -68,7 +64,7 @@ export default function RootLayout({ children }) {
             `,
         }}
       />
-       <Script
+      <Script
         strategy="afterInteractive"
         src="https://www.googletagmanager.com/gtag/js?id=G-KLP5Q5MWRF"
       />
@@ -81,9 +77,7 @@ export default function RootLayout({ children }) {
         `}
       </Script>
 
-      
-
-      <body  className={outfit.className}>
+      <body className={outfit.className}>
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-KLNTT48L"
@@ -94,19 +88,22 @@ export default function RootLayout({ children }) {
         </noscript>
 
         <BlogDataContextProvider>
-        <PrimeReactProvider>
-        <ContactUsContextProvider>
-          <AnalyticsContextProvider>
-          <PostContextProvider>
-            <UserContextProvider>
-              <DashboardContextProvider>{children}</DashboardContextProvider>
-            </UserContextProvider>
-          </PostContextProvider>
-          </AnalyticsContextProvider>
-           </ContactUsContextProvider>
-        </PrimeReactProvider>
+          <PrimeReactProvider>
+            <UiContextProvider>
+              <ContactUsContextProvider>
+                <AnalyticsContextProvider>
+                  <PostContextProvider>
+                    <UserContextProvider>
+                      <DashboardContextProvider>
+                        {children}
+                      </DashboardContextProvider>
+                    </UserContextProvider>
+                  </PostContextProvider>
+                </AnalyticsContextProvider>
+              </ContactUsContextProvider>
+            </UiContextProvider>
+          </PrimeReactProvider>
         </BlogDataContextProvider>
-
       </body>
     </html>
   );
