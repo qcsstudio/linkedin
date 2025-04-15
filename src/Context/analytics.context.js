@@ -1,102 +1,129 @@
-"use client"
+"use client";
 
-const { createContext, useState } = require("react")
+const { createContext, useState } = require("react");
 
 const initialData = {
-    GetGrowthDataAPI: () => { },
-    growthData: null,
-    setGrowthData: () => { },
-    GetTopPostsAPI:()=>{ },
-    topPostsData:null,
-    setTopPostsData:()=>{},
-    posts:null,
-    setPosts:()=>{},
-    GetLinkedinPostsAPI:()=>{ }
-}
+  GetGrowthDataAPI: () => {},
+  growthData: null,
+  setGrowthData: () => {},
+  GetTopPostsAPI: () => {},
+  topPostsData: null,
+  setTopPostsData: () => {},
+  posts: null,
+  setPosts: () => {},
+  GetLinkedinPostsAPI: () => {},
+  recentPosts: null,
+  setRecentPosts: () => {},
+  GetLinkedinRecentsPost:()=>{ }
+};
 
 const analyticsContext = createContext(initialData);
 
 export const AnalyticsContextProvider = ({ children }) => {
+  const [growthData, setGrowthData] = useState(initialData.growthData);
+  const [topPostsData, setTopPostsData] = useState(initialData.topPostsData);
+  const [posts, setPosts] = useState(initialData.posts);
+  const [recentPosts, setRecentPosts] = useState();
 
-    const [growthData, setGrowthData] = useState(initialData.growthData);
-    const [topPostsData , setTopPostsData]  = useState(initialData.topPostsData);
-    const [posts, setPosts] = useState(initialData.posts);
+  const GetGrowthDataAPI = async ({ id, token }) => {
+    try {
+      const response = await fetch("/api/linkedin/linkedin-growth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, token }),
+      });
 
-    const GetGrowthDataAPI = async ({ id, token }) => {
-        try {
-          const response = await fetch('/api/linkedin/linkedin-growth', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id, token }),
-          });
-      
-          if (!response.ok) throw new Error('Failed to fetch growth data');
-      
-          const data = await response.json();
-          setGrowthData(data);
-        } catch (err) {
-          console.error('Error fetching LinkedIn growth data:', err);
-        }
-      };
+      if (!response.ok) throw new Error("Failed to fetch growth data");
 
-      const GetTopPostsAPI = async ({ data }) => {
-        console.log("data", data)
-        try {
-          const response = await fetch('/api/linkedin/top-posts', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              organizations: data  
-            })
-          });
-      
-          if (!response.ok) {
-            throw new Error(`Failed to fetch top posts: ${response.statusText}`);
-          }
-      
-          const result = await response.json();
-          setTopPostsData(result.topPosts); 
-        } catch (error) {
-          console.error('Error fetching LinkedIn top posts:', error);
-        }
-      };
-      
-      const GetLinkedinPostsAPI = async ({ id, token }) => {
-        if (!id || !token) return;
-        try {
-          const response = await fetch('/api/linkedin/all-posts', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id, token }),
-          });
-    
-          const data = await response.json();
-          setPosts(data);
-        } catch (err) {
-          console.error('Failed to fetch LinkedIn posts:', err);
-        } 
-      };
+      const data = await response.json();
+      setGrowthData(data);
+    } catch (err) {
+      console.error("Error fetching LinkedIn growth data:", err);
+    }
+  };
 
-    return (
-        <analyticsContext.Provider value={{
-            GetGrowthDataAPI,
-            setGrowthData,
-            growthData,
-            GetTopPostsAPI,
-            topPostsData,
-            posts,
-            setPosts,
-            GetLinkedinPostsAPI
-        }}>
-            {children}
-        </analyticsContext.Provider>
-    )
-}
+  const GetTopPostsAPI = async ({ data }) => {
+    console.log("data", data);
+    try {
+      const response = await fetch("/api/linkedin/top-posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          organizations: data,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch top posts: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      setTopPostsData(result.topPosts);
+    } catch (error) {
+      console.error("Error fetching LinkedIn top posts:", error);
+    }
+  };
+
+  const GetLinkedinPostsAPI = async ({ id, token }) => {
+    if (!id || !token) return;
+    try {
+      const response = await fetch("/api/linkedin/all-posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id, token }),
+      });
+
+      const data = await response.json();
+      setPosts(data);
+    } catch (err) {
+      console.error("Failed to fetch LinkedIn posts:", err);
+    }
+  };
+
+  const GetLinkedinRecentsPost = async (organizations) => {
+    try {
+      const response = await fetch("/api/linkedin/recent-posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ organizations }), // send whole array
+      });
+  
+      const result = await response.json();
+      setRecentPosts(result.data); // you may want to store differently based on UI
+    } catch (err) {
+      console.error("Failed to fetch LinkedIn posts:", err);
+    }
+  };
+  
+
+
+  return (
+    <analyticsContext.Provider
+      value={{
+        GetGrowthDataAPI,
+        setGrowthData,
+        growthData,
+        GetTopPostsAPI,
+        topPostsData,
+        posts,
+        setPosts,
+        GetLinkedinPostsAPI,
+        recentPosts,
+        setRecentPosts,
+        GetLinkedinRecentsPost
+      }}
+    >
+      {children}
+    </analyticsContext.Provider>
+  );
+};
 
 export default analyticsContext;
