@@ -14,7 +14,10 @@ const initialData = {
   GetLinkedinPostsAPI: () => {},
   recentPosts: null,
   setRecentPosts: () => {},
-  GetLinkedinRecentsPost:()=>{ }
+  GetLinkedinRecentsPost: () => {},
+  GetAllViewsAPI: () => {},
+  allViews: null,
+  setAllViews: () => {},
 };
 
 const analyticsContext = createContext(initialData);
@@ -23,7 +26,8 @@ export const AnalyticsContextProvider = ({ children }) => {
   const [growthData, setGrowthData] = useState(initialData.growthData);
   const [topPostsData, setTopPostsData] = useState(initialData.topPostsData);
   const [posts, setPosts] = useState(initialData.posts);
-  const [recentPosts, setRecentPosts] = useState();
+  const [recentPosts, setRecentPosts] = useState(initialData.recentPosts);
+  const [allViews, setAllViews] = useState(initialData.allViews);
 
   const GetGrowthDataAPI = async ({ id, token }) => {
     try {
@@ -95,15 +99,30 @@ export const AnalyticsContextProvider = ({ children }) => {
         },
         body: JSON.stringify({ organizations }), // send whole array
       });
-  
+
       const result = await response.json();
       setRecentPosts(result.data); // you may want to store differently based on UI
     } catch (err) {
       console.error("Failed to fetch LinkedIn posts:", err);
     }
   };
-  
 
+  const GetAllViewsAPI = async (organizations) => {
+    try {
+      const response = await fetch("/api/linkedin/all-views", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ organizations }), 
+      });
+
+      const result = await response.json();
+      setAllViews(result.data); 
+    } catch (err) {
+      console.error("Failed to fetch LinkedIn posts:", err);
+    }
+  };
 
   return (
     <analyticsContext.Provider
@@ -118,7 +137,10 @@ export const AnalyticsContextProvider = ({ children }) => {
         GetLinkedinPostsAPI,
         recentPosts,
         setRecentPosts,
-        GetLinkedinRecentsPost
+        GetLinkedinRecentsPost,
+        GetAllViewsAPI,
+        allViews, 
+        setAllViews
       }}
     >
       {children}
