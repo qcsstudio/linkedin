@@ -31,9 +31,8 @@ const AnalyticsContianer = () => {
     getAllOrganizationsData,
     views
   } = useContext(userContext);
-  console.log("views",views)
 
-  const {GetGrowthDataAPI , growthData} = useContext(analyticsContext);
+  const {GetGrowthDataAPI , growthData , GetAllViewsAPI} = useContext(analyticsContext);
 
   useEffect(() => {
     if (linkedinAccounts) {
@@ -63,6 +62,7 @@ const AnalyticsContianer = () => {
   useEffect(() => {
     if (linkedinOrganizationData) {
       getAllOrganizationsData(linkedinOrganizationData);
+      GetAllViewsAPI(linkedinOrganizationData);
     }
   }, [linkedinOrganizationData]);
 
