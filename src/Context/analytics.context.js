@@ -118,7 +118,9 @@ export const AnalyticsContextProvider = ({ children }) => {
       });
 
       const result = await response.json();
-      setAllViews(result.data); 
+      console.log("resultXXXX" ,result)
+      setAllViews(result.dailyCombinedViews); 
+      
     } catch (err) {
       console.error("Failed to fetch LinkedIn posts:", err);
     }
