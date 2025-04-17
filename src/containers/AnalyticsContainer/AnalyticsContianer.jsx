@@ -15,6 +15,7 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { Dropdown } from "primereact/dropdown";
 import analyticsContext from "@/Context/analytics.context";
 import Loader from "../Loader/Loader";
+import AllViewsChart from "@/components/AnalyticsComponets/AllViewsChart";
 
 const AnalyticsContianer = () => {
   const [selectedaccount, setSelectedaccount] = useState(null);
@@ -166,6 +167,8 @@ const AnalyticsContianer = () => {
              <HeatMapAnalytics />
              <BestToPost2Analytics />
              <ReadyToScdeduleAnalytics />
+             {!selectedaccount && <AllViewsChart />}
+
            </div>
          </div>
       }
