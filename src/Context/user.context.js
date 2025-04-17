@@ -499,6 +499,105 @@ export const UserContextProvider = ({ children }) => {
     }
   };
 
+
+
+  // Password Verification
+  const verifyPassword = async(data)=>{
+
+    try {
+      
+      const res = await fetch('/api/password/verify',{
+        method:"POST",
+        headers:{
+          "content-type":"application/json"
+        },
+        body:JSON.stringify(data)
+      });
+
+      console.log("Verify password",res);
+      const result = await res.json();
+
+      return result.success;
+
+    } catch (error) {
+      console.log("Unable to Verify Password : ",error);
+      return false;
+    }
+
+  }
+
+  // Generate OTP
+  const generateOTP = async(data)=>{
+
+    try {
+      
+      const res = await fetch('/api/otp',{
+        method:"POST",
+        headers:{
+          "content-type":"application/json"
+        },
+        body:JSON.stringify(data)
+      });
+      console.log("OTp res",res);
+      
+    } catch (error) {
+      console.log("Unable to generate OTP : ",error);
+    }
+
+  }
+
+  // Generate OTP
+  const verifyGeneratedOTP = async(data)=>{
+
+    try {
+      
+      const response = await fetch('/api/otp/verify',{
+        method:"POST",
+        headers:{
+          "content-type":"application/json"
+        },
+        body:JSON.stringify(data)
+      });
+      const result = await response.json();
+      console.log("OTp verify res",result);
+
+      if(result.success === true){
+        return true;
+      }else{
+        return false;
+      }
+
+      
+    } catch (error) {
+      console.log("Unable to generate OTP : ",error);
+    }
+
+  }
+
+
+  const updateUserInfo = async(data)=>{
+    try {
+      const res = await fetch('/api/user',{
+        method:"PATCH",
+        headers:{
+          "content-type":"application/json"
+        },
+        body:JSON.stringify(data)
+      });
+
+      if(res.status === 200){
+        // setUserData(res.data);
+        return true;
+      }else{
+        return false;
+      }
+      
+    } catch (error) {
+      console.log("Unable to update User Data",error);
+      return false;
+    }
+  }
+
   
 
   return (
@@ -531,7 +630,11 @@ export const UserContextProvider = ({ children }) => {
         changePassword,
         getOTP,
         verifyOTP,
-        forgetPasswordCall
+        forgetPasswordCall,
+        verifyPassword,
+        generateOTP,
+        verifyGeneratedOTP,
+        updateUserInfo
       }}
     >
       {children}
