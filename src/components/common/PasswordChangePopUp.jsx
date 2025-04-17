@@ -65,6 +65,8 @@ const PasswordChangePopUp = () => {
         setOtpCorrect(false);
         setSeconds(29);
         setOtpData("");
+        setConfirmPassword("");
+        setNewPassword("");
         setChangePasswordMessage({
             message:"",
             success:null

@@ -1,4 +1,5 @@
 "use client"
+import EmailChangePopUp from "@/components/common/EmailChangePopUp";
 import PasswordChangePopUp from "@/components/common/PasswordChangePopUp";
 import SideBar from "@/components/common/SideBar";
 import Navbar from "@/components/Navbar";
@@ -9,7 +10,7 @@ import { useContext } from "react";
 
 const layout = ({ children }) => {
 
-  const { openPopUp, setOpenPopUp } = useContext(uiContext);
+  const { openPopUp, setOpenPopUp,openEmailPopUp, setEmailOpenPopUp } = useContext(uiContext);
 
   return (
     <>
@@ -38,6 +39,8 @@ const layout = ({ children }) => {
         {/* POP-UP */}
 
         {openPopUp == true && <PasswordChangePopUp/>}
+
+        {openEmailPopUp && <EmailChangePopUp/>}
       </div>
     </>
   );
