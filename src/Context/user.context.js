@@ -319,6 +319,7 @@ export const UserContextProvider = ({ children }) => {
       };
     }
   };
+  
 
   const getAllOrganizationsData = async (data) => {
     try {
