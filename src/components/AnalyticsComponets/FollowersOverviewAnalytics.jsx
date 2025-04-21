@@ -39,7 +39,8 @@ export default function FollowersChart({id, token}) {
         }
       );
       const data = await res.json();
-
+        console.log(data);
+        
       let transformedData = data.elements.map((item) => {
         const date = new Date(item.timeRange.start).toISOString();
         return {

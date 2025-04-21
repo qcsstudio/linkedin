@@ -1,7 +1,7 @@
 "use client";
 import BestToPost2Analytics from "@/components/AnalyticsComponets/BestTimeToPost2Analytics";
 import BestTimeToPostAnalytics from "@/components/AnalyticsComponets/BestTimeToPostAnalytics";
-import FollowersOverview from "@/components/AnalyticsComponets/FollowersOverviewAnalytics";
+import FollowersChart from "@/components/AnalyticsComponets/FollowersChart";
 import HeatMapAnalytics from "@/components/AnalyticsComponets/HeatMapAnalytics";
 import ImpressionOverviewAnalytics from "@/components/AnalyticsComponets/ImpressionOverviewAnalytics";
 import ReadyToScdeduleAnalytics from "@/components/AnalyticsComponets/ReadyToScdeduleAnalytics";
@@ -33,7 +33,7 @@ const AnalyticsContianer = () => {
     views
   } = useContext(userContext);
 
-  const {GetGrowthDataAPI , growthData , GetAllViewsAPI} = useContext(analyticsContext);
+  const {GetGrowthDataAPI , growthData , GetAllViewsAPI,GetAllFollowersAPI} = useContext(analyticsContext);
 
   useEffect(() => {
     if (linkedinAccounts) {
@@ -64,6 +64,7 @@ const AnalyticsContianer = () => {
     if (linkedinOrganizationData) {
       getAllOrganizationsData(linkedinOrganizationData);
       GetAllViewsAPI(linkedinOrganizationData);
+      GetAllFollowersAPI(linkedinOrganizationData);
     }
   }, [linkedinOrganizationData]);
 
@@ -149,7 +150,7 @@ const AnalyticsContianer = () => {
            )}
            
            {selectedaccount && (
-             <FollowersOverview
+             <FollowersChart
                id={selectedaccount.id}
                token={selectedaccount.token}
              />
@@ -163,11 +164,13 @@ const AnalyticsContianer = () => {
            )}
    
            <div className="bg-white/50 flex flex-col gap-5 rounded-lg p-5">
+           {!selectedaccount && <AllViewsChart />}
+             {!selectedaccount && <FollowersChart />}
              <BestTimeToPostAnalytics />
              <HeatMapAnalytics />
              <BestToPost2Analytics />
              <ReadyToScdeduleAnalytics />
-             {!selectedaccount && <AllViewsChart />}
+             
 
            </div>
          </div>
