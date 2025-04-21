@@ -167,7 +167,7 @@ const HomeComponent = () => {
     getAllOrganizationsData,
   } = useContext(userContext);
 
-  const { GetLinkedinRecentsPost, recentPosts, GetTopPostsAPI, topPostsData } =
+  const { GetLinkedinRecentsPost, recentPosts, GetTopPostsAPI, topPostsData  , GetLatestCommentsAPI} =
     useContext(analyticsContext);
 
   useEffect(() => {
@@ -187,6 +187,7 @@ const HomeComponent = () => {
       getAllOrganizationsData(linkedinOrganizationData);
       GetLinkedinRecentsPost(linkedinOrganizationData);
       GetTopPostsAPI({ data: linkedinOrganizationId });
+      GetLatestCommentsAPI({data : linkedinOrganizationId });
     }
   }, [linkedinOrganizationData]);
 
