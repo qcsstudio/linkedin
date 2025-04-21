@@ -5,13 +5,16 @@ import { IoIosAddCircle } from 'react-icons/io';
 import { motion, AnimatePresence } from 'framer-motion';
 import { userContext } from '@/Context/user.context';
 import { uiContext } from '@/Context/ui.context';
+import { FaUserAlt } from "react-icons/fa";
+import { CiImageOn } from 'react-icons/ci';
+import Image from 'next/image';
 
 
 const PersonalInformation = ({ editOptions }) => {
 
   const { editMode, setEditMode } = editOptions;
   const { userData } = useContext(userContext);
-  const { openEmailPopUp, setEmailOpenPopUp, emailOtpCorrect, setEmailOtpCorrect, emailOtpError, setEmailOtpError, emailChange, setEmailChange, setPasswordDataCorrect, passwordDataCorrect, firstName, setFirstName, lastName, setLastName, email, setEmail, phone, setPhone } = useContext(uiContext);
+  const { openEmailPopUp, setEmailOpenPopUp, emailOtpCorrect, setEmailOtpCorrect, emailOtpError, setEmailOtpError, emailChange, setEmailChange, setPasswordDataCorrect, passwordDataCorrect, firstName, setFirstName, lastName, setLastName, email, setEmail, phone, setPhone, avatar, setAvatar } = useContext(uiContext);
 
   const { verifyPassword, generateOTP, updateUserInfo } = useContext(userContext);
 
@@ -20,6 +23,7 @@ const PersonalInformation = ({ editOptions }) => {
     setPhone(userData?.phone);
     setFirstName(userData?.firstName);
     setLastName(userData?.lastName);
+    setAvatar(userData?.avatar);
   }, [userData]);
 
 
@@ -46,6 +50,35 @@ const PersonalInformation = ({ editOptions }) => {
     }
   }
 
+  // Handle Image Change
+  const handleImageChange = async (e) => {
+    const imageData = e?.target?.files[0];
+
+    try {
+      let fileName = Date.now() ;
+      fileName = String(fileName) + imageData.name;
+      const res = await fetch(`/api/s3-upload-url?fileName=${fileName}&fileType=${imageData.type}`);
+      const { uploadURL, key } = await res.json();
+
+      // Uploading to the temp url
+      const response = await fetch(uploadURL, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': imageData.type,
+      },
+      body: imageData,
+      });
+      // const tempData = await response.json()
+      console.log("Image UPload Response S3: ",response?.url);
+
+      const imageUrl = `https://${process.env.NEXT_PUBLIC_S3_BUCKET_NAME}.s3.${process.env.NEXT_PUBLIC_AWS_REGION}.amazonaws.com/${key}`;
+      console.log("Upload Image URL : ",imageUrl);
+      setAvatar(imageUrl); // update your context or state
+    } catch (error) {
+      console.log("Unable to upload Image:", error);
+    }
+  }
+
   return (
     <>
       <div className="mainContainer">
@@ -64,24 +97,34 @@ const PersonalInformation = ({ editOptions }) => {
 
             {/* Buttons */}
             {editMode && <div className="buttonsContainer w-[100%] flex gap-[1rem]">
-              <button className={`bg-[#38bdf8] hover:bg-[#21aeeb] text-[#fff] px-[2rem] py-[.3rem] rounded-[.3rem] transition-all ease-in-out hover:scale-[.99]`}>Change Image</button>
+              {/* Image Input */}
+              <label htmlFor="avatar_Image" className="input bg-[#38bdf8] hover:bg-[#21aeeb] text-[#fff] px-[2rem] py-[.3rem] rounded-[.3rem] transition-all ease-in-out hover:scale-[.99] cursor-pointer">
+                Change Image
+              </label>
+              <input type="file"
+                accept='image/*'
+                name="avatar_Image"
+                id="avatar_Image"
+                style={{ display: "none" }}
+                onChange={handleImageChange}
+              />
+
+
               <button className={`bg-[#6b7280]/25  text-[#fff] px-[2rem] py-[.3rem] rounded-[.3rem] transition-all ease-in-out hover:scale-[.99]`}>Remove Image</button>
             </div>}
 
           </div>
           <div className="w-full  sm:w-[50%] flex justify-center sm:justify-end z-[100]">
 
-            <div className="w-28 h-28 relative">
-              {/* Plus Icon */}
-              <IoIosAddCircle className="absolute top-3 right-3 text-sky-500 z-10" />
+            <div className="w-28 h-28 relative overflow-hidden  rounded-[50%]">
 
               {/* File Upload Trigger */}
-              <label htmlFor="fileInput" className="w-[100px] h-[100px] bg-[#ECECEE] rounded-full cursor-pointer flex justify-center items-center relative">
-                <FaCamera className="w-8 h-8" />
-              </label>
+              {avatar == null || undefined ?
+                <label htmlFor="fileInput" className="w-[100px] h-[100px] bg-[#ECECEE] rounded-full cursor-pointer flex justify-center items-center relative">
+                  <FaUserAlt className="w-8 h-8" />
+                </label>
+                : <Image src={avatar} alt="Avatar" width={100} height={100} className="w-[100%] h-[100%] rounded-[50%] object-fill" />}
 
-              {/* Hidden File Input */}
-              <input type="file" id="fileInput" className="hidden" />
             </div>
 
           </div>
@@ -136,7 +179,7 @@ const PersonalInformation = ({ editOptions }) => {
                     type="text"
                     className="w-full h-[100%] focus:outline-none "
                     value={firstName}
-                    onChange={(e)=>setFirstName(e.target.value)}
+                    onChange={(e) => setFirstName(e.target.value)}
                   />
                 </div>
                 {/* Last Name */}
@@ -147,7 +190,7 @@ const PersonalInformation = ({ editOptions }) => {
                     type="text"
                     className="w-full h-[100%] focus:outline-none "
                     value={lastName}
-                    onChange={(e)=>setLastName(e.target.value)}
+                    onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
               </div>
@@ -169,7 +212,7 @@ const PersonalInformation = ({ editOptions }) => {
                   type="number"
                   className="w-full h-[100%] focus:outline-none appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                   value={phone}
-                  onChange={(e)=>setPhone(e.target.value)}
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
 
