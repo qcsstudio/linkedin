@@ -18,6 +18,9 @@ const initialData = {
   GetAllViewsAPI: () => {},
   allViews: null,
   setAllViews: () => {},
+  GetLatestCommentsAPI: () => {},
+  latestComments: null,
+  setLatestComments: () => {},
 };
 
 const analyticsContext = createContext(initialData);
@@ -28,6 +31,9 @@ export const AnalyticsContextProvider = ({ children }) => {
   const [posts, setPosts] = useState(initialData.posts);
   const [recentPosts, setRecentPosts] = useState(initialData.recentPosts);
   const [allViews, setAllViews] = useState(initialData.allViews);
+  const [latestComments, setLatestComments] = useState(
+    initialData.latestComments
+  );
 
   const GetGrowthDataAPI = async ({ id, token }) => {
     try {
@@ -114,13 +120,30 @@ export const AnalyticsContextProvider = ({ children }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ organizations }), 
+        body: JSON.stringify({ organizations }),
       });
 
       const result = await response.json();
-      console.log("resultXXXX" ,result)
-      setAllViews(result.dailyCombinedViews); 
-      
+      console.log("resultXXXX", result);
+      setAllViews(result.dailyCombinedViews);
+    } catch (err) {
+      console.error("Failed to fetch LinkedIn posts:", err);
+    }
+  };
+
+  const GetLatestCommentsAPI = async (organizations) => {
+    try {
+      const response = await fetch("/api/linkedin/latest-comments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ organizations }),
+      });
+
+      const result = await response.json();
+      console.log("resultXXXX", result);
+      setLatestComments(result.comments);
     } catch (err) {
       console.error("Failed to fetch LinkedIn posts:", err);
     }
@@ -141,8 +164,11 @@ export const AnalyticsContextProvider = ({ children }) => {
         setRecentPosts,
         GetLinkedinRecentsPost,
         GetAllViewsAPI,
-        allViews, 
-        setAllViews
+        allViews,
+        setAllViews,
+        GetLatestCommentsAPI,
+        latestComments, 
+        setLatestComments
       }}
     >
       {children}
