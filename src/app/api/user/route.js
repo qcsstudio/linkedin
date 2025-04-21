@@ -15,8 +15,14 @@ export const PATCH = async(req)=>{
         const token = await verifyToken(jwt_data.value);
         const userId = token?.userId;
         console.log("User Token PASS : ",userId);
+        
+        const oldEmail = await setOldEmail(userId);
 
-        const userData = await User.findByIdAndUpdate(userId,data,{new:true});
+        if(!oldEmail){
+            return Response.json({message:"Unable to Update User!",status:500,success:false},{status:500});
+        }
+
+        const userData = await User.findByIdAndUpdate(userId,{...data,$push:{oldEmail:oldEmail}},{new:true});
         console.log("User Updated : ",userData);
 
         const { password, ...user_data } = userData._doc;
@@ -31,4 +37,19 @@ export const PATCH = async(req)=>{
         return Response.json({message:"Server Error Unable to update user data",success:false,status:500},{status:500});
     }
 
+}
+
+
+const setOldEmail = async(userId)=>{
+    try {
+        await connectDB();
+
+        const userData = await User.findById(userId);
+
+        return userData?.email;
+        
+    } catch (error) {
+        console.log("Unable to update old email array! ",error);
+        return false;
+    }
 }

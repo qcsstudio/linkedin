@@ -8,7 +8,7 @@ import { userContext } from "@/Context/user.context";
 const EmailChangePopUp = () => {
 
     // useContext's ================================================
-    const { openEmailPopUp, setEmailOpenPopUp, emailOtpCorrect, setEmailOtpCorrect, emailOtpError, setEmailOtpError , emailChange, setEmailChange,firstName, setFirstName, lastName, setLastName, email, setEmail, phone, setPhone,editMode,setEditMode  } = useContext(uiContext);
+    const { openEmailPopUp, setEmailOpenPopUp, emailOtpCorrect, setEmailOtpCorrect, emailOtpError, setEmailOtpError , emailChange, setEmailChange,firstName, setFirstName, lastName, setLastName, email, setEmail, phone, setPhone,editMode,setEditMode ,avatar } = useContext(uiContext);
 
     const {verifyPassword, generateOTP,verifyGeneratedOTP,updateUserInfo } = useContext(userContext);
 
@@ -59,7 +59,7 @@ const EmailChangePopUp = () => {
                 await generateOTP({email:emailChange?.email});
             }else{
                 setEmailOpenPopUp(false);
-                const result = await updateUserInfo({firstName,lastName,phone});
+                const result = await updateUserInfo({firstName,lastName,phone,avatar});
                 if(result){
                     setEmailOpenPopUp(false);
                     setEditMode(false);
@@ -78,7 +78,7 @@ const EmailChangePopUp = () => {
         const result = await verifyGeneratedOTP({email,OTP});
         if(result){
 
-            const response = await updateUserInfo({firstName,lastName,phone,email});
+            const response = await updateUserInfo({firstName,lastName,phone,email,avatar});
             if(response){
                 setEmailOpenPopUp(false);
                 setEditMode(false);

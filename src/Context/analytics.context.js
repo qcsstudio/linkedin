@@ -21,6 +21,8 @@ const initialData = {
   GetLatestCommentsAPI: () => {},
   latestComments: null,
   setLatestComments: () => {},
+  allFollowers:null,
+  setAllFollowers:()=>{},
 };
 
 const analyticsContext = createContext(initialData);
@@ -34,6 +36,7 @@ export const AnalyticsContextProvider = ({ children }) => {
   const [latestComments, setLatestComments] = useState(
     initialData.latestComments
   );
+  const [allFollowers, setAllFollowers] = useState(initialData.allViews);
 
   const GetGrowthDataAPI = async ({ id, token }) => {
     try {
@@ -149,6 +152,25 @@ export const AnalyticsContextProvider = ({ children }) => {
     }
   };
 
+  const GetAllFollowersAPI = async(organizations) =>{
+    try {
+      const response = await fetch("/api/linkedin/all-followers",{
+        method:'POST',
+        headers:{
+          "Content-type":"application/json",
+        },
+        body:JSON.stringify({organizations})
+      })
+
+      const result = await response.json();
+      console.log("reult of the followers",result);
+      setAllFollowers(result)
+      
+    } catch (err) {
+      console.error("Failed to fetch LinkedIn Followers:", err);
+    }
+  }
+
   return (
     <analyticsContext.Provider
       value={{
@@ -164,11 +186,13 @@ export const AnalyticsContextProvider = ({ children }) => {
         setRecentPosts,
         GetLinkedinRecentsPost,
         GetAllViewsAPI,
-        allViews,
-        setAllViews,
         GetLatestCommentsAPI,
         latestComments, 
         setLatestComments
+        allViews, 
+        setAllViews,
+        allFollowers,
+        GetAllFollowersAPI,
       }}
     >
       {children}
