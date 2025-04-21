@@ -18,13 +18,16 @@ const initialContext = {
   setEmailChange: () => {},
   passwordDataCorrect:false,
   setPasswordDataCorrect:()=>{},
-  userUpdateForm:{
-    email:"",
-    phone:"",
-    firstName:"",
-    lastName:"",
-  },
-  setUserUpdateForm:()=>{}
+  firstName:"",
+  setFirstName:()=>{},
+  lastName:"",
+  setLastName:()=>{},
+  email:"",
+  setEmail:()=>{},
+  phone:"",
+  setPhone:()=>{},
+  avatar:null,
+  setAvatar:()=>{},
 };
 
 export const uiContext = createContext(initialContext);
@@ -40,14 +43,15 @@ export const UiContextProvider = ({ children }) => {
   const [emailChange, setEmailChange] = useState(initialContext.emailChange);
   const [passwordDataCorrect,setPasswordDataCorrect] = useState(initialContext.passwordDataCorrect);
 
-  const [firstName,setFirstName] = useState("");
-  const [lastName,setLastName] = useState("");
-  const [email,setEmail] = useState("");
-  const [phone,setPhone] = useState("");
+  const [firstName,setFirstName] = useState(initialContext.firstName);
+  const [lastName,setLastName] = useState(initialContext.lastName);
+  const [email,setEmail] = useState(initialContext.email);
+  const [phone,setPhone] = useState(initialContext.phone);
+  const [avatar,setAvatar] = useState(initialContext.avatar);
   const [editMode,setEditMode] = useState(false);
 
   return (
-    <uiContext.Provider value={{ openPopUp, setOpenPopUp,setOtpCorrect,otpCorrect,otpError, setOtpError ,openEmailPopUp, setEmailOpenPopUp, emailOtpCorrect, setEmailOtpCorrect, emailOtpError, setEmailOtpError, emailChange, setEmailChange,setPasswordDataCorrect,passwordDataCorrect,firstName,setFirstName,lastName,setLastName,email,setEmail,phone,setPhone,editMode,setEditMode}}>
+    <uiContext.Provider value={{ openPopUp, setOpenPopUp,setOtpCorrect,otpCorrect,otpError, setOtpError ,openEmailPopUp, setEmailOpenPopUp, emailOtpCorrect, setEmailOtpCorrect, emailOtpError, setEmailOtpError, emailChange, setEmailChange,setPasswordDataCorrect,passwordDataCorrect,firstName,setFirstName,lastName,setLastName,email,setEmail,phone,setPhone,editMode,setEditMode,avatar,setAvatar}}>
       {children}
     </uiContext.Provider>
   );

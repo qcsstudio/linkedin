@@ -21,6 +21,7 @@
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
     "apexcharts": "^4.5.0",
+    "aws-sdk": "^2.1692.0",
     "axios": "^1.8.4",
     "bcryptjs": "^3.0.2",
     "cookie": "^1.0.2",

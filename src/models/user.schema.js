@@ -18,11 +18,16 @@ const userSchema = new mongoose.Schema({
         type:String,
         require:true,
     },
+
     role:{
         type:String,
         default:null
     },
     phone:{
+        type:String,
+        default:null,
+    },
+    avatar:{
         type:String,
         default:null,
     },
@@ -50,6 +55,11 @@ const userSchema = new mongoose.Schema({
         type:Number,
         default:7
     },
+    oldEmail:[
+        {
+            type:String,
+        }
+    ],
     platforms:[
         {
             platformName:{
