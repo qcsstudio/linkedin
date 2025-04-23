@@ -8,7 +8,7 @@ function FacebookLoginPage() {
       <button
         onClick={() => {
           if (typeof FB !== "undefined") {
-            FB.login(
+            FB.login(    
               function (response) {
                 if (response.authResponse) {
                   const accessToken = response.authResponse.accessToken;
