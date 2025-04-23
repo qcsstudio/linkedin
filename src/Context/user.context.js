@@ -599,8 +599,48 @@ export const UserContextProvider = ({ children }) => {
     }
   }
 
-  
 
+
+  const createUser = async(data)=>{
+    
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/auth/user/`,{
+        method:"POST",
+        headers:{
+          "content-type":"application/json"
+        },
+        body:JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      
+      setLoading(false);
+      if(res.status === 200){
+        let val = {};
+        val.email = result?.data?.email;
+        val.password = data?.password;
+        const res = await fetch(`/api/mailcredentials/`,{
+          method:"POST",
+          headers:{
+            "content-type":"application/json"
+          },
+          body:JSON.stringify(val)
+        });
+        return {severity:"success",summary:result?.message}
+      }else{
+        return {severity:"error",summary:result?.message}
+
+      }
+    } catch (error) {
+      console.log("Unable to create User!",error);
+      setLoading(false);
+      return {severity:"error",summary:error.message}
+    }
+
+  }
+
+  
   return (
     <userContext.Provider
       value={{
@@ -635,7 +675,9 @@ export const UserContextProvider = ({ children }) => {
         verifyPassword,
         generateOTP,
         verifyGeneratedOTP,
-        updateUserInfo
+        updateUserInfo,
+        createUser,
+        loading
       }}
     >
       {children}
