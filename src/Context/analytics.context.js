@@ -18,8 +18,11 @@ const initialData = {
   GetAllViewsAPI: () => {},
   allViews: null,
   setAllViews: () => {},
-  allFollowers:null,
-  setAllFollowers:()=>{},
+  allFollowers: null,
+  setAllFollowers: () => {},
+  heatMapData: null,
+  setHeatMapData: () => {},
+  GETHeatMapAPI: () => {}
 };
 
 const analyticsContext = createContext(initialData);
@@ -31,6 +34,7 @@ export const AnalyticsContextProvider = ({ children }) => {
   const [recentPosts, setRecentPosts] = useState(initialData.recentPosts);
   const [allViews, setAllViews] = useState(initialData.allViews);
   const [allFollowers, setAllFollowers] = useState(initialData.allViews);
+  const [heatMapData, setHeatMapData] = useState(initialData.heatMapData);
 
   const GetGrowthDataAPI = async ({ id, token }) => {
     try {
@@ -117,36 +121,51 @@ export const AnalyticsContextProvider = ({ children }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ organizations }), 
+        body: JSON.stringify({ organizations }),
       });
 
       const result = await response.json();
-      console.log("resultXXXX" ,result)
-      setAllViews(result.dailyCombinedViews); 
-      
+      console.log("resultXXXX", result);
+      setAllViews(result.dailyCombinedViews);
     } catch (err) {
       console.error("Failed to fetch LinkedIn posts:", err);
     }
   };
 
-  const GetAllFollowersAPI = async(organizations) =>{
+  const GetAllFollowersAPI = async (organizations) => {
     try {
-      const response = await fetch("/api/linkedin/all-followers",{
-        method:'POST',
-        headers:{
-          "Content-type":"application/json",
+      const response = await fetch("/api/linkedin/all-followers", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
         },
-        body:JSON.stringify({organizations})
-      })
+        body: JSON.stringify({ organizations }),
+      });
 
       const result = await response.json();
-      console.log("reult of the followers",result);
-      setAllFollowers(result)
-      
+      console.log("reult of the followers", result);
+      setAllFollowers(result);
     } catch (err) {
       console.error("Failed to fetch LinkedIn Followers:", err);
     }
-  }
+  };
+
+  const GETHeatMapAPI = async (data) => {
+    try {
+      const response = await fetch("/api/linkedin/engagement-heatmap", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ data }),
+      });
+
+      const result = await response.json();
+      setHeatMapData(result.data);
+    } catch (err) {
+      console.error("Failed to fetch LinkedIn Followers:", err);
+    }
+  };
 
   return (
     <analyticsContext.Provider
@@ -163,10 +182,13 @@ export const AnalyticsContextProvider = ({ children }) => {
         setRecentPosts,
         GetLinkedinRecentsPost,
         GetAllViewsAPI,
-        allViews, 
+        allViews,
         setAllViews,
         allFollowers,
         GetAllFollowersAPI,
+        heatMapData,
+        setHeatMapData,
+        GETHeatMapAPI
       }}
     >
       {children}

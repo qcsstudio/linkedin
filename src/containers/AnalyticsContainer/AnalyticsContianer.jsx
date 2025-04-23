@@ -30,10 +30,17 @@ const AnalyticsContianer = () => {
     linkedinProfileData,
     linkedinOrganizationData,
     getAllOrganizationsData,
-    views
+    views,
   } = useContext(userContext);
 
-  const {GetGrowthDataAPI , growthData , GetAllViewsAPI,GetAllFollowersAPI} = useContext(analyticsContext);
+  const {
+    GetGrowthDataAPI,
+    growthData,
+    GetAllViewsAPI,
+    GetAllFollowersAPI,
+    GETHeatMapAPI,
+    heatMapData,
+  } = useContext(analyticsContext);
 
   useEffect(() => {
     if (linkedinAccounts) {
@@ -56,7 +63,11 @@ const AnalyticsContianer = () => {
       GetGrowthDataAPI({
         id: selectedaccount.id,
         token: selectedaccount.token,
-      })
+      });
+      GETHeatMapAPI({
+        id: selectedaccount.id,
+        token: selectedaccount.token,
+      });
     }
   }, [selectedaccount]);
 
@@ -134,47 +145,46 @@ const AnalyticsContianer = () => {
           )}
         </div>
       </div>
-      {
-        !oneOrganizationAnalticsData ?
-         <div className=" flex   min-h-[600px] z-10 rounded-lg bg-white/40">
-           <Loader/>
-         </div>   :   <div className="p-6 flex flex-col gap-3 z-10 rounded-lg bg-white/40">
-           <h1 className="font-bold text-lg">Social Media Engagement</h1>
-           {oneOrganizationAnalticsData && (
-             <TotalOverview
-               data={oneOrganizationAnalticsData[0]?.totalShareStatistics}
-               followers={organizationFollowerCount}
-               growthData={growthData}
-               views={views}
-             />
-           )}
-           
-           {selectedaccount && (
-             <FollowersChart
-               id={selectedaccount.id}
-               token={selectedaccount.token}
-             />
-           )}
-   
-           {selectedaccount && (
-             <ImpressionOverviewAnalytics
-               id={selectedaccount.id}
-               token={selectedaccount.token}
-             />
-           )}
-   
-           <div className="bg-white/50 flex flex-col gap-5 rounded-lg p-5">
-           {!selectedaccount && <AllViewsChart />}
-             {!selectedaccount && <FollowersChart />}
-             <BestTimeToPostAnalytics />
-             <HeatMapAnalytics />
-             <BestToPost2Analytics />
-             <ReadyToScdeduleAnalytics />
-             
+      {!oneOrganizationAnalticsData ? (
+        <div className=" flex   min-h-[600px] z-10 rounded-lg bg-white/40">
+          <Loader />
+        </div>
+      ) : (
+        <div className="p-6 flex flex-col gap-3 z-10 rounded-lg bg-white/40">
+          <h1 className="font-bold text-lg">Social Media Engagement</h1>
+          {oneOrganizationAnalticsData && (
+            <TotalOverview
+              data={oneOrganizationAnalticsData[0]?.totalShareStatistics}
+              followers={organizationFollowerCount}
+              growthData={growthData}
+              views={views}
+            />
+          )}
 
-           </div>
-         </div>
-      }
+          {selectedaccount && (
+            <FollowersChart
+              id={selectedaccount.id}
+              token={selectedaccount.token}
+            />
+          )}
+
+          {selectedaccount && (
+            <ImpressionOverviewAnalytics
+              id={selectedaccount.id}
+              token={selectedaccount.token}
+            />
+          )}
+
+          <div className="bg-white/50 flex flex-col gap-5 rounded-lg p-5">
+            {!selectedaccount && <AllViewsChart />}
+            {!selectedaccount && <FollowersChart />}
+            <BestTimeToPostAnalytics />
+            {heatMapData && <HeatMapAnalytics data={heatMapData} />}
+            <BestToPost2Analytics />
+            <ReadyToScdeduleAnalytics />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
