@@ -6,7 +6,8 @@ import { sideBarData } from "@/data/sideBar.data"
 import { useState } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
 import { IoLogOut } from "react-icons/io5";
-import { logOut } from "@/utils/logout"
+import { logOut } from "@/utils/logout";
+import { FaUsers } from "react-icons/fa";
 
 
 const SideBar = () => {
@@ -30,12 +31,17 @@ const SideBar = () => {
       logo:"/images/settinglogos/profile.png" ,
     
   },
-    {
-     path: "/dashboard/settings/account",
-     label: "Account",
-     logo:"/images/settinglogos/account&subscription.png"
-   },
-   { 
+  {
+      path: "/dashboard/settings/account",
+      label: "Account",
+      logo:"/images/settinglogos/account&subscription.png"
+  },
+  {
+      path: "/dashboard/settings/createuser",
+      label: "Create User",
+      logo:"/images/settinglogos/multiUser.svg"
+  },
+  { 
     path: "/dashboard/settings/privacy", 
     label: "Privacy",
     logo:"/images/settinglogos/privacyLogo.png" ,
