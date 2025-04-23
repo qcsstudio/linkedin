@@ -1,63 +1,140 @@
 "use client";
-import React, { useContext } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+
+import React, { useContext, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import analyticsContext from "@/Context/analytics.context";
+
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const AllViewsChart = () => {
   const { allViews } = useContext(analyticsContext);
-  console.log("All Views Data: ", allViews);
+  const [chartData, setChartData] = useState([]);
 
-  // Transform data if needed (example: convert date format)
-  const chartData = allViews?.map(item => ({
-    ...item,
-    date: new Date(item.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
-  })) || [];
+  useEffect(() => {
+    if (allViews && allViews.length) {
+      const transformed = allViews.map((item) => ({
+        date: new Date(item.date).toISOString(),
+        views: item.views || 0,
+      }));
+      setChartData(transformed);
+    }
+  }, [allViews]);
 
-  // Calculate totals if not already provided
-  const totalViews = allViews?.reduce((sum, item) => sum + (item.views || 0), 0) || 0;
+  const totalViews = chartData.reduce((sum, d) => sum + d.views, 0);
+
+  const maxY = Math.max(...chartData.map((d) => d.views), 1);
+  const yaxisMax = maxY < 5 ? 5 : Math.ceil(maxY * 1.2);
+
+  const chartOptions = {
+    chart: {
+      id: "views-chart",
+      toolbar: {
+        show: true,
+        tools: {
+          download: true,
+          selection: true,
+          zoom: true,
+          zoomin: true,
+          zoomout: true,
+          pan: true,
+          reset: true,
+        },
+      },
+      animations: {
+        enabled: true,
+        easing: "easeinout",
+        speed: 800,
+      },
+    },
+    fill: {
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.3,
+        opacityTo: 0.1,
+        stops: [0, 90, 100],
+      },
+    },
+    xaxis: {
+      categories: chartData.map((d) => d.date),
+      labels: {
+        rotate: -45,
+        style: {
+          fontSize: "12px",
+        },
+        formatter: function (value) {
+          const date = new Date(value);
+          const day = date.getDate();
+          const month = date.toLocaleString("default", { month: "short" });
+          return `${day} ${month}`;
+        },
+      },
+      title: {
+        text: "Date",
+        style: { fontWeight: 600 },
+      },
+      axisTicks: {
+        show: true,
+      },
+    },
+    yaxis: {
+      title: {
+        text: "Views",
+        style: { fontWeight: 600 },
+      },
+      min: 0,
+      max: yaxisMax,
+      tickAmount: 5,
+      labels: {
+        formatter: (val) => Math.round(val),
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: "smooth",
+      width: 2,
+    },
+    tooltip: {
+      shared: true,
+      intersect: false,
+      y: {
+        formatter: (val) => `${val} views`,
+      },
+    },
+    legend: {
+      position: "top",
+      horizontalAlign: "center",
+    },
+    grid: {
+      borderColor: "#e0e0e0",
+      strokeDashArray: 4,
+    },
+  };
+
+  const series = [
+    {
+      name: "Views",
+      data: chartData.map((d) => d.views),
+    },
+  ];
 
   return (
-    <div className="bg-white rounded-xl p-4 shadow-md">
-      <h2 className="text-lg font-semibold mb-4">All Views Analytics</h2>
-      
-      {/* Summary Stats */}
-      <div className="flex gap-4 mb-4 text-sm">
-        {totalViews > 0 && (
-          <div className="bg-blue-50 px-3 py-2 rounded-lg">
-            <span className="text-gray-600">Total Views: </span>
-            <span className="font-bold text-blue-700">{totalViews.toLocaleString()}</span>
-          </div>
-        )}
+    <div className="p-6 bg-white/50 backdrop-blur-xl shadow-2xl rounded-2xl border border-white/40">
+      <h2 className="text-2xl font-bold mb-2 text-gray-800">All Views Analytics</h2>
+
+      <div className="mb-4 text-sm font-medium text-gray-700">
+        Total Views:{" "}
+        <strong className="text-blue-700">{totalViews.toLocaleString()}</strong>
       </div>
 
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-          <XAxis 
-            dataKey="date" 
-            tick={{ fontSize: 12 }}
-            tickMargin={10}
-          />
-          <YAxis 
-            tick={{ fontSize: 12 }}
-            tickFormatter={(value) => new Intl.NumberFormat('en').format(value)}
-          />
-          <Tooltip 
-            formatter={(value) => [`${value} views`, 'Views']}
-            labelFormatter={(label) => `Date: ${label}`}
-          />
-          <Legend />
-          <Line 
-            type="monotone" 
-            dataKey="views" 
-            name="Views"
-            stroke="#4deeea" 
-            strokeWidth={2}
-            dot={{ r: 3 }}
-            activeDot={{ r: 6 }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
+      <Chart
+        className="bg-white/60"
+        options={chartOptions}
+        series={series}
+        type="area"
+        height={380}
+      />
     </div>
   );
 };
