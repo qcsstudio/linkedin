@@ -2,11 +2,14 @@
 import React from 'react'
 import Image from 'next/image'
 import mainLogo from '../../../public/images/mainLogo.png'
+import { useRouter } from "next/navigation";
 
 const WelcomeContainer = () => {
+  const router = useRouter()
 
   setTimeout(() => {
-    window.location.href = "/dashboard";
+    router.push("/dashboard");
+    // window.location.href = "/dashboard";
   }, 2000);
 
   return (

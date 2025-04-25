@@ -40,12 +40,12 @@ export default function AccountComponent() {
             <p className="heading text-[1.4rem] font-normal sticky">
               Hi, QCS <span className="text-[.9rem]">Keep Moving Forward</span>
             </p>
-            <button
+            {((userData?.role === "admin") || (userData?.role === "brand_manager")) && <button
               className="px-[3rem] py-[0.5rem] bg-[#007BFF] rounded-[.5rem] text-[#ffffff]"
               onClick={() => setAddAccount(true)}
             >
               + Add Account
-            </button>
+            </button>}
           </div>
 
           <div
@@ -55,7 +55,7 @@ export default function AccountComponent() {
             {linkedinProfileData ? (
               <>
                 {linkedinProfileData.map((item, index) => {
-                
+
                   return (
                     <div key={item.user?.sub || index} className="w-[31%]">
                       <Card data={item.user} />
@@ -71,10 +71,13 @@ export default function AccountComponent() {
                   );
                 })}
 
-                <AddCard
-                  setAddAccount={setAddAccount}
-                  addAccount={addAccount}
-                />
+                {((userData?.role === "admin") || (userData?.role === "brand_manager")) &&
+
+                  <AddCard
+                    setAddAccount={setAddAccount}
+                    addAccount={addAccount}
+                  />
+                }
               </>
             ) : (
               <Loader />

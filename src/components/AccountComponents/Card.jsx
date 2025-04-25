@@ -1,12 +1,14 @@
 "use client";
 import Image from "next/image";
 import Button from "../common/Button";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import icon from "../../../public/images/accountImages/linkdedin.png";
+import { userContext } from "@/Context/user.context";
 
 const Card = ({ data }) => {
   console.log("data", data);
   const [status, setStatus] = useState("Active");
+  const { userData } = useContext(userContext);
   return (
     <>
       <div className="card  min-w-[100%] max-w-[100%] px-[2px] min-h-[12.5rem] max-h-[15.3rem]   
@@ -28,9 +30,8 @@ const Card = ({ data }) => {
 
             <div className="status flex items-center gap-[.5rem]">
               <div
-                className={`status w-[.5rem] h-[.5rem] ${
-                  status === "Active" ? "bg-[#29CE29]" : "bg-[#FCD53F]"
-                } rounded-[50%] `}
+                className={`status w-[.5rem] h-[.5rem] ${status === "Active" ? "bg-[#29CE29]" : "bg-[#FCD53F]"
+                  } rounded-[50%] `}
               ></div>
               <p className="Status text-[0.8rem]">{status}</p>
               <Image src={icon} alt="addIcon" width={30} height={30} />
@@ -43,11 +44,13 @@ const Card = ({ data }) => {
               backgroundColor={"#007BFF"}
               textColor={"#ffffff"}
             />
-            <Button
-              text={"Disconnected"}
-              backgroundColor={"#F0F0F0"}
-              textColor={"gray"}
-            />
+            {((userData?.role === "admin") || (userData?.role === "brand_manager")) &&
+              <Button
+                text={"Disconnect"}
+                backgroundColor={"#F0F0F0"}
+                textColor={"gray"}
+              />
+            }
           </div>
         </div>
       </div>
