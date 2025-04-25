@@ -1,14 +1,16 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Image from 'next/image'
 import { IoIosSearch } from "react-icons/io";
 import { FaQuestionCircle, FaBell } from "react-icons/fa";
 import { motion, AnimatePresence } from 'framer-motion';
 import userImage from '../../public/images/dashboardImages/userImage.png'
 import mainLogo from '../../public/images/mainLogo.png'
+import { userContext } from '@/Context/user.context';
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
+  const { userData } = useContext(userContext);
 
   const handleClick = () => {
     setShow((prev) => !prev);
@@ -18,9 +20,9 @@ const Navbar = () => {
     <div className=' bg-gradient-to-r border border-gray-500 from-purple-100 to-blue-200'>
       <div className='flex py-2 max-w-[1440px] h-[90px] md:py-4 lg:py-4 px-2 md:px-10 lg:px-[96px] mx-auto w-full justify-between items-center relative'>
 
-        
-          <Image src={mainLogo} className='object-contain w-[20%]'  alt='' />
-        
+
+        <Image src={mainLogo} className='object-contain w-[20%]' alt='' />
+
 
         <div className='font-medium md:hidden lg:hidden flex items-center justify-between relative z-10'>
           <button className='flex flex-col justify-center items-center' onClick={handleClick}>
@@ -52,8 +54,12 @@ const Navbar = () => {
               <p className='font-semi-bold lg:text-lg md:text-sm'>QCSStudio</p>
               <p className='text-sm text-[#9E9E9E] '>QCS Qa</p>
             </div>
-            <div className='w-[40px] h-[40px] bg-white rounded-full'>
-              <Image src={userImage} alt="alt"/>
+            <div className='w-[40px] h-[40px] bg-white flex justify-center items-center rounded-full overflow-hidden'>
+              {userData?.avatar ?
+                <Image src={userData?.avatar} alt="alt" width={1024} height={1024} className='w-[100%] h-[100%]' />
+                :
+                <Image src={userImage} alt="alt" width={1024} height={1024} className='w-[100%] h-[100%]' />
+              }
             </div>
           </div>
         </div>

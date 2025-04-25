@@ -79,8 +79,9 @@ export const UserContextProvider = ({ children }) => {
       if (response.status === 200) {
         const result = await response.json();
         setUserData(result);
-        router.push("/dashboard");
-        window.location.href = "/welcome";
+        // router.push("/dashboard");
+        router.push("/welcome");
+        // window.location.href = "/welcome";
       }
     } catch (error) {
       console.log("Unable to Update Plan /user.context");
@@ -112,8 +113,9 @@ export const UserContextProvider = ({ children }) => {
 
       setUserData(result.data);
       console.log(result.data);
+      router.push("/dashboard");
 
-      window.location.href = "/welcome";
+      // window.location.href = "/welcome";
     } catch (error) {
       console.error("Error:", error);
     }
@@ -143,8 +145,8 @@ export const UserContextProvider = ({ children }) => {
         alert(json.message || "Registration failed. Please try again.");
         return;
       }
-
-      window.location.href = "/plans";
+      router.push("/plans");
+      // window.location.href = "/plans";
     } catch (error) {
       console.error("Error:", error);
       alert("An error occurred. Please try again.");

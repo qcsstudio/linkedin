@@ -36,5 +36,5 @@ export const sideBarData = [
     inActiveImage: "/images/sideBarLogoImages/engagementBlack.svg",
     heading: "Engagement",
   },
- 
+
 ];
