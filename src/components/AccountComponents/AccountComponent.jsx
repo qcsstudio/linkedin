@@ -20,6 +20,10 @@ export default function AccountComponent() {
   } = useContext(userContext);
   const [addAccount, setAddAccount] = useState(false);
 
+  if(linkedinProfileData){
+    console.log("Linkedin Profile Data: ",linkedinProfileData);
+  }
+
   useEffect(() => {
     if (linkedinAccounts) {
       getUserLinkedinProfiles();

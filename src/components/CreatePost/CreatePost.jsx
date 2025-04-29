@@ -112,8 +112,10 @@ const CreatePost = () => {
             getUserLinkedinProfiles();
         }
     }, [linkedinAccounts]);
-    console.log("Linkedin Profile Data : ", linkedinProfileData && linkedinProfileData[0]?.user);
-    console.log("Linkedin Organization Data : ", linkedinOrganizationData);
+    if(linkedinProfileData){
+        console.log("Linkedin Profile Data : ", linkedinProfileData);
+    }
+    // console.log("Linkedin Organization Data : ", linkedinOrganizationData);
 
     useEffect(() => {
         if (linkedinOrganizationId) {
@@ -382,7 +384,7 @@ const CreatePost = () => {
 
                 <div className="p-5 flex flex-col gap-2 bg-white/50 rounded-lg">
                     <h2 className=" font-bold text-lg">Posting on</h2>
-                    {(linkedinProfileData && linkedinOrganizationData) &&
+                    {(linkedinProfileData) &&
                         <MultiSelect
                             value={selectedaccount}
                             onChange={(e) => setSelectedaccount(e.value)}

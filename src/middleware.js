@@ -6,7 +6,6 @@ export const middleware = async(req)=>{
         const cookieStore = await cookies();
         const jwtToken =  cookieStore.get("access_token");
 
-
         if(req.nextUrl.pathname.startsWith('/dashboard') && !jwtToken){
             return NextResponse.redirect(new URL('/login', req.url));
         }
