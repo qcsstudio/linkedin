@@ -42,15 +42,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" >
       <meta
         name="google-site-verification"
         content="FE1jcS7Gi8yAWxnnLZ-lweGrna3FI5zh61v14-5q1Og"
       />
-      <Link
+      {/* <Link
         href="https://fonts.googleapis.com/css2?family=NATS&display=swap"
         rel="stylesheet"
-      />
+      /> */}
       <Script
         id="google-tag-manager"
         strategy="afterInteractive"
@@ -77,7 +77,29 @@ export default function RootLayout({ children }) {
         `}
       </Script>
 
-      <body className={outfit.className}>
+      
+      <Script id="facebook-sdk" strategy="afterInteractive">
+        {`
+          window.fbAsyncInit = function() {
+            FB.init({
+              appId      : '528207910301806', 
+              cookie     : true,
+              xfbml      : true,
+              version    : 'v18.0'
+            });
+            FB.AppEvents.logPageView();   
+          };
+          (function(d, s, id){
+             var js, fjs = d.getElementsByTagName(s)[0];
+             if (d.getElementById(id)) {return;}
+             js = d.createElement(s); js.id = id;
+             js.src = "https://connect.facebook.net/en_US/sdk.js";
+             fjs.parentNode.insertBefore(js, fjs);
+           }(document, 'script', 'facebook-jssdk'));
+        `}
+      </Script>
+
+      <body className={outfit.className} >
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-KLNTT48L"
@@ -87,7 +109,7 @@ export default function RootLayout({ children }) {
           ></iframe>
         </noscript>
 
-        <BlogDataContextProvider>
+        <BlogDataContextProvider >
           <PrimeReactProvider>
             <UiContextProvider>
               <ContactUsContextProvider>
@@ -95,7 +117,7 @@ export default function RootLayout({ children }) {
                   <PostContextProvider>
                     <UserContextProvider>
                       <DashboardContextProvider>
-                        {children}
+                        {children }
                       </DashboardContextProvider>
                     </UserContextProvider>
                   </PostContextProvider>

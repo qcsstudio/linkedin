@@ -30,6 +30,7 @@
     "framer-motion": "^12.4.10",
     "jodit-react": "^5.2.19",
     "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
     "mongoose": "^8.10.1",
     "next": "15.1.7",
     "node-cron": "^3.0.3",
