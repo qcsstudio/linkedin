@@ -8,6 +8,8 @@ export async function GET(request) {
   const code = searchParams.get("code");
   const error = searchParams.get("error");
   const state = searchParams.get("state");
+  console.log("state data : ",state);
+  // const state = searchParams.get("state");
   const baseURL = "http://localhost:3000";
 
   // Handle LinkedIn errors
@@ -75,6 +77,9 @@ export async function GET(request) {
 
     const userInfo = await userInfoResponse.json();
 
+    console.log("Getting user info from callback in linkedin api : ======> ",userInfo);
+   
+
     // Set secure HTTP-only cookies
     cookieStore.set("linkedin_access_token", tokenData.access_token, {
       httpOnly: true,
@@ -107,8 +112,12 @@ export async function GET(request) {
           _id:userId,
           platformName: "linkedin",
           accessToken: tokenData.access_token,
+          name:userInfo?.name,
+          uniqueId:userInfo?.sub
         }),
       });
+
+      console.log(updateResponse);
 
       if (!updateResponse.ok) {
         console.error("Failed to update user with LinkedIn token");
@@ -130,6 +139,32 @@ export async function GET(request) {
       path: "/",
       maxAge: 60 * 60 * 24 * 7, // 1 week
     });
+
+    // NEW USER CREATION
+
+    const linkedinUserData = {
+      linkedinData:userInfo,
+      accessToken:tokenData?.access_token,
+      dataType:"personal",
+      userId:state
+    }
+    console.log("data object to update client : ",linkedinUserData);
+
+    // Sending Data to client object
+    const updatedUserData = await fetch('http://localhost:3000/api/client/',{
+      method:"PATCH",
+      headers:{
+        "content-type":"application/json"
+      },
+      body:JSON.stringify(linkedinUserData)
+    });
+
+    if(updatedUserData.status === 201){
+      console.log("Client Data updated successfully!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    }
+
+
+    
 
     return response;
   } catch (error) {

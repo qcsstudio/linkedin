@@ -18,7 +18,6 @@ const userSchema = new mongoose.Schema({
         type:String,
         require:true,
     },
-
     role:{
         type:String,
         default:null
@@ -31,9 +30,15 @@ const userSchema = new mongoose.Schema({
         type:String,
         default:null,
     },
-    clientName:{
-        type:String,
-        default:null
+    clientDetail:{
+        id:{
+            type:String,
+            default:null
+        },
+        name:{
+            type:String,
+            default:null
+        }
     },
     planType:{
         type:String,
@@ -67,6 +72,14 @@ const userSchema = new mongoose.Schema({
                 default:null
             },
             accessToken:{
+                type:String,
+                default:null
+            },
+            name:{
+                type:String,
+                default:null
+            },
+            uniqueId:{
                 type:String,
                 default:null
             }

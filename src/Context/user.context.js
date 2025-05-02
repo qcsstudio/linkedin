@@ -14,6 +14,8 @@ const initialData = {
   linkedinOrganizationData: null,
   oneOrganizationAnalticsData: null,
   organizationFollowerCount: null,
+  clientData:null,
+  setClientData:()=>{},
   setPlanType: () => {},
   setLoading: () => {},
   setUserData: () => {},
@@ -64,6 +66,9 @@ export const UserContextProvider = ({ children }) => {
   const [linkedinCombinedData, setLinkedinCombinedData] = useState(
     initialData.linkedinCombinedData
   );
+
+  const [clientData,setClientData] = useState(initialData.clientData)
+
   const router = useRouter();
 
   const updatePlan = async (plan) => {
@@ -180,6 +185,7 @@ export const UserContextProvider = ({ children }) => {
       throw error;
     }
   };
+
 
   const getUserLinkedinProfiles = async () => {
     try {
@@ -549,7 +555,7 @@ export const UserContextProvider = ({ children }) => {
 
   }
 
-  // Generate OTP
+  // Verify Generated OTP
   const verifyGeneratedOTP = async(data)=>{
 
     try {
@@ -577,7 +583,7 @@ export const UserContextProvider = ({ children }) => {
 
   }
 
-
+  // Update user info
   const updateUserInfo = async(data)=>{
     try {
       const res = await fetch('/api/user',{
@@ -602,7 +608,7 @@ export const UserContextProvider = ({ children }) => {
   }
 
 
-
+  // create users/roles
   const createUser = async(data)=>{
     
     try {
@@ -642,6 +648,46 @@ export const UserContextProvider = ({ children }) => {
 
   }
 
+  // create client
+  const createClient = async(data) =>{
+
+    try {
+
+      const res = await fetch('api/client',{
+        method:"POST",
+        headers:{
+          "content-type":"application/json"
+        },
+        body:JSON.stringify(data)
+      });
+
+      if(res.status === 201){
+        const result = await res.json();
+        return {severity:"success",summary:result?.message}
+      }else{
+        const result = await res.json();
+        return {severity:"error",summary:result?.message}
+      }
+      
+    } catch (error) {
+      console.log("Unable to create Client");
+      return {severity:"error",summary:error.message}
+    }
+
+  }
+
+  // client Data
+  const getClientData = async()=>{
+    try {
+      const response = await fetch("/api/client");
+      const result = await response.json();
+      console.log("client Data fetched SuccessFully",result);
+      setClientData(result.data);
+    } catch (error) {
+      console.log("Unable to get client data",error);
+    }
+  }
+
   
   return (
     <userContext.Provider
@@ -679,7 +725,11 @@ export const UserContextProvider = ({ children }) => {
         verifyGeneratedOTP,
         updateUserInfo,
         createUser,
-        loading
+        loading,
+        createClient,
+        clientData,
+        setClientData,
+        getClientData
       }}
     >
       {children}

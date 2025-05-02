@@ -4,6 +4,7 @@ import Button from "../common/Button";
 import { useContext, useState } from "react";
 import icon from "../../../public/images/accountImages/linkdedin.png";
 import { userContext } from "@/Context/user.context";
+import { CgOrganisation } from "react-icons/cg";
 
 const Card = ({ data }) => {
   console.log("data", data);
@@ -16,17 +17,19 @@ const Card = ({ data }) => {
       rounded-[.5rem]  flex  z-[100] ">
         <div className="innerCard w-[100%] h-[100%] mx-[px] my-[2px] p-2 bg-white/80  rounded-[.4rem]">
           <div className="upperCard w-[100%] h-[100%] flex items-center justify-center ">
-            <Image
-              src={data.picture}
+            {data.avatar === null ? <div className="upperCard w-[100%]  flex items-center justify-center ">
+              <CgOrganisation className="w-[4rem] h-[4rem] " />
+            </div> : <Image
+              src={data.avatar}
               alt="addIcon"
               width={100}
               height={100}
               className=" rounded-full object-fill"
-            />
+            />}
           </div>
 
           <div className="upperCard w-[100%] h-[20%] flex flex-col items-center justify-center ">
-            <p className="headingCard text-[1.1rem]">@{data.name}</p>
+            <p className="headingCard text-[1.1rem]">@{data.userName}</p>
 
             <div className="status flex items-center gap-[.5rem]">
               <div

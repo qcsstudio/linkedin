@@ -3,15 +3,15 @@ import mongoose from "mongoose";
 const clientSchema = new mongoose.Schema({
     clientName:{
         type:String,
-        require:true
+        require:true,
     },
     planType:{
         type:String,
-        require:true
+        default:"single"
     },
     clientDomain:{
         type:String,
-        require:true
+        default:null
     },
     planDuration:{
         type:Date,
@@ -24,7 +24,85 @@ const clientSchema = new mongoose.Schema({
     freeTrialDays:{
         type:Number,
         default:7
-    }
+    },
+    adminUser:{
+        id:{
+            type:String,
+            default:null,
+        },
+        name:{
+            type:String,
+            default:null,
+        },
+        role:{
+            type:String,
+            default:"admin",
+        },
+        avatar:{
+            type:String,
+            default:null
+        },
+        email:{
+            type:String,
+            default:null
+        }
+    },
+    platforms:[
+        {
+            platformName:{
+                type:String,
+                default:null
+            },
+            userName:{
+                type:String,
+                default:null
+            },
+            uniqueId:{
+                type:String,
+                default:null
+            },
+            avatar:{
+                type:String,
+                default:null
+            },
+            accountType:{
+                type:String,
+                default:null
+            },
+            accessToken:{
+                type:String,
+                default:null
+            },
+            show:{
+                type:Boolean,
+                default:true
+            }
+        }
+    ],
+    users:[
+        {
+            id:{
+                type:String,
+                default:null,
+            },
+            name:{
+                type:String,
+                default:null,
+            },
+            role:{
+                type:String,
+                default:null,
+            },
+            avatar:{
+                type:String,
+                default:null
+            },
+            email:{
+                type:String,
+                default:null
+            }
+        }
+    ]
 
 },{timestamps:true});
 
