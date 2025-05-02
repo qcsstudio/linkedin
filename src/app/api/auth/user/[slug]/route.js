@@ -6,7 +6,7 @@ export const PATCH = async (req) => {
   try {
     await ConnectDB();
     const data = await req.json();
-    const { _id, platformName, accessToken } = data;
+    const { _id, platformName, accessToken , name , uniqueId } = data;
 
     if (!_id || !platformName || !accessToken) {
       return NextResponse.json(
@@ -28,6 +28,8 @@ export const PATCH = async (req) => {
           platforms: {
             platformName,
             accessToken,
+            name,
+            uniqueId
           },
         },
       },

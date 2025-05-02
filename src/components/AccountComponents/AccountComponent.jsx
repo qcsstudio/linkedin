@@ -17,6 +17,9 @@ export default function AccountComponent() {
     getLinkedinOrganizationsProfiles,
     linkedinOrganizationId,
     linkedinOrganizationData,
+    clientData,
+    setClientData,
+    getClientData
   } = useContext(userContext);
   const [addAccount, setAddAccount] = useState(false);
 
@@ -25,10 +28,13 @@ export default function AccountComponent() {
   }
 
   useEffect(() => {
-    if (linkedinAccounts) {
-      getUserLinkedinProfiles();
-    }
-  }, [linkedinAccounts]);
+    getClientData();
+    console.log("client Data: +++++++++++++>",clientData);
+  }, []);
+
+  if(clientData != null){
+    console.log("client Data: +++++++++++++>",clientData);
+  }
 
   useEffect(() => {
     if (linkedinOrganizationId) {
@@ -44,7 +50,8 @@ export default function AccountComponent() {
             <p className="heading text-[1.4rem] font-normal sticky">
               Hi, QCS <span className="text-[.9rem]">Keep Moving Forward</span>
             </p>
-            {((userData?.role === "admin") || (userData?.role === "brand_manager")) && <button
+            {((userData?.role === "admin") || (userData?.role === "brand_manager")) && 
+            <button
               className="px-[3rem] py-[0.5rem] bg-[#007BFF] rounded-[.5rem] text-[#ffffff]"
               onClick={() => setAddAccount(true)}
             >
@@ -56,13 +63,13 @@ export default function AccountComponent() {
             className="lowerContainer bg-[#ffffff]/50 w-[100%]  min-h-[67vh] max-h-[67vh] rounded-[.7rem]
            z-[100] flex gap-[1.2rem]  flex-wrap p-[1.37rem] overflow-x-hidden overflow-y-scroll right"
           >
-            {linkedinProfileData ? (
+            {clientData ? (
               <>
-                {linkedinProfileData.map((item, index) => {
+                {clientData?.platforms?.map((item, index) => {
 
                   return (
-                    <div key={item.user?.sub || index} className="w-[31%]">
-                      <Card data={item.user} />
+                    <div key={item.userName || index} className="w-[31%]">
+                      <Card data={item} />
                     </div>
                   );
                 })}

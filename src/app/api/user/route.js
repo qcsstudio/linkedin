@@ -8,13 +8,14 @@ export const PATCH = async(req)=>{
 
     try {
         await connectDB();
+
+        // getting data
         const data = await req.json();
         console.log("User Data Pass : ",data);
 
         const jwt_data = await getCookie("access_token");
         const token = await verifyToken(jwt_data.value);
         const userId = token?.userId;
-        console.log("User Token PASS : ",userId);
         
         const oldEmail = await setOldEmail(userId);
 

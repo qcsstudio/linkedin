@@ -1,6 +1,8 @@
 // app/api/auth/linkedin/route.js
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { getCookie } from '@/utils/getCookie';
+import { verifyToken } from '@/utils/tokenGenerator';
 
 export async function GET() {
   const cookieStore = await cookies();
@@ -11,8 +13,12 @@ export async function GET() {
     return new NextResponse('Missing OAuth configuration', { status: 500 });
   }
 
+  const jwt_data = await getCookie("access_token");
+  const token = await verifyToken(jwt_data?.value);
+  const userId = await token?.userId;
+
   // Generate and store state
-  const state = Math.random().toString(36).substring(2);
+  const state = userId;
   cookieStore.set('linkedin_oauth_state', state, {
     httpOnly: true,
     // secure: process.env.NODE_ENV === 'production',

@@ -62,6 +62,8 @@ export async function POST(req) {
 
     const results = await Promise.allSettled(requests);
 
+    // console.log("USER  Data Result : ==========> ",results[0].value.data);
+
     const successful = results
       .filter((r) => r.status === "fulfilled" && r.value.success)
       .map((r) => r.value.data);
