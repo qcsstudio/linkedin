@@ -27,7 +27,7 @@ import logo from "../../../public/images/qcs.png"
 const TOOL_STYLES = [
   'bold', 'italic', 'underline', 'strikethrough', 'bolditalic',
   'script', 'monospace', 'smallcaps', 'doublestruck', 'fraktur',
-  'squared', 'subscript', 'superscript', 'link', 'bullet', 'numbered'
+  'squared', 'subscript', 'superscript', 'bullet', 'numbered'
 ];
 const ICON_MAP = {
   bold: <IconBold size={20} />,
@@ -174,7 +174,7 @@ export default function Home() {
             onScroll={handleScroll}
           />
           <div className="toolbar-bottom modern-toolbar">
-            <div className="font-picker-wrapper">
+            {/* <div className="font-picker-wrapper">
               <select
                 value={font}
                 onChange={e => setFont(e.target.value)}
@@ -182,7 +182,7 @@ export default function Home() {
               >
                 {FONT_FAMILIES.map(f => <option key={f} value={f}>{f.split(',')[0]}</option>)}
               </select>
-            </div>
+            </div> */}
             {TOOL_STYLES.map(s => (
               <button key={s} onClick={() => apply(s)} className="tool-btn">
                 {ICON_MAP[s]}
