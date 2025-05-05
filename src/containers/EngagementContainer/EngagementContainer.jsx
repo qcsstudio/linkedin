@@ -21,6 +21,7 @@ import Posts from "@/components/EngagementComponents/Posts";
 const EngagementContainer = () => {
   const [selectedAccount, setSelectedAccount] = useState(null);
   const [selectedPost, setSelectedPost] = useState(null);
+  const [organizationAccounts,setOrganizationAccounts] = useState(null);
 
   const {
     getUserLinkedinProfiles,
@@ -33,10 +34,28 @@ const EngagementContainer = () => {
     linkedinProfileData,
     linkedinOrganizationData,
     getAllOrganizationsData,
+    clientData,
+    setClientData,
+    getClientData
   } = useContext(userContext);
 
   const { GetTopPostsAPI, topPostsData, GetLinkedinPostsAPI, posts } =
     useContext(analyticsContext);
+
+  useEffect(()=>{
+    getClientData();
+  },[]);
+
+  useEffect(()=>{
+    const platforms = clientData?.platforms;
+    console.log("All Platform Data:",platforms);
+    const organizationAccounts = platforms?.filter(data=>data.accountType === "organization");
+    setOrganizationAccounts(organizationAccounts);
+  },[clientData]);
+
+  // useEffect(()=>{
+  //   alert("Get All Data");
+  // },[organizationAccounts]);
 
   // Fetch LinkedIn profiles when accounts change
   useEffect(() => {
@@ -51,33 +70,37 @@ const EngagementContainer = () => {
 
   // Fetch top posts when org ID updates
   useEffect(() => {
-    if (linkedinOrganizationId) {
+    if (organizationAccounts) {
       getLinkedinOrganizationsProfiles();
-      GetTopPostsAPI({ data: linkedinOrganizationId });
+      GetTopPostsAPI({ data: organizationAccounts });
     }
-  }, [linkedinOrganizationId]);
+  }, [organizationAccounts]);
 
   useEffect(() => {
     if (selectedAccount) {
-      const { id, token } = selectedAccount;
+      const { uniqueId, accessToken } = selectedAccount;
+      console.log("Account Changed:",uniqueId,accessToken);
 
       GetTopPostsAPI({
         data: [
           {
-            organizationalTarget: `urn:li:organization:${id}`,
-            token,
+            uniqueId,
+            accessToken,
           },
         ],
       });
 
-      GetLinkedinPostsAPI({ id, token });
+      GetLinkedinPostsAPI({ id:uniqueId, token:accessToken });
     }
   }, [selectedAccount]);
 
   // Select first post by default
   useEffect(() => {
-    if (topPostsData?.length) {
+    console.log("Top Post Data : ",topPostsData)
+    if (topPostsData?.length > 0) {
       setSelectedPost(topPostsData[0]);
+    }else{
+      // alert("Dont get Data!");
     }
   }, [topPostsData]);
 
@@ -89,7 +112,7 @@ const EngagementContainer = () => {
 
   const accountOptionTemplate = (option) => (
     <div className="flex items-center justify-between w-full px-2 py-1">
-      <span className="font-medium">{option.vanityName}</span>
+      <span className="font-medium">{option.userName}</span>
     </div>
   );
 
@@ -103,7 +126,7 @@ const EngagementContainer = () => {
           alt="linkedin"
           className="w-5 h-5 rounded-full"
         />
-        <span className="font-medium">{option.vanityName}</span>
+        <span className="font-medium">{option.userName}</span>
         <button
           className="text-gray-500 hover:text-red-500"
           onClick={handleAccountRemove}
@@ -162,12 +185,12 @@ const EngagementContainer = () => {
       <div className="flex flex-col gap-6 w-full px-4">
         <div className="flex justify-between">
           <h1 className="font-bold text-[22px]">Social Media Analytics</h1>
-          {linkedinOrganizationData && (
+          {organizationAccounts != null && (
             <div className="w-[30%]">
               <Dropdown
                 value={selectedAccount}
                 onChange={(e) => setSelectedAccount(e.value)}
-                options={linkedinOrganizationData}
+                options={organizationAccounts}
                 optionLabel="vanityName"
                 placeholder="Select Platform"
                 className="w-full md:w-14rem"

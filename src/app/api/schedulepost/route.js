@@ -26,8 +26,8 @@ export const POST = async(req)=>{
 
         const selectedAccountData = selectedaccount.map((account)=>{
                 return {
-                    linkedinId:account.user.sub,
-                    linkedinToken:account.token
+                    linkedinId:account.uniqueId,
+                    linkedinToken:account.accessToken
                 }
         });
         console.log("Selected Accounts :",selectedAccountData);

@@ -15,10 +15,14 @@ export async function POST(req) {
   const allPosts = [];
   const now = Date.now();
   const threeMonthsAgo = now - 90 * 24 * 60 * 60 * 1000;
-
+  console.log("================================================================================================")
   for (const org of organizations) {
-    const orgUrn = org.organizationalTarget;
-    const accessToken = org.token;
+
+    console.log("Organization from TOP POST :",org);
+    const uniqueId = org?.uniqueId;
+    const accessTokenData = org?.accessToken;
+    const orgUrn = `urn:li:organization:${uniqueId}`;
+    const accessToken = accessTokenData;
 
     const getHeaders = () => ({
       Authorization: `Bearer ${accessToken}`

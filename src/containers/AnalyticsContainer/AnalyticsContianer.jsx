@@ -19,6 +19,7 @@ import AllViewsChart from "@/components/AnalyticsComponets/AllViewsChart";
 
 const AnalyticsContianer = () => {
   const [selectedaccount, setSelectedaccount] = useState(null);
+  const [organizationAccounts, setOrganizationAccounts] = useState(null);
   const {
     getUserLinkedinProfiles,
     linkedinAccounts,
@@ -31,6 +32,9 @@ const AnalyticsContianer = () => {
     linkedinOrganizationData,
     getAllOrganizationsData,
     views,
+    clientData,
+    setClientData,
+    getClientData
   } = useContext(userContext);
 
   const {
@@ -43,45 +47,56 @@ const AnalyticsContianer = () => {
   } = useContext(analyticsContext);
 
   useEffect(() => {
-    if (linkedinAccounts) {
-      getUserLinkedinProfiles();
-    }
-  }, [linkedinAccounts]);
+    getClientData();
+  }, []);
 
   useEffect(() => {
-    if (linkedinOrganizationId) {
-      getLinkedinOrganizationsProfiles();
-    }
-  }, [linkedinOrganizationId]);
+    const platforms = clientData?.platforms;
+    console.log("All Platform Data:", platforms);
+    const organizationAccounts = platforms?.filter(data => data.accountType === "organization");
+    setOrganizationAccounts(organizationAccounts);
+  }, [clientData]);
+
+  // useEffect(() => {
+  //   if (linkedinAccounts) {
+  //     getUserLinkedinProfiles();
+  //   }
+  // }, [linkedinAccounts]);
+
+  // useEffect(() => {
+  //   if (linkedinOrganizationId) {
+  //     getLinkedinOrganizationsProfiles();
+  //   }
+  // }, [linkedinOrganizationId]);
 
   useEffect(() => {
     if (selectedaccount) {
       getOrganizationAnalyticsData({
-        id: selectedaccount.id,
-        token: selectedaccount.token,
+        id: selectedaccount.uniqueId,
+        token: selectedaccount.accessToken,
       });
       GetGrowthDataAPI({
-        id: selectedaccount.id,
-        token: selectedaccount.token,
+        id: selectedaccount.uniqueId,
+        token: selectedaccount.accessToken,
       });
       GETHeatMapAPI({
-        id: selectedaccount.id,
-        token: selectedaccount.token,
+        id: selectedaccount.uniqueId,
+        token: selectedaccount.accessToken,
       });
     }
   }, [selectedaccount]);
 
   useEffect(() => {
-    if (linkedinOrganizationData) {
-      getAllOrganizationsData(linkedinOrganizationData);
-      GetAllViewsAPI(linkedinOrganizationData);
-      GetAllFollowersAPI(linkedinOrganizationData);
+    if (organizationAccounts) {
+      getAllOrganizationsData(clientData);
+      GetAllViewsAPI(organizationAccounts);
+      GetAllFollowersAPI(organizationAccounts);
     }
-  }, [linkedinOrganizationData]);
+  }, [organizationAccounts]);
 
   const accountOptionTemplate = (option) => (
     <div className="flex items-center justify-between w-full px-2 py-1">
-      <span className="font-medium">{option.vanityName}</span>
+      <span className="font-medium">{option.userName}</span>
       {/* <img
         src={option.image}
         alt={option.name}
@@ -100,7 +115,7 @@ const AnalyticsContianer = () => {
           alt={"linkedin"}
           className="w-5 h-5 rounded-full"
         />
-        <span className="font-medium">{option.vanityName}</span>
+        <span className="font-medium">{option.userName}</span>
 
         <button
           className="text-gray-500 hover:text-red-500"
@@ -125,11 +140,11 @@ const AnalyticsContianer = () => {
         </h1>
 
         <div className="w-[30%]">
-          {linkedinOrganizationData && (
+          {organizationAccounts && (
             <Dropdown
               value={selectedaccount}
               onChange={(e) => setSelectedaccount(e.value)}
-              options={linkedinOrganizationData || []}
+              options={organizationAccounts || []}
               optionLabel="vanityName" // Ensure this matches your object structure
               placeholder="Select Platforms"
               className="w-full md:w-14rem"
@@ -163,15 +178,15 @@ const AnalyticsContianer = () => {
 
           {selectedaccount && (
             <FollowersChart
-              id={selectedaccount.id}
-              token={selectedaccount.token}
+              id={selectedaccount?.uniqueId}
+              token={selectedaccount?.accessToken}
             />
           )}
 
           {selectedaccount && (
             <ImpressionOverviewAnalytics
-              id={selectedaccount.id}
-              token={selectedaccount.token}
+              id={selectedaccount?.uniqueId}
+              token={selectedaccount?.accessToken}
             />
           )}
 

@@ -36,8 +36,8 @@ export const POST = async(req)=>{
         const linkedInUserAuthToken = await data?.selectedaccount;
 
         for(let i = 0;i < data?.selectedaccount.length;i++){
-            const linkedinUserID = linkedInUser[i]?.user?.sub;
-            const linkedinUserAuthToken = linkedInUserAuthToken[i]?.token;
+            const linkedinUserID = linkedInUser[i]?.uniqueId;
+            const linkedinUserAuthToken = linkedInUser[i]?.accessToken;
             
             // All files uploaded urns
             const filesData = [];

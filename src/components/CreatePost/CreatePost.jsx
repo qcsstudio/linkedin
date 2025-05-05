@@ -6,6 +6,7 @@ import { CiCircleRemove } from "react-icons/ci";
 import { CiImageOn } from "react-icons/ci";
 import Image from "next/image";
 import { CiYoutube } from "react-icons/ci";
+import { FaUser } from "react-icons/fa";
 import { IoLocation } from "react-icons/io5";
 import { CiFaceSmile } from "react-icons/ci";
 import { LuMessageCircleMore } from "react-icons/lu";
@@ -13,21 +14,20 @@ import { CiHashtag } from "react-icons/ci";
 import TextEditor from "@/components/common/TextEditor";
 import { userContext } from "@/Context/user.context";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination,Navigation } from 'swiper/modules';
+import { Pagination, Navigation } from 'swiper/modules';
 import postContext from "@/Context/post.context";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 const CreatePost = () => {
-    
+
 
     // Use Context 
-    const { userData, getUserLinkedinProfiles, linkedinProfileData, linkedinAccounts, getLinkedinOrganizationsProfiles, linkedinOrganizationId, linkedinOrganizationData  } =
-    useContext(userContext);
+    const { userData, getUserLinkedinProfiles, linkedinProfileData, linkedinAccounts, getLinkedinOrganizationsProfiles, linkedinOrganizationId, linkedinOrganizationData, clientData, setClientData, getClientData } = useContext(userContext);
 
 
-    const { loading, setLoading, error, setError, postLinkedin,generatePostCaption,generatedCaption,setGeneratedCaption,postSchedule } = useContext(postContext);
+    const { loading, setLoading, error, setError, postLinkedin, generatePostCaption, generatedCaption, setGeneratedCaption, postSchedule } = useContext(postContext);
 
 
 
@@ -53,9 +53,9 @@ const CreatePost = () => {
     const [postCaption, setPostCaption] = useState("");
     const [privacy, setPrivacy] = useState("Public");
     const [formImage, setFormImage] = useState([]);
-    const [formVideo,setFormVideo] = useState([]);
-    const [scheduleDate,setScheduleDate] = useState(new Date());
-    const [scheduleTime,setScheduleTime] = useState(new Date());
+    const [formVideo, setFormVideo] = useState([]);
+    const [scheduleDate, setScheduleDate] = useState(new Date());
+    const [scheduleTime, setScheduleTime] = useState(new Date());
 
     // Post States (Right Section) --------------------------
     const [showText, setShowText] = useState(false);
@@ -68,7 +68,7 @@ const CreatePost = () => {
     const [formattedDate, setFormattedDate] = useState(formatDate(new Date()));
     const [formattedTime, setFormattedTime] = useState(formatTime(new Date()));
 
-    console.log("Caption data:",postImages);
+    console.log("Caption data:", postImages);
 
     const [activeSocialButton, setActiveSocialButton] = useState(1);
     const [socialButton, setsocialButton] = useState([
@@ -88,60 +88,33 @@ const CreatePost = () => {
     ]);
     const [activeButton, setActiveButton] = useState(1);
 
-    // const countries = [
-    //     {
-    //         name: "QCS Limited Private",
-    //         code: "insta",
-    //         image: "/images/createPostImages/insta.png",
-    //     },
-    //     {
-    //         name: "QCS Limited Private",
-    //         code: "facebook",
-    //         image: "/images/createPostImages/facebook.png",
-    //     },
-    //     {
-    //         name: "QCS Limited Private",
-    //         code: "linkdin",
-    //         image: "/images/createPostImages/linkdin.png",
-    //     },
-    // ];
-
-    // Use Effect.
+    // Use Effect 
     useEffect(() => {
-        if (linkedinAccounts) {
-            getUserLinkedinProfiles();
-        }
-    }, [linkedinAccounts]);
-    if(linkedinProfileData){
-        console.log("Linkedin Profile Data : ", linkedinProfileData);
-    }
-    // console.log("Linkedin Organization Data : ", linkedinOrganizationData);
-
-    useEffect(() => {
-        if (linkedinOrganizationId) {
-            getLinkedinOrganizationsProfiles();
-        }
-    }, [linkedinOrganizationId]);
+        getClientData();
+    }, []);
 
 
     const selectedaccountTemplate = (option) => {
         if (!option) return <span>Select a account</span>;
+        console.log("Selected Accounts : ", option)
 
         return (
             <div className="flex items-center gap-2 flex-nowrap overflow-x-auto">
-                <img
-                    src={"/images/createPostImages/linkdin.png"}
-                    alt={"linkedin"}
+                {option?.avatar != null ? <img
+                    src={option?.avatar}
+                    alt={option?.userName}
                     className="w-5 h-5 rounded-full"
-                />
-                <span className="font-medium">{option.user.name}</span>
+                /> : <div className="w-[1.25rem] h-[1.25rem] overflow-hidden rounded-[50%] flex justify-center items-center">
+                    <FaUser className="w-[100%]" />
+                </div>}
+                <span className="font-medium">{option.userName}</span>
 
                 <button
                     className="text-gray-500 hover:text-red-500"
                     onClick={(e) => {
                         e.stopPropagation();
                         setSelectedaccount(
-                            selectedaccount.filter((c) => c.user.name !== option.user.name)
+                            selectedaccount.filter((c) => c.userName !== option.userName)
                         );
                     }}
                 >
@@ -152,13 +125,15 @@ const CreatePost = () => {
     };
 
     const accountOptionTemplate = (option) => (
-        <div className="flex items-center justify-between w-full px-2 py-1">
-            <span className="font-medium">{option.user.name}</span>
-            <img
-                src={option.image}
-                alt={option.name}
+        <div className="flex items-center justify-between gap-[.5rem] w-full px-2 py-1">
+            <span className="font-medium">{option.userName}</span>
+            {option?.avatar != null ? <img
+                src={option?.avatar}
+                alt={option?.userName}
                 className="w-5 h-5 rounded-full"
-            />
+            /> : <div className="w-[1.5rem] h-[1.5rem] overflow-hidden rounded-[50%] flex justify-center items-center">
+                <FaUser className="w-[100%]" />
+            </div>}
         </div>
     );
 
@@ -171,24 +146,25 @@ const CreatePost = () => {
     // Post Submit 
     const HandleSubmit = () => {
         // console.log({ postCaption, privacy, formImage, selectedaccount, fileType, formVideo });
-        if(!schedulePost){
-            postLinkedin({ postCaption, privacy, formImage, selectedaccount, fileType, formVideo  });
-        }else if(schedulePost){
-            console.log("schedule date",scheduleDate);
-            console.log("schedule time",scheduleTime);
+        if (!schedulePost) {
+            console.log("Selected Accounts Data for publish:",selectedaccount);
+            postLinkedin({ postCaption, privacy, formImage, selectedaccount, fileType, formVideo });
+        } else if (schedulePost) {
+            console.log("schedule date", scheduleDate);
+            console.log("schedule time", scheduleTime);
             const [hours, minutes] = scheduleTime.split(":").map(Number); // Convert to numbers
-        const selectedDate = new Date(scheduleDate); // Convert string to Date
+            const selectedDate = new Date(scheduleDate); // Convert string to Date
 
-        // Set hours and minutes
-        selectedDate.setHours(hours);
-        selectedDate.setMinutes(minutes);
-        selectedDate.setSeconds(0);
-        
-        const timeStamp = selectedDate.getTime();
-        
-        // alert(timeStamp);
-        console.log("Time Stamp",timeStamp);
-        postSchedule({ postCaption, privacy, formImage, selectedaccount, fileType, formVideo,timeStamp  });
+            // Set hours and minutes
+            selectedDate.setHours(hours);
+            selectedDate.setMinutes(minutes);
+            selectedDate.setSeconds(0);
+
+            const timeStamp = selectedDate.getTime();
+
+            // alert(timeStamp);
+            console.log("Time Stamp", timeStamp);
+            postSchedule({ postCaption, privacy, formImage, selectedaccount, fileType, formVideo, timeStamp });
         }
     }
 
@@ -221,37 +197,37 @@ const CreatePost = () => {
     }
 
     // Video Upload handle
-    const handleVideoFileChange = async(e) => {
+    const handleVideoFileChange = async (e) => {
         try {
             // converting file type into array
             const videos = Array.from(e.target.files);
 
             // Converting videos to url:
-            const videoUrl = videos.map((file)=>URL.createObjectURL(file));
-            setPostVideos(prev => [...prev,...videoUrl]);
+            const videoUrl = videos.map((file) => URL.createObjectURL(file));
+            setPostVideos(prev => [...prev, ...videoUrl]);
             setFileType("video");
 
             // Converting video into base64 
             const base64Videos = await Promise.all(
-                videos.map(async(file)=>{
+                videos.map(async (file) => {
                     const base64Data = await convertToBase64(file);
-                    return {videoFile:base64Data};
+                    return { videoFile: base64Data };
                 })
             );
 
-            setFormVideo(prev=>[...prev,...base64Videos]);
+            setFormVideo(prev => [...prev, ...base64Videos]);
             setFormImage([]);
 
-            
+
         } catch (error) {
             console.log("Unable to upload Video File.");
         }
     }
-    
-    console.log("video Url Data: ",postVideos);
+
+    console.log("video Url Data: ", postVideos);
 
 
-    
+
     // Function to convert a file to a Base64 string
     const convertToBase64 = (file) => {
         return new Promise((resolve, reject) => {
@@ -264,18 +240,18 @@ const CreatePost = () => {
 
 
     // generate caption
-    const generateCaption = ()=>{
-        generatePostCaption({prompt});
+    const generateCaption = () => {
+        generatePostCaption({ prompt });
     }
 
     // Schedule Post
     // Date Change
-    const handleDateChange = (e)=>{
+    const handleDateChange = (e) => {
         setScheduleDate(e.target.value);
         const selectedDate = new Date(e.target.value);
         alert(selectedDate);
         alert(e.target.value);
-        console.log("Date Schedule : ",e.target.value);
+        console.log("Date Schedule : ", e.target.value);
         if (!isNaN(selectedDate)) {
             setFormattedDate(formatDate(selectedDate));
         }
@@ -294,47 +270,47 @@ const CreatePost = () => {
     // Time change
     const handleTimeChange = (e) => {
         setScheduleTime(e.target.value);
-        setFormattedTime(e.target.value); 
+        setFormattedTime(e.target.value);
     };
 
     function formatTime(date) {
         return date.toLocaleTimeString("en-US", {
             hour: "2-digit",
             minute: "2-digit",
-            
+
             hour12: true,
         });
     }
 
     const bestTime = [
         {
-            time:"Tuesday, 7:40 PM"
+            time: "Tuesday, 7:40 PM"
         },
         {
-            time:"Sunday, 7:40 PM"
+            time: "Sunday, 7:40 PM"
         },
         {
-            time:"Thursday, 7:40 PM"
+            time: "Thursday, 7:40 PM"
         },
     ]
 
     const hashTags = [
         {
-            hashTag:"#Leadership"
+            hashTag: "#Leadership"
         },
         {
-            hashTag:"#Innovation"
+            hashTag: "#Innovation"
         },
         {
-            hashTag:"#CareerDevelopment"
+            hashTag: "#CareerDevelopment"
         },
         {
-            hashTag:"#Networking"
+            hashTag: "#Networking"
         },
-        
+
     ]
 
-    
+
 
     return (
         <div className="w-[95%] mx-auto mt-8 flex gap-1 ">
@@ -384,11 +360,11 @@ const CreatePost = () => {
 
                 <div className="p-5 flex flex-col gap-2 bg-white/50 rounded-lg">
                     <h2 className=" font-bold text-lg">Posting on</h2>
-                    {(linkedinProfileData) &&
+                    {(clientData) &&
                         <MultiSelect
                             value={selectedaccount}
                             onChange={(e) => setSelectedaccount(e.value)}
-                            options={linkedinProfileData ? linkedinProfileData  : ""}
+                            options={clientData?.platforms ? clientData?.platforms : ""}
                             optionLabel="name"
                             placeholder="Select Platforms"
                             filter
@@ -453,8 +429,8 @@ const CreatePost = () => {
                                 style={{ display: "none" }}
                                 onChange={handleVideoFileChange}
                             />
-                            
-                            
+
+
                             <IoLocation className="text-[#4379EE]" />
                             <CiFaceSmile className="text-[#4379EE]" />
                             <LuMessageCircleMore className="text-[#4379EE]" />
@@ -481,18 +457,18 @@ const CreatePost = () => {
                 <div className="p-5 flex flex-col w-[100%] justify-between bg-white/50 rounded-lg transition-all ease-in-out duration-500">
 
                     <div className="schedulePostActions w-[100%] flex justify-between">
-                        
+
                         <div className="flex flex-col gap-1">
                             <h2 className="font-bold text-lg">Scheduling Options</h2>
                             <p className="text-sm text-[#565656]">
-                                {schedulePost ? "Schedule your post for the times when your audience is most active, or manually select a date and time in the future to publish your post":"Set your optimal posting times"}
-                                
+                                {schedulePost ? "Schedule your post for the times when your audience is most active, or manually select a date and time in the future to publish your post" : "Set your optimal posting times"}
+
                             </p>
                         </div>
 
                         <div className="flex justify-between items-center">
                             <label className="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" className="sr-only peer" value={schedulePost} onChange={()=>setSchedulePost(!schedulePost)} />
+                                <input type="checkbox" className="sr-only peer" value={schedulePost} onChange={() => setSchedulePost(!schedulePost)} />
                                 <div className="w-11 h-6 bg-gray-300 peer-focus:ring-2  rounded-full peer dark:bg-gray-400 peer-checked:after:translate-x-5 peer-checked:bg-[#4379EE] after:absolute after:top-1 after:start-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
                             </label>
                         </div>
@@ -500,31 +476,31 @@ const CreatePost = () => {
 
                     </div>
 
-                    {schedulePost && 
+                    {schedulePost &&
                         <div className="scheduleFormInput w-[100%] flex justify-between mt-[1.43rem]">
 
                             {/* calendar */}
                             <label htmlFor="date" className="w-[47%]">
 
                                 <div className="dateInput w-[100%] px-[0.625rem] flex items-center  py-[0.31rem] bg-[#D9D9D9]/35 rounded-[.3rem] " >
-                                    <Image src={"/images/createPostImages/calendar.svg"} width={20} height={20} alt="calendar_Image" className="w-[1.25rem] h-[1.25rem] cursor-pointer select-none imageDrag"  onClick={()=>document.getElementById("date")?.showPicker()}/>
-                                    <p className="text-[.75rem] font-extralight text-[#232323] ml-[.65rem] cursor-pointer select-none" onClick={()=>document.getElementById("date")?.showPicker()}>{formattedDate}</p>
+                                    <Image src={"/images/createPostImages/calendar.svg"} width={20} height={20} alt="calendar_Image" className="w-[1.25rem] h-[1.25rem] cursor-pointer select-none imageDrag" onClick={() => document.getElementById("date")?.showPicker()} />
+                                    <p className="text-[.75rem] font-extralight text-[#232323] ml-[.65rem] cursor-pointer select-none" onClick={() => document.getElementById("date")?.showPicker()}>{formattedDate}</p>
                                     <input type="date" name="date" id="date" className="bg-transparent outline-none opacity-0" defaultValue={new Date().toISOString().split("T")[0]} onChange={handleDateChange} />
                                 </div>
-                                
+
                             </label>
 
                             {/* Time */}
                             <label htmlFor="time" className="w-[47%]">
 
                                 <div className="dateInput w-[100%] px-[0.625rem] flex items-center  py-[0.5rem] bg-[#D9D9D9]/35 rounded-[.3rem] " >
-                                    <Image src={"/images/createPostImages/clock.svg"} width={20} height={20} alt="calendar_Image" className="w-[1.25rem] h-[1.25rem] select-none imageDrag cursor-pointer" onClick={()=>document.getElementById("time")?.showPicker()}/>
+                                    <Image src={"/images/createPostImages/clock.svg"} width={20} height={20} alt="calendar_Image" className="w-[1.25rem] h-[1.25rem] select-none imageDrag cursor-pointer" onClick={() => document.getElementById("time")?.showPicker()} />
 
-                                    <p className="text-[.75rem] font-extralight text-[#232323] ml-[.65rem] cursor-pointer select-none " onClick={()=>document.getElementById("time")?.showPicker()}>{formattedTime}</p>
+                                    <p className="text-[.75rem] font-extralight text-[#232323] ml-[.65rem] cursor-pointer select-none " onClick={() => document.getElementById("time")?.showPicker()}>{formattedTime}</p>
 
-                                    <input type="time" name="time" id="time" className="bg-transparent outline-none  text-[.75rem] font-extralight text-[#232323] ml-[.65rem] opacity-0" defaultValue={formattedTime}  onChange={handleTimeChange}/>
+                                    <input type="time" name="time" id="time" className="bg-transparent outline-none  text-[.75rem] font-extralight text-[#232323] ml-[.65rem] opacity-0" defaultValue={formattedTime} onChange={handleTimeChange} />
                                 </div>
-                                
+
                             </label>
 
                         </div>
@@ -604,13 +580,13 @@ const CreatePost = () => {
 
                         {/* Input */}
                         <div className="textFieldBox w-[100%] h-[3.5rem] rounded-[.5rem] bg-[#ffffff] pl-[1.25rem] pr-[1.375rem] py-[0.56rem] flex gap-[3rem]">
-                            <input type="text" name="aiPrompt" id="aiPrompt" placeholder="Tell me what should i generate for you!" className="w-[70%] focus:border-none focus:outline-none text-[.80rem]" onChange={(e)=>setPrompt(e.target.value)} />
+                            <input type="text" name="aiPrompt" id="aiPrompt" placeholder="Tell me what should i generate for you!" className="w-[70%] focus:border-none focus:outline-none text-[.80rem]" onChange={(e) => setPrompt(e.target.value)} />
                             <button onClick={generateCaption} type="button" className="bg-[#4379EE] text-[#ffffff] px-[2rem] rounded-[.5rem]" >Generate</button>
                         </div>
 
                         {/* Suggestions */}
                         <div className="suggestionXontainer w-[50%] h-[2.78rem] flex items-center justify-between bg-[#ffffff] rounded-[.5rem] px-[.93rem] py-[0.5rem] mt-[0.75rem] text-[0.8rem] ">
-                            
+
 
                             {
                                 suggestionButton.map((data) => {
@@ -626,16 +602,16 @@ const CreatePost = () => {
 
                     {/* Lower Container */}
                     <div className="lowerAiContainer flex flex-col gap-[1rem]">
-                        {activeButton == 3 && bestTime.map((item,index)=>{
+                        {activeButton == 3 && bestTime.map((item, index) => {
                             return <div key={index} className="suggestions w-[100%] min-h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">{item.time}</p></div>
                         })}
-                        {activeButton == 2 && hashTags.map((item,index)=>{
+                        {activeButton == 2 && hashTags.map((item, index) => {
                             return <div key={index} className="suggestions w-[100%] min-h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">{item.hashTag}</p></div>
                         })}
-                        {( activeButton == 1 && generatedCaption.length > 0 ) ? (generatedCaption.map((item,index)=>{
+                        {(activeButton == 1 && generatedCaption.length > 0) ? (generatedCaption.map((item, index) => {
                             return <div key={index} className="suggestions w-[100%] min-h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">{item}</p></div>
-                        })):(<p className="text-[#000000] ml-[.5rem]">Generate Captions</p>)}
-                        
+                        })) : (<p className="text-[#000000] ml-[.5rem]">Generate Captions</p>)}
+
                         {/* <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/60 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions!</p></div>
                         <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/70 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions!</p></div> */}
                     </div>
@@ -690,50 +666,50 @@ const CreatePost = () => {
 
                     </div>
 
-                            
+
 
                     <div className={`postTextContent px-[.43rem] py-[.3rem]  ${showText ? "" : "postText"} `} dangerouslySetInnerHTML={{ __html: postCaption }}>
                     </div>
-                    {postCaption.length>165 && 
+                    {postCaption.length > 165 &&
                         <span className="text-[#4d7ef9] select-none cursor-pointer px-[.43rem]" onClick={() => setShowText(!showText)}>{showText ? "less" : "more"}</span>
                     }
 
                     {/* User Post Image */}
                     <div className={`middleContainer w-[100%] h-[24.3rem] ${postImages.length <= 0 ? "bg-[#E0E0E0]/40" : "bg-transparent"}`}>
-                        <Swiper pagination={true} navigation={true} modules={[Pagination,Navigation]} className="mySwiper w-[100%] h-[24.3rem]">
+                        <Swiper pagination={true} navigation={true} modules={[Pagination, Navigation]} className="mySwiper w-[100%] h-[24.3rem]">
 
-                        {
-                            fileType === "image" ? (
-                                postImages.length === 0 ? (
-                                    <div className="w-[100%] h-[100%] bg-[#E0E0E0]"></div>
+                            {
+                                fileType === "image" ? (
+                                    postImages.length === 0 ? (
+                                        <div className="w-[100%] h-[100%] bg-[#E0E0E0]"></div>
+                                    ) : (
+                                        postImages.map((item, index) => {
+                                            console.log("item data", item)
+                                            return <SwiperSlide key={index}>
+                                                <Image
+                                                    src={item}
+                                                    width={390}
+                                                    height={390}
+                                                    alt="post"
+                                                    className="w-[100%] h-[100%] object-fill "
+                                                />
+                                            </SwiperSlide>
+                                        })
+                                    )
                                 ) : (
-                                    postImages.map((item, index) => {
-                                        console.log("item data",item)
-                                        return <SwiperSlide key={index}>
-                                            <Image
-                                                src={item}
-                                                width={390}
-                                                height={390}
-                                                alt="post"
-                                                className="w-[100%] h-[100%] object-fill "
-                                            />
-                                        </SwiperSlide>
-                                    })
+                                    postVideos.length === 0 ? (
+                                        <div className="w-[100%] h-[100%] bg-[#E0E0E0]">data</div>
+                                    ) : (
+                                        postVideos.map((item, index) => (
+                                            <SwiperSlide key={index}>
+                                                <video width="320" height="240" controls className="w-[100%] h-[100%] object-fill">
+                                                    <source src={item} type="video/mp4" />
+                                                </video>
+                                            </SwiperSlide>
+                                        ))
+                                    )
                                 )
-                            ) : (
-                                postVideos.length === 0 ? (
-                                    <div className="w-[100%] h-[100%] bg-[#E0E0E0]">data</div>
-                                ) : (
-                                    postVideos.map((item, index) => (
-                                        <SwiperSlide key={index}>
-                                            <video width="320" height="240" controls className="w-[100%] h-[100%] object-fill">
-                                                <source src={item} type="video/mp4" />
-                                            </video>
-                                        </SwiperSlide>
-                                    ))
-                                )
-                            )
-                        }
+                            }
 
 
                         </Swiper>
