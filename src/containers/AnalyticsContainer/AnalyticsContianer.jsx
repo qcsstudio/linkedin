@@ -22,6 +22,8 @@ import analyticsContext from "@/Context/analytics.context";
 const AnalyticsContianer = () => {
   const [selectedaccount, setSelectedaccount] = useState(null);
 
+  const [organizationAccounts, setOrganizationAccounts] = useState(null);
+
   const {
     getUserLinkedinProfiles,
     linkedinAccounts,
@@ -34,6 +36,9 @@ const AnalyticsContianer = () => {
     linkedinOrganizationData,
     getAllOrganizationsData,
     views,
+    clientData,
+    setClientData,
+    getClientData
   } = useContext(userContext);
 
   const {
@@ -46,45 +51,63 @@ const AnalyticsContianer = () => {
   } = useContext(analyticsContext);
 
   useEffect(() => {
-    if (linkedinAccounts) {
-      getUserLinkedinProfiles();
-    }
-  }, [linkedinAccounts]);
+    getClientData();
+  }, []);
 
   useEffect(() => {
-    if (linkedinOrganizationId) {
-      getLinkedinOrganizationsProfiles();
-    }
-  }, [linkedinOrganizationId]);
+    const platforms = clientData?.platforms;
+    console.log("All Platform Data:", platforms);
+    const organizationAccounts = platforms?.filter(data => data.accountType === "organization");
+    setOrganizationAccounts(organizationAccounts);
+  }, [clientData]);
+
+  // useEffect(() => {
+  //   if (linkedinAccounts) {
+  //     getUserLinkedinProfiles();
+  //   }
+  // }, [linkedinAccounts]);
+
+  // useEffect(() => {
+  //   if (linkedinOrganizationId) {
+  //     getLinkedinOrganizationsProfiles();
+  //   }
+  // }, [linkedinOrganizationId]);
 
   useEffect(() => {
     if (selectedaccount) {
       getOrganizationAnalyticsData({
-        id: selectedaccount.id,
-        token: selectedaccount.token,
+        id: selectedaccount.uniqueId,
+        token: selectedaccount.accessToken,
       });
       GetGrowthDataAPI({
-        id: selectedaccount.id,
-        token: selectedaccount.token,
+        id: selectedaccount.uniqueId,
+        token: selectedaccount.accessToken,
       });
       GETHeatMapAPI({
-        id: selectedaccount.id,
-        token: selectedaccount.token,
+        id: selectedaccount.uniqueId,
+        token: selectedaccount.accessToken,
       });
     }
   }, [selectedaccount]);
 
   useEffect(() => {
-    if (linkedinOrganizationData) {
-      getAllOrganizationsData(linkedinOrganizationData);
-      GetAllViewsAPI(linkedinOrganizationData);
-      GetAllFollowersAPI(linkedinOrganizationData);
+    if (organizationAccounts) {
+      getAllOrganizationsData(clientData);
+      GetAllViewsAPI(organizationAccounts);
+      GetAllFollowersAPI(organizationAccounts);
     }
-  }, [linkedinOrganizationData]);
+  }, [organizationAccounts]);
 
   const accountOptionTemplate = (option) => (
     <div className="flex items-center justify-between w-full px-2 py-1">
-      <span className="font-medium">{option.vanityName}</span>
+
+      <span className="font-medium">{option.userName}</span>
+      {/* <img
+        src={option.image}
+        alt={option.name}
+        className="w-5 h-5 rounded-full"
+      /> */}
+
     </div>
   );
 
@@ -98,7 +121,10 @@ const AnalyticsContianer = () => {
           alt={"linkedin"}
           className="w-5 h-5 rounded-full"
         />
-        <span className="font-medium">{option.vanityName}</span>
+
+        <span className="font-medium">{option.userName}</span>
+
+
         <button
           className="text-gray-500 hover:text-red-500"
           onClick={(e) => {
@@ -171,23 +197,7 @@ const AnalyticsContianer = () => {
           Hi, QCS <span className="text-lg font-thin">keep Moving Forward</span>
         </h1>
 
-        <div className="flex gap-4 items-center">
-          <div className="w-[300px]">
-            {linkedinOrganizationData && (
-              <Dropdown
-                value={selectedaccount}
-                onChange={(e) => setSelectedaccount(e.value)}
-                options={linkedinOrganizationData || []}
-                optionLabel="vanityName"
-                placeholder="Select Platforms"
-                className="w-full md:w-14rem"
-                itemTemplate={accountOptionTemplate}
-                valueTemplate={(option) =>
-                  option ? selectedaccountTemplate(option) : <span>Select an account</span>
-                }
-              />
-            )}
-          </div>
+
 
           <button
             onClick={handleDownloadPDF}
@@ -196,6 +206,27 @@ const AnalyticsContianer = () => {
           >
             Download PDF
           </button>
+
+        <div className="w-[30%]">
+          {organizationAccounts && (
+            <Dropdown
+              value={selectedaccount}
+              onChange={(e) => setSelectedaccount(e.value)}
+              options={organizationAccounts || []}
+              optionLabel="vanityName" // Ensure this matches your object structure
+              placeholder="Select Platforms"
+              className="w-full md:w-14rem"
+              itemTemplate={accountOptionTemplate}
+              valueTemplate={(option) =>
+                option ? (
+                  selectedaccountTemplate(option)
+                ) : (
+                  <span>Select an account</span>
+                )
+              }
+            />
+          )}
+
         </div>
       </div>
 
@@ -221,11 +252,19 @@ const AnalyticsContianer = () => {
           )}
 
           {selectedaccount && (
-            <FollowersChart id={selectedaccount.id} token={selectedaccount.token} />
+
+            <FollowersChart
+              id={selectedaccount?.uniqueId}
+              token={selectedaccount?.accessToken}
+            />
           )}
 
           {selectedaccount && (
-            <ImpressionOverviewAnalytics id={selectedaccount.id} token={selectedaccount.token} />
+            <ImpressionOverviewAnalytics
+              id={selectedaccount?.uniqueId}
+              token={selectedaccount?.accessToken}
+            />
+
           )}
 
           <div className="bg-white/50 flex flex-col gap-5 rounded-lg p-5">

@@ -4,6 +4,7 @@ import { RiAccountCircleFill } from "react-icons/ri";
 import { MdPersonAddAlt1 } from "react-icons/md";
 import Link from 'next/link';
 import { userContext } from '@/Context/user.context';
+import Image from 'next/image';
 
 const TeamMember = ({ role }) => {
 
@@ -22,9 +23,13 @@ const TeamMember = ({ role }) => {
         <h1 className="text-xl font-semibold">Team Members</h1>
 
         {clientData && clientData?.users?.map((userData)=>{
-          return <div className="w-full mt-6 bg-white/40 p-4 rounded-lg flex items-center justify-between">
+          return <div className="w-full mt-2 bg-white/40 p-4 rounded-lg flex items-center justify-between">
 
+          {userData.avatar != null ? <div className="avatarContainer w-[2.5rem] h-[2.5rem]">
+            <Image src={userData?.avatar} alt="avatar" width={36} height={36} className='w-[100%] h-[100%] ' />
+          </div> :
           <RiAccountCircleFill className='text-4xl' />
+          }
 
 
           <div className="flex-1 ml-4">
@@ -33,8 +38,8 @@ const TeamMember = ({ role }) => {
           </div>
 
 
-          <div className="bg-[#4379EE] text-white px-4 py-1 rounded text-xl">
-            {userData.role}
+          <div className="bg-[#4379EE] text-white px-4 py-1 rounded text-xl ">
+            {userData.role?.split("_").map(word=>word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
           </div>
         </div>
         })}

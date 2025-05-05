@@ -73,6 +73,7 @@ export const AnalyticsContextProvider = ({ children }) => {
       }
 
       const result = await response.json();
+      console.log("Getting Top POST DAta",result);
       setTopPostsData(result.topPosts);
     } catch (error) {
       console.error("Error fetching LinkedIn top posts:", error);

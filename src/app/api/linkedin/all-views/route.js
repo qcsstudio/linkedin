@@ -20,15 +20,16 @@ export async function POST(req) {
     // New: daily totals aggregator
     // Structure: { "YYYY-MM-DD": sumOfViewsAcrossAllOrgsForThisDate, ... }
     const dailyTotals = {};
-
+    // console.log(" ============================================================================================ ")
     // 2. Loop over each organization
     for (const org of organizations) {
-      const { id: orgId, token } = org;
+      // console.log("Organizational Data : ",org);
+      const {uniqueId, accessToken } = org;
 
-      if (!orgId || !token) {
+      if (!uniqueId || !accessToken) {
         allResults.push({
           status: "error",
-          organizationId: orgId || "unknown",
+          organizationId: uniqueId || "unknown",
           error: "Missing ID or token",
         });
         continue;
@@ -36,10 +37,10 @@ export async function POST(req) {
 
       // 3. Prepare headers and build the LinkedIn API URL
       const headers = {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
         "LinkedIn-Version": "202411", // required version for REST
       };
-      const orgUrn = `urn:li:organization:${orgId}`;
+      const orgUrn = `urn:li:organization:${uniqueId}`;
 
       // Endpoint for page views:
       const pageViewsUrl = `https://api.linkedin.com/rest/organizationPageStatistics?q=organization&organization=${orgUrn}&timeIntervals.timeGranularityType=DAY&timeIntervals.timeRange.start=${start}&timeIntervals.timeRange.end=${end}`;
@@ -49,7 +50,7 @@ export async function POST(req) {
         const pageViewsRes = await fetch(pageViewsUrl, { headers });
         if (!pageViewsRes.ok) {
           throw new Error(
-            `Failed to fetch page views for org ${orgId}. Status: ${pageViewsRes.status}`
+            `Failed to fetch page views for org ${uniqueId}. Status: ${pageViewsRes.status}`
           );
         }
 
@@ -83,15 +84,15 @@ export async function POST(req) {
         // 6. Push the org-specific result
         allResults.push({
           status: "success",
-          organizationId: orgId,
+          organizationId: uniqueId,
           totalViews: orgTotalViews,
           rawData: pageViewsData, // optional
         });
       } catch (orgError) {
-        console.error(`Error fetching data for org ${orgId}:`, orgError);
+        console.error(`Error fetching data for org ${uniqueId}:`, orgError);
         allResults.push({
           status: "error",
-          organizationId: orgId,
+          organizationId: uniqueId,
           error: orgError.message,
         });
       }

@@ -234,6 +234,8 @@ export const UserContextProvider = ({ children }) => {
             token: org.token, // Now accessible via the org object
           }));
 
+        console.log("preorg data : ",allOrganizations);
+
         setLinkedinOrganizationId(allOrganizations);
 
         if (failed.length > 0) {
@@ -259,10 +261,10 @@ export const UserContextProvider = ({ children }) => {
     if (res.ok) {
       const data = await res.json();
 
-      console.log(
-        "Organization Data ================--------------->",
-        data.organizations
-      );
+      // console.log(
+      //   "Organization Data ================--------------->",
+      //   data.organizations
+      // );
 
       const organizationLinkedinData = data?.organizations?.map((item) => {
         return {

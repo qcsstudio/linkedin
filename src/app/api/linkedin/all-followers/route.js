@@ -22,13 +22,15 @@ export async function POST(req) {
     const dailyTotals = {};
 
     // 2. Loop over each organization
+    console.log(" ============================================================================================ ")
     for (const org of organizations) {
-      const { id: orgId, token } = org;
+      console.log("All organization in Followers",org);
+      const {uniqueId, accessToken } = org;
 
-      if (!orgId || !token) {
+      if (!uniqueId || !accessToken) {
         allResults.push({
           status: "error",
-          organizationId: orgId || "unknown",
+          organizationId: uniqueId || "unknown",
           error: "Missing ID or token",
         });
         continue;
@@ -36,10 +38,10 @@ export async function POST(req) {
 
       // 3. Prepare headers and build the LinkedIn API URL
       const headers = {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${accessToken}`,
         "LinkedIn-Version": "202411", // required version for REST
       };
-      const orgUrn = `urn:li:organization:${orgId}`;
+      const orgUrn = `urn:li:organization:${uniqueId}`;
 
       // Endpoint for follower statistics:
       const followersUrl = `https://api.linkedin.com/rest/organizationalEntityFollowerStatistics?q=organizationalEntity&organizationalEntity=${orgUrn}&timeIntervals.timeRange.start=${start}&timeIntervals.timeRange.end=${end}`;
@@ -49,7 +51,7 @@ export async function POST(req) {
         const followersRes = await fetch(followersUrl, { headers });
         if (!followersRes.ok) {
           throw new Error(
-            `Failed to fetch followers for org ${orgId}. Status: ${followersRes.status}`
+            `Failed to fetch followers for org ${uniqueId}. Status: ${followersRes.status}`
           );
         }
 
@@ -88,17 +90,17 @@ export async function POST(req) {
         // 6. Push the org-specific result
         allResults.push({
           status: "success",
-          organizationId: orgId,
+          organizationId: uniqueId,
           totalOrganic: orgTotalOrganic,
           totalPaid: orgTotalPaid,
           totalFollowers: orgTotalOrganic + orgTotalPaid,
           rawData: followersData // optional
         });
       } catch (orgError) {
-        console.error(`Error fetching followers for org ${orgId}:`, orgError);
+        console.error(`Error fetching followers for org ${uniqueId}:`, orgError);
         allResults.push({
           status: "error",
-          organizationId: orgId,
+          organizationId: uniqueId,
           error: orgError.message,
         });
       }
