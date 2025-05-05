@@ -3,6 +3,7 @@ import Client from "@/models/client.schema";
 import User from "@/models/user.schema";
 import { getCookie } from "@/utils/getCookie";
 import { verifyToken } from "@/utils/tokenGenerator";
+import { platform } from "os";
 
 export const GET = async(req)=>{
     try {
@@ -75,7 +76,7 @@ export const POST = async(req)=>{
         const {adminUser,planType} = userData;
 
         // creating new client
-        const newClient = Client({clientName,clientDomain,adminUser,planType});
+        const newClient = Client({clientName,clientDomain,adminUser,planType,$push:{platform:adminUser}});
         const savedClient = await newClient.save();
 
         // Updating user detail
