@@ -1,6 +1,8 @@
 "use client"
 import React, { useState, useEffect, useRef } from 'react';        // ← include React & hooks
 import { FONT_FAMILIES } from '@/libs/fontFamilies';
+import { RxCopy } from "react-icons/rx";
+import { CiEraser } from "react-icons/ci";
 import {
   Bold as IconBold,
   Italic as IconItalic,
@@ -30,22 +32,22 @@ const TOOL_STYLES = [
   'squared', 'subscript', 'superscript', 'bullet', 'numbered'
 ];
 const ICON_MAP = {
-  bold: <IconBold size={20} />,
-  italic: <IconItalic size={20} />,
-  underline: <IconUnderline size={20} />,
-  strikethrough: <IconStrike size={20} />,
+  bold: <IconBold size={15} />,
+  italic: <IconItalic size={15} />,
+  underline: <IconUnderline size={15} />,
+  strikethrough: <IconStrike size={15} />,
   bolditalic: <><IconBold size={16} /> <IconItalic size={16} /></>,
   script: <span className="icon-script">𝓐</span>,
-  monospace: <IconCode size={20} />,
+  monospace: <IconCode size={15} />,
   smallcaps: <span className="icon-smallcaps">ᴅ</span>,
   doublestruck: <span className="icon-ds">𝔸</span>,
   fraktur: <span className="icon-fraktur">𝔉</span>,
   squared: <span className="icon-sq">🄰</span>,
-  subscript: <IconSubscript size={20} />,
-  superscript: <IconSuperscript size={20} />,
-  link: <IconLink size={20} />,
-  bullet: <IconBullet size={20} />,
-  numbered: <IconNumbered size={20} />
+  subscript: <IconSubscript size={15} />,
+  superscript: <IconSuperscript size={15} />,
+  link: <IconLink size={15} />,
+  bullet: <IconBullet size={15} />,
+  numbered: <IconNumbered size={15} />
 };
 const TRUNCATE_LIMIT = 200;
 export default function Home() {
@@ -158,13 +160,11 @@ export default function Home() {
   return (
     <main className=" pt-[200px] bg-[#5E788F]/85">
       <Navbar />
-      <header className="header max-w-[85%] mx-auto">
-        <h1>LinkedIn Text Formatter</h1>
-      
-      </header>
+    
       <div className="editor-preview max-w-[85%] mx-auto py-[20px]">
-        <section className="editor-card">
+        <section className="editor-card ">
           <textarea
+           rows="9" cols="30"
             ref={editorRef}
             className="editor-text"
             style={{ fontFamily: font }}
@@ -188,22 +188,27 @@ export default function Home() {
                 {ICON_MAP[s]}
               </button>
             ))}
+
             <button onClick={undo} className="tool-btn">↺</button>
             <button onClick={redo} className="tool-btn">↻</button>
-            <button onClick={clearAll} className="tool-btn clear-btn">Clear</button>
-            <button onClick={copyText} className="tool-btn copy-btn">Copy</button>
+            <button onClick={clearAll} className='cursor-pointer transition-transform duration-200 transform bg-blue-500 rounded-lg my-2 p-1 w-36 h-8 flex justify-center items-center gap-2'><CiEraser className='text-xl'/><span>Clear</span></button>
+            <button onClick={copyText} className='cursor-pointer transition-transform duration-200 transform bg-[#F1813B] rounded-lg my-2 p-1 w-36 flex justify-center items-center gap-2'><RxCopy/><span>Copy</span></button>
+          </div>
+          <div className='grid grid-cols-2 justify-evenly gap-3'>
+            
+
           </div>
         </section>
         <section className="preview-card">
           <div className="device-toggle">
             <button onClick={() => { setView('mobile'); setExpanded(false); }} className={view === 'mobile' ? 'active' : ''}>
-              <IconMobile />
+              <IconMobile size={15} />
             </button>
             <button onClick={() => { setView('tablet'); setExpanded(false); }} className={view === 'tablet' ? 'active' : ''}>
-              <IconTablet />
+              <IconTablet size={15}/>
             </button>
             <button onClick={() => { setView('desktop'); setExpanded(false); }} className={view === 'desktop' ? 'active' : ''}>
-              <IconDesktop />
+              <IconDesktop size={15}/>
             </button>
           </div>
           <div
