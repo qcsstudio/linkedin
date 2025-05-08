@@ -59,7 +59,7 @@ export async function POST(req) {
     console.log("customer id: ",customer_id);
 
     
-
+    const original = plan_QS1M3QavEN80aD;
     // creating payment -----
     const startAt = Math.floor(Date.now() / 1000) + 350;
     const response = await fetch("https://api.razorpay.com/v1/subscriptions", {
@@ -69,13 +69,15 @@ export async function POST(req) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        plan_id: "plan_QS1M3QavEN80aD",
+        plan_id: original,
         total_count: 12,
         customer_notify: 1,
         customer_id,
         start_at: startAt,
       }),
     });
+
+    console.log("response subscription  Data: ",response);
 
     const data = await response.json();
 

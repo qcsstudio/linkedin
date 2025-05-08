@@ -36,6 +36,8 @@ const initialData = {
   setViews: () => {},
   linkedinCombinedData: [],
   setLinkedinCombinedData: () => {},
+  openAddAccount:false,
+  setOpenAddAccount:() => {}
 };
 
 export const userContext = createContext(initialData);
@@ -67,7 +69,9 @@ export const UserContextProvider = ({ children }) => {
     initialData.linkedinCombinedData
   );
 
-  const [clientData,setClientData] = useState(initialData.clientData)
+  const [clientData,setClientData] = useState(initialData.clientData);
+
+  const [openAddAccount,setOpenAddAccount] = useState(false);
 
   const router = useRouter();
 
