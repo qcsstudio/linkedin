@@ -7,61 +7,91 @@ import Subheading from '../Subheading/Subheading'
 import Description from '../Description/Description'
 import Link from "next/link";
 import { AiOutlineFire } from "react-icons/ai";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CloudSection from "../CloudSection/CloudSection";
 import CountUp from "react-countup";
+import { pricingPlans } from "@/data/plans.data";
+import { userContext } from "@/Context/user.context";
+import Loading from "@/components/common/Loading";
 
 
 
 
 const Plans = () => {
     const [buttonPlans, setButtonPlans] = useState('Monthly');
-    const pricingPlans = [
-        {
-            title: "Starter",
-            price: "$09",
-            duration: "user/month",
-            cardsHeading: 'Everything in starter plan',
-            features: [
-                <>Up to <span className="font-montserrat"> &nbsp;5&nbsp;</span> Social Media Accounts</>,
-                "AI Content Generation",
-                "Automated Scheduling",
-                "Basic Analytics",
-                "Email Support",
-            ],
-        },
-        {
-            title: "Pro",
-            price: "$29",
-            duration: "user/month",
-            popular: true,
-            cardsHeading: 'Everything in Pro plan',
-            features: [
-                <>Up to<span className="font-montserrat">&nbsp;20&nbsp;</span> Social Media Accounts</>,
-                "Advanced Engagement Analytics",
-                "Competitor Tracking & Insights",
-                "Unlimited Scheduling & Auto-Posting",
-                "Content Library & Curation",
-                "Priority Email & Live Chat Support",
-            ],
-        },
-        {
-            title: "Agency",
-            price: "$79",
-            duration: "user/month",
-            cardsHeading: 'Everything in Agency plan',
-            features: [
-                "Unlimited Social Media Accounts",
-                "Advanced Team Management & Collaboration",
-                "Customizable User Roles & Permissions",
-                "Comprehensive Reporting & Analytics",
-                "White-Label Reports & Branded Content",
-                "Dedicated Account Manager",
-                "Premium Priority Support",
-                "Early Access to Exclusive Beta Features",
-            ],
-        },
-    ];
+
+    const { userData } = useContext(userContext);
+
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+        script.async = true;
+        document.body.appendChild(script);
+        return () => {
+            document.body.removeChild(script);
+        };
+    }, []);
+
+
+    const handlePlan = async (planType) => {
+
+        try {
+            console.log("User Data Get Successfully :",userData);
+            const res = await fetch('/api/subscription', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ planType, email: userData?.email }),
+            });
+
+            const data = await res.json();
+            console.log("payment data : ", data);
+
+            const options = {
+                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+                subscription_id: data?.data?.subscriptionId,
+                name: 'Elevatrx',
+                description: 'Monthly Subscription',
+                callback_url: `${process.env.NEXT_PUBLIC_BASE_URL}/detail`,
+                redirect: true,
+                prefill: {
+                    email: userData?.email,
+                },
+                theme: { color: '#3399cc' },
+                handler: function (response) {
+                    console.log("From PaymentGateway : ", response)
+                    alert(`Subscription ID: ${response.razorpay_payment_id}`);
+                },
+                modal: {
+                    ondismiss: function () {
+                        console.log('Checkout closed');
+                    },
+                    animation: false  // Disables the "zoom" animation
+                }
+            };
+
+            const rzp = new window.Razorpay(options);
+            rzp.open();
+        } catch (error) {
+            console.error('Subscription error:', err);
+            alert('Failed to initiate subscription');
+        }
+
+    }
+
+    if (!userData) {
+        return (
+
+            <div className="mainContainer w-[100%] h-[100vh]  overflow-hidden bg-gradient-to-r from-purple-200 to-blue-300 flex justify-center items-center">
+                <div className="inner w-[1.5rem] h-[1.5rem]">
+
+                    <Loading />
+                </div>
+            </div>
+
+        )
+
+    }
+
 
     return (
         <div id='pricing' className="w-[100%]   px-4 lg:px-[3.37rem] md:px-[3.12rem] relative ">
@@ -141,9 +171,9 @@ const Plans = () => {
                                 </ul>
 
 
-                                <Link href='/register'> <button className={`w-full mt-auto ${plan.popular ? "bg-gradient-to-r from-[#5E788F]   to-[#5E788F]/40   " : "bg-gradient-to-r from-[#5E788F]   to-white/50"}  border-1 border-gray-200 text-white py-2 rounded-lg hover:bg-[#B0BAC4]`}>
+                                <button className={`w-full mt-auto ${plan.popular ? "bg-gradient-to-r from-[#5E788F]   to-[#5E788F]/40   " : "bg-gradient-to-r from-[#5E788F]   to-white/50"}  border-1 border-gray-200 text-white py-2 rounded-lg hover:bg-[#B0BAC4]`} onClick={() => handlePlan(plan?.title)}>
                                     Start 14 Day Free Trial
-                                </button></Link>
+                                </button>
                             </div>
                         </div>
                     ))}

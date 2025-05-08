@@ -1,0 +1,46 @@
+export const pricingPlans = [
+    {
+        title: "Starter",
+        price: "₹759",
+        duration: "user/month",
+        cardsHeading: 'Everything in starter plan',
+        features: [
+            <>Up to <span className="font-montserrat"> &nbsp;5&nbsp;</span> Social Media Accounts</>,
+            "AI Content Generation",
+            "Automated Scheduling",
+            "Basic Analytics",
+            "Email Support",
+        ],
+    },
+    {
+        title: "Pro",
+        price: "₹2,447",
+        duration: "user/month",
+        popular: true,
+        cardsHeading: 'Everything in Pro plan',
+        features: [
+            <>Up to<span className="font-montserrat">&nbsp;20&nbsp;</span> Social Media Accounts</>,
+            "Advanced Engagement Analytics",
+            "Competitor Tracking & Insights",
+            "Unlimited Scheduling & Auto-Posting",
+            "Content Library & Curation",
+            "Priority Email & Live Chat Support",
+        ],
+    },
+    {
+        title: "Agency",
+        price: "₹6,667",
+        duration: "user/month",
+        cardsHeading: 'Everything in Agency plan',
+        features: [
+            "Unlimited Social Media Accounts",
+            "Advanced Team Management & Collaboration",
+            "Customizable User Roles & Permissions",
+            "Comprehensive Reporting & Analytics",
+            "White-Label Reports & Branded Content",
+            "Dedicated Account Manager",
+            "Premium Priority Support",
+            "Early Access to Exclusive Beta Features",
+        ],
+    },
+];
