@@ -59,7 +59,7 @@ export async function POST(req) {
     console.log("customer id: ",customer_id);
 
     
-    const original = plan_QS1M3QavEN80aD;
+    const original = "plan_QSR8GxOHLXwl3T";
     // creating payment -----
     const startAt = Math.floor(Date.now() / 1000) + 350;
     const response = await fetch("https://api.razorpay.com/v1/subscriptions", {
