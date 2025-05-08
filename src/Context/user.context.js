@@ -71,6 +71,7 @@ export const UserContextProvider = ({ children }) => {
 
   const router = useRouter();
 
+  // Plan update 
   const updatePlan = async (plan) => {
     try {
       const response = await fetch("/api/plan", {
@@ -85,7 +86,7 @@ export const UserContextProvider = ({ children }) => {
         const result = await response.json();
         setUserData(result);
         // router.push("/dashboard");
-        router.push("/welcome");
+        router.push("/subscription");
         // window.location.href = "/welcome";
       }
     } catch (error) {
@@ -665,6 +666,7 @@ export const UserContextProvider = ({ children }) => {
 
       if(res.status === 201){
         const result = await res.json();
+        router.push("/dashboard");
         return {severity:"success",summary:result?.message}
       }else{
         const result = await res.json();

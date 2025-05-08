@@ -65,6 +65,26 @@ const userSchema = new mongoose.Schema({
             type:String,
         }
     ],
+    paymentDetail:{
+        subscriptionId:{
+            type:String,
+            default:null
+        },
+        customerId:{
+            type:String,
+            default:null
+        },
+        paymentData:[
+            {
+                status:{
+                    type:String,
+                },
+                invoiceURL:{
+                    type:String,
+                }
+            }
+        ]
+    },
     platforms:[
         {
             platformName:{
