@@ -14,11 +14,9 @@ import { pricingPlans } from "@/data/plans.data";
 import { userContext } from "@/Context/user.context";
 import Loading from "@/components/common/Loading";
 
-
-
-
-const Plans = () => {
+const Plans = ({popUp,setPopUp,openRazorPay,setOpenRazorPay}) => {
     const [buttonPlans, setButtonPlans] = useState('Monthly');
+
 
     const { userData } = useContext(userContext);
 
@@ -32,10 +30,24 @@ const Plans = () => {
         };
     }, []);
 
+    useEffect(()=>{
+
+        if(openRazorPay?.open){
+            handlePlan(openRazorPay?.planType);
+
+        }
+
+    },[openRazorPay?.open]);
+
 
     const handlePlan = async (planType) => {
 
         try {
+            const initialData = {
+                open:false,
+                planType:""
+            }
+            
             console.log("User Data Get Successfully :",userData);
             const res = await fetch('/api/subscription', {
                 method: 'POST',
@@ -64,13 +76,16 @@ const Plans = () => {
                 modal: {
                     ondismiss: function () {
                         console.log('Checkout closed');
+                        setOpenRazorPay(initialData)
                     },
                     animation: false  // Disables the "zoom" animation
                 }
             };
 
             const rzp = new window.Razorpay(options);
+            setPopUp(initialData);
             rzp.open();
+                
         } catch (error) {
             console.error('Subscription error:', err);
             alert('Failed to initiate subscription');
@@ -90,6 +105,16 @@ const Plans = () => {
 
         )
 
+    }
+
+
+
+
+
+
+
+    const openPopUp = (planType)=>{
+        setPopUp({open:true,planType})
     }
 
 
@@ -118,10 +143,6 @@ const Plans = () => {
                     </div>
 
                 </div>
-
-
-
-
 
 
                 <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-5 w-full z-20">
@@ -171,7 +192,7 @@ const Plans = () => {
                                 </ul>
 
 
-                                <button className={`w-full mt-auto ${plan.popular ? "bg-gradient-to-r from-[#5E788F]   to-[#5E788F]/40   " : "bg-gradient-to-r from-[#5E788F]   to-white/50"}  border-1 border-gray-200 text-white py-2 rounded-lg hover:bg-[#B0BAC4]`} onClick={() => handlePlan(plan?.title)}>
+                                <button className={`w-full mt-auto ${plan.popular ? "bg-gradient-to-r from-[#5E788F]   to-[#5E788F]/40   " : "bg-gradient-to-r from-[#5E788F]   to-white/50"}  border-1 border-gray-200 text-white py-2 rounded-lg hover:bg-[#B0BAC4]`} onClick={() => openPopUp(plan?.title)}>
                                     Start 14 Day Free Trial
                                 </button>
                             </div>
