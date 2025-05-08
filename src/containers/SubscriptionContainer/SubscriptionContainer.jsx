@@ -1,4 +1,4 @@
-import Subscription from "../SubscriptionComponents/Subscription"
+import Subscription from "../../components/SubscriptionComponents/Subscription"
 
 const SubscriptionContainer = () => {
     return (
