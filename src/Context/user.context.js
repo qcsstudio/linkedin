@@ -737,7 +737,9 @@ export const UserContextProvider = ({ children }) => {
         createClient,
         clientData,
         setClientData,
-        getClientData
+        getClientData,
+        openAddAccount,
+        setOpenAddAccount
       }}
     >
       {children}

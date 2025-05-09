@@ -19,7 +19,9 @@ export default function AccountComponent() {
     linkedinOrganizationData,
     clientData,
     setClientData,
-    getClientData
+    getClientData,
+    openAddAccount,
+    setOpenAddAccount
   } = useContext(userContext);
   const [addAccount, setAddAccount] = useState(false);
 
@@ -53,7 +55,7 @@ export default function AccountComponent() {
             {((userData?.role === "admin") || (userData?.role === "brand_manager")) && 
             <button
               className="px-[3rem] py-[0.5rem] bg-[#007BFF] rounded-[.5rem] text-[#ffffff]"
-              onClick={() => setAddAccount(true)}
+              onClick={() => setOpenAddAccount(true)}
             >
               + Add Account
             </button>}
@@ -74,20 +76,17 @@ export default function AccountComponent() {
                   );
                 })}
 
-                {linkedinOrganizationData?.map((item, index) => {
+                {/* {linkedinOrganizationData?.map((item, index) => {
                   return (
                     <div key={index} className="w-[31%]">
                       <OrganizationCard data={item} />
                     </div>
                   );
-                })}
+                })} */}
 
                 {((userData?.role === "admin") || (userData?.role === "brand_manager")) &&
 
-                  <AddCard
-                    setAddAccount={setAddAccount}
-                    addAccount={addAccount}
-                  />
+                  <AddCard/>
                 }
               </>
             ) : (
@@ -97,9 +96,9 @@ export default function AccountComponent() {
         </div>
       )}
 
-      {addAccount && (
+      {/* {addAccount && (
         <CreateAccount setAddAccount={setAddAccount} addAccount={addAccount} />
-      )}
+      )} */}
     </div>
   );
 }
