@@ -1,6 +1,6 @@
 "use client";
 import { getAccessToken } from "@/utils/getAccessToken";
-import { useEffect ,useState } from "react";
+import { useEffect, useState } from "react";
 import { GrLinkedin } from "react-icons/gr";
 
 const CreateAccount = ({ addAccount, setAddAccount }) => {
@@ -8,9 +8,6 @@ const CreateAccount = ({ addAccount, setAddAccount }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const startOAuth = () => {
-        window.location.href = '/api/auth/linkedin';
-    };
 
     return (
 

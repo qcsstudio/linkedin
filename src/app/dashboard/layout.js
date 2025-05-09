@@ -1,9 +1,11 @@
 "use client"
+import AddAccounts from "@/components/AccountComponents/AddAccounts";
 import EmailChangePopUp from "@/components/common/EmailChangePopUp";
 import PasswordChangePopUp from "@/components/common/PasswordChangePopUp";
 import SideBar from "@/components/common/SideBar";
 import Navbar from "@/components/Navbar";
 import { uiContext } from "@/Context/ui.context";
+import { userContext } from "@/Context/user.context";
 import Image from "next/image";
 import { useContext } from "react";
 
@@ -11,6 +13,7 @@ import { useContext } from "react";
 const layout = ({ children }) => {
 
   const { openPopUp, setOpenPopUp,openEmailPopUp, setEmailOpenPopUp } = useContext(uiContext);
+  const {openAddAccount, setOpenAddAccount}  = useContext(userContext);
 
   return (
     <>
@@ -41,6 +44,8 @@ const layout = ({ children }) => {
         {openPopUp == true && <PasswordChangePopUp/>}
 
         {openEmailPopUp && <EmailChangePopUp/>}
+
+        {openAddAccount && <AddAccounts/>}
       </div>
     </>
   );

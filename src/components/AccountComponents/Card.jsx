@@ -14,7 +14,7 @@ const Card = ({ data }) => {
     <>
       <div className="card  min-w-[100%] max-w-[100%] px-[2px] min-h-[12.5rem] max-h-[15.3rem]   
       bg-gradient-to-l from-[rgba(177,185,248,1)] to-[rgba(176,248,255,1)] 
-      rounded-[.5rem]  flex  z-[100] ">
+      rounded-[.5rem]  flex  z-10 ">
         <div className="innerCard w-[100%] h-[100%] mx-[px] my-[2px] p-2 bg-white/80  rounded-[.4rem]">
           <div className="upperCard w-[100%] h-[100%] flex items-center justify-center ">
             {data.avatar === null ? <div className="upperCard w-[100%]  flex items-center justify-center ">
