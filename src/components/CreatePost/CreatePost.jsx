@@ -43,9 +43,6 @@ const CreatePost = () => {
         }, {
             name: "Hashtags",
             id: 2
-        }, {
-            name: "Best Time",
-            id: 3
         }
     ]);
 
@@ -147,7 +144,7 @@ const CreatePost = () => {
     const HandleSubmit = () => {
         // console.log({ postCaption, privacy, formImage, selectedaccount, fileType, formVideo });
         if (!schedulePost) {
-            console.log("Selected Accounts Data for publish:",selectedaccount);
+            console.log("Selected Accounts Data for publish:", selectedaccount);
             postLinkedin({ postCaption, privacy, formImage, selectedaccount, fileType, formVideo });
         } else if (schedulePost) {
             console.log("schedule date", scheduleDate);
@@ -310,7 +307,7 @@ const CreatePost = () => {
 
     ]
 
-
+    console.log("generatedCaption", generatedCaption)
 
     return (
         <div className="w-[95%] mx-auto mt-8 flex gap-1 ">
@@ -578,23 +575,39 @@ const CreatePost = () => {
                         {/* Heading  */}
                         <div className="heading mb-[0.9rem]"><p className="text-[.98rem] font-bold">AI Suggestions</p></div>
 
+
                         {/* Input */}
                         <div className="textFieldBox w-[100%] h-[3.5rem] rounded-[.5rem] bg-[#ffffff] pl-[1.25rem] pr-[1.375rem] py-[0.56rem] flex gap-[3rem]">
                             <input type="text" name="aiPrompt" id="aiPrompt" placeholder="Tell me what should i generate for you!" className="w-[70%] focus:border-none focus:outline-none text-[.80rem]" onChange={(e) => setPrompt(e.target.value)} />
                             <button onClick={generateCaption} type="button" className="bg-[#4379EE] text-[#ffffff] px-[2rem] rounded-[.5rem]" >Generate</button>
                         </div>
 
-                        {/* Suggestions */}
-                        <div className="suggestionXontainer w-[50%] h-[2.78rem] flex items-center justify-between bg-[#ffffff] rounded-[.5rem] px-[.93rem] py-[0.5rem] mt-[0.75rem] text-[0.8rem] ">
+                        <div className="flex" >
+                            <div className="suggestionXontainer w-[40%] h-[2.78rem] flex items-center justify-between bg-[#ffffff] rounded-[.5rem] px-[.93rem] py-[0.5rem] mt-[0.75rem] text-[0.8rem] ">
+                                {
+                                    suggestionButton.map((data) => {
+                                        return <p className={`cursor-pointer select-none ${data.id === activeButton ? "px-[0.75rem] py-[0.5rem] bg-[#F1F5F9] rounded-[.5rem]" : ""}`} key={data.id} onClick={() => setActiveButton(data.id)}>{data.name}</p>
+                                    })
+                                }
+                            </div>
+                            <div className="p-5 flex flex-col gap-2 bg-white/50 rounded-lg">
+                                <h2 className=" font-bold text-lg">Select account to generate topics</h2>
+                                {(clientData) &&
+                                    <MultiSelect
+                                        value={selectedaccount}
+                                        onChange={(e) => setSelectedaccount(e.value)}
+                                        options={clientData?.platforms ? clientData?.platforms : ""}
+                                        optionLabel="name"
+                                        placeholder="Select Platforms"
+                                        filter
+                                        selectedItemTemplate={selectedaccountTemplate}
+                                        itemTemplate={accountOptionTemplate}
+                                        display="chip"
+                                        className="w-full bg-white border rounded-md px-3 py-2 shadow focus:ring-0 focus:outline-none"
+                                    />
+                                }
 
-
-                            {
-                                suggestionButton.map((data) => {
-                                    return <p className={`cursor-pointer select-none ${data.id === activeButton ? "px-[0.75rem] py-[0.5rem] bg-[#F1F5F9] rounded-[.5rem]" : ""}`} key={data.id} onClick={() => setActiveButton(data.id)}>{data.name}</p>
-                                })
-                            }
-
-
+                            </div>
                         </div>
                     </div>
 
@@ -602,19 +615,27 @@ const CreatePost = () => {
 
                     {/* Lower Container */}
                     <div className="lowerAiContainer flex flex-col gap-[1rem]">
-                        {activeButton == 3 && bestTime.map((item, index) => {
-                            return <div key={index} className="suggestions w-[100%] min-h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">{item.time}</p></div>
-                        })}
-                        {activeButton == 2 && hashTags.map((item, index) => {
-                            return <div key={index} className="suggestions w-[100%] min-h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">{item.hashTag}</p></div>
-                        })}
-                        {(activeButton == 1 && generatedCaption.length > 0) ? (generatedCaption.map((item, index) => {
-                            return <div key={index} className="suggestions w-[100%] min-h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">{item}</p></div>
-                        })) : (<p className="text-[#000000] ml-[.5rem]">Generate Captions</p>)}
-
-                        {/* <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/60 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions!</p></div>
-                        <div className="suggestions w-[100%] h-[3rem] bg-[#ffffff]/70 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]"><p className="text-[0.75rem]">Success on social media isn’t just about posting—it’s about tracking performance, understanding engagement, and making data-driven decisions!</p></div> */}
+                        {
+                            generatedCaption.length > 0 ? (
+                                generatedCaption.map((item, index) => (
+                                    (activeButton === 1) ? (
+                                        // ✅ Show Captions
+                                        <div key={index} className="suggestions w-full min-h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]">
+                                            <p className="text-[0.75rem]">{item.post}</p>
+                                        </div>
+                                    ) : (activeButton === 2) ? (
+                                        // ✅ Show Hashtags
+                                        <div key={index} className="suggestions w-full min-h-[3rem] bg-[#ffffff]/50 flex items-center px-[0.75rem] py-[0.81rem] rounded-[.5rem]">
+                                            <p className="text-[0.75rem]">{item.hashtags?.join(" ")}</p>
+                                        </div>
+                                    ) : null
+                                ))
+                            ) : (
+                                <p className="text-[#000000] ml-[.5rem]">Generate AI Suggestions</p>
+                            )
+                        }
                     </div>
+
 
                     {/* Text Editor */}
 

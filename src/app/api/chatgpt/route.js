@@ -14,7 +14,12 @@ export const POST = async(req)=>{
         const response = await openai.chat.completions.create({
             model:"gpt-4o-mini",
             messages: [{ role: "user", content: prompt }],
-            max_tokens: 100
+            max_tokens: 400,
+            temperature: 0.85,        // 🧠 creativity
+            n: 3   ,
+            frequency_penalty: 0.5, // Reduce repetition of common phrases
+            presence_penalty: 0.4, // Encourage new concepts
+          
         });
 
         console.log(response);
