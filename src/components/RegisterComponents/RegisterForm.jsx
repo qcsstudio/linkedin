@@ -16,6 +16,13 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { userContext } from "@/Context/user.context";
 import logo from '../../../public/images/loginImages/logo.png'
+import { Dropdown } from 'primereact/dropdown';
+import { ChevronDownIcon } from 'primereact/icons/chevrondown';
+import { ChevronRightIcon } from 'primereact/icons/chevronright';
+
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+import { countryData } from "@/data/country.data";
+
 
 const RegisterForm = () => {
   const { registerAPI } = useContext(userContext);
@@ -24,15 +31,20 @@ const RegisterForm = () => {
     firstName: "",
     lastName: "",
     email: "",
-    phone:"",
+    phone: "",
     password: "",
     confirm: ""
   });
 
+  const [selectedCity, setSelectedCity] = useState(null);
+
+
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (form.password === form.confirm) {
-      console.log("Form Data",form);
+      console.log("Form Data", form);
+      form.country = selectedCity;
       registerAPI(form);
     } else {
       alert("Password and Confirm Password are not same");
@@ -84,11 +96,11 @@ const RegisterForm = () => {
           ))}
         </Swiper>
       </div>
-      <div className="rightContainer w-full xl:w-1/2 h-full bg-gradient-to-r p-2 md:p-6 lg:p-10 from-purple-300 flex flex-col justify-center items-center to-blue-200">
+      <div className="rightContainer w-full xl:w-1/2 h-full bg-gradient-to-r p-2 md:p-6 lg:p-10 from-purple-300 flex flex-col justify-center items-center to-blue-200 overflow-y-scroll">
         <div className="block xl:hidden absolute top-0 left-10">
           <Image src={mainLogo} height={200} width={200} alt="" />
         </div>
-        <div className="inputContainer w-full gap-2 justify-end flex items-center">
+        <div className="inputContainer w-full gap-2 justify-end flex items-center mt-[4rem]">
           <p className="forgetPassword">Already have an account?</p>
           <Link href="/login">
             <p className="signUpLink text-purple-500 cursor-pointer">Log in</p>
@@ -109,7 +121,7 @@ const RegisterForm = () => {
                 onChange={formHandler}
                 placeholder="First name"
                 required
-                />
+              />
               <input
                 className="w-full h-14 px-4 border rounded-lg bg-white/40 placeholder-gray-500"
                 type="text"
@@ -125,11 +137,14 @@ const RegisterForm = () => {
           {/* Email Field */}
           <label htmlFor="email">Email</label>
           <input id="email" placeholder="Enter Your Email" value={form.email} onChange={formHandler} type="email" name="email" className="w-full h-14 px-4 border rounded-lg bg-white/40 placeholder-gray-500 focus:outline-none" required />
-          
+
           {/* Phone Field */}
           <label htmlFor="phone">Phone</label>
           <input id="phone" placeholder="Enter Your Phone Number" value={form.phone} onChange={formHandler} type="text" name="phone" className="w-full h-14 px-4 border rounded-lg bg-white/40 placeholder-gray-500 focus:outline-none" required />
-          
+
+          <label htmlFor="phone">Country</label>
+          <Dropdown value={selectedCity} onChange={(e) => setSelectedCity(e.value)} options={countryData} optionLabel="name" editable placeholder="Select a City" className="w-full md:w-14rem px-4 h-14 bg-white/40" />
+
           {/* Password Field */}
           <label htmlFor="password">Password</label>
           <div className="w-full h-14 px-4 border rounded-lg bg-white/40 placeholder-gray-500 flex items-center gap-4">

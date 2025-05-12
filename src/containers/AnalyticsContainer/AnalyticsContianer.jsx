@@ -1,10 +1,12 @@
 "use client";
-
 import React, { useContext, useEffect, useState } from "react";
 import { Dropdown } from "primereact/dropdown";
 import { CiCircleRemove } from "react-icons/ci";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+
 
 import BestToPost2Analytics from "@/components/AnalyticsComponets/BestTimeToPost2Analytics";
 import BestTimeToPostAnalytics from "@/components/AnalyticsComponets/BestTimeToPostAnalytics";
@@ -25,19 +27,13 @@ const AnalyticsContianer = () => {
   const [organizationAccounts, setOrganizationAccounts] = useState(null);
 
   const {
-    getUserLinkedinProfiles,
-    linkedinAccounts,
-    getLinkedinOrganizationsProfiles,
-    linkedinOrganizationId,
     getOrganizationAnalyticsData,
     oneOrganizationAnalticsData,
     organizationFollowerCount,
-    linkedinProfileData,
     linkedinOrganizationData,
     getAllOrganizationsData,
     views,
     clientData,
-    setClientData,
     getClientData
   } = useContext(userContext);
 
@@ -61,17 +57,6 @@ const AnalyticsContianer = () => {
     setOrganizationAccounts(organizationAccounts);
   }, [clientData]);
 
-  // useEffect(() => {
-  //   if (linkedinAccounts) {
-  //     getUserLinkedinProfiles();
-  //   }
-  // }, [linkedinAccounts]);
-
-  // useEffect(() => {
-  //   if (linkedinOrganizationId) {
-  //     getLinkedinOrganizationsProfiles();
-  //   }
-  // }, [linkedinOrganizationId]);
 
   useEffect(() => {
     if (selectedaccount) {
@@ -230,15 +215,15 @@ const AnalyticsContianer = () => {
         </div>
       </div>
 
-      {!oneOrganizationAnalticsData ? (
+      {/* {!oneOrganizationAnalticsData ? (
         <div className="flex min-h-[600px] z-10 rounded-lg bg-white/40">
           <Loader />
         </div>
-      ) : (
+      ) : ( */}
         <div
         id="analytics-pdf-container"
         className="p-6 flex flex-col gap-3 z-10 rounded-lg bg-white"
-        style={{ minWidth: "1200px" }} // Ensure consistent width
+        // style={{ minWidth: "1200px" }} // Ensure consistent width
       >
           <h1 className="font-bold text-lg">Social Media Engagement</h1>
 
@@ -276,7 +261,7 @@ const AnalyticsContianer = () => {
             <ReadyToScdeduleAnalytics />
           </div>
         </div>
-      )}
+      {/* )} */}
     </div>
   );
 };

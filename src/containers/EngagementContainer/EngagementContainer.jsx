@@ -27,15 +27,9 @@ const EngagementContainer = () => {
     getUserLinkedinProfiles,
     linkedinAccounts,
     getLinkedinOrganizationsProfiles,
-    linkedinOrganizationId,
-    getOrganizationAnalyticsData,
-    oneOrganizationAnalticsData,
-    organizationFollowerCount,
-    linkedinProfileData,
     linkedinOrganizationData,
     getAllOrganizationsData,
     clientData,
-    setClientData,
     getClientData
   } = useContext(userContext);
 
@@ -52,10 +46,6 @@ const EngagementContainer = () => {
     const organizationAccounts = platforms?.filter(data=>data.accountType === "organization");
     setOrganizationAccounts(organizationAccounts);
   },[clientData]);
-
-  // useEffect(()=>{
-  //   alert("Get All Data");
-  // },[organizationAccounts]);
 
   // Fetch LinkedIn profiles when accounts change
   useEffect(() => {
@@ -181,10 +171,10 @@ const EngagementContainer = () => {
   }
 
   return (
-    <div className="ml-[20px] pt-[12px] mt-[35px] bg-white/30 rounded-lg flex justify-center items-center">
-      <div className="flex flex-col gap-6 w-full px-4">
-        <div className="flex justify-between">
-          <h1 className="font-bold text-[22px]">Social Media Analytics</h1>
+    <div className="ml-[20px] pt-[12px] mt-[35px] bg-white/30 rounded-lg flex justify-center items-center z-[50]">
+      <div className="flex flex-col gap-6 w-full px-4 z-[50]">
+        <div className="flex justify-between z-[50]">
+          <h1 className="font-bold text-[22px] z-[50]">Social Media Analytics</h1>
           {organizationAccounts != null && (
             <div className="w-[30%]">
               <Dropdown
@@ -193,7 +183,7 @@ const EngagementContainer = () => {
                 options={organizationAccounts}
                 optionLabel="vanityName"
                 placeholder="Select Platform"
-                className="w-full md:w-14rem"
+                className="w-full md:w-14rem z-[50]"
                 itemTemplate={accountOptionTemplate}
                 valueTemplate={selectedAccountTemplate}
               />
