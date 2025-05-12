@@ -12,7 +12,7 @@ export const POST = async(req)=>{
         await ConnectDB();
         const data = await req.json();
 
-        let {firstName,lastName,email,planType,role,phone} = data;
+        let {firstName,lastName,email,planType,role,phone,country} = data;
         console.log("Data in backend",data);
         const Password = data.password;
         // Checking Role
@@ -50,7 +50,7 @@ export const POST = async(req)=>{
         // User Create
         let SavedUser
         if(role === "admin"){
-            const newUser = new User({firstName,lastName,email,password:hashedPassword,role,planType,phone});
+            const newUser = new User({firstName,lastName,email,password:hashedPassword,role,planType,phone,country});
             SavedUser = await newUser.save();
         }else{
             // getting client detail

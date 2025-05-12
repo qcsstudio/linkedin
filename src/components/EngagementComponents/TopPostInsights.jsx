@@ -20,14 +20,14 @@ const TopPostInsights = ({ topPosts, onRowClick }) => {
   };
 
   return (
-    <div className="w-full bg-white/50 p-4 rounded-lg shadow-md">
+    <div className="w-full bg-white/50 p-4 rounded-lg shadow-md z-[50]">
       <h2 className="text-lg font-semibold mb-3">Top Post Insights</h2>
-      <div className="bg-gray-100 rounded-lg">
-        <div className="flex justify-between p-4 rounded-t-lg bg-gray-300/50 font-semibold w-full text-lg text-gray-700 pb-2 border-b">
+      <div className="bg-gray-100 rounded-lg z-[50]">
+        <div className="flex justify-between p-4 rounded-t-lg bg-gray-300/50 font-semibold w-full text-lg text-gray-700 pb-2 border-b z-[50]">
           <span className="w-2/5">Post</span>
           <span className="w-1/5">Platform</span>
-          <span className="w-1/5 text-center">Engagement</span>
-          <span className="w-1/5 text-center">Performance</span>
+          <span className="w-1/5 text-center z-[50]">Engagement</span>
+          <span className="w-1/5 text-center z-[50]">Performance</span>
         </div>
 
         {topPosts.map((post, i) => {
@@ -41,12 +41,12 @@ const TopPostInsights = ({ topPosts, onRowClick }) => {
           return (
             <div
               key={i}
-              className={`flex p-4 items-center justify-between py-3 border-b last:border-none cursor-pointer transition ${
+              className={`flex p-4 items-center justify-between py-3 border-b last:border-none cursor-pointer transition z-[50] ${
                 isSelected ? "bg-blue-100 shadow-inner" : "hover:bg-gray-200"
               }`}
               onClick={() => handleRowClick(post, i)}
             >
-              <div className="flex gap-2 items-center w-2/5">
+              <div className="flex gap-2 items-center w-2/5 z-[50]">
                 {thumbnail && (
                   <Image
                     src={thumbnail}
@@ -59,9 +59,9 @@ const TopPostInsights = ({ topPosts, onRowClick }) => {
                 <span className="text-gray-800 text-lg w-1/2">{shortText}</span>
               </div>
 
-              <div className="w-1/5 gap-3 items-center flex">
-                <FaLinkedin className="w-6 h-6 text-blue-500" />
-                <span className="text-gray-600 text-xl">LinkedIn</span>
+              <div className="w-1/5 gap-3 items-center flex z-[50]">
+                <FaLinkedin className="w-6 h-6 text-blue-500 z-[50]" />
+                <span className="text-gray-600 text-xl z-[50] ">LinkedIn</span>
               </div>
 
               <div className="w-1/5 text-center font-semibold text-gray-700">
