@@ -15,6 +15,7 @@ import Elevate from "@/components/HomeComponent/Elevate/Elevate";
 import Navbar from "@/components/HomeComponent/NavbarHome/NavbarHome";
 import ContactUsSection from "@/components/HomeComponent/ContactUsSection/ContactUsSection";
 import CloudSection from "@/components/HomeComponent/CloudSection/CloudSection";
+import HomePlan from "@/components/HomeComponent/Plans/HomePlan";
 
 const HomeContainer = () => {
   return (
@@ -125,7 +126,8 @@ const HomeContainer = () => {
           <Integration />
           <Elevate />
           <KeyFeatureSection />
-          <Plans />
+          {/* <Plans /> */}
+          <HomePlan/>
           <SuccessStories />
           <Blogs />
 

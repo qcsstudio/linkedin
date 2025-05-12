@@ -131,10 +131,10 @@ const Footer = () => {
                     <div>
                         <h3 className="sm:text-xl lg:text-xl text-[18px] text-nowrap font-medium text-white">Legal</h3>
                         <ul className="text-sm space-y-1 mt-2 text-nowrap">
-                            <li><Link href="https://www.qcsstudio.in/privacy-policy">Privacy Policy</Link></li>
-                            <li><Link href="https://www.qcsstudio.in/terms-of-service">Terms of Services</Link></li>
-                            <li><Link href="https://www.qcsstudio.in/privacy-policy">Cookie Policy</Link></li>
-                            <li><Link href="https://www.qcsstudio.in/privacy-policy">Data Protection</Link></li>
+                            <li><Link href="/privacy-policy">Privacy Policy</Link></li>
+                            <li><Link href="/terms-service">Terms of Services</Link></li>
+                            <li><Link href="/privacy-policy">Cookie Policy</Link></li>
+                            <li><Link href="/privacy-policy">Data Protection</Link></li>
                         </ul>
                     </div>
 
