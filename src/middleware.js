@@ -18,11 +18,10 @@ export const middleware = async (req) => {
         return NextResponse.redirect(new URL('/dashboard', req.url));
     }
 
-
     if (req.nextUrl.pathname.startsWith('/privacy-policy')) {
         return NextResponse.redirect(new URL('https://www.qcsstudio.com/privacy-policy', req.url));
     }
-    
+
     if (req.nextUrl.pathname.startsWith('/terms-service')) {
         return NextResponse.redirect(new URL('https://www.qcsstudio.com/terms-service', req.url));
     }
