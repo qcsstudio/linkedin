@@ -13,7 +13,10 @@ const initialData = {
     commentSuccess: false,
     setCommentSuccess: () => { },
     scheduledPostData: [],
-    setScheduledPostData: () => { }
+    setScheduledPostData: () => { },
+    getLinkedInSuggestions: () => { },
+    linkedinSuggestions:null,
+    setLinkedinSuggestions:( )=> { }
 }
 
 const postContext = createContext(initialData);
@@ -26,7 +29,7 @@ export const PostContextProvider = ({ children }) => {
     const [generatedCaption, setGeneratedCaption] = useState(initialData.generatedCaption);
     const [commentSuccess, setCommentSuccess] = useState(initialData.commentSuccess);
     const [scheduledPostData, setScheduledPostData] = useState(initialData.scheduledPostData);
-
+    const [linkedinSuggestions , setLinkedinSuggestions] = useState(initialData.linkedinSuggestions)
 
     // Linkedin Post function -------------------------------------------------
     const postLinkedin = async (data) => {
@@ -93,7 +96,7 @@ export const PostContextProvider = ({ children }) => {
               "tone": "encouraging/thoughtful/authoritative"
             }
             `;
-    
+
             const response = await fetch("/api/chatgpt/", {
                 method: "POST",
                 headers: {
@@ -101,11 +104,11 @@ export const PostContextProvider = ({ children }) => {
                 },
                 body: JSON.stringify({ prompt: optimizedPrompt })
             });
-    
+
             if (response.status === 200) {
                 const result = await response.json();
                 const choices = result?.data?.choices || [];
-    
+
                 // ✅ Loop through all choices and add to array state
                 const suggestions = choices.map(choice => {
                     const content = choice?.message?.content;
@@ -116,17 +119,17 @@ export const PostContextProvider = ({ children }) => {
                         return { post: content, hashtags: [], sentiment: "", tone: "" };
                     }
                 });
-    
+
                 // ✅ Add all objects to single array state
                 setGeneratedCaption(prev => [...prev, ...suggestions]);
             }
-    
+
         } catch (error) {
             console.log("Unable to post on Linkedin /context/post.context :", error);
         }
     }
-    
-    
+
+
 
 
     // Linkedin Post Schedule function -------------------------------------------------
@@ -233,8 +236,49 @@ export const PostContextProvider = ({ children }) => {
         }
     }
 
+    const getLinkedInSuggestions = async (accessToken , organizationId ) => {
+        try {
+            const response = await fetch('/api/linkedin-next-suggestions', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ organizationId, accessToken }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Failed to get suggestions');
+            }
+
+            const data = await response.json();
+            setLinkedinSuggestions(data.suggestions);
+        } catch (error) {
+            console.error('Error fetching LinkedIn suggestions:', error);
+            throw error;
+        }
+    };
+
     return (
-        <postContext.Provider value={{ loading, setLoading, error, setError, postLinkedin, generatePostCaption, generatedCaption, setGeneratedCaption, postSchedule, nestedComment, postComment, commentSuccess, setCommentSuccess, getSchedulePost, scheduledPostData, setScheduledPostData }}>
+        <postContext.Provider value={{
+            loading,
+            setLoading,
+            error,
+            setError,
+            postLinkedin,
+            generatePostCaption,
+            generatedCaption,
+            setGeneratedCaption,
+            postSchedule,
+            nestedComment,
+            postComment,
+            commentSuccess,
+            setCommentSuccess,
+            getSchedulePost,
+            scheduledPostData,
+            setScheduledPostData,
+            getLinkedInSuggestions,
+            linkedinSuggestions,
+            setLinkedinSuggestions
+        }}>
             {children}
         </postContext.Provider>
     )
