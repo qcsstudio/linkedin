@@ -14,9 +14,11 @@ import { pricingPlans } from "@/data/plans.data";
 import { userContext } from "@/Context/user.context";
 import Loading from "@/components/common/Loading";
 
-const Plans = ({popUp,setPopUp,openRazorPay,setOpenRazorPay}) => {
+const Plans = ({ popUp, setPopUp, openRazorPay, setOpenRazorPay }) => {
     const [buttonPlans, setButtonPlans] = useState('Monthly');
     const { userData } = useContext(userContext);
+
+
 
     useEffect(() => {
         const script = document.createElement('script');
@@ -28,21 +30,42 @@ const Plans = ({popUp,setPopUp,openRazorPay,setOpenRazorPay}) => {
         };
     }, []);
 
-    useEffect(()=>{
-        if(openRazorPay?.open){
+    useEffect(() => {
+        if (openRazorPay?.open) {
             handlePlan(openRazorPay?.planType);
         }
-    },[openRazorPay?.open]);
+    }, [openRazorPay?.open]);
+
+    const [country, setCountry] = useState('');
+
+    useEffect(() => {
+        fetch(`https://ipinfo.io/json?token=dabf75bfa8adea`)
+            .then(response => response.json())
+            .then(data => {
+                setCountry(data.country);
+            })
+            .catch(error => console.error('Error:', error));
+    }, []);
+
+    const [price, setPrice] = useState(null);
+
+    useEffect(() => {
+        fetch('https://open.er-api.com/v6/latest/USD')
+            .then(res => res.json())
+            .then(data => {
+                setPrice(data.rates.INR); // Example: Get USD to INR
+            });
+    }, []);
 
 
     const handlePlan = async (planType) => {
         try {
             const initialData = {
-                open:false,
-                planType:""
+                open: false,
+                planType: ""
             }
-            
-            console.log("User Data Get Successfully :",userData);
+
+            console.log("User Data Get Successfully :", userData);
             const res = await fetch('/api/subscription', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -79,7 +102,7 @@ const Plans = ({popUp,setPopUp,openRazorPay,setOpenRazorPay}) => {
             const rzp = new window.Razorpay(options);
             setPopUp(initialData);
             rzp.open();
-                
+
         } catch (error) {
             console.error('Subscription error:', err);
             alert('Failed to initiate subscription');
@@ -97,8 +120,8 @@ const Plans = ({popUp,setPopUp,openRazorPay,setOpenRazorPay}) => {
         )
     }
 
-    const openPopUp = (planType)=>{
-        setPopUp({open:true,planType})
+    const openPopUp = (planType) => {
+        setPopUp({ open: true, planType })
     }
 
     return (
@@ -112,7 +135,7 @@ const Plans = ({popUp,setPopUp,openRazorPay,setOpenRazorPay}) => {
                         <Subheading subHeading={" Flexible Pricing for Every Social Media Superhero"} />
 
                         <Description description={"At ElevatrX, we make social media marketing simple and affordable. Our flexible plans grow with your business—choose yours and streamline your success."} />
-                        <div className="flex bg-white p-1 rounded-lg  z-20">
+                        <div className="flex bg-white p-1 rounded-lg  z-20 select-none">
                             <button onClick={() => setButtonPlans('Monthly')} className={`${buttonPlans === 'Monthly' ? "bg-[#5E788F]/40 " : ""} px-2 md:px-4 lg:px-8   text-md md:text-lg lg:text-lg rounded-md text-gray-700 `}>
                                 Monthly
                             </button>
@@ -145,12 +168,12 @@ const Plans = ({popUp,setPopUp,openRazorPay,setOpenRazorPay}) => {
                                         {buttonPlans === "yearly" ? (
                                             <CountUp
                                                 start={0}
-                                                end={parseFloat(plan.price.replace("$", "")) * 12 * 0.8}
+                                                end={country === "IN" ? (parseFloat(plan.price.replace("$", "")) * 12 * 0.8) * price :(parseFloat(plan.price.replace("$", "")) * 12 * 0.8) }
                                                 duration={1.5}
-                                                prefix="$"
+                                                prefix={country === "IN" ? "₹" : "$"}
                                             />
                                         ) : (
-                                            plan.price
+                                            country === "IN" ? `₹ ${Math.floor(plan.price * price)}`:`$${plan.price}`
                                         )}
                                     </p>
                                     <p className="text-md font-thin text-gray-500"> {buttonPlans === "yearly" ? "user/year" : plan.duration}</p>

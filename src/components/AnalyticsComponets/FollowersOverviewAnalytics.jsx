@@ -9,7 +9,8 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const timeRanges = {
   "7d": 7 * 24 * 60 * 60 * 1000,
-  "30d": 30 * 24 * 60 * 60 * 1000,
+  "1m": 30 * 24 * 60 * 60 * 1000,
+  "3m": 90 * 24 * 60 * 60 * 1000,
 };
 
 
@@ -212,7 +213,9 @@ export default function FollowersChart({id, token}) {
                 : "bg-gray-200 text-gray-700 hover:bg-gray-300"
             }`}
           >
-            {range === "7d" ? "Last 7 Days" : "Last 30 Days"}
+
+            Last {range.replace("d","").replace("m","")} Months
+            {/* {range === "7d" ? "Last 7 Days" : "Last 30 Days"} */}
           </button>
         ))}
       </div>

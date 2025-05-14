@@ -37,64 +37,78 @@ const AnimatedNumber = ({ value, duration = 0.8 }) => {
 
 
 
-const TotalOverview = ({ data, followers, growthData , views}) => {
-  console.log("views",views);
+const TotalOverview = ({ data, followers, growthData, views, enableFollowers, setEnableFollowers }) => {
+  console.log("Selected Account Data:", { data, followers, growthData, views });
+  console.log("views", views);
   const engagementData = [
-    { name: "Followers",
-       value: followers || 0, 
-       color: "text-blue-500",
-        icon: <FaUsers />,
-        growth:growthData?.followerGain?.growth
-       },
-    { name: "Likes",
-       value: data?.likeCount || 0,
-        color: "text-red-500",
-         icon: <AiFillHeart /> ,
-         growth:growthData?.likeCount?.growth
-        },
-    { name: "Comments", 
-      value: data?.commentCount || 0, 
+    {
+      name: "Followers",
+      value: followers || 0,
+      color: "text-blue-500",
+      icon: <FaUsers />,
+      growth: growthData?.followerGain?.growth
+    },
+    {
+      name: "Likes",
+      value: data?.likeCount || 0,
+      color: "text-red-500",
+      icon: <AiFillHeart />,
+      growth: growthData?.likeCount?.growth
+    },
+    {
+      name: "Comments",
+      value: data?.commentCount || 0,
       color: "text-purple-500",
-       icon: <FaCommentDots /> ,
-       growth:growthData?.commentCount?.growth
+      icon: <FaCommentDots />,
+      growth: growthData?.commentCount?.growth
 
-      },
-    { name: "Views", 
+    },
+    {
+      name: "Views",
       value: views,
-       color: "text-blue-500", 
-       icon: <FaBookmark /> ,
-       growth:growthData?.pageViews?.growth
+      color: "text-blue-500",
+      icon: <FaBookmark />,
+      growth: growthData?.pageViews?.growth
 
-      },
+    },
     {
       name: "Engagement",
       value: `${data?.engagement ? (data.engagement * 100).toFixed(2) : "0.00"}%`,
       color: "text-orange-500",
       icon: <MdOutlineAnalytics />,
-      growth:growthData?.engagement?.growth
+      growth: growthData?.engagement?.growth
 
     },
-    { name: "Unique Impressions",
-       value: data?.uniqueImpressionsCount || 0,
-        color: "text-black",
-         icon: <AiFillEye /> ,
-         growth:growthData?.uniqueImpressionsCount?.growth
+    {
+      name: "Unique Impressions",
+      value: data?.uniqueImpressionsCount || 0,
+      color: "text-black",
+      icon: <AiFillEye />,
+      growth: growthData?.uniqueImpressionsCount?.growth
 
-        },
-    { name: "Clicks", 
+    },
+    {
+      name: "Clicks",
       value: data?.clickCount || 0,
-       color: "text-gray-500", 
-       icon: <FaMousePointer /> ,
-       growth:growthData?.clickCount?.growth
+      color: "text-gray-500",
+      icon: <FaMousePointer />,
+      growth: growthData?.clickCount?.growth
 
-      },
-    { name: "Impression", 
+    },
+    {
+      name: "Impression",
       value: data?.impressionCount || 0,
-       color: "text-green-500", 
-       icon: <AiOutlineShareAlt /> ,
-       growth:growthData?.impressionCount?.growth
-      },
+      color: "text-green-500",
+      icon: <AiOutlineShareAlt />,
+      growth: growthData?.impressionCount?.growth
+    },
   ];
+
+  const handleClick = (item) => {
+    if (item.name === "Followers"){
+      setEnableFollowers(!enableFollowers);
+    }
+  }
 
   return (
     <div className="bg-white/50 flex flex-col gap-4 rounded-lg p-5">
@@ -106,9 +120,10 @@ const TotalOverview = ({ data, followers, growthData , views}) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.05 }}
-            className="p-4 bg-white/60 flex flex-col gap-3 rounded-lg shadow-md text-center"
+            className={`p-4 transition-all duration-500 ease-in-out ${(item.name === "Followers" && enableFollowers === true) ? "bg-[#e9fbe8]" : "bg-white/60" } flex flex-col gap-3 rounded-lg shadow-md text-center cursor-pointer select-none`}
+            onClick={() => handleClick(item)}
           >
-            <div className="flex items-center gap-3 justify-start">
+            <div className="flex items-center gap-3 justify-start bg-red">
               <div className="bg-blue-500/15 p-2 rounded-full">
                 <span className={`${item.color} text-xl`}>
                   {item.icon}

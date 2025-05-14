@@ -10,7 +10,7 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 
 import BestToPost2Analytics from "@/components/AnalyticsComponets/BestTimeToPost2Analytics";
 import BestTimeToPostAnalytics from "@/components/AnalyticsComponets/BestTimeToPostAnalytics";
-import FollowersChart from "@/components/AnalyticsComponets/FollowersChart";
+// import FollowersChart from "@/components/AnalyticsComponets/FollowersChart";
 import HeatMapAnalytics from "@/components/AnalyticsComponets/HeatMapAnalytics";
 import ImpressionOverviewAnalytics from "@/components/AnalyticsComponets/ImpressionOverviewAnalytics";
 import ReadyToScdeduleAnalytics from "@/components/AnalyticsComponets/ReadyToScdeduleAnalytics";
@@ -20,11 +20,28 @@ import Loader from "../Loader/Loader";
 
 import { userContext } from "@/Context/user.context";
 import analyticsContext from "@/Context/analytics.context";
+import FollowersChart from "@/components/AnalyticsComponets/FollowersOverviewAnalytics";
+import CombinedFollowersChart from "@/components/AnalyticsComponets/FollowersChart";
+// import FollowersChart from "@/components/AnalyticsComponets/FollowersChart";
 
 const AnalyticsContianer = () => {
   const [selectedaccount, setSelectedaccount] = useState(null);
 
   const [organizationAccounts, setOrganizationAccounts] = useState(null);
+
+  const [selectedTime, setSelectedTime] = useState({ name:"7 Days",time: 7 * 24 * 60 * 60 * 1000 });
+
+  const [enableFollowers,setEnableFollowers] = useState(false);
+
+  const time = [
+    { name:"7 Days",time: 7 * 24 * 60 * 60 * 1000 },
+    { name:"1 Month",time: 30 * 24 * 60 * 60 * 1000 },
+    { name:"3 Month",time: 90 * 24 * 60 * 60 * 1000 },
+  ]
+
+  // useEffect(()=>{
+  //   console.log("Time Range Changed :",selectedTime);
+  // },[selectedTime]);
 
   const {
     getOrganizationAnalyticsData,
@@ -77,7 +94,9 @@ const AnalyticsContianer = () => {
 
   useEffect(() => {
     if (organizationAccounts) {
-      getAllOrganizationsData(clientData);
+
+      console.log("All Organizational Data", organizationAccounts);
+      getAllOrganizationsData(organizationAccounts);
       GetAllViewsAPI(organizationAccounts);
       GetAllFollowersAPI(organizationAccounts);
     }
@@ -182,15 +201,13 @@ const AnalyticsContianer = () => {
           Hi, QCS <span className="text-lg font-thin">keep Moving Forward</span>
         </h1>
 
-
-
-          <button
-            onClick={handleDownloadPDF}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
-            disabled={!oneOrganizationAnalticsData}
-          >
-            Download PDF
-          </button>
+        <button
+          onClick={handleDownloadPDF}
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+          disabled={!oneOrganizationAnalticsData}
+        >
+          Download PDF
+        </button>
 
         <div className="w-[30%]">
           {organizationAccounts && (
@@ -220,47 +237,53 @@ const AnalyticsContianer = () => {
           <Loader />
         </div>
       ) : ( */}
-        <div
+      <div
         id="analytics-pdf-container"
         className="p-6 flex flex-col gap-3 z-10 rounded-lg bg-white"
-        // style={{ minWidth: "1200px" }} // Ensure consistent width
       >
+
+        <div className="topBar w-[100%] flex justify-between">
+
           <h1 className="font-bold text-lg">Social Media Engagement</h1>
 
-          {oneOrganizationAnalticsData && (
-            <TotalOverview
-              data={oneOrganizationAnalticsData[0]?.totalShareStatistics}
-              followers={organizationFollowerCount}
-              growthData={growthData}
-              views={views}
-            />
-          )}
-
-          {selectedaccount && (
-
-            <FollowersChart
-              id={selectedaccount?.uniqueId}
-              token={selectedaccount?.accessToken}
-            />
-          )}
-
-          {selectedaccount && (
-            <ImpressionOverviewAnalytics
-              id={selectedaccount?.uniqueId}
-              token={selectedaccount?.accessToken}
-            />
-
-          )}
-
-          <div className="bg-white/50 flex flex-col gap-5 rounded-lg p-5">
-            {!selectedaccount && <AllViewsChart />}
-            {!selectedaccount && <FollowersChart />}
-            <BestTimeToPostAnalytics />
-            {heatMapData && <HeatMapAnalytics data={heatMapData} />}
-            <BestToPost2Analytics />
-            <ReadyToScdeduleAnalytics />
+          <div className="dropDownConatiner">
+            <Dropdown value={selectedTime} onChange={(e) => setSelectedTime(e.value)} options={time} optionLabel="name" placeholder="Select Time Range" className="w-[14rem] md:w-14rem border border-[#e5e6e5] outline-none focus:outline-none" />
           </div>
+
         </div>
+
+        {oneOrganizationAnalticsData && (
+          <TotalOverview
+            data={oneOrganizationAnalticsData[0]?.totalShareStatistics}
+            followers={organizationFollowerCount}
+            growthData={growthData}
+            views={views}
+            enableFollowers={enableFollowers}
+            setEnableFollowers={setEnableFollowers}
+          />
+        )}
+
+        {!selectedaccount  && (<CombinedFollowersChart />)}
+
+        {selectedaccount && (
+          <ImpressionOverviewAnalytics
+            id={selectedaccount?.uniqueId}
+            token={selectedaccount?.accessToken}
+            selectedTime={selectedTime}
+            enableFollowers={enableFollowers}
+          />
+
+        )}
+
+        <div className="bg-white/50 flex flex-col gap-5 rounded-lg p-5">
+          {!selectedaccount && <AllViewsChart />}
+          {/* {selectedaccount && <FollowersChart />} */}
+          <BestTimeToPostAnalytics />
+          {heatMapData && <HeatMapAnalytics data={heatMapData} />}
+          <BestToPost2Analytics />
+          <ReadyToScdeduleAnalytics />
+        </div>
+      </div>
       {/* )} */}
     </div>
   );

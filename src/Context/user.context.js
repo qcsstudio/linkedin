@@ -341,8 +341,8 @@ export const UserContextProvider = ({ children }) => {
   const getAllOrganizationsData = async (data) => {
     try {
       const organizations = data.map((org) => ({
-        id: org.id,
-        token: org.token,
+        id: org.uniqueId,
+        token: org.accessToken,
       }));
 
       console.log("Formatted organizations:", organizations);
