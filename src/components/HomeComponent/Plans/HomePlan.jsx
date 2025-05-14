@@ -15,6 +15,7 @@ const HomePlan = () => {
     const [buttonPlans, setButtonPlans] = useState('Monthly');
     const pricingPlans = [
         {
+            id: 1,
             title: "Starter",
             price: "09",
             duration: "user/month",
@@ -28,6 +29,7 @@ const HomePlan = () => {
             ],
         },
         {
+            id: 2,
             title: "Pro",
             price: "29",
             duration: "user/month",
@@ -43,6 +45,7 @@ const HomePlan = () => {
             ],
         },
         {
+            id: 3,
             title: "Agency",
             price: "79",
             duration: "user/month",
@@ -84,8 +87,8 @@ const HomePlan = () => {
 
 
     useEffect(() => {
-        console.log("User Current country", country, "price of USD : ",price);
-    }, [country,price]);
+        console.log("User Current country", country, "price of USD : ", price);
+    }, [country, price]);
 
     return (
         <div id='pricing' className="w-[100%]   px-4 lg:px-[3.37rem] md:px-[3.12rem] relative ">
@@ -119,7 +122,7 @@ const HomePlan = () => {
 
 
                 <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-5 w-full z-20">
-                    {(country && price ) && pricingPlans.map((plan, index) => (
+                    {(country && price) && pricingPlans.map((plan, index) => (
                         <div
                             key={index}
                             className={`cardContainer relative z-10 flex flex-col gap-5 py-[2.5rem]  bg-white/40 rounded-[1rem]`}
@@ -139,15 +142,15 @@ const HomePlan = () => {
                                         {buttonPlans === "yearly" ? (
                                             <CountUp
                                                 start={0}
-                                                end={country === "IN" ? (parseFloat(plan.price.replace("$", "")) * 12 * 0.8) * price :(parseFloat(plan.price.replace("$", "")) * 12 * 0.8) }
+                                                end={country === "IN" ? (parseFloat(plan.price.replace("$", "")) * 12 * 0.8) * price : (parseFloat(plan.price.replace("$", "")) * 12 * 0.8)}
                                                 duration={.4}
                                                 prefix={country === "IN" ? "₹" : "$"}
                                             />
                                         ) : (
-                                            country === "IN" ? `₹ ${Math.floor(plan.price * price)}`:`$${plan.price}`
+                                            country === "IN" ? `₹ ${Math.floor(plan.price * price)}` : `$${plan.price}`
                                         )}
                                     </p>
-                                    <p className="text-md font-thin text-gray-500"> {buttonPlans === "yearly" ? "user/year" : plan.duration}</p>
+                                    <p className="text-md font-thin text-gray-500"> {buttonPlans === "yearly" ? plan.id === 1 ? "user/year" : "/ year" : plan.id === 1 ? "user/month" : "/ month"}</p>
                                 </div>
 
                             </div>

@@ -20,7 +20,7 @@ const SuccessStories = () => {
         {
             image: profilePic1,
             name: "Poonam Kumari",
-            position: "CEO, BrandHive Agency",
+            position: "LinkedIn Marketing Specialist",
             review:
                 "ElevatrX completely changed our agency’s workflow. We're saving countless hours every week, and the results speak for themselves! Highly recommended!",
         },

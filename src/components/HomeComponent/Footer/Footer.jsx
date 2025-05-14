@@ -121,8 +121,8 @@ const Footer = () => {
                         <h3 className="sm:text-xl lg:text-xl text-[18px] text-nowrap font-medium text-white">Resources</h3>
                         <ul className="text-sm space-y-1 mt-2 text-nowrap">
                             <Link target='_blank' href={`https://www.elevatrx.app/linkedin-text-formatter`}  className='leading-[1.5rem]'><li>LinkedIn Formatter</li></Link>
-                            <Link target='_blank' href={`https://www.elevatrx.app/instagram`} className='leading-[1.5rem]'><li>Instagram Formatter</li></Link>
-                            <Link target='_blank' href={`https://www.elevatrx.app/facebook`} className='leading-[1.5rem]'><li>Facebook Formatter</li></Link>
+                            <Link target='_blank' href={`https://www.elevatrx.app/instagram-text-formatter`} className='leading-[1.5rem]'><li>Instagram Formatter</li></Link>
+                            <Link target='_blank' href={` q`} className='leading-[1.5rem]'><li>Facebook Formatter</li></Link>
                         </ul>
                     </div>
 
