@@ -19,15 +19,16 @@ import postContext from "@/Context/post.context";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { Dropdown } from "primereact/dropdown";
+import ReactMarkdown from 'react-markdown';
 
 const CreatePost = () => {
-
 
     // Use Context 
     const { userData, getUserLinkedinProfiles, linkedinProfileData, linkedinAccounts, getLinkedinOrganizationsProfiles, linkedinOrganizationId, linkedinOrganizationData, clientData, setClientData, getClientData } = useContext(userContext);
 
 
-    const { loading, setLoading, error, setError, postLinkedin, generatePostCaption, generatedCaption, setGeneratedCaption, postSchedule } = useContext(postContext);
+    const { loading, setLoading, error, setError, postLinkedin, generatePostCaption, generatedCaption, setGeneratedCaption, postSchedule, getLinkedInSuggestions, linkedinSuggestions } = useContext(postContext);
 
 
 
@@ -35,7 +36,7 @@ const CreatePost = () => {
     const [selectedButton, setSelectedButton] = useState("");
     const [selectedaccount, setSelectedaccount] = useState([]);
     const [schedulePost, setSchedulePost] = useState(false);
-
+    const [nlpAccount, setNlpAccount] = useState(null);
     const [suggestionButton, setSuggestionButton] = useState([
         {
             name: "Captions",
@@ -89,6 +90,12 @@ const CreatePost = () => {
     useEffect(() => {
         getClientData();
     }, []);
+
+    useEffect(() => {
+        if (nlpAccount != null) {
+            getLinkedInSuggestions(nlpAccount.accessToken, nlpAccount.uniqueId);
+        }
+    }, [nlpAccount]);
 
 
     const selectedaccountTemplate = (option) => {
@@ -308,52 +315,11 @@ const CreatePost = () => {
     ]
 
     console.log("generatedCaption", generatedCaption)
-
+    console.log("nlpAccount", nlpAccount)
+    console.log("linkedinSuggestions", linkedinSuggestions)
     return (
         <div className="w-[95%] mx-auto mt-8 flex gap-1 ">
             <div className="bg-white/50 w-[60%] z-10 flex flex-col gap-5 rounded-lg p-4 h-[80vh] scrollbar-hide overflow-y-scroll">
-
-                {/* Social Buttons (Instagram, Facebook, Linkedin, pintrest) */}
-                {/* <div className=" flex justify-start gap-2 items-center ">
-                    <button
-                        className={`${selectedButton == "Instagram"
-                            ? "bg-white text-[#4379EE]"
-                            : "bg-[#4379EE] text-white"
-                            } py-2 w-[20%] rounded-md text-sm`}
-                        onClick={() => handleSelectButton("Instagram")}
-                    >
-                        Instagram
-                    </button>
-                    <button
-                        className={`${selectedButton == "Facebook"
-                            ? "bg-white text-[#4379EE]"
-                            : "bg-[#4379EE] text-white"
-                            } py-2 w-[20%] rounded-md text-sm `}
-                        onClick={() => handleSelectButton("Facebook")}
-                    >
-                        Facebook
-                    </button>
-                    <button
-                        className={`${selectedButton == "Linkdin"
-                            ? "bg-white text-[#4379EE]"
-                            : "bg-[#4379EE] text-white"
-                            } py-2 w-[20%] rounded-md text-sm  `}
-                        onClick={() => handleSelectButton("Linkdin")}
-                    >
-                        Linkdin
-                    </button>
-                    <button
-                        className={`${selectedButton == "Pinterest"
-                            ? "bg-white text-[#4379EE]"
-                            : "bg-[#4379EE] text-white"
-                            } py-2 w-[20%] rounded-md text-sm`}
-                        onClick={() => handleSelectButton("Pinterest")}
-                    >
-                        Pinterest
-                    </button>
-                </div> */}
-
-                {/* Select Post ID */}
 
                 <div className="p-5 flex flex-col gap-2 bg-white/50 rounded-lg">
                     <h2 className=" font-bold text-lg">Posting on</h2>
@@ -371,7 +337,6 @@ const CreatePost = () => {
                             className="w-full bg-white border rounded-md px-3 py-2 shadow focus:ring-0 focus:outline-none"
                         />
                     }
-
                 </div>
 
 
@@ -592,21 +557,27 @@ const CreatePost = () => {
                             </div>
                             <div className="p-5 flex flex-col gap-2 bg-white/50 rounded-lg">
                                 <h2 className=" font-bold text-lg">Select account to generate topics</h2>
-                                {(clientData) &&
-                                    <MultiSelect
-                                        value={selectedaccount}
-                                        onChange={(e) => setSelectedaccount(e.value)}
-                                        options={clientData?.platforms ? clientData?.platforms : ""}
+                                {(clientData) && (
+                                    <Dropdown
+                                        value={nlpAccount}
+                                        onChange={(e) => setNlpAccount(e.value)}
+                                        options={clientData.platforms.filter(p => p.accountType === "organization")}
                                         optionLabel="name"
-                                        placeholder="Select Platforms"
+                                        placeholder="Select Platform"
                                         filter
-                                        selectedItemTemplate={selectedaccountTemplate}
                                         itemTemplate={accountOptionTemplate}
-                                        display="chip"
+                                        valueTemplate={selectedaccountTemplate}
                                         className="w-full bg-white border rounded-md px-3 py-2 shadow focus:ring-0 focus:outline-none"
                                     />
+                                )}
+                                {
+                                    linkedinSuggestions && <div className="mt-4 p-4 border rounded bg-gray-50">
+                                        <h3 className="font-semibold mb-2">Suggested Topics:</h3>
+                                        <ReactMarkdown >
+                                            {linkedinSuggestions}
+                                        </ReactMarkdown>
+                                    </div>
                                 }
-
                             </div>
                         </div>
                     </div>
@@ -635,10 +606,6 @@ const CreatePost = () => {
                             )
                         }
                     </div>
-
-
-                    {/* Text Editor */}
-
                 </div>
             </div>
 
@@ -649,21 +616,11 @@ const CreatePost = () => {
 
                 {/* options */}
                 <div className="options w-[100%] h-[3rem] rounded-[.5rem] bg-[#ffffff] px-[1.18rem]  py-[0.3rem] flex items-center gap-[.8rem] mb-[0.62rem]">
-
                     {
-
                         socialButton.map((data, index) => {
                             return <Image key={index} onClick={() => setActiveSocialButton(data.id)} src={data.img} width={32} height={32} alt="instagram" className={` ${data.id === activeSocialButton ? "w-[2.5rem] h-[2.4rem]" : "w-[2.rem] h-[2.rem]"} object-fill cursor-pointer `} />
-
                         })
                     }
-                    {/* shadow-[0px_0px_22px_-3px_rgba(84,85,106,1)] */}
-
-                    {/* <Image src="/images/postImages/facebook.png" width={32} height={32} alt="instagram" className=" w-[2.5rem] h-[2.4rem] object-fill cursor-pointer " />
-
-                    <Image src="/images/postImages/linkedin.png" width={32} height={32} alt="instagram" className=" w-[2.rem] h-[2.rem] object-fill cursor-pointer " />
-
-                    <Image src="/images/postImages/instagram.svg" width={32} height={32} alt="instagram" className=" w-[2rem] h-[2rem] object-fill cursor-pointer " /> */}
                 </div>
 
                 {/* Post */}
@@ -686,8 +643,6 @@ const CreatePost = () => {
                         </div>
 
                     </div>
-
-
 
                     <div className={`postTextContent px-[.43rem] py-[.3rem]  ${showText ? "" : "postText"} `} dangerouslySetInnerHTML={{ __html: postCaption }}>
                     </div>
@@ -731,10 +686,7 @@ const CreatePost = () => {
                                     )
                                 )
                             }
-
-
                         </Swiper>
-
                     </div>
 
                     <div className="lowerContainer h-[2.75rem] px-[.75rem] flex items-center justify-between">
@@ -748,7 +700,6 @@ const CreatePost = () => {
                         <div className="rightContainer">
                             <Image src="/images/postImages/save.png" width={24} height={24} alt="avatar" className="w-[1.2rem] h-[1.5rem] cursor-pointer" />
                         </div>
-
                     </div>
                 </div>
             </div>
