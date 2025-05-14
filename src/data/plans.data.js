@@ -1,7 +1,7 @@
 export const pricingPlans = [
     {
         title: "Starter",
-        price: "₹759",
+        price: "09",
         duration: "user/month",
         cardsHeading: 'Everything in starter plan',
         features: [
@@ -14,7 +14,7 @@ export const pricingPlans = [
     },
     {
         title: "Pro",
-        price: "₹2,447",
+        price: "29",
         duration: "user/month",
         popular: true,
         cardsHeading: 'Everything in Pro plan',
@@ -29,7 +29,7 @@ export const pricingPlans = [
     },
     {
         title: "Agency",
-        price: "₹6,667",
+        price: "79",
         duration: "user/month",
         cardsHeading: 'Everything in Agency plan',
         features: [

@@ -7,7 +7,9 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import profile from '../../../../public/images/homeImages/profile.png'
+import profilePic1 from '../../../../public/images/home/pic1.jpg'
+import profilePic2 from '../../../../public/images/home/pic2.jpg'
+import profilePic3 from '../../../../public/images/home/pic3.jpg'
 import Heading from '../Heading/Heading';
 import Subheading from '../Subheading/Subheading'
 import Description from '../Description/Description'
@@ -16,46 +18,25 @@ import CloudSection from '../CloudSection/CloudSection';
 const SuccessStories = () => {
     const testimonials = [
         {
-            image: profile,
-            name: "Rahul Sharma",
+            image: profilePic1,
+            name: "Poonam Kumari",
             position: "CEO, BrandHive Agency",
             review:
                 "ElevatrX completely changed our agency’s workflow. We're saving countless hours every week, and the results speak for themselves! Highly recommended!",
         },
         {
-            image: profile,
-            name: "Neha Desai",
+            image: profilePic2,
+            name: "Shiva Kumari",
             position: "Content Marketing Specialist",
             review:
                 "I've tried many automation tools before, but ElevatrX’s AI-driven content creation is next-level. It literally doubled our LinkedIn engagement in a month!",
         },
         {
-            image: profile,
-            name: "Vibhor Malhotra",
+            image: profilePic3,
+            name: "Shikha Rani",
             position: "Social Media Manager, TechSolutions",
             review: "With ElevatrX, managing multiple social profiles is effortless. It's like having an extra team member dedicated solely to social media!",
-        },
-        {
-            image: profile,
-            name: "Priya Kapoor",
-            position: "Digital Strategist",
-            review:
-                "The analytics provided by ElevatrX are phenomenal. We finally understand our audience deeply and create consistent, high-performing content!",
-        },
-        {
-            image: profile,
-            name: "Priya Kapoor",
-            position: "Digital Strategist",
-            review:
-                "The analytics provided by ElevatrX are phenomenal. We finally understand our audience deeply and create consistent, high-performing content!",
-        },
-        {
-            image: profile,
-            name: "Priya Kapoor",
-            position: "Digital Strategist",
-            review:
-                "The analytics provided by ElevatrX are phenomenal. We finally understand our audience deeply and create consistent, high-performing content!",
-        },
+        }
     ];
 
   return (

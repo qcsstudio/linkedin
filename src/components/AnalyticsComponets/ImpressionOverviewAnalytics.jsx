@@ -7,22 +7,25 @@ import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 ;
 
-const timeRanges = {
-  "7d": 7 * 24 * 60 * 60 * 1000,
-  "30d": 30 * 24 * 60 * 60 * 1000,
-};
+// const timeRanges = {
+//   "7d": 7 * 24 * 60 * 60 * 1000,
+//   "1m": 30 * 24 * 60 * 60 * 1000,
+//   "3m": 90 * 24 * 60 * 60 * 1000,
+// };
 
 
 
-export default function ImpressionsOverview({ id, token }) {
+export default function ImpressionsOverview({ id, token,selectedTime }) {
   const [selectedRange, setSelectedRange] = useState("7d");
   const [chartData, setChartData] = useState([]);
   
   const [isStacked, setIsStacked] = useState(false);
 
+  // useEffect(()=>{},[selectedTime]);
+
   const fetchData = async () => {
     const now = Date.now();
-    const start = now - timeRanges[selectedRange];
+    const start = now - selectedTime.time;
     const end = now;
 
     try {
@@ -39,9 +42,34 @@ export default function ImpressionsOverview({ id, token }) {
           }),
         }
       );
-      const data = await res.json();
 
-      const transformedData = data.elements.map((item) => {
+      const followerResponse = await fetch(
+        `/api/linkedin/linkedin-followers?start=${start}&end=${end}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            token,
+            id,
+          }),
+        }
+      );
+
+      const data = await res.json();
+      const followerData = await followerResponse.json();
+
+      let followerTransformedData = followerData.elements.map((item) => {
+        const date = new Date(item.timeRange.start).toISOString();
+        return {
+          date,
+          organic: item.followerGains?.organicFollowerGain || 0,
+          paid: item.followerGains?.paidFollowerGain || 0,
+        };
+      });
+
+      let viewTransformedData = data.elements.map((item) => {
         const date = new Date(item.timeRange.start).toISOString();
         const views =
           item.totalPageStatistics?.views?.allPageViews?.pageViews || 0;
@@ -49,8 +77,19 @@ export default function ImpressionsOverview({ id, token }) {
           item.totalPageStatistics?.views?.allPageViews?.uniquePageViews || 0;
         return { date, views, unique };
       });
+      const mergedData = viewTransformedData.map((view) => {
+  const follower = followerTransformedData.find(f => f.date === view.date) || { organic: 0, paid: 0 };
+  return {
+    date: view.date,
+    views: view.views,
+    unique: view.unique,
+    organic: follower.organic,
+    paid: follower.paid,
+  };
+});
 
-      setChartData(transformedData);
+
+      setChartData(mergedData);
     } catch (err) {
       console.error("Error loading page views:", err);
     }
@@ -58,7 +97,7 @@ export default function ImpressionsOverview({ id, token }) {
 
   useEffect(() => {
     fetchData();
-  }, [selectedRange , id, token]);
+  }, [selectedTime , id, token]);
 
   const maxY = Math.max(...chartData.map((d) => d.views), 1);
   const yaxisMax = maxY < 5 ? 5 : Math.ceil(maxY * 1.2);
@@ -68,7 +107,7 @@ export default function ImpressionsOverview({ id, token }) {
   const chartOptions = {
     chart: {
       id: "page-views-chart",
-      stacked: isStacked,
+      // stacked: isStacked,
       toolbar: {
         show: true,
         tools: {
@@ -84,6 +123,7 @@ export default function ImpressionsOverview({ id, token }) {
         speed: 800,
       },
     },
+    colors: ['#1E90FF', '#f88885',"#c3c311"],
     fill: {
       
       gradient: {
@@ -143,16 +183,21 @@ export default function ImpressionsOverview({ id, token }) {
       name: "Unique Views",
       data: chartData.map((d) => d.unique),
     },
+    {
+      name:"Followers",
+      data: chartData.map((d) => d.organic),
+    }
   ];
 
   return (
     <div className="p-6 bg-white/50 backdrop-blur-xl shadow-2xl rounded-2xl border border-white/40">
       <h2 className="text-2xl font-bold mb-4 text-gray-800">
-        Impression Overview
+        {/* Impression Overview */}
+        Metrics
       </h2>
 
       {/* Summary */}
-      <div className="flex flex-wrap justify-between items-center gap-3 mb-4 text-sm text-gray-700">
+      {/* <div className="flex flex-wrap justify-between items-center gap-3 mb-4 text-sm text-gray-700">
         <div className="font-semibold">
           Total Views: <span className="text-blue-700">{totalViews}</span>
         </div>
@@ -165,27 +210,7 @@ export default function ImpressionsOverview({ id, token }) {
         >
           {isStacked ? "Unstack" : "Stack"} Bars
         </button>
-      </div>
-
-      {/* Time Range Buttons */}
-      <div className="flex flex-wrap gap-3 mb-4">
-        {Object.keys(timeRanges).map((range) => (
-          <button
-            key={range}
-            onClick={() => setSelectedRange(range)}
-            className={`px-4 py-2 rounded-xl transition-all duration-200 shadow-sm ${
-              selectedRange === range
-                ? "bg-blue-600 text-white"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-            }`}
-          >
-            {range === "7d" ? "Last 7 Days" : "Last 30 Days"}
-          </button>
-        ))}
-      </div>
-
-      
-      
+      </div> */}
 
       {/* Chart */}
       <Chart

@@ -127,7 +127,7 @@ const HomeContainer = () => {
           <Elevate />
           <KeyFeatureSection />
           {/* <Plans /> */}
-          <HomePlan/>
+          <HomePlan />
           <SuccessStories />
           <Blogs />
 

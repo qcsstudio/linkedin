@@ -34,7 +34,6 @@ const Footer = () => {
                         <Image
                             src={logo}
                             alt="ElevatrX Logo"
-                         
                         />
                     </div>
 
@@ -101,30 +100,29 @@ const Footer = () => {
                     <div>
                         <h3 className="sm:text-xl lg:text-xl text-[18px] text-nowrap font-medium text-white">Quick Links</h3>
                         <ul className="text-sm space-y-1 mt-2">
-                            <li>Partner With Us</li>
-                            <li onClick={() => scrollToSection("blog")}>Blog</li>
-                            <li>Careers</li>
-                            <li onClick={() => scrollToSection("contact")}>Contact Us</li>
+                            <li className='cursor-pointer' onClick={() => scrollToSection("contact")}>Help Center</li>
+                            <li className='cursor-pointer' onClick={() => scrollToSection("blog")}>Blog</li>
+                            <li className='cursor-pointer' onClick={() => scrollToSection("faq")}>FAQs</li>
+                            <li className='cursor-pointer' onClick={() => scrollToSection("contact")}>Contact Us</li>
                         </ul>
                     </div>
 
                     <div>
                         <h3 className="sm:text-xl lg:text-xl text-[18px] text-nowrap font-medium text-white">Product</h3>
                         <ul className="text-sm space-y-1 mt-2">
-                            <li onClick={() => scrollToSection("features")}>Features</li>
-                            <li onClick={() => scrollToSection("pricing")}>Pricing</li>
-                            <li onClick={() => scrollToSection("integration")}>Integration</li>
-                            <li onClick={() => scrollToSection("contact")}>Request a Demo</li>
+                            <li className='cursor-pointer' onClick={() => scrollToSection("features")}>Features</li>
+                            <li className='cursor-pointer' onClick={() => scrollToSection("pricing")}>Pricing</li>
+                            <li className='cursor-pointer' onClick={() => scrollToSection("integration")}>Integration</li>
+                            <li className='cursor-pointer' onClick={() => scrollToSection("contact")}>Request a Demo</li>
                         </ul>
                     </div>
 
                     <div>
                         <h3 className="sm:text-xl lg:text-xl text-[18px] text-nowrap font-medium text-white">Resources</h3>
                         <ul className="text-sm space-y-1 mt-2 text-nowrap">
-                            <li onClick={() => scrollToSection("contact")}>Help Center</li>
-                            <li onClick={() => scrollToSection("faq")}>FAQs</li>
-                            <li>Case Studies</li>
-                            <li>Early  Program</li>
+                            <Link target='_blank' href={`https://www.elevatrx.app/linkedin-text-formatter`}  className='leading-[1.5rem]'><li>LinkedIn Formatter</li></Link>
+                            <Link target='_blank' href={`https://www.elevatrx.app/instagram`} className='leading-[1.5rem]'><li>Instagram Formatter</li></Link>
+                            <Link target='_blank' href={`https://www.elevatrx.app/facebook`} className='leading-[1.5rem]'><li>Facebook Formatter</li></Link>
                         </ul>
                     </div>
 

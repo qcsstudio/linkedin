@@ -7,7 +7,7 @@ import Subheading from '../Subheading/Subheading'
 import Description from '../Description/Description'
 import Link from "next/link";
 import { AiOutlineFire } from "react-icons/ai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CloudSection from "../CloudSection/CloudSection";
 import CountUp from "react-countup";
 
@@ -16,7 +16,7 @@ const HomePlan = () => {
     const pricingPlans = [
         {
             title: "Starter",
-            price: "$09",
+            price: "09",
             duration: "user/month",
             cardsHeading: 'Everything in starter plan',
             features: [
@@ -29,7 +29,7 @@ const HomePlan = () => {
         },
         {
             title: "Pro",
-            price: "$29",
+            price: "29",
             duration: "user/month",
             popular: true,
             cardsHeading: 'Everything in Pro plan',
@@ -44,7 +44,7 @@ const HomePlan = () => {
         },
         {
             title: "Agency",
-            price: "$79",
+            price: "79",
             duration: "user/month",
             cardsHeading: 'Everything in Agency plan',
             features: [
@@ -59,6 +59,33 @@ const HomePlan = () => {
             ],
         },
     ];
+
+
+    const [country, setCountry] = useState('');
+
+    useEffect(() => {
+        fetch(`https://ipinfo.io/json?token=dabf75bfa8adea`)
+            .then(response => response.json())
+            .then(data => {
+                setCountry(data.country);
+            })
+            .catch(error => console.error('Error:', error));
+    }, []);
+
+    const [price, setPrice] = useState(null);
+
+    useEffect(() => {
+        fetch('https://open.er-api.com/v6/latest/USD')
+            .then(res => res.json())
+            .then(data => {
+                setPrice(data.rates.INR); // Example: Get USD to INR
+            });
+    }, []);
+
+
+    useEffect(() => {
+        console.log("User Current country", country, "price of USD : ",price);
+    }, [country,price]);
 
     return (
         <div id='pricing' className="w-[100%]   px-4 lg:px-[3.37rem] md:px-[3.12rem] relative ">
@@ -92,7 +119,7 @@ const HomePlan = () => {
 
 
                 <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-5 w-full z-20">
-                    {pricingPlans.map((plan, index) => (
+                    {(country && price ) && pricingPlans.map((plan, index) => (
                         <div
                             key={index}
                             className={`cardContainer relative z-10 flex flex-col gap-5 py-[2.5rem]  bg-white/40 rounded-[1rem]`}
@@ -112,12 +139,12 @@ const HomePlan = () => {
                                         {buttonPlans === "yearly" ? (
                                             <CountUp
                                                 start={0}
-                                                end={parseFloat(plan.price.replace("$", "")) * 12 * 0.8}
-                                                duration={1.5}
-                                                prefix="$"
+                                                end={country === "IN" ? (parseFloat(plan.price.replace("$", "")) * 12 * 0.8) * price :(parseFloat(plan.price.replace("$", "")) * 12 * 0.8) }
+                                                duration={.4}
+                                                prefix={country === "IN" ? "₹" : "$"}
                                             />
                                         ) : (
-                                            plan.price
+                                            country === "IN" ? `₹ ${Math.floor(plan.price * price)}`:`$${plan.price}`
                                         )}
                                     </p>
                                     <p className="text-md font-thin text-gray-500"> {buttonPlans === "yearly" ? "user/year" : plan.duration}</p>

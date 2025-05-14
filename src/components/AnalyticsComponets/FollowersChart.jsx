@@ -6,9 +6,11 @@ import analyticsContext from "@/Context/analytics.context";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const FollowersChart = () => {
+const CombinedFollowersChart = () => {
   const { allFollowers } = useContext(analyticsContext);
   const [chartData, setChartData] = useState([]);
+
+  
 
   useEffect(() => {
     if (allFollowers?.dailyCombinedFollowers?.length) {
@@ -170,4 +172,4 @@ const FollowersChart = () => {
   );
 };
 
-export default FollowersChart;
+export default CombinedFollowersChart;
