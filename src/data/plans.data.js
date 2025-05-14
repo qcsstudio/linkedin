@@ -1,5 +1,6 @@
 export const pricingPlans = [
     {
+        id:1,
         title: "Starter",
         price: "09",
         duration: "user/month",
@@ -13,6 +14,7 @@ export const pricingPlans = [
         ],
     },
     {
+        id:2,
         title: "Pro",
         price: "29",
         duration: "user/month",
@@ -28,6 +30,7 @@ export const pricingPlans = [
         ],
     },
     {
+        id:3,
         title: "Agency",
         price: "79",
         duration: "user/month",

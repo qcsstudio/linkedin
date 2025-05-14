@@ -169,14 +169,14 @@ const Plans = ({ popUp, setPopUp, openRazorPay, setOpenRazorPay }) => {
                                             <CountUp
                                                 start={0}
                                                 end={country === "IN" ? (parseFloat(plan.price.replace("$", "")) * 12 * 0.8) * price :(parseFloat(plan.price.replace("$", "")) * 12 * 0.8) }
-                                                duration={1.5}
+                                                duration={.4}
                                                 prefix={country === "IN" ? "₹" : "$"}
                                             />
                                         ) : (
                                             country === "IN" ? `₹ ${Math.floor(plan.price * price)}`:`$${plan.price}`
                                         )}
                                     </p>
-                                    <p className="text-md font-thin text-gray-500"> {buttonPlans === "yearly" ? "user/year" : plan.duration}</p>
+                                    <p className="text-md font-thin text-gray-500"> {buttonPlans === "yearly" ? plan.id === 1 ? "user/year" : "/ year" : plan.id === 1 ? "user/month" : "/ month" }</p>
                                 </div>
                             </div>
 
