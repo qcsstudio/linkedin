@@ -547,16 +547,18 @@ const CreatePost = () => {
                             <button onClick={generateCaption} type="button" className="bg-[#4379EE] text-[#ffffff] px-[2rem] rounded-[.5rem]" >Generate</button>
                         </div>
 
-                        <div className="flex" >
-                            <div className="suggestionXontainer w-[40%] h-[2.78rem] flex items-center justify-between bg-[#ffffff] rounded-[.5rem] px-[.93rem] py-[0.5rem] mt-[0.75rem] text-[0.8rem] ">
+                            {/* start */}
+                        <div  >
+                            <div className="flex justify-between items-center">
+                            <div className="suggestionXontainer  w-[40%] h-[2.78rem] flex items-center justify-between bg-[#ffffff] rounded-[.5rem] px-[.93rem] py-[0.5rem] mt-[0.75rem] text-[0.8rem] ">
                                 {
                                     suggestionButton.map((data) => {
                                         return <p className={`cursor-pointer select-none ${data.id === activeButton ? "px-[0.75rem] py-[0.5rem] bg-[#F1F5F9] rounded-[.5rem]" : ""}`} key={data.id} onClick={() => setActiveButton(data.id)}>{data.name}</p>
                                     })
                                 }
                             </div>
-                            <div className="p-5 flex flex-col gap-2 bg-white/50 rounded-lg">
-                                <h2 className=" font-bold text-lg">Select account to generate topics</h2>
+                            <div className="  w-[58%] h-[2.78rem]  flex items-center justify-between bg-[#ffffff] rounded-[.5rem]  py-[0.5rem] mt-[0.75rem] text-[0.8rem]">
+                              
                                 {(clientData) && (
                                     <Dropdown
                                         value={nlpAccount}
@@ -567,19 +569,24 @@ const CreatePost = () => {
                                         filter
                                         itemTemplate={accountOptionTemplate}
                                         valueTemplate={selectedaccountTemplate}
-                                        className="w-full bg-white border rounded-md px-3 py-2 shadow focus:ring-0 focus:outline-none"
+                                        className="w-full h-[42px] px-3 box-border  shadow focus:ring-0 focus:outline-none"
                                     />
                                 )}
+                            </div>
+                            </div>
                                 {
-                                    linkedinSuggestions && <div className="mt-4 p-4 border rounded bg-gray-50">
+                                    linkedinSuggestions && <div className="mt-4 p-4 border rounded-[.5rem] bg-gray-50">
                                         <h3 className="font-semibold mb-2">Suggested Topics:</h3>
                                         <ReactMarkdown >
                                             {linkedinSuggestions}
+                                            {/* {console.log("linkedinSuggestions",linkedinSuggestions)} */}
                                         </ReactMarkdown>
                                     </div>
                                 }
-                            </div>
                         </div>
+
+                        {/* end */}
+                        
                     </div>
 
                     <div className=" w-[100%] h-[.1rem] bg-[#ffffff] mt-[.65rem] mb-[0.75rem]" />
