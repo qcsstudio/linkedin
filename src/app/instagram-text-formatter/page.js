@@ -20,7 +20,8 @@ import {
   ThumbsUp as IconLike,           // LinkedIn “Like” icon
   MessageCircle as IconComment,   // LinkedIn “Comment” icon
   Repeat as IconRepost,           // LinkedIn “Repost” icon
-  Send as IconSend                // LinkedIn “Send” icon
+  Send as IconSend,                // LinkedIn “Send” icon
+   Heart as IconHeart,
 } from 'lucide-react';
 import Navbar from '@/components/HomeComponent/NavbarHome/NavbarHome';
 import Footer from '@/components/HomeComponent/Footer/Footer';
@@ -158,13 +159,13 @@ export default function Home() {
     navigator.clipboard.writeText(text).then(() => alert('Copied!'));
   };
   return (
-    <main className=" pt-[140px] bg-[#5E788F]/85 rounded-none">
+    <main className=" pt-[140px] bg-[#5E788F]/85">
       <Navbar />
-      <h2 className='text-center text-[#3c4e5e] text-[50px] mb-6 font-bold'>LinkedIn Text Fomatter</h2>
-      <div className="editor-preview max-w-[85%] mx-auto py-[16px] overflow-hidden">
-        <section className="editor-card  flex-1">
+         <h2 className='text-center text-[#3c4e5e] text-[50px] mb-6 font-bold'>Instagram Text Fomatter</h2>
+      <div className="editor-preview max-w-[85%] mx-auto py-[16px]">
+        <section className="editor-card ">
           <textarea
-           rows="9" cols="30" 
+           rows="9" cols="30"
             ref={editorRef}
             className="editor-text"
             style={{ fontFamily: font }}
@@ -199,15 +200,15 @@ export default function Home() {
 
           </div>
         </section>
-        <section className="preview-card max-w-[49%] flex-1 overflow-x-hidden" >
+        <section className="preview-card">
           <div className="device-toggle">
-            <button onClick={() => { setView('mobile'); setExpanded(false); }} className={view === 'mobile' ? 'active' : ''}>
-              <IconMobile size={15} />
+            <button onClick={()=>{setView('mobile');setExpanded(false);}} className={view==='mobile'?'active':''}>
+              <IconMobile size={15}/>
             </button>
-            <button onClick={() => { setView('tablet'); setExpanded(false); }} className={view === 'tablet' ? 'active' : ''}>
+            <button onClick={()=>{setView('tablet');setExpanded(false);}} className={view==='tablet'?'active':''}>
               <IconTablet size={15}/>
             </button>
-            <button onClick={() => { setView('desktop'); setExpanded(false); }} className={view === 'desktop' ? 'active' : ''}>
+            <button onClick={()=>{setView('desktop');setExpanded(false);}} className={view==='desktop'?'active':''}>
               <IconDesktop size={15}/>
             </button>
           </div>
@@ -216,29 +217,28 @@ export default function Home() {
             className={`preview-container device-${view}`}
             style={{ fontFamily: font }}
           >
-            <div className="linkedin-post max-w-[100%] overflow-x-hidden ">
-              <div className="post-header">
-                <img src={logo.src} alt="QCS Logo" className="avatar-img" />
-                <div>
-                  <strong>QuantumCrafters Studio</strong>
-                  <span>Elevate with QCS · 12h</span>
-                </div>
+            <div className="insta-post">
+              <div className="insta-header">
+                <img src={logo.src} alt="QCS" className="avatar-img"/>
+                <strong>QuantumCrafters Studio</strong>
+                <span>· 2h ago</span>
               </div>
-              <div className="post-content  ">
-                {!expanded && text.length > TRUNCATE_LIMIT
-                  ? <> {text.slice(0, TRUNCATE_LIMIT)}... <button className="read-more" onClick={() => setExpanded(true)}>Read more</button> </>
-                  : <>{text}</>
+              <div className="insta-image">
+                {/* <img src="/images/placeholder.jpg" alt="Post" /> */}
+              </div>
+              <div className="insta-caption">
+                {!expanded && text.length>TRUNCATE_LIMIT
+                  ? <>
+                      {text.slice(0,TRUNCATE_LIMIT)}…{' '}
+                      <button className="read-more" onClick={()=>setExpanded(true)}>more</button>
+                    </>
+                  : text
                 }
               </div>
-              <div className="post-stats">
-                <span className="reactions">👍 ❤️ 🏅 253</span>
-                <span className="comments-reposts">28 comments · 56 reposts</span>
-              </div>
-              <div className="post-actions">
-                <button className="action-btn"><IconLike size={16} /> <span>Like</span></button>
-                <button className="action-btn"><IconComment size={16} /> <span>Comment</span></button>
-                <button className="action-btn"><IconRepost size={16} /> <span>Repost</span></button>
-                <button className="action-btn"><IconSend size={16} /> <span>Send</span></button>
+              <div className="insta-actions">
+                <button><IconHeart size={16}/> Like</button>
+                <button><IconComment size={16}/> Comment</button>
+                <button><IconSend size={16}/> Share</button>
               </div>
               <div className="post-footer">
                 <span>{readRec} ({readScore}) • {readTime} min read</span>
@@ -255,3 +255,56 @@ export default function Home() {
     </main>
   );
 }
+
+
+
+
+
+
+// helo
+//  <section className="preview-card">
+//           <div className="device-toggle">
+//             <button onClick={()=>{setView('mobile');setExpanded(false);}} className={view==='mobile'?'active':''}>
+//               <IconMobile size={15}/>
+//             </button>
+//             <button onClick={()=>{setView('tablet');setExpanded(false);}} className={view==='tablet'?'active':''}>
+//               <IconTablet size={15}/>
+//             </button>
+//             <button onClick={()=>{setView('desktop');setExpanded(false);}} className={view==='desktop'?'active':''}>
+//               <IconDesktop size={15}/>
+//             </button>
+//           </div>
+//           <div
+//             ref={previewRef}
+//             className={`preview-container device-${view}`}
+//             style={{ fontFamily: font }}
+//           >
+//             <div className="insta-post">
+//               <div className="insta-header">
+//                 <img src={logo.src} alt="QCS" className="avatar-img"/>
+//                 <strong>QuantumCrafters Studio</strong>
+//                 <span>· 2h ago</span>
+//               </div>
+//               <div className="insta-image">
+//                 <img src="/images/placeholder.jpg" alt="Post" />
+//               </div>
+//               <div className="insta-caption">
+//                 {!expanded && text.length>TRUNCATE_LIMIT
+//                   ? <>
+//                       {text.slice(0,TRUNCATE_LIMIT)}…{' '}
+//                       <button className="read-more" onClick={()=>setExpanded(true)}>more</button>
+//                     </>
+//                   : text
+//                 }
+//               </div>
+//               <div className="insta-actions">
+//                 <button><IconHeart size={16}/> Like</button>
+//                 <button><IconComment size={16}/> Comment</button>
+//                 <button><IconSend size={16}/> Share</button>
+//               </div>
+//               <div className="post-footer">
+//                 <span>{readRec} ({readScore}) • {readTime} min read</span>
+//               </div>
+//             </div>
+//           </div>
+//         </section>

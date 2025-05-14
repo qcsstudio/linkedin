@@ -872,6 +872,7 @@ body {
   padding: 1.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-top: 15px;
+  width: 100%;
 
 }
 
@@ -902,9 +903,9 @@ body {
 
 .post-content {
   margin: 1rem 0;
-  white-space: pre-wrap;
   line-height: 1.6;
   color: #333;
+  text-wrap: wrap;
 }
 
 .post-footer {
@@ -984,3 +985,137 @@ body {
   animation: l5 1s infinite;
 }
 @keyframes l5 {to{transform: rotate(.5turn)}}
+
+
+.facebook-post {
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 15px;
+}
+.fb-header {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+.fb-content {
+  margin: 0.75rem 0;
+  white-space: pre-wrap;
+}
+.fb-stats {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: #606770;
+  border-top: 1px solid #ddd;
+  padding-top: 0.5rem;
+}
+.fb-actions {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 0.5rem;
+  border-top: 1px solid #ddd;
+}
+.fb-actions button {
+  background: transparent;
+  border: none;
+  color: #606770;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.fb-actions button:hover {
+  background: rgba(0,0,0,0.03);
+}
+
+/* ========================= */
+/* Instagram Post Skin */
+/* ========================= */
+.insta-post {
+ 
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 15px;
+
+}
+.insta-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}
+.insta-image img {
+  width: 100%;
+  display: block;
+}
+.insta-caption {
+  padding: 0 0.75rem 0.5rem;
+  white-space: pre-wrap;
+}
+.insta-actions {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-top: 1px solid #dbdbdb;
+}
+.insta-actions button {
+  background: transparent;
+  border: none;
+  color: #262626;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+.insta-actions button:hover {
+  opacity: 0.7;
+}
+
+/* ========================= */
+/* Responsive Adjustments */
+/* ========================= */
+@media (max-width: 768px) {
+  .header h1 {
+    font-size: 2rem;
+  }
+  .editor-preview {
+    flex-direction: column;
+  }
+  /* Facebook & LinkedIn stats stack vertically */
+  .preview-container.device-tablet .post-stats,
+  .preview-container.device-mobile .post-stats,
+  .preview-container.device-tablet .fb-stats,
+  .preview-container.device-mobile .fb-stats {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  /* Actions wrap into two columns */
+  .preview-container.device-tablet .post-actions,
+  .preview-container.device-mobile .post-actions,
+  .preview-container.device-tablet .fb-actions,
+  .preview-container.device-mobile .fb-actions,
+  .preview-container.device-tablet .insta-actions,
+  .preview-container.device-mobile .insta-actions {
+    flex-wrap: wrap;
+  }
+  .preview-container.device-tablet .action-btn,
+  .preview-container.device-mobile .action-btn,
+  .preview-container.device-tablet .fb-actions button,
+  .preview-container.device-mobile .fb-actions button,
+  .preview-container.device-tablet .insta-actions button,
+  .preview-container.device-mobile .insta-actions button {
+    flex: 1 1 45%;
+    justify-content: center;
+    font-size: 0.75rem;
+  }
+}
