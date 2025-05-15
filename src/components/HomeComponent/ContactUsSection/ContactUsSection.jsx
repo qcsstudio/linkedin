@@ -12,16 +12,16 @@ const ContactUsSection = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-      
-    if (name === "phone") {
-       
-        if (/^\d*$/.test(value)) {
+
+        if (name === "phone") {
+
+            if (/^\d*$/.test(value)) {
+                setFormData((prev) => ({ ...prev, [name]: value }));
+            }
+        } else {
+
             setFormData((prev) => ({ ...prev, [name]: value }));
         }
-    } else {
-        
-        setFormData((prev) => ({ ...prev, [name]: value }));
-    }
     };
 
     const handleCaptchaChange = (token) => {
@@ -40,29 +40,29 @@ const ContactUsSection = () => {
         const res = await handleSendMail(formDataWithCaptcha);
 
         if (res.ok) {
-          setFormData({ name: "", email: "", phone: "", message: "" });
+            setFormData({ name: "", email: "", phone: "", message: "" });
             toast.success("Message sent successfully!");
 
             // RESET CAPTCHA
             setCaptchaToken("");
             grecaptcha.reset(); // Reset CAPTCHA UI
 
-          
-           
-                const formDataForUser = {
-                    ...formData,
-                    captchaToken: "", 
-                    toMail: "user",
-                    message: "Thanks for contacting us! We will get back to you soon.",
-                };
-                 handleSendMail(formDataForUser);
-           
+
+
+            const formDataForUser = {
+                ...formData,
+                captchaToken: "",
+                toMail: "user",
+                message: "Thanks for contacting us! We will get back to you soon.",
+            };
+            handleSendMail(formDataForUser);
+
         } else {
             toast.error("Error sending message.");
         }
     };
 
-    
+
 
     return (
         <div id="contact" className="z-20 relative w-full px-4 lg:px-[3.37rem] md:px-[3.12rem]  ">
@@ -73,7 +73,7 @@ const ContactUsSection = () => {
                     style: { marginBottom: "50px", background: "rgb(255, 255, 255,0.8)", color: "#3F4142" },
                 }}
             />
-            
+
             <div className=" relative z-10 innerContainer flex flex-col md:flex-row gap-6 md:gap-10 w-full h-full bg-[#FFFFFF]/35 rounded-lg pl-4 md:pl-[3.12rem] lg:pl-[3.12rem]">
                 {/* Form Section */}
                 <CloudSection bottom={-30} left={0} opacity={0.7} />
@@ -117,28 +117,28 @@ const ContactUsSection = () => {
                             placeholder="Your Message"
                             className="w-full placeholder-gray-600 bg-transparent p-3 border-b text-gray-600 border-gray-500 focus:outline-none"
                         />
-                        <ReCAPTCHA className="z-10" sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} onChange={handleCaptchaChange} />
+                        <ReCAPTCHA className="z-10" sitekey={"6LfkzDorAAAAAPZcDK-LSwX8l-EM39o5lpXf9TVl"} onChange={handleCaptchaChange} />
                         <button className="w-full bg-[rgb(14,28,41)] bg-gradient-to-r from-[rgba(14,28,41,1)] to-[rgba(50,61,104,1)] text-white py-3 rounded-lg hover:bg-blue-700 transition">
                             SUBMIT
                         </button>
                     </form>
                 </div>
-                   {/* Map Section */}
-        <div className="flex w-full md:w-[60%] relative">
-          <div className="w-[50%] md:w-[70%] md:h-full z-10 right-0 absolute  rounded-tr-lg rounded-br-lg bg-[#CCCCCC]"></div>
+                {/* Map Section */}
+                <div className="flex w-full md:w-[60%] relative">
+                    <div className="w-[50%] md:w-[70%] md:h-full z-10 right-0 absolute  rounded-tr-lg rounded-br-lg bg-[#CCCCCC]"></div>
 
-          <iframe
-            className="absolute top-12 left-0 h-[82%] hidden z-20 md:block  md:top-11 md:w-[80%]  md:border  rounded-lg "
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3430.7900688590785!2d76.68506357465988!3d30.696182187399774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fefa3c5ea2fd5%3A0x332a8d3fa1ce9747!2sQuantumCrafters%20Studio%20Private%20Limited!5e0!3m2!1sen!2sin!4v1742971534434!5m2!1sen!2sin"
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
+                    <iframe
+                        className="absolute top-12 left-0 h-[82%] hidden z-20 md:block  md:top-11 md:w-[80%]  md:border  rounded-lg "
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3430.7900688590785!2d76.68506357465988!3d30.696182187399774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390fefa3c5ea2fd5%3A0x332a8d3fa1ce9747!2sQuantumCrafters%20Studio%20Private%20Limited!5e0!3m2!1sen!2sin!4v1742971534434!5m2!1sen!2sin"
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe>
 
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-          
+
     );
 };
 
