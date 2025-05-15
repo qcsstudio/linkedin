@@ -62,7 +62,7 @@ const ContactUsSection = () => {
         }
     };
 
-    const siteKey = "6LcJ0jorAAAAAB20TEqBML2-PDryTELM7eYjoPpZ";
+    const siteKey = "6Lft1TorAAAAAOKROq6-m4IqcFYuE3zV1kLhJVyN";
 
 
     return (
