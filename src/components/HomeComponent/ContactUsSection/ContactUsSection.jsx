@@ -117,7 +117,7 @@ const ContactUsSection = () => {
                             placeholder="Your Message"
                             className="w-full placeholder-gray-600 bg-transparent p-3 border-b text-gray-600 border-gray-500 focus:outline-none"
                         />
-                        <ReCAPTCHA className="z-10" sitekey={"6LduzzorAAAAACgFh2xaqrME5rU35nrOLXbfYkQi"} onChange={handleCaptchaChange} />
+                        <ReCAPTCHA className="z-10" sitekey={"6Lce0TorAAAAABkdgoKaJHAIw_aVSbBSOTD7ontV"} onChange={handleCaptchaChange} />
                         <button className="w-full bg-[rgb(14,28,41)] bg-gradient-to-r from-[rgba(14,28,41,1)] to-[rgba(50,61,104,1)] text-white py-3 rounded-lg hover:bg-blue-700 transition">
                             SUBMIT
                         </button>
