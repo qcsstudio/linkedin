@@ -9,7 +9,7 @@ export async function POST(req) {
             const captchaVerifyResponse = await fetch("https://www.google.com/recaptcha/api/siteverify", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: `secret=6Lce0TorAAAAAGdZkrurhCVWrCj5sfYCZZmeWzvf&response=${captchaToken}`,
+                body: `secret=6LcJ0jorAAAAAN76zCPyB6RMNLzsJo8lNd6sKStJ&response=${captchaToken}`,
             });
 
             const captchaData = await captchaVerifyResponse.json();
