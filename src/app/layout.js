@@ -42,15 +42,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" >
+    <html lang="en">
       <meta
         name="google-site-verification"
-        content="FE1jcS7Gi8yAWxnnLZ-lweGrna3FI5zh61v14-5q1Og"
+        content="6odj2yqxEiQl78IL0MHjeg8ej2mzSB5vYTjuYJhz43o"
       />
-      {/* <Link
-        href="https://fonts.googleapis.com/css2?family=NATS&display=swap"
-        rel="stylesheet"
-      /> */}
       <Script
         id="google-tag-manager"
         strategy="afterInteractive"
@@ -64,20 +60,36 @@ export default function RootLayout({ children }) {
             `,
         }}
       />
-      <Script
-        strategy="afterInteractive"
-        src="https://www.googletagmanager.com/gtag/js?id=G-KLP5Q5MWRF"
+      <Script 
+        strategy="afterInteractive" 
+        src="https://www.googletagmanager.com/gtag/js?id=G-KLP5Q5MWRF" 
       />
       <Script id="google-analytics" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-KLP5Q5MWRF');
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-DBEK7V3J4V');
+
         `}
       </Script>
 
-      
+      <Script id="schema-markup" type="application/ld+json" strategy="afterInteractive">
+        {`
+          {
+            "@context": "https://schema.org/",
+            "@type": "WebSite",
+            "name": "ElevatrX",
+            "url": "https://elevatrx.app/",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://elevatrx.app/sitemap.xml{search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          }
+        `}
+      </Script>
+
       <Script id="facebook-sdk" strategy="afterInteractive">
         {`
           window.fbAsyncInit = function() {
@@ -99,7 +111,7 @@ export default function RootLayout({ children }) {
         `}
       </Script>
 
-      <body className={outfit.className} >
+      <body className={outfit.className}>
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-KLNTT48L"
@@ -109,7 +121,7 @@ export default function RootLayout({ children }) {
           ></iframe>
         </noscript>
 
-        <BlogDataContextProvider >
+        <BlogDataContextProvider>
           <PrimeReactProvider>
             <UiContextProvider>
               <ContactUsContextProvider>
@@ -117,7 +129,7 @@ export default function RootLayout({ children }) {
                   <PostContextProvider>
                     <UserContextProvider>
                       <DashboardContextProvider>
-                        {children }
+                        {children}
                       </DashboardContextProvider>
                     </UserContextProvider>
                   </PostContextProvider>
