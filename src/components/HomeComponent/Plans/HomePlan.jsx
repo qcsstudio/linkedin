@@ -158,7 +158,7 @@ const HomePlan = () => {
                             <div className=" last-contianer flex flex-col justify-between gap-5 h-full px-[1rem]">
 
                                 <ul className="space-y-3 flex-grow">
-                                    <h1 className="font-semibold">{plan.cardsHeading}</h1>
+                                    <p className="font-semibold">{plan.cardsHeading}</p>
                                     {plan.features.map((feature, i) => (
                                         <li key={i} className="text-gray-600 flex items-center">
                                             <TiTick className="font-thin text-lg" />
